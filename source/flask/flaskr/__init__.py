@@ -5,7 +5,7 @@
 import os;
 
 from flask import Flask, request, abort, jsonify, send_from_directory;
-from flaskr.config import ProductionConfig;
+from config import ProductionConfig;
 
 def create_app(config_object=ProductionConfig):
     # create and configure the app
@@ -24,7 +24,8 @@ def create_app(config_object=ProductionConfig):
     def hello():
         return 'Hello, World!';
 
-    from . import auth
-    app.register_blueprint(auth.bp)
+    with application.app_context():
+        from . import auth
+        application.register_blueprint(auth.bp)
 
     return application;

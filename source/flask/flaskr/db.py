@@ -1,20 +1,40 @@
+import click
+from flask import current_app, g
+from flask.cli import with_appcontext
+
 import pymongo
 
-mongo = pymongo.MongoClient('mongodb+srv://admin:CSE110!Gary@cluster0-lzui4.mongodb.net/test?retryWrites=true', maxPoolSize=50, connect=False)
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
 
-# data base name : 'test-database-1'
-mydb = client['test-database-1']
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    """Clear the existing data and create new tables."""
+    init_db()
+    click.echo('Initialized the database.')
 
-import datetime
+def init_db():
+    db = get_db();
 
-myrecord = {
-        "author": "Duke",
-        "title" : "PyMongo 101",
-        "tags" : ["MongoDB", "PyMongo", "Tutorial"],
-        "date" : datetime.datetime.utcnow()
-        }
+def get_db():
+    if 'db' not in g:
+        mongo = pymongo.MongoClient(
+        	current_app.config['MONGODB_DATABASE_URI'], 
+        	maxPoolSize=50, 
+        	connect=False
+        )
 
-record_id = mydb.mytable.insert(myrecord)
+        g.db = pymongo.database.Database(mongo, current_app.config['DATABASE']);
 
-print record_id
-print mydb.collection_names()
+    return g.db
+
+def close_db(e=None):
+    db = g.pop('db', None);
+
+    if db is not None:
+        db.close();
+
+
+
