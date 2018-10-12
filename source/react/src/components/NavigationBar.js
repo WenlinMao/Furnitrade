@@ -10,9 +10,13 @@ import NavigationDrawer from './NavigationDrawer';
 const styles = {
     root: {
       flexGrow: 1,
+      // Set width of tool AppBar
+      width:'100%',
     },
     grow: {
       flexGrow: 1,
+      // "Furnitrade" set center
+      textAlign: 'center',
     },
     menuButton: {
       width: "400",

@@ -11,26 +11,27 @@ import MenuIcon from '@material-ui/icons/Menu';
 const styles = {
     list: {
       width: 250,
+      textAlign:'center',
     },
     fullList: {
       width: 'auto',
     },
   };
-  
+
   class NavigationDrawer extends React.Component {
     state = {
       right: false,
     };
-  
+
     NavigationDrawer = (side, open) => () => {
       this.setState({
         [side]: open,
       });
     };
-  
+
     render() {
       const { classes } = this.props;
-  
+
       const sideList = (
         <div className={classes.list}>
           <List>
@@ -48,7 +49,7 @@ const styles = {
           <List></List>
         </div>
       );
-  
+
       return (
         <div>
           {/* Button text --- */}
@@ -71,10 +72,9 @@ const styles = {
       );
     }
   }
-  
+
   NavigationDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
   };
-  
+
   export default withStyles(styles)(NavigationDrawer);
-  
