@@ -138,18 +138,19 @@ class Login(Resource):
 
 
 class Logout(Resource):
-	if session['user_id'] = user_id:
-	session['user_id'] = 0
-	session.pop('user', None)
-	return jsonify({
-		"status" : status_code,
-		"msg" : msg,
-	});
+	def logout(self):
+		if session['user_id'] == user_id:
+			session['user_id'] = 0
+			session.pop('user', None)
+			return jsonify({
+				"status" : status_code,
+				"msg" : msg,
+			});
 
-	return jsonify({
-		"status" : 316,
-		"msg" : "User not loged in",
-	});
+		return jsonify({
+			"status" : 316,
+			"msg" : "User not loged in",
+		});
 
 # /auth/list : list users
 class List(Resource):
