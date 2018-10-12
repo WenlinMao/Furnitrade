@@ -12,7 +12,7 @@ var sectionStyle = {
 const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#21CE99', 
+        main: '#134074', 
       }
     },
     typography: {
