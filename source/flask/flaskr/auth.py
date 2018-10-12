@@ -75,7 +75,17 @@ class Register(Resource):
 
 	#return render_template('auth/register.html');
 
+# TODO: Login Mao Li, Zhenghong Ma
+#	frontend: usrname, password; this function query and check:
+# 1. prevent security exploits
+# 2. session
 class Login(Resource):
+	# 1. get username and password from POST request
+	# 2. check usr and pass in MongoDB
+	#	 	If either is empty;
+	# 		If usrname doesn't exist
+	def post(self):
+		return;
 	pass;
 
 class Logout(Resource):
@@ -90,5 +100,4 @@ class List(Resource):
 
 api.add_resource(Register, '/register/');
 api.add_resource(List, '/list/');
-
-
+api.add_resource(Login, '/login/')
