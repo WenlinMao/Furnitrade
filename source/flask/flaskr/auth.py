@@ -1,6 +1,6 @@
 import functools
 from flask_restful import Api, Resource, url_for
-# commit test
+
 from flask import (
 	Blueprint, flash, g, redirect, render_template, request, session, url_for,
 	jsonify
@@ -20,12 +20,36 @@ db = get_db();
 users = pymongo.collection.Collection(db, 'User');
 
 # helper funciton to find user name
+# TODO: suggest using verity_user
 def user_exist(username):
 	if users.find_one({"username": username}) is not None:
 		return True;
 	else:
 		return False;
 
+# helper function to for login. Avoids multiple queries
+# 	 	If either is empty;
+# 		If usrname doesn't exist
+#		If password doesn't match
+# Input: username and password get from post
+# Output: status_code, msg, user_id
+# TODO: set error/status code as global variable
+def verify_user(username, password):
+	if not username:
+		return 301, 'Username is required', None
+	elif not password:
+		return 302, 'Password is required', None
+
+	user = users.find_one({"username": username})
+	if not user:
+		return 303, 'Username Doesnt Exist', None
+
+	if check_password_hash(user['password'], password):
+		return 200, 'Login Succeeded', str(user.get('_id'))
+	else:
+		return 304, 'Password is incorrect. Try Again', None
+
+# TODO
 def login_required():
 	pass;
 
@@ -75,18 +99,32 @@ class Register(Resource):
 
 	#return render_template('auth/register.html');
 
-# TODO: Login Mao Li, Zhenghong Ma
-#	frontend: usrname, password; this function query and check:
-# 1. prevent security exploits
-# 2. session
+# This handles Login url request. It verifies username and password
+# using information from database. If user successfully logged in,
+# it assigns session id as user's id in database.
+# This uses verify_user as helper methods
+# TODO: check email and logging with email.
 class Login(Resource):
-	# 1. get username and password from POST request
-	# 2. check usr and pass in MongoDB
-	#	 	If either is empty;
-	# 		If usrname doesn't exist
 	def post(self):
-		return;
-	pass;
+		# 1. Get username and password from POST
+		postedData = request.get_json();
+		username = postedData['username'];
+		password = postedData['password'];
+
+		# 2. Error Checking:
+		status_code, msg, user_id = verify_user(username, password)
+
+		# 3. successfully logged in by setting session id.
+		if status_code == 200:
+			session.clear()
+			session['user_id'] = user_id
+
+		# Return the status to front end.
+		return jsonify({
+			"status" : status_code,
+			"msg" : msg,
+		})
+
 
 class Logout(Resource):
 	pass;
