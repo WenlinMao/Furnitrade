@@ -36,18 +36,18 @@ def user_exist(username):
 # TODO: set error/status code as global variable
 def verify_user(username, password):
 	if not username:
-		return 301, 'Username is required', None
+		return 310, 'Username is required', None
 	elif not password:
-		return 302, 'Password is required', None
+		return 311, 'Password is required', None
 
 	user = users.find_one({"username": username})
 	if not user:
-		return 303, 'Username Doesnt Exist', None
+		return 312, 'Username Doesnt Exist', None
 
 	if check_password_hash(user['password'], password):
 		return 200, 'Login Succeeded', str(user.get('_id'))
 	else:
-		return 304, 'Password is incorrect. Try Again', None
+		return 313, 'Password is incorrect. Try Again', None
 
 # TODO
 def login_required():
@@ -69,13 +69,13 @@ class Register(Resource):
 
 		# TODO: change depends on database
 		if not username:
-			error_code = 301;
+			error_code = 310;
 			error = 'Username is required.';
 		elif not password:
-			error_code = 302;
+			error_code = 311;
 			error = 'Password is required.'
 		elif user_exist(username):
-			error_code = 301;
+			error_code = 310;
 			error = 'User {} is already registered.'.format(username)
 
 		if error is None:
@@ -106,24 +106,35 @@ class Register(Resource):
 # TODO: check email and logging with email.
 class Login(Resource):
 	def post(self):
-		# 1. Get username and password from POST
-		postedData = request.get_json();
-		username = postedData['username'];
-		password = postedData['password'];
 
-		# 2. Error Checking:
-		status_code, msg, user_id = verify_user(username, password)
+		# Check if user is loged in, uncomment after logout is finished
+		#if "user_id" not in session:
 
-		# 3. successfully logged in by setting session id.
-		if status_code == 200:
-			session.clear()
-			session['user_id'] = user_id
+			# 1. Get username and password from POST
+			postedData = request.get_json();
+			username = postedData['username'];
+			password = postedData['password'];
 
-		# Return the status to front end.
-		return jsonify({
-			"status" : status_code,
-			"msg" : msg,
-		})
+			# 2. Error Checking:
+			status_code, msg, user_id = verify_user(username, password)
+
+			# 3. successfully logged in by setting session id.
+			if status_code == 200:
+				session.clear()
+				session['user_id'] = user_id
+
+			# Return the status to front end.
+			return jsonify({
+				"status" : status_code,
+				"msg" : msg,
+			})
+
+		#else:
+			# Return the status to front end.
+			return jsonify({
+				"status" : 315,
+				"msg" : "User already loged in",
+			});
 
 
 class Logout(Resource):
@@ -136,6 +147,6 @@ class List(Resource):
 		return jsonify(col_results);
 
 
-api.add_resource(Register, '/register/');
-api.add_resource(List, '/list/');
-api.add_resource(Login, '/login/')
+api.add_resource(Register, '/register');
+api.add_resource(List, '/list');
+api.add_resource(Login, '/login');
