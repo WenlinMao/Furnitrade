@@ -1,6 +1,7 @@
 import functools
+import string
 from flask_restful import Api, Resource, url_for
-# commit test
+
 from flask import (
 	Blueprint, flash, g, redirect, render_template, request, session, url_for,
 	jsonify
@@ -18,6 +19,11 @@ api = Api(bp);
 # TODO: Wrap up
 db = get_db();
 users = pymongo.collection.Collection(db, 'User');
+
+user_allowed = string.letters + string.digits + '_' + '.' +'-'
+
+def check(mystring):
+	return all(c in user_allowed for c in mystring)
 
 # helper funciton to find user name
 def user_exist(username):
@@ -39,6 +45,8 @@ class Register(Resource):
 
 		username = postedData['username'];
 		password = postedData['password'];
+		address = postedData['address'];
+		email = postedData['email'];
 
 		error = None;
 		error_code = 200;
@@ -50,9 +58,27 @@ class Register(Resource):
 		elif not password:
 			error_code = 302;
 			error = 'Password is required.'
+		elif not address:
+			error_code = 303;
+			error = 'Address is required.'
+		elif not email:
+			error_code = 304;
+			errpr = 'email is required.'
 		elif user_exist(username):
 			error_code = 301;
 			error = 'User {} is already registered.'.format(username)
+		elif user_exist(email):
+			error_code = 304;
+			error = 'Email {} is already registered.'.format(email)
+		elif check(username) == False:
+			error_code = 301;
+			error = 'Username contains invalid symbols';
+		elif ('@' in email) == False:
+			error_code = 304;
+			error = 'Invalid email address';
+		elif ('.' in email) == False:
+			error_code = 304;
+			error = 'Invalid email address';
 
 		if error is None:
 			users.insert_one({
