@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -50,14 +50,14 @@ const styles = {
         const open = Boolean(anchorEl);
 
         return (
-            <div className = {classes.root}>
+            <div>
 
                 {/* App bar */}
-                <AppBar position = 'static' >
+                <AppBar position = 'static' width="100%" color="inherit">
                     <Toolbar>
-                        <Typography variant = 'h6' color = 'inherit' className = {classes.grow}>
+                        <Typography variant = 'h6' color = 'secondary'>
                         Furnitrade </Typography>
-                        <NavigationDrawer></NavigationDrawer>
+                        <NavigationDrawer/>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -69,4 +69,6 @@ const styles = {
     classes: PropTypes.object.isRequired,
   };
 
-  export default withStyles(styles)(NavigationBar)
+//   export default withStyles(styles)(NavigationBar)
+export default NavigationBar;
+

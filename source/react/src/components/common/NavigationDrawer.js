@@ -18,7 +18,7 @@ const styles = {
     },
   };
 
-const MyLink = props => <Link to="./login.js" {...props} />
+const MyLink = props => <Link to="./login" {...props} />
 
   class NavigationDrawer extends React.Component {
     state = {
@@ -41,10 +41,10 @@ const MyLink = props => <Link to="./login.js" {...props} />
                   <Button component={MyLink}>Log in</Button>
               </li>
               <li>
-                  <Button>About Us</Button>
+                  <Button color="secondary">About Us</Button>
               </li>
               <li>
-                  <Button>Category</Button>
+                  <Button color="secondary">Category</Button>
               </li>
           </List>
           <Divider />
@@ -57,7 +57,7 @@ const MyLink = props => <Link to="./login.js" {...props} />
           {/* Button text --- */}
           <Button onClick={this.NavigationDrawer('right', true)}>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
+              <MenuIcon color="secondary"/>
             </IconButton>
           </Button>
           <Drawer anchor="right" open={this.state.right} onClose={this.NavigationDrawer('right', false)}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import MainPage from './components/mainPage/MainPage';
 import './App.css';
 import Routes from './Routes';
 
