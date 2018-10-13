@@ -58,10 +58,10 @@ def verify_user(username, password):
 	elif not password:
 		return 311, 'Password is required', None
 
-	user = users.find_one({"username": username})
-	if not user:
+	if not user_exist(username):
 		return 312, 'Username Doesnt Exist', None
 
+	user = users.find_one({"username": username})
 	if check_password_hash(user['password'], password):
 		return 200, 'Login Succeeded', str(user.get('_id'))
 	else:
@@ -178,9 +178,9 @@ class Login(Resource):
 
 class Logout(Resource):
 	def get(self):
-		if "user_id" not in session:
+		if "user_id" in session:
 			session['user_id'] = 0
-			session.pop('user', None)
+			session.pop('user_id', None)
 			return jsonify({
 				"status" : 200,
 				"msg" : "User successfully loged out",

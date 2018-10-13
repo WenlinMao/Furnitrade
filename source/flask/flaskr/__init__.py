@@ -28,4 +28,9 @@ def create_app(config_object=ProductionConfig):
         from . import auth
         application.register_blueprint(auth.bp)
 
+    with application.app_context():
+        from . import furniture
+        application.register_blueprint(furniture.bp)
+
+
     return application;
