@@ -99,7 +99,7 @@ class Register(Resource):
 			error = 'Address is required.'
 		elif not email:
 			error_code = 318;
-			errpr = 'email is required.'
+			error = 'email is required.'
 		elif user_exist(username):
 			error_code = 310;
 			error = 'User {} is already registered.'.format(username)
@@ -111,10 +111,7 @@ class Register(Resource):
 			error = 'Username contains invalid symbols';
 		elif not check_email(email):
 			error_code = 318;
-			error = 'Email invalid';
-		# elif ('@' in email) == False or ('.' in email) == False:
-		# 	error_code = 318;
-		# 	error = 'Invalid email address';
+			error = 'Email invalid';	
 
 		if error is None:
 			users.insert_one({
