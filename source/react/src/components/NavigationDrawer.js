@@ -7,7 +7,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import {Link} from 'react-router-dom'
 const styles = {
     list: {
       width: 250,
@@ -17,6 +17,8 @@ const styles = {
       width: 'auto',
     },
   };
+
+const MyLink = props => <Link to="./login.js" {...props} />
 
   class NavigationDrawer extends React.Component {
     state = {
@@ -36,7 +38,7 @@ const styles = {
         <div className={classes.list}>
           <List>
               <li>
-                  <Button>Company</Button>
+                  <Button component={MyLink}>Log in</Button>
               </li>
               <li>
                   <Button>About Us</Button>
