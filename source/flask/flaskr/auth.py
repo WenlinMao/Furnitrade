@@ -1,5 +1,4 @@
 import functools
-import string
 from flask_restful import Api, Resource, url_for
 
 from flask import (
@@ -13,6 +12,10 @@ import pymongo
 from bson.json_util import dumps
 import json
 
+########### Additional Dependencies Please Add Here ###################
+import string
+import re
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 api = Api(bp);
 
@@ -20,10 +23,6 @@ api = Api(bp);
 db = get_db();
 users = pymongo.collection.Collection(db, 'User');
 
-user_allowed = string.letters + string.digits + '_' + '.' +'-'
-
-def check(mystring):
-	return all(c in user_allowed for c in mystring)
 
 # helper funciton to find user name
 # TODO: suggest using verity_user
@@ -32,6 +31,19 @@ def user_exist(username):
 		return True;
 	else:
 		return False;
+
+def check_username(mystring):
+	user_allowed = string.ascii_letters + string.digits + '_' + '.' +'-';
+	return all(c in user_allowed for c in mystring)
+
+def email_exist(email):
+	if users.find_one({"email": email}) is not None:
+		return True;
+	else:
+		return False;
+
+def check_email(email):
+	return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email);
 
 # helper function to for login. Avoids multiple queries
 # 	 	If either is empty;
@@ -83,31 +95,33 @@ class Register(Resource):
 			error_code = 311;
 			error = 'Password is required.'
 		elif not address:
-			error_code = 303;
+			error_code = 317;
 			error = 'Address is required.'
 		elif not email:
-			error_code = 304;
+			error_code = 318;
 			errpr = 'email is required.'
 		elif user_exist(username):
 			error_code = 310;
 			error = 'User {} is already registered.'.format(username)
-		elif user_exist(email):
-			error_code = 304;
+		elif email_exist(email):
+			error_code = 318;
 			error = 'Email {} is already registered.'.format(email)
-		elif check(username) == False:
-			error_code = 301;
+		elif check_username(username) == False:
+			error_code = 310;
 			error = 'Username contains invalid symbols';
-		elif ('@' in email) == False:
-			error_code = 304;
-			error = 'Invalid email address';
-		elif ('.' in email) == False:
-			error_code = 304;
-			error = 'Invalid email address';
+		elif not check_email(email):
+			error_code = 318;
+			error = 'Email invalid';
+		# elif ('@' in email) == False or ('.' in email) == False:
+		# 	error_code = 318;
+		# 	error = 'Invalid email address';
 
 		if error is None:
 			users.insert_one({
 				"username" : username,
-				"password" : generate_password_hash(password)
+				"password" : generate_password_hash(password),
+				"email" : email,
+				"address" : address
 			});
 
 			retJson = {
@@ -123,7 +137,6 @@ class Register(Resource):
 
 		return jsonify(retJson);
 
-	#return render_template('auth/register.html');
 
 # This handles Login url request. It verifies username and password
 # using information from database. If user successfully logged in,
@@ -134,7 +147,7 @@ class Login(Resource):
 	def post(self):
 
 		# Check if user is loged in, uncomment after logout is finished
-		#if "user_id" not in session:
+		if "user_id" not in session:
 
 			# 1. Get username and password from POST
 			postedData = request.get_json();
@@ -155,7 +168,7 @@ class Login(Resource):
 				"msg" : msg,
 			})
 
-		#else:
+		else:
 			# Return the status to front end.
 			return jsonify({
 				"status" : 315,
@@ -164,13 +177,13 @@ class Login(Resource):
 
 
 class Logout(Resource):
-	def logout(self):
-		if session['user_id'] == user_id:
+	def get(self):
+		if "user_id" not in session:
 			session['user_id'] = 0
 			session.pop('user', None)
 			return jsonify({
-				"status" : status_code,
-				"msg" : msg,
+				"status" : 200,
+				"msg" : "User successfully loged out",
 			});
 
 		return jsonify({
@@ -188,3 +201,4 @@ class List(Resource):
 api.add_resource(Register, '/register');
 api.add_resource(List, '/list');
 api.add_resource(Login, '/login');
+api.add_resource(Logout, '/logout');
