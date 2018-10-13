@@ -11,6 +11,9 @@ html, body {
   height: 40vmin;
 }
 
+.button:hover {
+    background-color: #F6BD60;
+}
 .App-header {
   background-color: #3A8FB7;
   min-height: 100vh;
@@ -39,6 +42,7 @@ html, body {
 .img-intro img {
   width: '800';
   height: '600';
+  max-width:100%;
 }
 
 .img-intro h1 {
@@ -52,6 +56,7 @@ html, body {
     font-size: 7vw !important;
     text-align: center;
     background-color: none;
+    
 }
 
 .img-intro h2 {
