@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import teal from '@material-ui/core/colors/teal';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import landing from '../static/images/test.gif';
+import landing from '../../static/images/test.gif';
+import NavigationBar from '../common/NavigationBar';
 
 var sectionStyle = {
   width: "100%",
@@ -11,7 +12,7 @@ var sectionStyle = {
 const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#21CE99', 
+        main: '#134074', 
       }
     },
     typography: {
@@ -32,6 +33,8 @@ const theme = createMuiTheme({
     render() {
       return (
         <MuiThemeProvider theme = {theme}>
+        
+        <NavigationBar/>
         <div class = "img-intro">
           <img src = {landing}></img>
           {/* TODO */}
