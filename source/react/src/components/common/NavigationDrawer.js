@@ -38,7 +38,7 @@ const MyLink = props => <Link to="./login" {...props} />
         <div className={classes.list}>
           <List>
               <li>
-                  <Button component={MyLink}>Log in</Button>
+                  <Button color="secondary" component={MyLink}>Log in</Button>
               </li>
               <li>
                   <Button color="secondary">About Us</Button>

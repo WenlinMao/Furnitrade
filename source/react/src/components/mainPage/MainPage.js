@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import NavigationBar from '../common/NavigationBar';
+import { fadeIn } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
 
-var sectionStyle = {
-  width: "100%",
-  height: "800px",
+var textStyle = {
+  fadeIn: {
+    animation: 'x 3s',
+    animationName: Radium.keyframes(fadeIn, 'fadeIn')
+  }
 };
 
-const theme = createMuiTheme({
+const MainTheme = createMuiTheme({
   palette: {
     primary: {
       light: '#42668f',
@@ -30,30 +34,26 @@ const theme = createMuiTheme({
     },
   });
 
-  // set up the breakpoints
-  const styles = theme => ({
-    root: {
-      [theme.breakpoints.between('sm', 'md')]: {
-        backgroundColor: 'red',
-      },
-    },
-  });
-
   class MainPage extends Component {
     render() {
       return (
-        <MuiThemeProvider theme = {theme}>
+        <MuiThemeProvider theme = {MainTheme}>
         
-        <NavigationBar/>
-        <div class = "img-intro">
-          {/* <img src = {landing}></img> */}
-          {/* TODO */}
-          <h1> Hello, World</h1>
-          <h2>this is a test message</h2>
-        </div>
+          <NavigationBar/>
+          <div class = "img-intro">
+            {/* <img src = {landing}></img> */}
+            {/* TODO */}
+            <StyleRoot>
+            <div class="slogan-msg" style={textStyle.fadeIn}>
+              <h1> Hello, World</h1>
+              <h2>this is a test message</h2>
+            </div>
+            </StyleRoot>
+          </div>
         </MuiThemeProvider>
       );
     }
   }
   
-  export default MainPage;
+  export default withStyles(textStyle)(MainPage)
+  // export default MainPage;
