@@ -53,7 +53,7 @@ const styles = {
             <div>
 
                 {/* App bar */}
-                <AppBar position = 'static' width="100%" color="inherit">
+                <AppBar position = 'sticky' width="100%" color="inherit">
                     <Toolbar>
                         <Typography variant = 'h6' color = 'secondary'>
                         Furnitrade </Typography>
