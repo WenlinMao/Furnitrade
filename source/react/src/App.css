@@ -71,12 +71,6 @@ html, body {
   background-color: none;
 }
 
-/* .nav-bar {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-} */
-
 /* for nav bar container */
 .nav-container{
   display: flex;
