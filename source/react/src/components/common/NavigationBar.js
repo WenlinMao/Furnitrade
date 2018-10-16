@@ -47,8 +47,8 @@ const styles = {
     //   render *TODO*
       render() {
         const { classes } = this.props;
-        const { auth, anchorEl } = this.state;
-        const open = Boolean(anchorEl);
+        // const { anchorEl } = this.state;
+        // const open = Boolean(anchorEl);
 
         return (
             <div>
@@ -61,8 +61,10 @@ const styles = {
                                 <img title="logo-img" src={testLogo}
                                 width="50" height="50"/> 
                             </div>
-                            <div class="title"><Typography variant = 'h6' color = 'secondary'>
-                            Furnitrade </Typography> </div>
+                            <div class="title">
+                                <Typography variant = 'h6' color = 'secondary'>
+                                Furnitrade </Typography> 
+                            </div>
                             <div class="nav-drawer"> <NavigationDrawer/> </div>
                         </div>
                     </Toolbar>

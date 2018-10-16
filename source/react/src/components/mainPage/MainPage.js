@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import NavigationBar from '../common/NavigationBar';
 import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
@@ -45,8 +46,12 @@ const MainTheme = createMuiTheme({
             {/* TODO */}
             <StyleRoot>
             <div class="slogan-msg" style={textStyle.fadeIn}>
-              <h1> Hello, World</h1>
+              {/* <h1> Hello, World</h1> */}
               <h2>this is a test message</h2>
+
+              <Typography variant = 'display1' color = 'inherit'>
+              Furnitrade </Typography> 
+
             </div>
             </StyleRoot>
           </div>

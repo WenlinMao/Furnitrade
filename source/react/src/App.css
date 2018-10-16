@@ -51,7 +51,7 @@ html, body {
     position: absolute;
     /* color: #3A8FB7; */
     color: #FFF;
-    top: 15%;
+    top: 20%;
     left: 52%;
     font-size: 7vw !important;
     text-align: center;
@@ -85,6 +85,7 @@ html, body {
   position: inherit;
   justify-items: center;
   padding-top: 10px;
+  margin: auto;
 }
 
 .logo {
@@ -96,6 +97,7 @@ html, body {
   justify-self: center;
   font-size: 2.5vw;
   text-align: center;
+  text-size-adjust: 100%;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
