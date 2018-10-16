@@ -58,10 +58,19 @@ def verify_user(username, password):
 	elif not password:
 		return 311, 'Password is required', None
 
+# Use username or email to login in:
+# First check if username exist, if exists, login in with username,
+# if not, check if the user use email
+# if neither username nor email exists, return error code 312
+# if the user use email, use email to login in
 	if not user_exist(username):
-		return 312, 'Username Doesnt Exist', None
+		if not email_exist(username):
+			return 312, 'Username/Email Doesnt Exist', None
+		else:
+			user = users.find_one({"email": username})
+	else:
+		user = users.find_one({"username": username})
 
-	user = users.find_one({"username": username})
 	if check_password_hash(user['password'], password):
 		return 200, 'Login Succeeded', str(user.get('_id'))
 	else:
@@ -111,7 +120,7 @@ class Register(Resource):
 			error = 'Username contains invalid symbols';
 		elif not check_email(email):
 			error_code = 318;
-			error = 'Email invalid';	
+			error = 'Email invalid';
 
 		if error is None:
 			users.insert_one({
