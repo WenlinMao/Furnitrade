@@ -54,7 +54,7 @@ const styles = {
             <div>
 
                 {/* App bar */}
-                <AppBar position = 'sticky' width="100%" color="inherit">
+                <AppBar position = 'fixed' width="100%" color="inherit">
                     <Toolbar class="nav-bar">
                         <div class="nav-container">
                             <div class="logo"> 

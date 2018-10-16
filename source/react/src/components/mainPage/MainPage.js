@@ -55,6 +55,54 @@ const MainTheme = createMuiTheme({
             </div>
             </StyleRoot>
           </div>
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
+          <Typography variant = 'display1' color = 'inherit'>
+          Furnitrade </Typography> 
         </MuiThemeProvider>
       );
     }
