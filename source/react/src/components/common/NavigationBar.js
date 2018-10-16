@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
+import testLogo from '../../static/images/test-logo.jpg';
 
 // Temporary style TODO
 const styles = {
@@ -46,18 +47,26 @@ const styles = {
     //   render *TODO*
       render() {
         const { classes } = this.props;
-        const { auth, anchorEl } = this.state;
-        const open = Boolean(anchorEl);
+        // const { anchorEl } = this.state;
+        // const open = Boolean(anchorEl);
 
         return (
-            <div className = {classes.root}>
+            <div>
 
                 {/* App bar */}
-                <AppBar position = 'static' >
-                    <Toolbar>
-                        <Typography variant = 'h6' color = 'inherit' className = {classes.grow}>
-                        Furnitrade </Typography>
-                        <NavigationDrawer></NavigationDrawer>
+                <AppBar position = 'sticky' width="100%" color="inherit">
+                    <Toolbar class="nav-bar">
+                        <div class="nav-container">
+                            <div class="logo"> 
+                                <img title="logo-img" src={testLogo}
+                                width="50" height="50"/> 
+                            </div>
+                            <div class="title">
+                                <Typography variant = 'h6' color = 'secondary'>
+                                Furnitrade </Typography> 
+                            </div>
+                            <div class="nav-drawer"> <NavigationDrawer/> </div>
+                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -69,4 +78,6 @@ const styles = {
     classes: PropTypes.object.isRequired,
   };
 
-  export default withStyles(styles)(NavigationBar)
+export default withStyles(styles)(NavigationBar)
+// export default NavigationBar;
+

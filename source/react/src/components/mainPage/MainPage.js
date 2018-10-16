@@ -1,49 +1,64 @@
 import React, { Component } from 'react';
-// import teal from '@material-ui/core/colors/teal';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import landing from '../../static/images/test.gif';
+import Typography from '@material-ui/core/Typography';
 import NavigationBar from '../common/NavigationBar';
+import { fadeIn } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
 
-var sectionStyle = {
-  width: "100%",
-  height: "800px",
+var textStyle = {
+  fadeIn: {
+    animation: 'x 3s',
+    animationName: Radium.keyframes(fadeIn, 'fadeIn')
+  }
 };
 
-const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#134074', 
-      }
+const MainTheme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#42668f',
+      main: '#134074',
+      dark: '#0d2c51',
     },
+    secondary: {
+      light: '#61a5c5',
+      main: '#3A8FB7',
+      dark: '#286480',
+    },
+    error: {
+      light: '#f7ca7f',
+      main: '#F6BD60',
+      dark: '#ac8443',
+    },
+  },
     typography: {
-      fontFamily: '"Poppins", sans-serif',
-    },
-  });
-
-  // set up the breakpoints
-  const styles = theme => ({
-    root: {
-      [theme.breakpoints.between('sm', 'md')]: {
-        backgroundColor: 'red',
-      },
+      fontFamily: '"Righteous", sans-serif',
     },
   });
 
   class MainPage extends Component {
     render() {
       return (
-        <MuiThemeProvider theme = {theme}>
+        <MuiThemeProvider theme = {MainTheme}>
         
-        <NavigationBar/>
-        <div class = "img-intro">
-          <img src = {landing}></img>
-          {/* TODO */}
-          <h1> Hello, World</h1>
-          <h2>this is a test message</h2>
-        </div>
+          <NavigationBar/>
+          <div class = "img-intro">
+            {/* <img src = {landing}></img> */}
+            {/* TODO */}
+            <StyleRoot>
+            <div class="slogan-msg" style={textStyle.fadeIn}>
+              {/* <h1> Hello, World</h1> */}
+              <h2>this is a test message</h2>
+
+              <Typography variant = 'display1' color = 'inherit'>
+              Furnitrade </Typography> 
+
+            </div>
+            </StyleRoot>
+          </div>
         </MuiThemeProvider>
       );
     }
   }
   
-  export default MainPage;
+  export default withStyles(textStyle)(MainPage)
+  // export default MainPage;

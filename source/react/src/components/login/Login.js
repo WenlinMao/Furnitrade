@@ -64,16 +64,6 @@ class Login extends Component {
                         variant="outlined"
                     />
                     <TextField
-                        id="email-input"
-                        label="Email"
-                        className={classes.textField}
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
                         id="password-input"
                         label="Password"
                         className={classes.textField}
