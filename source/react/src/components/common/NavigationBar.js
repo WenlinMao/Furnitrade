@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
+import testLogo from '../../static/images/test-logo.jpg';
 
 // Temporary style TODO
 const styles = {
@@ -55,10 +56,15 @@ const styles = {
                 {/* App bar */}
                 <AppBar position = 'sticky' width="100%" color="inherit">
                     <Toolbar class="nav-bar">
-                        <img title="logo-img"/>
-                        <Typography variant = 'h6' color = 'secondary'>
-                        Furnitrade </Typography>
-                        <NavigationDrawer/>
+                        <div class="nav-container">
+                            <div class="logo"> 
+                                <img title="logo-img" src={testLogo}
+                                width="50" height="50"/> 
+                            </div>
+                            <div class="title"><Typography variant = 'h6' color = 'secondary'>
+                            Furnitrade </Typography> </div>
+                            <div class="nav-drawer"> <NavigationDrawer/> </div>
+                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
