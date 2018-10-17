@@ -39,7 +39,7 @@ const MainTheme = createMuiTheme({
     render() {
       return (
         <MuiThemeProvider theme = {MainTheme}>
-        
+
           <NavigationBar/>
           <div class = "img-intro">
             {/* <img src = {landing}></img> */}
@@ -50,18 +50,18 @@ const MainTheme = createMuiTheme({
               <h2>this is a test message</h2>
 
               <Typography variant = 'display4' color = 'inherit'>
-              Furnitrade </Typography> 
+              Furnitrade </Typography>
               {/* <Typography variant = 'subheading' color = 'inherit'>
               Trade Dat Shi </Typography>  */}
 
             </div>
             </StyleRoot>
           </div>
-          
+
         </MuiThemeProvider>
       );
     }
   }
-  
+
   export default withStyles(textStyle)(MainPage)
   // export default MainPage;

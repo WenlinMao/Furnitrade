@@ -11,13 +11,9 @@ import testLogo from '../../static/images/test-logo.jpg';
 const styles = {
     root: {
       flexGrow: 1,
-      // Set width of tool AppBar
-      width:'100%',
     },
     grow: {
       flexGrow: 1,
-      // "Furnitrade" set center
-      textAlign: 'center',
     },
     menuButton: {
       width: "400",
@@ -55,20 +51,20 @@ const styles = {
             <div>
 
                 {/* App bar */}
-                <AppBar position = 'fixed' width="100%" color="inherit">
-                    <Toolbar class="nav-bar">
+                <AppBar position = 'fixed' color="inherit">
+                    <Toolbar>
                         <div class="nav-container">
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
-                            <div class="logo"> 
-                                <img title="logo-img" src={testLogo} width="50" height="50"
-                                alt = "The logo of Furnitrade Platform."/> 
+                            <div class="logo">
+                                <img title="logo-img" src={testLogo} width="100%" height="100%"
+                                alt = "The logo of Furnitrade Platform."/>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
                             <div class="title">
                                 <Typography variant = 'h6' color = 'secondary'>
-                                Furnitrade </Typography> 
+                                Furnitrade </Typography>
                             </div>
 
                             <div class="nav-drawer"> <NavigationDrawer/> </div>
@@ -86,4 +82,3 @@ const styles = {
 
 export default withStyles(styles)(NavigationBar)
 // export default NavigationBar;
-
