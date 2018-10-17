@@ -46,7 +46,8 @@ const styles = {
 
     //   render *TODO*
       render() {
-        const { classes } = this.props;
+        // These field may be used in the future so PLEASE DO NOT delete
+        // const { classes } = this.props;
         // const { anchorEl } = this.state;
         // const open = Boolean(anchorEl);
 
@@ -57,14 +58,19 @@ const styles = {
                 <AppBar position = 'fixed' width="100%" color="inherit">
                     <Toolbar class="nav-bar">
                         <div class="nav-container">
+
+                            {/* This logo image should redirect the user to the MainPage - TODO */}
                             <div class="logo"> 
-                                <img title="logo-img" src={testLogo}
-                                width="50" height="50"/> 
+                                <img title="logo-img" src={testLogo} width="50" height="50"
+                                alt = "The logo of Furnitrade Platform."/> 
                             </div>
+
+                            {/* This text should redirect the user to the MainPage - TODO */}
                             <div class="title">
                                 <Typography variant = 'h6' color = 'secondary'>
                                 Furnitrade </Typography> 
                             </div>
+
                             <div class="nav-drawer"> <NavigationDrawer/> </div>
                         </div>
                     </Toolbar>
