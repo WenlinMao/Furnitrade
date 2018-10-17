@@ -59,7 +59,7 @@ html, body {
 
 }
 
-.img-intro h2 {
+.img-intro h2{
   width: "250";
   height: "40";
   position: absolute;
@@ -75,6 +75,7 @@ html, body {
 .nav-container{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
   position: inherit;
   justify-items: center;
@@ -88,6 +89,7 @@ html, body {
 
 .title {
   width: 90%;
+  /* font-size: 2.5vw; */
   justify-self: center;
   text-align: center;
   text-size-adjust: 100%;
@@ -95,6 +97,6 @@ html, body {
 }
 
 .nav-drawer{
-  width: 10vw;
-  position: relative;
+  width: 5%;
+  position: fixed right;
 }
