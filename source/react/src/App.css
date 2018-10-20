@@ -59,7 +59,7 @@ html, body {
 
 }
 
-.img-intro h2 {
+.img-intro h2{
   width: "250";
   height: "40";
   position: absolute;
@@ -71,36 +71,38 @@ html, body {
   background-color: none;
 }
 
-/* .nav-bar {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-} */
-
 /* for nav bar container */
 .nav-container{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
   position: inherit;
   justify-items: center;
-  padding-top: 10px;
-  margin: auto;
+  align-items: center;
+  /* adjust padding top*/
+  padding-top: 0px;
+  margin: 0;
 }
 
 .logo {
   width: 5%;
+  position: fixed left;
 }
 
 .title {
   width: 90%;
+  /* font-size: 2.5vw; */
   justify-self: center;
   text-align: center;
-  text-size-adjust: 100%;
+  text-size-adjust: 50%;
+  /* Centered "Furnitrade"*/
+  align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .nav-drawer{
-  width: 10vw;
-  position: relative;
+  width: 5%;
+  position:right;
+
 }
