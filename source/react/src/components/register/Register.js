@@ -6,6 +6,19 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+// const passwordRegex = /^(?!([A-Z]*|[a-z]*|[0-9]*|[!-/:-@\[-`{-~]*|[A-Za-z]*|[A-Z0-9]*|[A-Z!-/:-@\[-`{-~]*|[a-z0-9]*|[a-z!-/:-@\[-`{-~]*|[0-9!-/:-@\[-`{-~]*)$)[A-Za-z0-9!-/:-@\[-`{-~]{8,20}$/
+
+
+// const errorText = {
+//     invalidName: 'The Username format is invalid.',
+//     invalidEmail: 'The Email Address format is invalid.',
+//     invalidPassword: 'The Password format is invalid', 
+//     inconsistentPassords: 'The passwords you entered are not consistent'
+// }
+
 const styles = theme => ({
     container: {
       display: 'flex',
@@ -31,11 +44,14 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                name: '',
-                password: '',
-                password_comfirm:''
-            }
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            nameError: false,
+            emailError: false,
+            passwordError: false,
+            confirmPasswordError: false
         };
     }
 
@@ -45,6 +61,44 @@ class Register extends Component {
 
     handleNameInput = name => event => {
         this.setState({name: event.target.value});
+        if(this.state.name.match(nameRegex)) {
+            this.setState({name: event.target.value, nameError: false});
+        } 
+        else {
+            this.setState({nameError: true});
+        }
+    }
+
+    handleEmailInput = email => event => {
+        this.setState({email: event.target.value});
+        if(event.target.value.match(emailRegex)) {
+            this.setState({email: event.target.value, emailError: false});
+        } 
+        else {
+            this.setState({emailError: true});
+        }
+    }
+
+    handlePasswordInput = password => event => {
+        this.setState({password: event.target.value, passwordError: false});
+        if(event.target.value.match(passwordRegex)) {
+            console.log('here');
+            this.setState({password: event.target.value, passwordError: false});
+        } 
+        else {
+            this.setState({passwordError: true});
+        }
+    }
+
+    handlePasswordConfirm = confirmPassword => event => {
+        this.setState({confirmPassword: event.target.value})
+        if(event.target.value !== this.state.password){
+            console.log("not same");
+            this.setState({confirmPasswordError: true});
+        }
+        else {
+            this.setState({confirmPasswordError: false});
+        }
     }
 
     handleSubmit = () => {
@@ -62,11 +116,12 @@ class Register extends Component {
                         id="name-input"
                         label="Username"
                         className={classes.textField}
-                        value={this.state.user.name}
+                        value={this.state.name}
                         onChange={this.handleNameInput('name')}
                         margin="normal"
                         variant="outlined"
                         required={true}
+                        error={this.state.nameError}
                     />
                     <TextField
                         id="email-input"
@@ -74,28 +129,37 @@ class Register extends Component {
                         className={classes.textField}
                         type="email"
                         name="email"
-                        autoComplete="email"
+                        // autoComplete="email"
                         margin="normal"
                         variant="outlined"
                         required={true}
+                        value={this.state.email}
+                        onChange={this.handleEmailInput('email')}
+                        error={this.state.emailError}
                     />
                     <TextField
                         id="password-input"
                         label="Password"
                         className={classes.textField}
-                        type="password"
+                        //type="password"
                         margin="normal"
                         variant="outlined"
                         required={true}
+                        value={this.state.password}
+                        onChange={this.handlePasswordInput('password')}
+                        error={this.state.passwordError}
                     />
                      <TextField
-                        id="reenter-password-input"
-                        label="Comfirm Password"
+                        id="confirm-password-input"
+                        label="Confirm Password"
                         className={classes.textField}
-                        type="password"
+                        // type="password"
                         margin="normal"
                         variant="outlined"
                         required={true}
+                        value={this.state.confirmPassword}
+                        onChange={this.handlePasswordConfirm('confirmPassword')}
+                        error={this.state.confirmPasswordError}
                     />
                 </form>
                 <Button type="submit" variant="contained" color="primary" className={classes.button}>
