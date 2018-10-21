@@ -32,7 +32,7 @@ def user_exist(username, users):
 	else:
 		return False;
 
-# check if username format valid 
+# check if username format valid
 def check_username_valid(mystring):
 	user_allowed = string.ascii_letters + string.digits + '_' + '.' +'-';
 	return all(c in user_allowed for c in mystring)
@@ -54,7 +54,7 @@ def check_email_valid(email):
 #		If password doesn't match
 # Input: username and password get from post
 # Output: status_code, msg, user_id
-# 
+#
 # TODO: set error/status code as global variable
 def verify_user(username, password):
 	users = get_users_collection();

@@ -1,5 +1,5 @@
 # this script will contain the application factory,
-# and it tells Python that the flaskr directory 
+# and it tells Python that the flaskr directory
 # should be treated as a package.
 
 import os;
@@ -12,7 +12,7 @@ def create_app(config_object=ProductionConfig):
     application = Flask(__name__, instance_relative_config=True);
 
     application.config.from_object(config_object);
-    
+
     # ensure the instance folder exists
     try:
         os.makedirs(application.instance_path);
