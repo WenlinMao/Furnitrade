@@ -5,12 +5,21 @@ import { withStyles } from '@material-ui/core/styles';
 // import MenuItem from '@material-ui/core/MenuItem'; 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import $ from 'jquery';
+
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
-// const passwordRegex = /^(?!([A-Z]*|[a-z]*|[0-9]*|[!-/:-@\[-`{-~]*|[A-Za-z]*|[A-Z0-9]*|[A-Z!-/:-@\[-`{-~]*|[a-z0-9]*|[a-z!-/:-@\[-`{-~]*|[0-9!-/:-@\[-`{-~]*)$)[A-Za-z0-9!-/:-@\[-`{-~]{8,20}$/
 
+/**TODO:
+ * Hash
+ * Helper text and error helper text 
+ * Validation happens onBlur 
+ * Forget passowrd
+ * Remember me 
+ */
 
 // const errorText = {
 //     invalidName: 'The Username format is invalid.',
@@ -55,13 +64,9 @@ class Register extends Component {
         };
     }
 
-    componentDidMount = () => {
-
-    }
-
     handleNameInput = name => event => {
         this.setState({name: event.target.value});
-        if(this.state.name.match(nameRegex)) {
+        if(event.target.value.match(nameRegex)) {
             this.setState({name: event.target.value, nameError: false});
         } 
         else {
@@ -101,17 +106,39 @@ class Register extends Component {
         }
     }
 
-    handleSubmit = () => {
-            
+    // Post request 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        let reqData = {
+            "username": this.state.name,
+            "email": this.state.email,
+            "password": this.state.password,
+        };
+        
+        axios({
+            method: 'post',
+            url: '/auth/register/',
+            withCredentials: true,
+            crossdomain: true,
+            data: $.param(reqData),    
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Cache-Control": "no-cache", 
+            }
+        }).then(function(response){
+            console.log("header with authentication :" + response)
+        })
+        .catch(function(error){
+            console.log("post error: " + error);
+        });
     }
-
     render() {
         const {classes} = this.props;
 
         return (
             <div className="register-container">
                 <div className="register-title">Create Your Furnitrade Account</div>
-                <form className={classes.container} noValidate autoComplete="off">
+                <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <TextField
                         id="name-input"
                         label="Username"
@@ -141,7 +168,7 @@ class Register extends Component {
                         id="password-input"
                         label="Password"
                         className={classes.textField}
-                        //type="password"
+                        type="password"
                         margin="normal"
                         variant="outlined"
                         required={true}
@@ -153,7 +180,7 @@ class Register extends Component {
                         id="confirm-password-input"
                         label="Confirm Password"
                         className={classes.textField}
-                        // type="password"
+                        type="password"
                         margin="normal"
                         variant="outlined"
                         required={true}
@@ -161,10 +188,10 @@ class Register extends Component {
                         onChange={this.handlePasswordConfirm('confirmPassword')}
                         error={this.state.confirmPasswordError}
                     />
-                </form>
-                <Button type="submit" variant="contained" color="primary" className={classes.button}>
+                    <Button type="submit" variant="contained" color="primary" className={classes.button}>
                     Create Account
-                </Button>
+                    </Button>
+                </form>
             </div>
 
         );
