@@ -77,6 +77,8 @@ html, body {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  /* max height for big screen*/
+  max-height:64px;
   position: inherit;
   justify-items: center;
   align-items: center;
@@ -85,11 +87,13 @@ html, body {
   margin: 0;
 }
 
+/* stlye for navibar logo*/
 .logo {
   width: 5%;
   position: fixed left;
 }
 
+/* stlye for navibar title("Furnitrade")*/
 .title {
   width: 90%;
   /* font-size: 2.5vw; */
@@ -101,8 +105,37 @@ html, body {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+/* stlye for navibar drawer*/
 .nav-drawer{
   width: 5%;
   position:right;
+}
+
+/* stlye for login page container*/
+.login-container{
+  display:flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+}
+
+.login-title{
+  /* padding-top */
+  padding-top: 48px;
+  text-align: center;
+}
+
+.login-form{
+  /* adjust padding */
+  padding-top:20px;
+  display: flex;
+  flex-direction:column;
+  width:30%;
+  align-self:center;
+}
+
+.login-button{
+  /* set padding */
+  padding-top: 15px;
+  align-self: center;
 
 }

@@ -16,7 +16,7 @@ const styles = {
       flexGrow: 1,
     },
     menuButton: {
-      width: "400",
+      width: "100",
       marginLeft: -12,
       marginRight: 20,
     },
@@ -57,7 +57,8 @@ const styles = {
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
                             <div class="logo">
-                                <img title="logo-img" src={testLogo} width="100%" height="100%"
+                              
+                                <img title="logo-img" src={testLogo} width="64px" height="64px"
                                 alt = "The logo of Furnitrade Platform."/>
                             </div>
 
