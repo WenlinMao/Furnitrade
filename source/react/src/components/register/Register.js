@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-// import MenuItem from '@material-ui/core/MenuItem'; 
+// import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -13,18 +13,19 @@ const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
 
-/**TODO:
+/**
+ * TODO:
  * Hash
- * Helper text and error helper text 
- * Validation happens onBlur 
+ * Helper text and error helper text
+ * Validation happens onBlur
  * Forget passowrd
- * Remember me 
+ * Remember me
  */
 
 // const errorText = {
 //     invalidName: 'The Username format is invalid.',
 //     invalidEmail: 'The Email Address format is invalid.',
-//     invalidPassword: 'The Password format is invalid', 
+//     invalidPassword: 'The Password format is invalid',
 //     inconsistentPassords: 'The passwords you entered are not consistent'
 // }
 
@@ -53,22 +54,23 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            username: '',
             email: '',
             password: '',
             confirmPassword: '',
             nameError: false,
             emailError: false,
             passwordError: false,
-            confirmPasswordError: false
+            confirmPasswordError: false,
+            address: ''
         };
     }
 
     handleNameInput = name => event => {
-        this.setState({name: event.target.value});
+        this.setState({username: event.target.value});
         if(event.target.value.match(nameRegex)) {
-            this.setState({name: event.target.value, nameError: false});
-        } 
+            this.setState({username: event.target.value, nameError: false});
+        }
         else {
             this.setState({nameError: true});
         }
@@ -78,7 +80,7 @@ class Register extends Component {
         this.setState({email: event.target.value});
         if(event.target.value.match(emailRegex)) {
             this.setState({email: event.target.value, emailError: false});
-        } 
+        }
         else {
             this.setState({emailError: true});
         }
@@ -89,7 +91,7 @@ class Register extends Component {
         if(event.target.value.match(passwordRegex)) {
             console.log('here');
             this.setState({password: event.target.value, passwordError: false});
-        } 
+        }
         else {
             this.setState({passwordError: true});
         }
@@ -106,27 +108,36 @@ class Register extends Component {
         }
     }
 
-    // Post request 
+    handleAddressInput = address => event => {
+        this.setState({address: event.target.value})
+    }
+
+    // Post request
     handleSubmit = (e) => {
         e.preventDefault();
         let reqData = {
-            "username": this.state.name,
-            "email": this.state.email,
-            "password": this.state.password,
+            'username': this.state.username,
+            'email': this.state.email,
+            'address': this.state.address,
+            'password': this.state.password,
         };
-        
+        console.log(reqData);
         axios({
             method: 'post',
-            url: '/auth/register/',
-            withCredentials: true,
+            url: 'http://127.0.0.1:5000/auth/register',
+            // TODO: fix bug when change withCredentials to true
+            withCredentials: false,
             crossdomain: true,
-            data: $.param(reqData),    
+            data: reqData,
+            responseType: 'json',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Cache-Control": "no-cache", 
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
             }
         }).then(function(response){
-            console.log("header with authentication :" + response)
+            //console.log("header with authentication :" + response.data)
+            console.log(response.data)
         })
         .catch(function(error){
             console.log("post error: " + error);
@@ -143,8 +154,8 @@ class Register extends Component {
                         id="name-input"
                         label="Username"
                         className={classes.textField}
-                        value={this.state.name}
-                        onChange={this.handleNameInput('name')}
+                        value={this.state.username}
+                        onChange={this.handleNameInput('username')}
                         margin="normal"
                         variant="outlined"
                         required={true}
@@ -163,6 +174,17 @@ class Register extends Component {
                         value={this.state.email}
                         onChange={this.handleEmailInput('email')}
                         error={this.state.emailError}
+                    />
+                    <TextField
+                        id="address-input"
+                        label="Address"
+                        className={classes.textField}
+                        value={this.state.address}
+                        onChange={this.handleAddressInput('address')}
+                        margin="normal"
+                        variant="outlined"
+                        required={true}
+                        error={this.state.addressError}
                     />
                     <TextField
                         id="password-input"
@@ -188,6 +210,7 @@ class Register extends Component {
                         onChange={this.handlePasswordConfirm('confirmPassword')}
                         error={this.state.confirmPasswordError}
                     />
+
                     <Button type="submit" variant="contained" color="primary" className={classes.button}>
                     Create Account
                     </Button>
@@ -202,6 +225,3 @@ Register.propTypes = {
   };
 
 export default withStyles(styles)(Register);
-
-
-
