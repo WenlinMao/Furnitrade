@@ -63,7 +63,7 @@ const styles = {
 
                             {/* This text should redirect the user to the MainPage - TODO */}
                             <div class="title">
-                                <Typography variant = 'h6' color = 'secondary'>
+                                <Typography variant = 'title' color = 'secondary'>
                                 Furnitrade </Typography>
                             </div>
 
