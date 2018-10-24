@@ -6,6 +6,7 @@ import os;
 
 from flask import Flask, request, abort, jsonify, send_from_directory;
 from config import ProductionConfig;
+from flask_cors import CORS
 
 def create_app(config_object=ProductionConfig):
     # create and configure the app
@@ -18,6 +19,9 @@ def create_app(config_object=ProductionConfig):
         os.makedirs(application.instance_path);
     except OSError:
         pass
+
+    # aviod CORS
+    cors = CORS(application, resources={r"*": {"origins": "*"}})
 
     # a simple page that says hello
     @application.route('/hello')

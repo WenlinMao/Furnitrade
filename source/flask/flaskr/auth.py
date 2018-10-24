@@ -92,9 +92,10 @@ class Register(Resource):
 	def post(self):
 		users = get_users_collection();
 		postedData = request.get_json();
-
+		#print (type(postedData));
 		username = postedData['username'];
 		password = postedData['password'];
+		#address = "8520 Costa Verde";
 		address = postedData['address'];
 		email = postedData['email'];
 
