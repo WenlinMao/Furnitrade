@@ -73,13 +73,16 @@ html, body {
 
 /* for nav bar container */
 .nav-container{
+  /* flex box set up */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
+  /* width setup */
   max-width: 1600px;
   width: 100%;
 
+  /* content justification */
   position: inherit;
   justify-content: space-between;
   justify-items: center;
