@@ -73,69 +73,44 @@ html, body {
 
 /* for nav bar container */
 .nav-container{
+  /* flex box set up */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+
+  /* width setup */
+  max-width: 1600px;
   width: 100%;
-  /* max height for big screen*/
-  max-height:64px;
+
+  /* content justification */
   position: inherit;
+  justify-content: space-between;
   justify-items: center;
   align-items: center;
-  /* adjust padding top*/
+
   padding-top: 0px;
-  margin: 0;
+  margin: 0 auto;
 }
 
-/* stlye for navibar logo*/
 .logo {
-  width: 5%;
-  position: fixed left;
+  width: 50px;
+  height: 50px;
 }
 
-/* stlye for navibar title("Furnitrade")*/
+.logo-img {
+  padding: 15%;
+}
+
 .title {
-  width: 90%;
-  /* font-size: 2.5vw; */
   justify-self: center;
   text-align: center;
-  text-size-adjust: 50%;
+
   /* Centered "Furnitrade"*/
   align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-/* stlye for navibar drawer*/
 .nav-drawer{
-  width: 5%;
   position:right;
-}
-
-/* stlye for login page container*/
-.login-container{
-  display:flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-}
-
-.login-title{
-  /* padding-top */
-  padding-top: 48px;
-  text-align: center;
-}
-
-.login-form{
-  /* adjust padding */
-  padding-top:20px;
-  display: flex;
-  flex-direction:column;
-  width:30%;
-  align-self:center;
-}
-
-.login-button{
-  /* set padding */
-  padding-top: 15px;
-  align-self: center;
 
 }
