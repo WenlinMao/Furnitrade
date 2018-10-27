@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 // import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -36,6 +36,7 @@ const styles = {
     // },
   };
 
+  // apply main theme to login
   const MainTheme = createMuiTheme({
     palette: {
       primary: {
@@ -58,6 +59,7 @@ const styles = {
         fontFamily: '"Righteous", sans-serif',
       },
     });
+
 
 class Login extends Component {
     constructor(props) {
@@ -85,41 +87,44 @@ class Login extends Component {
         const {classes} = this.props;
 
         return (
-              <div class='login-container'>
-              <MuiThemeProvider theme = {MainTheme}>
-                  <NavigationBar className="nav-bar"/>
 
+            <div className="login-page">
+            <MuiThemeProvider theme = {MainTheme}>
 
-                  <div class="login-title">
-                    <Typography variant = 'h1' color = 'inherit'>Login </Typography>
-                  </div>
-                  <form class="login-form" noValidate autoComplete="on">
-                      <TextField
-                          id="name-input"
-                          label="Username"
-                          value={this.state.name}
-                          onChange={this.handleNameInput('name')}
-                          margin="normal"
-                          variant="outlined"
-                      />
-                      <br/>
-                      <TextField
-                          id="password-input"
-                          label="Password"
-                          type="password"
-                          margin="normal"
-                          variant="outlined"
-                      />
-                  </form>
+              <NavigationBar className="nav-bar"/>
 
-                  {/* TODO: button color adjustment*/ }
-                  <div class="login-button">
-                    <Button type="submit" variant="contained" color="primary">
-                      Login
-                    </Button>
-                  </div>
-                  <MuiThemeProvider theme = {MainTheme}>
-              </div>
+              <div className="login-title">
+                      <Typography variant = 'display4' color = 'inherit'>Login </Typography>
+                    </div>
+                    
+                    <form className="login-form" noValidate autoComplete="on">
+                        <TextField
+                            id="name-input"
+                            label="Username"
+                            value={this.state.name}
+                            onChange={this.handleNameInput('name')}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <br/>
+                        <TextField
+                            id="password-input"
+                            label="Password"
+                            type="password"
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </form>
+
+                    {/* TODO: button color adjustment*/ }
+                    <div className="login-button">
+                      <Button type="submit" variant="contained" color="primary">
+                        Login
+                      </Button>
+                    </div>
+
+            </MuiThemeProvider>
+            </div>
 
         );
     }
