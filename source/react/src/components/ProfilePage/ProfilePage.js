@@ -93,6 +93,7 @@ class ProfilePage extends Component {
             <textarea value={this.state.firstname}></textarea>
             &nbsp; <textarea value={this.state.lastname}></textarea>
             </p>
+            </div>
 
         </div>
       );

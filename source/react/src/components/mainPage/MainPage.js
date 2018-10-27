@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button';
 
 // log-in link
 const MyLink = props => <Link to="./Register" {...props} />
-
 const MyLink1 = props => <Link to="./Login" {...props} />
+
 var textStyle = {
   fadeIn: {
     animation: 'x 3s',
@@ -63,7 +63,7 @@ const MainTheme = createMuiTheme({
                 surprised. Biatch </Typography>
                 <Button className="login-button" color="inherit" component={MyLink}>Sign Up</Button>
                 <br/>
-                <Button className="login-button" color="primary" component={MyLink1}>Log In</Button>
+                <Button className="login-button" color="inherit" component={MyLink1}>Log In</Button>
 
               </div>
               </StyleRoot>
