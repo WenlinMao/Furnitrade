@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 // import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 // * import navbar
-import NavigationBar from '../common/NavigationBar';
+import NavigationBar from '../../common/NavigationBar';
+
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
@@ -96,7 +97,7 @@ class Login extends Component {
               <div className="login-title">
                       <Typography variant = 'display4' color = 'inherit'>Login </Typography>
                     </div>
-                    
+
                     <form className="login-form" noValidate autoComplete="on">
                         <TextField
                             id="name-input"
