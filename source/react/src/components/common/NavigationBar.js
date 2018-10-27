@@ -1,24 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
-
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 // Temporary style TODO
+const Main = props => <Link to="./" {...props} />
+
 const styles = {
     root: {
       flexGrow: 1,
     },
     grow: {
       flexGrow: 1,
-    },
-    menuButton: {
-      width: "400",
-      marginLeft: -12,
-      marginRight: 20,
     },
   };
 
@@ -53,21 +51,24 @@ const styles = {
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
                     <Toolbar>
-                        <div class="nav-container">
+                        <div className="nav-container">
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
-                            <div class="logo">
-                                <img title="logo-img" src={testLogo} width="100%" height="100%"
+
+                            <div className="logo">
+                                <Button component={Main}>
+                                <img title="logo-img" src={testLogo} width="64px" height="64px"
                                 alt = "The logo of Furnitrade Platform."/>
+                                </Button>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
-                            <div class="title">
+                            <div className="title">
                                 <Typography variant = 'title' color = 'secondary'>
                                 Furnitrade </Typography>
                             </div>
 
-                            <div class="nav-drawer"> <NavigationDrawer/> </div>
+                            <div className="nav-drawer"> <NavigationDrawer/> </div>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -76,8 +77,8 @@ const styles = {
       }
   }
 
-  NavigationBar.PropTypes = {
-    classes: PropTypes.object.isRequired,
+  NavigationBar.propTypes = {
+    classes: propTypes.object.isRequired,
   };
 
 export default withStyles(styles)(NavigationBar)
