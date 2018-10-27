@@ -4,6 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import NavigationBar from '../common/NavigationBar';
 import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
+import {Link} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+
+// log-in link
+const MyLink = props => <Link to="./Register" {...props} />
+const MyLink1 = props => <Link to="./Login" {...props} />
 
 var textStyle = {
   fadeIn: {
@@ -24,7 +30,7 @@ const MainTheme = createMuiTheme({
       main: '#3A8FB7',
       dark: '#286480',
     },
-    error: {
+    inherit: {
       light: '#f7ca7f',
       main: '#F6BD60',
       dark: '#ac8443',
@@ -38,27 +44,36 @@ const MainTheme = createMuiTheme({
   class MainPage extends Component {
     render() {
       return (
-        <MuiThemeProvider theme = {MainTheme}>
 
-          <NavigationBar/>
-          <div class = "img-intro">
-            {/* <img src = {landing}></img> */}
-            {/* TODO */}
-            <StyleRoot>
-            <div class="slogan-msg" style={textStyle.fadeIn}>
-              {/* <h1> Hello, World</h1> */}
-              <h2>this is a test message</h2>
+        <div className="main-page">
+          <MuiThemeProvider theme = {MainTheme}>
 
-              <Typography variant = 'display4' color = 'inherit'>
-              Furnitrade </Typography>
-              {/* <Typography variant = 'subheading' color = 'inherit'>
-              Trade Dat Shi </Typography>  */}
+            <NavigationBar className="nav-bar"/>
+            {/* <div className = "img-intro"> */}
+              {/* <img src = {landing}></img> */}
+              {/* TODO */}
 
-            </div>
-            </StyleRoot>
-          </div>
 
-        </MuiThemeProvider>
+              <StyleRoot>
+              <div className="slogan-container" style={textStyle.fadeIn}>
+
+                <Typography className="furnitrade" variant = 'display4' color = 'inherit'>Furnitrade </Typography>
+                <Typography className="slogan" variant = 'subheading' color = 'inherit'>
+                Trade Dat Shit. Yea, Dat's Right. I Know What U Want Babbee. <br/>Be fucking
+                surprised. Biatch </Typography>
+
+                <div className="mainpage-button-container">
+                  <Button className="login-button" color="inherit" component={MyLink}>Sign Up</Button>
+                  <Button className="login-button" color="inherit" component={MyLink1}>Log In</Button>
+                </div>
+              </div>
+              </StyleRoot>
+
+
+            {/* </div> */}
+
+          </MuiThemeProvider>
+        </div>
       );
     }
   }
