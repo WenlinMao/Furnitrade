@@ -7,7 +7,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 const styles = {
     list: {
       width: 250,
@@ -18,7 +18,7 @@ const styles = {
     },
   };
 
-const MyLink = props => <Link to="./login" {...props} />
+// const MyLink = props => <Link to="./login" {...props} />
 
   class NavigationDrawer extends React.Component {
     state = {
@@ -38,7 +38,8 @@ const MyLink = props => <Link to="./login" {...props} />
         <div className={classes.list}>
           <List>
               <li>
-                  <Button color="secondary" component={MyLink}>Log in</Button>
+                  {/* <Button color="secondary" component={MyLink}>Log in</Button> */}
+                  <Button color="secondary">Privacy</Button>
               </li>
               <li>
                   <Button color="secondary">About Us</Button>
@@ -55,11 +56,13 @@ const MyLink = props => <Link to="./login" {...props} />
       return (
         <div>
           {/* Button text --- */}
-          <Button onClick={this.NavigationDrawer('right', true)}>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon color="secondary"/>
-            </IconButton>
-          </Button>
+          
+          {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
+          {/* Icon button - pop over from right */}
+          <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="inherit" aria-label="Menu">
+            <MenuIcon color="secondary"/>
+          </IconButton>
+
           <Drawer anchor="right" open={this.state.right} onClose={this.NavigationDrawer('right', false)}>
             <div
               tabIndex={0}
