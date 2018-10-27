@@ -169,7 +169,7 @@ class Register extends Component {
             }
         })
         // handle success 
-        .then((response)=>{
+        .then((response) => {
             console.log(response.data);
             let status = response.data.status;
             if(status === 200) {
@@ -182,7 +182,7 @@ class Register extends Component {
             }
         })
         // handle error 
-        .catch((error)=>{
+        .catch((error) => {
            console.log("post error: " + error);
         });
     }

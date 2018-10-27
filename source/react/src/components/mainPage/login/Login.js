@@ -8,11 +8,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 // * import navbar
 import NavigationBar from '../../common/NavigationBar';
+import axios from 'axios';
 
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
 // TODO: Background re-design
+// TODO: helper error text when login fail
 
 const styles = {
     container: {
@@ -66,21 +68,47 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            username: '',
+            password: ''
         };
     }
 
-    // TODO:
-    componentDidMount = () => {
-
-    }
-
     handleNameInput = name => event => {
-        this.setState({name: event.target.value});
+        this.setState({username: event.target.value});
     }
 
-    handleSubmit = () => {
+    handlePasswordInput = password => event => {
+        this.setState({password: event.target.value});
+    }
 
+    // send post request    
+    handleSubmit = (e) => {
+        e.preventDefault();
+        let reqData = {
+            'username': this.state.username,
+            'password': this.state.password,
+        };
+        console.log(reqData);
+        axios({
+            method: 'post',
+            url: 'http://127.0.0.1:5000/auth/login',
+            // TODO: fix bug when change withCredentials to true
+            withCredentials: false,
+            crossdomain: true,
+            data: reqData,
+            responseType: 'json',
+            headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+            }
+      })
+      .then((response) => {
+          console.log(response.data);
+      })
+      .catch((error) => {
+          console.log("post error: " + error);
+      });
     }
 
     render() {
@@ -98,7 +126,7 @@ class Login extends Component {
                       <Typography variant = 'display4' color = 'inherit'>Login </Typography>
                     </div>
 
-                    <form className="login-form" noValidate autoComplete="on">
+                    <form className="login-form" noValidate autoComplete="on" onSubmit={this.handleSubmit}>
                         <TextField
                             id="name-input"
                             label="Username"
@@ -111,18 +139,19 @@ class Login extends Component {
                         <TextField
                             id="password-input"
                             label="Password"
+                            value={this.state.password}
+                            onChange={this.handlePasswordInput('password')}
                             type="password"
                             margin="normal"
                             variant="outlined"
                         />
+                        {/* TODO: button color adjustment*/ }
+                        <div className="login-button">
+                        <Button type="submit" variant="contained" color="primary">
+                            Login
+                        </Button>
+                        </div>
                     </form>
-
-                    {/* TODO: button color adjustment*/ }
-                    <div className="login-button">
-                      <Button type="submit" variant="contained" color="primary">
-                        Login
-                      </Button>
-                    </div>
 
             </MuiThemeProvider>
             </div>
