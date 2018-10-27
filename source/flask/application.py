@@ -1,6 +1,6 @@
 from flask import Flask;
 from flaskr import create_app;
-from flaskr.config import DevelopmentConfig;
+from config import DevelopmentConfig;
 
 application = create_app(DevelopmentConfig);
 

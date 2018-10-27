@@ -9,4 +9,5 @@ export default () =>
         <Route path = "/" exact component = {MainPage}/>
         <Route path = "/register" component = {Register} />
         <Route path = "/login" component = {Login} />
+        <Route path = "/profile" component = {Profile} />
     </Switch>;
