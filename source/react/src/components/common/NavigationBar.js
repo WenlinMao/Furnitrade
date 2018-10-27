@@ -6,8 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
-
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 // Temporary style TODO
+const Main = props => <Link to="./" {...props} />
+
 const styles = {
     root: {
       flexGrow: 1,
@@ -51,10 +54,12 @@ const styles = {
                         <div className="nav-container">
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
+
                             <div className="logo">
-                              
+                                <Button component={Main}>
                                 <img title="logo-img" src={testLogo} width="64px" height="64px"
                                 alt = "The logo of Furnitrade Platform."/>
+                                </Button>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}

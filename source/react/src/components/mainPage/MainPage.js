@@ -8,8 +8,9 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 // log-in link
-// const MyLink = props => <Link to="./login" {...props} />
+const MyLink = props => <Link to="./Register" {...props} />
 
+const MyLink1 = props => <Link to="./Login" {...props} />
 var textStyle = {
   fadeIn: {
     animation: 'x 3s',
@@ -60,8 +61,10 @@ const MainTheme = createMuiTheme({
                 <Typography className="slogan" variant = 'subheading' color = 'inherit'>
                 Trade Dat Shit. Yea, Dat's Right. I Know What U Want Babbee. <br/>Be fucking
                 surprised. Biatch </Typography>
-                <Button className="login-button" color="inherit" >Sign Up</Button>
-              
+                <Button className="login-button" color="inherit" component={MyLink}>Sign Up</Button>
+                <br/>
+                <Button className="login-button" color="primary" component={MyLink1}>Log In</Button>
+
               </div>
               </StyleRoot>
 

@@ -36,6 +36,29 @@ const styles = {
     // },
   };
 
+  const MainTheme = createMuiTheme({
+    palette: {
+      primary: {
+        light: '#42668f',
+        main: '#134074',
+        dark: '#0d2c51',
+      },
+      secondary: {
+        light: '#61a5c5',
+        main: '#3A8FB7',
+        dark: '#286480',
+      },
+      inherit: {
+        light: '#f7ca7f',
+        main: '#F6BD60',
+        dark: '#ac8443',
+      },
+    },
+      typography: {
+        fontFamily: '"Righteous", sans-serif',
+      },
+    });
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -63,8 +86,9 @@ class Login extends Component {
 
         return (
               <div class='login-container'>
+              <MuiThemeProvider theme = {MainTheme}>
+                  <NavigationBar className="nav-bar"/>
 
-                  <NavigationBar />
 
                   <div class="login-title">
                     <Typography variant = 'h1' color = 'inherit'>Login </Typography>
@@ -94,6 +118,7 @@ class Login extends Component {
                       Login
                     </Button>
                   </div>
+                  <MuiThemeProvider theme = {MainTheme}>
               </div>
 
         );
