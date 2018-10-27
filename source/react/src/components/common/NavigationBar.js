@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,11 +14,6 @@ const styles = {
     },
     grow: {
       flexGrow: 1,
-    },
-    menuButton: {
-      width: "100",
-      marginLeft: -12,
-      marginRight: 20,
     },
   };
 
@@ -53,22 +48,22 @@ const styles = {
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
                     <Toolbar>
-                        <div class="nav-container">
+                        <div className="nav-container">
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
-                            <div class="logo">
+                            <div className="logo">
                               
                                 <img title="logo-img" src={testLogo} width="64px" height="64px"
                                 alt = "The logo of Furnitrade Platform."/>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
-                            <div class="title">
+                            <div className="title">
                                 <Typography variant = 'title' color = 'secondary'>
                                 Furnitrade </Typography>
                             </div>
 
-                            <div class="nav-drawer"> <NavigationDrawer/> </div>
+                            <div className="nav-drawer"> <NavigationDrawer/> </div>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -77,8 +72,8 @@ const styles = {
       }
   }
 
-  NavigationBar.PropTypes = {
-    classes: PropTypes.object.isRequired,
+  NavigationBar.propTypes = {
+    classes: propTypes.object.isRequired,
   };
 
 export default withStyles(styles)(NavigationBar)
