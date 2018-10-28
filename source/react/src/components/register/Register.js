@@ -136,8 +136,11 @@ class Register extends Component {
 
     // returm true if any of inputs are invalid
     checkButtonStatus = () => {
-        let status = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
-        return status;
+        let emptyStatus = this.state.name === "" || this.state.email === "" || this.state.password === "" 
+                            || this.state.address === "" || this.state.confirmPassword === "";
+        let errorStatus = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
+        
+        return emptyStatus || errorStatus;
     }
      
     // close modal 
@@ -215,7 +218,7 @@ class Register extends Component {
                         error={this.state.nameError}
                     />
                      {
-                        this.state.nameError
+                        this.state.nameError && this.state.errorMsg !== ""
                         ?
                         <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
                         :
@@ -236,7 +239,7 @@ class Register extends Component {
                         error={this.state.emailError}
                     />
                     {
-                        this.state.emailError
+                        this.state.emailError && this.state.errorMsg !== ""
                         ?
                         <FormHelperText error={true}> {this.state.errorMsg} </FormHelperText>
                         :
