@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button } from "@material-ui/core";
+import { Button, TextField, Paper } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 // This is profile page - used to update and modify user info
@@ -65,6 +65,9 @@ class ProfilePage extends Component {
     this.state = {
       firstname: 'John',
       lastname:'Doe',
+      username: 'Jack Ma',
+      email: 'jackma@alibaba.com',
+      address: 'Hangzhou, China'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -92,16 +95,48 @@ class ProfilePage extends Component {
 
             {/* Major part two - user info */}
             <div className="user-info-container">
-              
+
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
-                <img title="user-photo" src={null} width="64px" height="64px"
+
+                <Paper className="info-container">
+                <img title="user-photo"
+                src={require("../../static/images/test-propic.jpg")}
+                width="80px" height="80px"
                 alt = "used to store user photo"/>
+
+
+                <TextField
+                  id="standard-read-only-input"
+                  label="Username"
+                  defaultValue={this.state.username}
+                  className="info-lhs-username"
+                  margin="normal"
+                  InputProps={{readOnly: true,}}
+                  variant="filled"/>
+                <TextField
+                    id="standard-read-only-input"
+                    label="E-mail"
+                    defaultValue={this.state.email}
+                    className="info-lhs-email"
+                    margin="normal"
+                    InputProps={{readOnly: true,}}
+                    variant="filled"/>
+                <TextField
+                    id="standard-read-only-input"
+                    label="Address"
+                    defaultValue={this.state.address}
+                    className="info-lhs-address"
+                    margin="normal"
+                    InputProps={{readOnly: true,}}
+                    variant="filled"/>
+                </Paper>
+
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
-                <Button>
+                <Button type="submit" variant="contained" color="primary">
                   Save Changes
                 </Button>
               </div>
