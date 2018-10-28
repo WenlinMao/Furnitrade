@@ -6,10 +6,11 @@ import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/s
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
 // * import navbar
 import NavigationBar from '../../common/NavigationBar';
 import axios from 'axios';
-
+import {setLocal, getLocal} from '../../../utils/util';
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
@@ -69,7 +70,10 @@ class Login extends Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMsg: '',
+            usernameError: false,
+            passwordError: false
         };
     }
 
@@ -105,6 +109,26 @@ class Login extends Component {
       })
       .then((response) => {
           console.log(response.data);
+          let code = response.data.status;
+          if(code === 200) {
+              // successfully login 
+              setLocal("username", reqData.username);
+              console.log("localStorgae", getLocal("username"));
+              // redirect to hompage
+              this.props.history.push("/");
+          }
+          else {
+              // username error 
+              if(code === 310 || code === 312 || code === 315 || code === 318) { 
+                console.log("username error");
+                this.setState({usernameError: true, passwordError: false, errorMsg: response.data.msg})
+              }
+              // password error 
+              else if(code === 311 || code === 313 ) {
+                console.log("password error");
+                this.setState({usernameError: false, passwordError: true, errorMsg: response.data.msg});
+              }
+          }
       })
       .catch((error) => {
           console.log("post error: " + error);
@@ -134,8 +158,17 @@ class Login extends Component {
                             onChange={this.handleNameInput('name')}
                             margin="normal"
                             variant="outlined"
+                            error={this.state.usernameError}
                         />
-                        <br/>
+                        {/* FormHelperText也不好用 */}
+                        {
+                            this.state.usernameError
+                            ?
+                            <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                            :
+                            <div></div>
+                        }
+                        {/* <br/> */}
                         <TextField
                             id="password-input"
                             label="Password"
@@ -144,7 +177,15 @@ class Login extends Component {
                             type="password"
                             margin="normal"
                             variant="outlined"
+                            error={this.state.passwordError}
                         />
+                        {
+                            this.state.passwordError
+                            ?
+                            <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                            :
+                            <div></div>
+                        }
                         {/* TODO: button color adjustment*/ }
                         <div className="login-button">
                         <Button type="submit" variant="contained" color="primary">

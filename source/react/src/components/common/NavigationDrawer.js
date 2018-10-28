@@ -7,7 +7,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import {setLocal, getLocal} from '../../utils/util';
 // import {Link} from 'react-router-dom'
+
 const styles = {
     list: {
       width: 250,
@@ -21,25 +23,38 @@ const styles = {
 // const MyLink = props => <Link to="./login" {...props} />
 
   class NavigationDrawer extends React.Component {
-    state = {
-      right: false,
-    };
+    constructor(props) {
+      super(props);
+      this.state = {
+        right: false,
+        showLogout: false
+      };
+    }
 
+    componentWillMount() {
+      this.setState({showLogout: this.props.showLogout});
+    }
     NavigationDrawer = (side, open) => () => {
       this.setState({
         [side]: open,
       });
     };
 
-    render() {
-      const { classes } = this.props;
+    // Temporay hack 
+    handleLogout = (e) => {
+      setLocal("username", "");
+      this.setState({showLogout: false});
+    }
 
+    render() {
+      console.log("in drawer", this.props.showLogout);
+      const { classes } = this.props;
       const sideList = (
         <div className={classes.list}>
           <List>
               <li>
-                  {/* <Button color="secondary" component={MyLink}>Log in</Button> */}
-                  <Button color="secondary">Privacy</Button>
+                  {/* TODO - just for testing profile page */}
+                  <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
               </li>
               <li>
                   <Button color="secondary">About Us</Button>
@@ -47,6 +62,18 @@ const styles = {
               <li>
                   <Button color="secondary">Category</Button>
               </li>
+              <li>
+                  <Button color="secondary">Privacy</Button>
+              </li>
+              {
+                this.state.showLogout
+                ?
+                <li>
+                  <Button color="secondary" onClick={this.handleLogout}>Log out</Button>
+                </li>
+                :
+                <div></div>
+              }
           </List>
           <Divider />
           <List></List>

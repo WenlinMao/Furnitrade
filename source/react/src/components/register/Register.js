@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
 import $ from 'jquery';
+import {setLocal, getLocal} from '../../utils/util';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
@@ -134,9 +136,11 @@ class Register extends Component {
 
     // returm true if any of inputs are invalid
     checkButtonStatus = () => {
-        let status = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
-        console.log("status ", status)
-        return status;
+        let emptyStatus = this.state.name === "" || this.state.email === "" || this.state.password === "" 
+                            || this.state.address === "" || this.state.confirmPassword === "";
+        let errorStatus = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
+        
+        return emptyStatus || errorStatus;
     }
      
     // close modal 
@@ -171,14 +175,22 @@ class Register extends Component {
         // handle success 
         .then((response) => {
             console.log(response.data);
-            let status = response.data.status;
-            if(status === 200) {
+            let code = response.data.status;
+            if(code === 200) {
                 // successfully register and login 
-                // TODO: redirect 
-                
+                setLocal("username", reqData.username);
+                console.log("localStorgae", getLocal("username"));
+                // redirect to hompage
+                this.props.history.push("/");
             }
             else{
-               this.setState({errorMsg: response.data.msg, open: true});
+            //    this.setState({errorMsg: response.data.msg, open: true});
+                if(code === 310 || code === 315 ) {
+                    this.setState({nameError: true, emailError: false, errorMsg: response.data.msg});
+                }
+                else if(code === 318) {
+                    this.setState({nameError: false, emailError: true, errorMsg: response.data.msg});
+                }
             }
         })
         // handle error 
@@ -205,6 +217,13 @@ class Register extends Component {
                         required={true}
                         error={this.state.nameError}
                     />
+                     {
+                        this.state.nameError && this.state.errorMsg !== ""
+                        ?
+                        <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                        :
+                        <div></div>
+                    }
                     <TextField
                         id="email-input"
                         label="Email Address"
@@ -219,6 +238,13 @@ class Register extends Component {
                         onChange={this.handleEmailInput('email')}
                         error={this.state.emailError}
                     />
+                    {
+                        this.state.emailError && this.state.errorMsg !== ""
+                        ?
+                        <FormHelperText error={true}> {this.state.errorMsg} </FormHelperText>
+                        :
+                        <div></div>
+                    }
                     <TextField
                         id="address-input"
                         label="Address"
@@ -258,9 +284,9 @@ class Register extends Component {
                         Create Account
                     </Button>
                 </form> 
-                <Modal open={this.state.open} onClose={this.handleClose}>
+                {/* <Modal open={this.state.open} onClose={this.handleClose}>
                     <div style={getModalStyle()} className={classes.paper}>{this.state.errorMsg}</div>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
