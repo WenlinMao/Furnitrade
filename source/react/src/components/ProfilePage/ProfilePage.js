@@ -81,6 +81,8 @@ class ProfilePage extends Component {
         univeristy:event.target.univeristy});
  }
 
+
+
     render() {
       return (
 
@@ -107,39 +109,42 @@ class ProfilePage extends Component {
                 src={require("../../static/images/test-propic.jpg")}className="user-photo"
                 alt = "used to store user photo"/>
                 <TextField
-                  id="standard-read-only-input"
+
                   label="Username"
                   defaultValue={this.state.username}
-                  className="info-lhs-username"
+                  className="standard-read-only-input"
                   margin="normal"
                   InputProps={{
                       readOnly: true,
                   }}
                   variant="filled"/>
                 <TextField
-                    id="standard-read-only-input"
+
                     label="E-mail"
                     defaultValue={this.state.email}
-                    className="info-lhs-email"
+                    className="standard-read-only-input"
                     margin="normal"
                     InputProps={{readOnly: true,}}
                     variant="filled"/>
+
                 <TextField
-                    id="standard-read-only-input"
+
                     label="Address"
                     defaultValue={this.state.address}
-                    className="info-lhs-address"
+                    className="standard-read-only-input"
                     margin="normal"
                     InputProps={{readOnly: true,}}
                     variant="filled"/>
+
                 <TextField
-                    id="standard-read-only-input"
+
                     label="Address"
                     defaultValue={this.state.university}
-                    className="info-lhs-university"
+                    className="standard-read-only-input"
                     margin="normal"
                     InputProps={{readOnly: true,}}
                     variant="filled"/>
+                    <br/>
                 <Button type="submit" variant="contained" color="primary">
                      Edit
                 </Button>
