@@ -141,7 +141,7 @@ html, body {
   width: 10%;
 }
 
-
+/* Profile info section */
 .user-info-container {
   display: flex;
   flex-direction: row;
@@ -163,12 +163,11 @@ html, body {
     width: 22%;
 }
 
-/* TODO: change color */
+/* color changed, no width right now */
 .standard-read-only-input {
     display: flex;
     flex-wrap: nowrap;
     flex-direction:column;
-    width: 50%;
     background-color: #F6BD60;
 }
 
