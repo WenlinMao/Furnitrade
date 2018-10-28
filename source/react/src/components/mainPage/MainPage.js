@@ -55,13 +55,11 @@ const MainTheme = createMuiTheme({
     componentWillMount() {
       if(getLocal("username") !== "" ){
         this.setState({hasLogin: true});
+         // TODO: GET request  
       }
-      // TODO: GET request  
-    }
-
-    componentDidMount() {
-      console.log("HAS THE USER LOGGED IN??", this.state.hasLogin);
-      console.log("USER IS", getLocal("username"));
+      else {
+        this.setState({hasLogin: false});
+      }
     }
 
     render() {
@@ -70,7 +68,7 @@ const MainTheme = createMuiTheme({
         <div className="main-page">
           <MuiThemeProvider theme = {MainTheme}>
 
-            <NavigationBar className="nav-bar"/>
+            <NavigationBar className="nav-bar" hasLogin={this.state.hasLogin}/>
             {/* <div className = "img-intro"> */}
               {/* <img src = {landing}></img> */}
               {/* TODO */}

@@ -46,7 +46,7 @@ const styles = {
         // const { classes } = this.props;
         // const { anchorEl } = this.state;
         // const open = Boolean(anchorEl);
-
+        console.log("in bar", this.props.hasLogin);
         return (
             <div>
 
@@ -72,7 +72,7 @@ const styles = {
                             </div>
 
                             <div className="nav-drawer"> 
-                                <NavigationDrawer buttonName="Profile" passLink={Profile} ></NavigationDrawer> 
+                                <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer> 
                             </div>
                         </div>
                     </Toolbar>
