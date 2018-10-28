@@ -8,8 +8,10 @@ import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+
 // Temporary style TODO
 const Main = props => <Link to="./" {...props} />
+const Profile = props => <Link to="./profile" {...props} />
 
 const styles = {
     root: {
@@ -64,11 +66,14 @@ const styles = {
 
                             {/* This text should redirect the user to the MainPage - TODO */}
                             <div className="title">
-                                <Typography variant = 'title' color = 'secondary'>
+                                <Typography className="furnitrade-title" variant = 'title' 
+                                color = 'secondary' component={Main}>
                                 Furnitrade </Typography>
                             </div>
 
-                            <div className="nav-drawer"> <NavigationDrawer/> </div>
+                            <div className="nav-drawer"> 
+                                <NavigationDrawer buttonName="Profile" passLink={Profile} ></NavigationDrawer> 
+                            </div>
                         </div>
                     </Toolbar>
                 </AppBar>

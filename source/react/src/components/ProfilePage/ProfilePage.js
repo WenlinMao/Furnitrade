@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, List } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -34,12 +35,7 @@ import { Button, List } from "@material-ui/core";
 // Note:
 //     - feel free to redesign the layout. Keep dis shit good looking tho.
 //     - feel free to use a new theme. Just make sure the color stays the same
-var textStyle = {
-  fadeIn: {
-    animation: 'x 3s',
-    animationName: Radium.keyframes(fadeIn, 'fadeIn')
-  }
-};
+
 
 const MainTheme = createMuiTheme({
   palette: {
@@ -63,6 +59,7 @@ const MainTheme = createMuiTheme({
       fontFamily: '"Righteous", sans-serif',
     },
   });
+  
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -85,14 +82,31 @@ class ProfilePage extends Component {
             {/* Major part one - nav bar */}
             <NavigationBar className="nav-bar"/>
 
-            {/* Major part two - user info */}
-            <div class="card">
+            {/* <div class="card">
             <img src="" alt="profile-pic"/>
             <Button class="update-pic">Update picture</Button>
             <p>
             <textarea value={this.state.firstname}></textarea>
             &nbsp; <textarea value={this.state.lastname}></textarea>
             </p>
+            </div> */}
+
+            {/* Major part two - user info */}
+            <div className="user-info-container">
+              
+              {/* left hand side of user info - photo & names */}
+              <div className="info-lhs">
+                <img title="user-photo" src={null} width="64px" height="64px"
+                alt = "used to store user photo"/>
+              </div>
+
+              {/* right hand side of user info - address */}
+              <div className="info-rhs">
+                <Button>
+                  Save Changes
+                </Button>
+              </div>
+
             </div>
 
         </div>

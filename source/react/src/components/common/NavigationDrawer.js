@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 // import {Link} from 'react-router-dom'
+
+
 const styles = {
     list: {
       width: 250,
@@ -38,14 +40,17 @@ const styles = {
         <div className={classes.list}>
           <List>
               <li>
-                  {/* <Button color="secondary" component={MyLink}>Log in</Button> */}
-                  <Button color="secondary">Privacy</Button>
+                  {/* TODO - just for testing profile page */}
+                  <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
               </li>
               <li>
                   <Button color="secondary">About Us</Button>
               </li>
               <li>
                   <Button color="secondary">Category</Button>
+              </li>
+              <li>
+                  <Button color="secondary">Privacy</Button>
               </li>
           </List>
           <Divider />

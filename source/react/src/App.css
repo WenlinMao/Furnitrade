@@ -58,13 +58,17 @@ html, body {
   padding: 15%;
 }
 
-.title {
+.title .furnitrade-title{
   justify-self: center;
   text-align: center;
 
   /* Centered "Furnitrade"*/
   align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+  /* TODO - remove the underline */
+  text-decoration: none;
+  color: #3A8FB7;
 }
 
 .nav-drawer{
@@ -110,4 +114,28 @@ html, body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.nav-bar {
+  width: 10%;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-lhs {
+  width: 40%;
+}
+
+.info-rhs {
+  width: 60%;
 }
