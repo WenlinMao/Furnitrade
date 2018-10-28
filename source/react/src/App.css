@@ -111,3 +111,27 @@ html, body {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.nav-bar {
+  width: 10%;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-lhs {
+  width: 40%;
+}
+
+.info-rhs {
+  width: 60%;
+}
