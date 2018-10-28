@@ -6,6 +6,7 @@ import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import {getLocal} from '../../utils/util';
 
 // log-in link
 const MyLink = props => <Link to="./Register" {...props} />
@@ -42,6 +43,27 @@ const MainTheme = createMuiTheme({
   });
 
   class MainPage extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        hasLogin: false
+      }
+    }
+
+    // Easy hack; 别的方法试了一下,不好使,先用这个方法。
+    // check if the user has logged in 
+    componentWillMount() {
+      if(getLocal("username") !== "" ){
+        this.setState({hasLogin: true});
+      }
+      // TODO: GET request  
+    }
+
+    componentDidMount() {
+      console.log("HAS THE USER LOGGED IN??", this.state.hasLogin);
+      console.log("USER IS", getLocal("username"));
+    }
+
     render() {
       return (
 

@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
 import $ from 'jquery';
+import {setLocal, getLocal} from '../../utils/util';
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
@@ -135,7 +136,6 @@ class Register extends Component {
     // returm true if any of inputs are invalid
     checkButtonStatus = () => {
         let status = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
-        console.log("status ", status)
         return status;
     }
      
@@ -171,11 +171,13 @@ class Register extends Component {
         // handle success 
         .then((response) => {
             console.log(response.data);
-            let status = response.data.status;
-            if(status === 200) {
+            let code = response.data.status;
+            if(code === 200) {
                 // successfully register and login 
-                // TODO: redirect 
-                
+                setLocal("username", reqData.username);
+                console.log("localStorgae", getLocal("username"));
+                // redirect to hompage
+                this.props.history.push("/");
             }
             else{
                this.setState({errorMsg: response.data.msg, open: true});
