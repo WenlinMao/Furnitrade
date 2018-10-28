@@ -127,6 +127,8 @@ html, body {
   width: 10%;
 }
 
+
+/* Profile page section */
 .user-info-container {
   display: flex;
   flex-direction: row;

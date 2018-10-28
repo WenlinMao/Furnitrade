@@ -61,29 +61,51 @@ const MainTheme = createMuiTheme({
   });
 
 class ProfilePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: 'Jack Ma',
-      email: 'jackma@alibaba.com',
-      address: 'Hangzhou, China',
-      university: 'University of California, San Diego'
-    };
+      constructor(props) {
+        super(props);
+        this.state = {
+          username: 'Jack Ma',
+          email: 'jackma@alibaba.com',
+          address: 'Hangzhou, China',
+          university: 'University of California, San Diego',
+          readOnly: true
+        };
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+      }
 
-  handleChange(event) {
-   this.setState(
-       {username:event.target.username,
-        email:event.target.email,
-        address:event.target.address,
-        univeristy:event.target.univeristy});
- }
+      handleChange(event) {
+       this.setState(
+           {username:event.target.username,
+            email:event.target.email,
+            address:event.target.address,
+            univeristy:event.target.univeristy});
+      }
 
+      handleClick() {
+          if (this.state.readOnly) {
+              this.setState({readOnly:false});
+          } else {
+              this.setState({readOnly:true});
+          }
+      }
 
 
     render() {
+
+      /* the save/edit button */
+      let button;
+      if (this.state.readOnly) {
+          button = <Button type="submit" variant="contained" color="primary" onClick={this.handleClick}>
+               Edit
+          </Button>
+      } else {
+          button = <Button type="submit" variant="contained" color="primary" onClick={this.handleClick}>
+               Save
+          </Button>
+      }
+
       return (
 
         <div className="profile-page-container">
@@ -108,6 +130,7 @@ class ProfilePage extends Component {
                 <img title="user-photo"
                 src={require("../../static/images/test-propic.jpg")}className="user-photo"
                 alt = "used to store user photo"/>
+                <br/>
                 <TextField
 
                   label="Username"
@@ -115,7 +138,7 @@ class ProfilePage extends Component {
                   className="standard-read-only-input"
                   margin="normal"
                   InputProps={{
-                      readOnly: true,
+                      readOnly: this.state.readOnly,
                   }}
                   variant="filled"/>
                 <TextField
@@ -124,7 +147,7 @@ class ProfilePage extends Component {
                     defaultValue={this.state.email}
                     className="standard-read-only-input"
                     margin="normal"
-                    InputProps={{readOnly: true,}}
+                    InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
                 <TextField
@@ -133,7 +156,7 @@ class ProfilePage extends Component {
                     defaultValue={this.state.address}
                     className="standard-read-only-input"
                     margin="normal"
-                    InputProps={{readOnly: true,}}
+                    InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
                 <TextField
@@ -142,13 +165,11 @@ class ProfilePage extends Component {
                     defaultValue={this.state.university}
                     className="standard-read-only-input"
                     margin="normal"
-                    InputProps={{readOnly: true,}}
+                    InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
                     <br/>
-                <Button type="submit" variant="contained" color="primary">
-                     Edit
-                </Button>
-
+                {/* Save/ Edit button */}
+                {button}
 
               </div>
 
