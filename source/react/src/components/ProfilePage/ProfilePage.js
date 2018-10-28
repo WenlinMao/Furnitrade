@@ -59,6 +59,7 @@ const MainTheme = createMuiTheme({
       fontFamily: '"Righteous", sans-serif',
     },
   });
+  
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
