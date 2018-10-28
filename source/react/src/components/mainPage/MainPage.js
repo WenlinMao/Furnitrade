@@ -51,11 +51,11 @@ const MainTheme = createMuiTheme({
     }
 
     // Easy hack; 别的方法试了一下,不好使,先用这个方法。
-    // check if the user has logged in 
+    // check if the user has logged in
     componentWillMount() {
       if(getLocal("username") !== "" ){
         this.setState({hasLogin: true});
-         // TODO: GET request  
+         // TODO: GET request
       }
       else {
         this.setState({hasLogin: false});
@@ -72,8 +72,6 @@ const MainTheme = createMuiTheme({
             {/* <div className = "img-intro"> */}
               {/* <img src = {landing}></img> */}
               {/* TODO */}
-
-
               <StyleRoot>
               <div className="slogan-container" style={textStyle.fadeIn}>
 

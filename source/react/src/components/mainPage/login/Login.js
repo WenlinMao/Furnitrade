@@ -85,7 +85,7 @@ class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-    // send post request    
+    // send post request
     handleSubmit = (e) => {
         e.preventDefault();
         let reqData = {
@@ -111,19 +111,19 @@ class Login extends Component {
           console.log(response.data);
           let code = response.data.status;
           if(code === 200) {
-              // successfully login 
+              // successfully login
               setLocal("username", reqData.username);
               console.log("localStorgae", getLocal("username"));
               // redirect to hompage
               this.props.history.push("/");
           }
           else {
-              // username error 
-              if(code === 310 || code === 312 || code === 315 || code === 318) { 
+              // username error
+              if(code === 310 || code === 312 || code === 315 || code === 318) {
                 console.log("username error");
                 this.setState({usernameError: true, passwordError: false, errorMsg: response.data.msg})
               }
-              // password error 
+              // password error
               else if(code === 311 || code === 313 ) {
                 console.log("password error");
                 this.setState({usernameError: false, passwordError: true, errorMsg: response.data.msg});
@@ -147,7 +147,9 @@ class Login extends Component {
               <NavigationBar className="nav-bar"/>
 
               <div className="login-title">
-                      <Typography variant = 'display4' color = 'inherit'>Login </Typography>
+
+                      {/* display2 for correct font size */}
+                      <Typography variant = 'display2' color = 'inherit'>Login </Typography>
                     </div>
 
                     <form className="login-form" noValidate autoComplete="on" onSubmit={this.handleSubmit}>
@@ -186,13 +188,14 @@ class Login extends Component {
                             :
                             <div></div>
                         }
-                        {/* TODO: button color adjustment*/ }
-                        <div className="login-button">
-                        <Button type="submit" variant="contained" color="primary">
-                            Login
-                        </Button>
-                        </div>
                     </form>
+
+                    {/* TODO: button color adjustment*/ }
+                    <div className="loginPage-button-container">
+                      <Button className = "login-page-button" type="submit" variant="contained" color="inherit">
+                        Login
+                      </Button>
+                    </div>
 
             </MuiThemeProvider>
             </div>
