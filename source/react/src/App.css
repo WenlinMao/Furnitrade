@@ -65,7 +65,7 @@ html, body {
   /* Centered "Furnitrade"*/
   align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
+
   /* TODO - remove the underline */
   text-decoration: none;
   color: #3A8FB7;
@@ -130,25 +130,31 @@ html, body {
 .user-info-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .info-lhs {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 30%;
 }
 
-.info-container {
+.user-photo {
     display: flex;
-    flex-direction: column;
-    width: 60%;
+    border-radius: 50%;
+    justify-content: space-around;
+    height: 80px;
+    weight: 80px;
+    width: 22%;
 }
 
-.info-lhs-username .info-lhs-emai .info-lhs-address {
+/* TODO: change color */
+.standard-read-only-input {
     display: flex;
     flex-wrap: nowrap;
     flex-direction:column;
     width: 50%;
+    background-color: #F6BD60;
 }
 
 .info-rhs {

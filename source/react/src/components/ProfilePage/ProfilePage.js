@@ -59,23 +59,26 @@ const MainTheme = createMuiTheme({
       fontFamily: '"Righteous", sans-serif',
     },
   });
-  
+
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: 'John',
-      lastname:'Doe',
       username: 'Jack Ma',
       email: 'jackma@alibaba.com',
-      address: 'Hangzhou, China'
+      address: 'Hangzhou, China',
+      university: 'University of California, San Diego'
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-   this.setState({firstname: event.target.firstname,lastname:event.target.lastname});
+   this.setState(
+       {username:event.target.username,
+        email:event.target.email,
+        address:event.target.address,
+        univeristy:event.target.univeristy});
  }
 
     render() {
@@ -100,20 +103,18 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <Paper className="info-container">
                 <img title="user-photo"
-                src={require("../../static/images/test-propic.jpg")}
-                width="80px" height="80px"
+                src={require("../../static/images/test-propic.jpg")}className="user-photo"
                 alt = "used to store user photo"/>
-
-
                 <TextField
                   id="standard-read-only-input"
                   label="Username"
                   defaultValue={this.state.username}
                   className="info-lhs-username"
                   margin="normal"
-                  InputProps={{readOnly: true,}}
+                  InputProps={{
+                      readOnly: true,
+                  }}
                   variant="filled"/>
                 <TextField
                     id="standard-read-only-input"
@@ -131,15 +132,24 @@ class ProfilePage extends Component {
                     margin="normal"
                     InputProps={{readOnly: true,}}
                     variant="filled"/>
-                </Paper>
+                <TextField
+                    id="standard-read-only-input"
+                    label="Address"
+                    defaultValue={this.state.university}
+                    className="info-lhs-university"
+                    margin="normal"
+                    InputProps={{readOnly: true,}}
+                    variant="filled"/>
+                <Button type="submit" variant="contained" color="primary">
+                     Edit
+                </Button>
+
 
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
-                <Button type="submit" variant="contained" color="primary">
-                  Save Changes
-                </Button>
+
               </div>
 
             </div>
