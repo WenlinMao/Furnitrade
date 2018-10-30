@@ -9,12 +9,12 @@
     flex-direction: column;
     width: 50%;
   }
-  
+
   /* login title */
   .login-title{
     text-align: center;
   }
-  
+
   /* login text field */
   .login-form{
     padding-top:5%;
@@ -25,18 +25,11 @@
     align-self: center;
   }
 
-  /* login-page button container*/
-.loginPage-button-container{
-  display: flex;
-  padding-top: 5%;
-  align-self: center;
-  justify-content: center;
-  width: 40%;
-}
-
 /* login-page button */
-.loginPage-button-container .login-page-button{
+.login-form .login-page-button{
+  margin-top: 5%;
   justify-content: center;
+  align-self: center;
   background-color: #F6BD60;
   width: inherit;
 }
