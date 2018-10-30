@@ -11,6 +11,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import NavigationBar from '../../common/NavigationBar';
 import axios from 'axios';
 import {setLocal, getLocal} from '../../../utils/util';
+import "./Login.css";
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
