@@ -58,8 +58,10 @@ const styles = {
                             {/* This logo image should redirect the user to the MainPage - TODO */}
 
                             <div className="logo">
-                                <img title="logo-img" src={testLogo} width="40px" height="40px" component={Main}
-                                alt = "The logo of Furnitrade Platform."/>
+                                <a href="http://localhost:3000/">
+                                    <img title="logo-img" src={testLogo} width="40px" height="40px"
+                                    alt = "The logo of Furnitrade Platform."/>
+                                </a>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
