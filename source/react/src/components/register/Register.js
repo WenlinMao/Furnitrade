@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import NavigationBar from '../common/NavigationBar';
 // import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -10,7 +12,6 @@ import axios from 'axios';
 import $ from 'jquery';
 import {setLocal, getLocal} from '../../utils/util';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
@@ -31,10 +32,35 @@ const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
 //     inconsistentPassords: 'The passwords you entered are not consistent'
 // }
 
+/* create theme */
+const MainTheme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#42668f',
+      main: '#134074',
+      dark: '#0d2c51',
+    },
+    secondary: {
+      light: '#61a5c5',
+      main: '#3A8FB7',
+      dark: '#286480',
+    },
+    inherit: {
+      light: '#f7ca7f',
+      main: '#F6BD60',
+      dark: '#ac8443',
+    },
+  },
+    typography: {
+      fontFamily: '"Righteous", sans-serif',
+    },
+  });
+
+// modal notification
 function getModalStyle() {
     const top = 50;
     const left = 50;
-  
+
     return {
       top: `${top}%`,
       left: `${left}%`,
@@ -42,12 +68,14 @@ function getModalStyle() {
     };
 }
 
-const styles = theme => ({
+// might be useful in later
+const styles = {
     container: {
       display: 'flex',
       flexWrap: 'wrap',
       flexDirection: 'column',
     },
+    /*
     textField: {
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
@@ -67,8 +95,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing.unit * 4,
-      },
-  });
+      },*/
+  };
 
 class Register extends Component {
     constructor(props) {
@@ -83,7 +111,7 @@ class Register extends Component {
             passwordError: false,
             confirmPasswordError: false,
             address: '',
-            open: false, 
+            open: false,
             errorMsg: ''
         };
     }
@@ -136,14 +164,14 @@ class Register extends Component {
 
     // returm true if any of inputs are invalid
     checkButtonStatus = () => {
-        let emptyStatus = this.state.name === "" || this.state.email === "" || this.state.password === "" 
+        let emptyStatus = this.state.name === "" || this.state.email === "" || this.state.password === ""
                             || this.state.address === "" || this.state.confirmPassword === "";
         let errorStatus = this.state.nameError || this.state.passwordError || this.state.confirmPasswordError || this.state.emailError;
-        
+
         return emptyStatus || errorStatus;
     }
-     
-    // close modal 
+
+    // close modal
     handleClose = () => {
         this.setState({open: false});
     }
@@ -172,12 +200,12 @@ class Register extends Component {
                 "Cache-Control": "no-cache",
             }
         })
-        // handle success 
+        // handle success
         .then((response) => {
             console.log(response.data);
             let code = response.data.status;
             if(code === 200) {
-                // successfully register and login 
+                // successfully register and login
                 setLocal("username", reqData.username);
                 console.log("localStorgae", getLocal("username"));
                 // redirect to hompage
@@ -193,7 +221,7 @@ class Register extends Component {
                 }
             }
         })
-        // handle error 
+        // handle error
         .catch((error) => {
            console.log("post error: " + error);
         });
@@ -204,8 +232,15 @@ class Register extends Component {
 
         return (
             <div className="register-container">
-                <div className="register-title">Create Your Furnitrade Account</div>
-                <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                <MuiThemeProvider theme = {MainTheme}>
+
+                {/* add NavigationBar to register page */}
+                <NavigationBar className="nav-bar"/>
+                <div className="register-title">
+                  <Typography variant = "display2" color = "inherit"> Create Your Furnitrade Account
+                  </Typography>
+                </div>
+                <form className="register-form" noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <TextField
                         id="name-input"
                         label="Username"
@@ -280,13 +315,16 @@ class Register extends Component {
                         onChange={this.handlePasswordConfirm('confirmPassword')}
                         error={this.state.confirmPasswordError}
                     />
-                    <Button disabled={this.checkButtonStatus()} type="submit" variant="contained" color="primary" className={classes.button}>
-                        Create Account
-                    </Button>
-                </form> 
+                </form>
+                <div className="registerPage-button-container">
+                  <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
+                      Create Account
+                  </Button>
+                </div>
                 {/* <Modal open={this.state.open} onClose={this.handleClose}>
                     <div style={getModalStyle()} className={classes.paper}>{this.state.errorMsg}</div>
                 </Modal> */}
+                </MuiThemeProvider>
             </div>
         );
     }
