@@ -7,6 +7,7 @@ import Radium, {StyleRoot} from 'radium';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import {getLocal} from '../../utils/util';
+import "./MainPage.css";
 
 // log-in link
 const MyLink = props => <Link to="./Register" {...props} />

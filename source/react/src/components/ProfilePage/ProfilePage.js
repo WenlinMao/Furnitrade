@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
 import { Button, TextField, Paper } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import "./ProfilePage.css";
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
