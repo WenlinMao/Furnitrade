@@ -108,18 +108,10 @@ class ProfilePage extends Component {
 
       return (
 
+        <MuiThemeProvider theme = {MainTheme}>
         <div className="profile-page-container">
             {/* Major part one - nav bar */}
             <NavigationBar className="nav-bar"/>
-
-            {/* <div class="card">
-            <img src="" alt="profile-pic"/>
-            <Button class="update-pic">Update picture</Button>
-            <p>
-            <textarea value={this.state.firstname}></textarea>
-            &nbsp; <textarea value={this.state.lastname}></textarea>
-            </p>
-            </div> */}
 
             {/* Major part two - user info */}
             <div className="user-info-container">
@@ -181,6 +173,7 @@ class ProfilePage extends Component {
             </div>
 
         </div>
+        </MuiThemeProvider>
       );
     }
   }

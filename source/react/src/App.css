@@ -27,10 +27,6 @@ html, body {
   color: #61dafb;
 }
 
-/*
-  ************  Navbar CSS ************
-*/
-
 /* for nav bar container */
 .nav-container{
   /* flex box set up */
@@ -40,7 +36,7 @@ html, body {
 
   /* width setup */
 
-  max-width: 1800px;
+  /* max-width: 1800px; */
   width: 100%;
 
   /* content justification */
@@ -54,8 +50,9 @@ html, body {
 }
 
 .logo {
-  width: 40;
-  height: 40;
+  width: calc(40px + 2vmin);
+  height: calc(40px + 2vmin);
+  margin-top: 3%;
 }
 
 .logo-img {
@@ -69,9 +66,11 @@ html, body {
   /* Centered "Furnitrade"*/
   align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+  
   /* TODO - remove the underline */
   text-decoration: none;
+  
+  /* TODO - plz delete after complete the theme */
   color: #3A8FB7;
 }
 
@@ -79,10 +78,6 @@ html, body {
   position:right;
 
 }
-
-/*
-  ************  Main page CSS ************
-*/
 
 /* slogan message part */
 .slogan-container {
@@ -93,6 +88,18 @@ html, body {
   /* width setup */
   max-width: 1800px;
   width: 100%;
+
+  /* content alignment */
+  justify-content: center;
+  text-align: center;
+}
+
+.slogan-container .furnitrade {
+  font-size: 18vw;
+  font-weight: 300;
+  font-family: "Righteous", sans-serif;
+  line-height: 1.14286em;
+  letter-spacing: -.04em;
 }
 
 .slogan-container .login-button {
@@ -111,10 +118,16 @@ html, body {
 }
 
 .slogan-container .slogan {
+  /* layout settings */
   -webkit-margin-before: 0.83em;
   margin-block-start: 0.83em;
   -webkit-margin-after: 0.93em;
   margin-block-end: 2em;
+  
+  /* text settings */
+  text-align: left;
+  font-size: 3vw;
+  font-weight: 300;
 }
 
 .mainpage-button-container {
@@ -124,11 +137,6 @@ html, body {
   justify-content: space-around;
 }
 
-/*
-  ************  Profile page CSS ************
-*/
-
-/* main container for profile page */
 .profile-page-container {
   display: flex;
   flex-direction: column;
@@ -136,128 +144,19 @@ html, body {
   width: 80%;
 }
 
-/* profile page nav bar style */
 .nav-bar {
   width: 10%;
 }
 
-/* Profile info section */
 .user-info-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .info-lhs {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-}
-
-.user-photo {
-    display: flex;
-    border-radius: 50%;
-    justify-content: space-around;
-    height: 80px;
-    weight: 80px;
-    width: 22%;
-}
-
-/* color changed, no width right now */
-.standard-read-only-input {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction:column;
-    background-color: #F6BD60;
-}
-
-.info-rhs {
-    width: 50%;
-}
-
-/*
-  ************  Login page CSS ************
-*/
-
-/* login page */
-.login-page{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 50%;
-}
-
-/* login title */
-.login-title{
-  text-align:center;
-}
-
-/* login text field */
-.login-form{
-  padding-top:5%;
-  display: flex;
-  flex-direction:column;
-
-  /* text field size */
-  width:50%;
-  align-self:center;
-}
-
-/* login-page button container*/
-.loginPage-button-container{
-  display: flex;
-  padding-top: 5%;
-  align-self: center;
-  justify-content: center;
   width: 40%;
 }
 
-/* login-page button */
-.loginPage-button-container .login-page-button{
-  justify-content: center;
-  background-color: #F6BD60;
-  width: inherit;
-}
-
-/*
-  ************  Register page CSS ************
-*/
-/* register page */
-.register-container{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 50%;
-}
-
-/* register page title */
-.register-title{
-  text-align: center;
-  padding-top: 10%;
-}
-
-/* register text fields */
-.register-form{
-  padding-top:5%;
-  display: flex;
-  flex-direction:column;
-
-  /* text field size */
-  width:50%;
-  align-self:center;
-}
-
-/* register button */
-.registerPage-button-container{
-  display: flex;
-  padding-top: 5%;
-  align-self: center;
-  justify-content: center;
-}
-
-/* register button */
-.registerPage-button-container .register-button{
-  justify-content: center;
-  background-color: #F6BD60;
-  width: inherit;
+.info-rhs {
+  width: 60%;
 }

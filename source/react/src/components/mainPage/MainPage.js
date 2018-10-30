@@ -75,7 +75,7 @@ const MainTheme = createMuiTheme({
               <StyleRoot>
               <div className="slogan-container" style={textStyle.fadeIn}>
 
-                <Typography className="furnitrade" variant = 'display4' color = 'inherit'>Furnitrade </Typography>
+                <Typography className="furnitrade" variant = 'display4' color = 'inherit' fontSize="18vw">Furnitrade </Typography>
                 <Typography className="slogan" variant = 'subheading' color = 'inherit'>
                 Trade Dat Shit. Yea, Dat's Right. I Know What U Want Babbee. <br/>Be fucking
                 surprised. Biatch </Typography>
