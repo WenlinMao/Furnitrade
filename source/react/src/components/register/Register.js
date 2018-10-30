@@ -12,9 +12,13 @@ import axios from 'axios';
 import $ from 'jquery';
 import {setLocal, getLocal} from '../../utils/util';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import "./Register.css";
+
+
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+
 
 /**
  * TODO:
@@ -235,7 +239,7 @@ class Register extends Component {
                 <MuiThemeProvider theme = {MainTheme}>
 
                 {/* add NavigationBar to register page */}
-                <NavigationBar className="nav-bar"/>
+                  <NavigationBar className="nav-bar"/>
                 <div className="register-title">
                   <Typography variant = "display2" color = "inherit"> Create Your Furnitrade Account
                   </Typography>
@@ -315,12 +319,10 @@ class Register extends Component {
                         onChange={this.handlePasswordConfirm('confirmPassword')}
                         error={this.state.confirmPasswordError}
                     />
+                    <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
+                        Create Account
+                    </Button>
                 </form>
-                <div className="registerPage-button-container">
-                  <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
-                      Create Account
-                  </Button>
-                </div>
                 {/* <Modal open={this.state.open} onClose={this.handleClose}>
                     <div style={getModalStyle()} className={classes.paper}>{this.state.errorMsg}</div>
                 </Modal> */}

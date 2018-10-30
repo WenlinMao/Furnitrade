@@ -189,15 +189,10 @@ class Login extends Component {
                             :
                             <div></div>
                         }
+                        <Button className = "login-page-button" type="submit" variant="contained" color="inherit">
+                          Login
+                        </Button>
                     </form>
-
-                    {/* TODO: button color adjustment*/ }
-                    <div className="loginPage-button-container">
-                      <Button className = "login-page-button" type="submit" variant="contained" color="inherit">
-                        Login
-                      </Button>
-                    </div>
-
             </MuiThemeProvider>
             </div>
 
