@@ -4,7 +4,7 @@ import MainPage from './components/mainPage/MainPage';
 import Register from './components/register/Register';
 import Login from './components/mainPage/login/Login.js';
 
-import Profile from './components/ProfilePage/ProfilePage.js'
+import Profile from './components/profilePage/ProfilePage.js'
 
 export default () =>
     <Switch>
