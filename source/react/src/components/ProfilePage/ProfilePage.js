@@ -121,7 +121,10 @@ class ProfilePage extends Component {
 
                 <img title="user-photo"
                 src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user photo"/>
+                alt = "used to store user photo" 
+                // todo
+                width="100" height="100"
+                />
                 <br/>
                 <TextField
 
