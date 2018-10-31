@@ -1,0 +1,9 @@
+/*
+************  FurniCategory CSS ************
+*/
+
+/* outside layer container */
+.category-container {
+    display: flex;
+    flex-direction: row;
+}
