@@ -16,7 +16,13 @@ import "./Login.css";
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
 // TODO: Background re-design
-// TODO: helper error text when login fail
+
+/**
+ * DONE:
+ * Send request 
+ * Error message based on response status code by helper text 
+ * Local storage and redirect to homepage 
+ */
 
 const styles = {
     container: {
@@ -43,27 +49,27 @@ const styles = {
 
   // apply main theme to login
   const MainTheme = createMuiTheme({
-    palette: {
-      primary: {
-        light: '#42668f',
-        main: '#134074',
-        dark: '#0d2c51',
+      palette: {
+          primary: {
+              light: '#42668f',
+              main: '#134074',
+              dark: '#0d2c51',
+          },
+          secondary: {
+              light: '#61a5c5',
+              main: '#3A8FB7',
+              dark: '#286480',
+          },
+          inherit: {
+              light: '#f7ca7f',
+              main: '#F6BD60',
+              dark: '#ac8443',
+          },
       },
-      secondary: {
-        light: '#61a5c5',
-        main: '#3A8FB7',
-        dark: '#286480',
-      },
-      inherit: {
-        light: '#f7ca7f',
-        main: '#F6BD60',
-        dark: '#ac8443',
-      },
-    },
       typography: {
-        fontFamily: '"Righteous", sans-serif',
+          fontFamily: '"Righteous", sans-serif',
       },
-    });
+  });
 
 
 class Login extends Component {
@@ -95,45 +101,52 @@ class Login extends Component {
         };
         console.log(reqData);
         axios({
-            method: 'post',
-            url: 'http://127.0.0.1:5000/auth/login',
-            // TODO: fix bug when change withCredentials to true
-            withCredentials: false,
-            crossdomain: true,
-            data: reqData,
-            responseType: 'json',
-            headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-            }
-      })
-      .then((response) => {
-          console.log(response.data);
-          let code = response.data.status;
-          if(code === 200) {
-              // successfully login
-              setLocal("username", reqData.username);
-              console.log("localStorgae", getLocal("username"));
-              // redirect to hompage
-              this.props.history.push("/");
-          }
-          else {
-              // username error
-              if(code === 310 || code === 312 || code === 315 || code === 318) {
-                console.log("username error");
-                this.setState({usernameError: true, passwordError: false, errorMsg: response.data.msg})
-              }
-              // password error
-              else if(code === 311 || code === 313 ) {
-                console.log("password error");
-                this.setState({usernameError: false, passwordError: true, errorMsg: response.data.msg});
-              }
-          }
-      })
-      .catch((error) => {
-          console.log("post error: " + error);
-      });
+                method: 'post',
+                url: 'http://127.0.0.1:5000/auth/login',
+                // TODO: fix bug when change withCredentials to true
+                withCredentials: false,
+                crossdomain: true,
+                data: reqData,
+                responseType: 'json',
+                headers: {
+                    //"Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache",
+                }
+            })
+            .then((response) => {
+                console.log(response.data);
+                let code = response.data.status;
+                if (code === 200) {
+                    // successfully login
+                    setLocal("username", reqData.username);
+                    console.log("localStorgae", getLocal("username"));
+                    // redirect to hompage
+                    this.props.history.push("/");
+                } else {
+                    // username error
+                    if (code === 310 || code === 312 || code === 315 || code === 318) {
+                        console.log("username error");
+                        this.setState({
+                            usernameError: true,
+                            passwordError: false,
+                            errorMsg: response.data.msg
+                        })
+                    }
+                    // password error
+                    else if (code === 311 || code === 313) {
+                        console.log("password error");
+                        this.setState({
+                            usernameError: false,
+                            passwordError: true,
+                            errorMsg: response.data.msg
+                        });
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log("post error: " + error);
+            });
     }
 
     render() {
@@ -201,6 +214,6 @@ class Login extends Component {
 }
 Login.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
 
 export default withStyles(styles)(Login);
