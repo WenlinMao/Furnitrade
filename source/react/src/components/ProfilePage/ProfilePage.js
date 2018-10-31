@@ -75,24 +75,25 @@ class ProfilePage extends Component {
         this.handleClick = this.handleClick.bind(this);
       }
 
-      handleChange(event) {
-       this.setState(
-           {username:event.target.username,
-            email:event.target.email,
-            address:event.target.address,
-            univeristy:event.target.univeristy});
-      }
+     handleChange(event) {
+       this.setState({
+         sername:event.target.username,
+         email:event.target.email,
+         address:event.target.address,
+         univeristy:event.target.univeristy,
+       });
+     }
 
-      handleClick() {
-          if (this.state.readOnly) {
-              this.setState({readOnly:false});
-          } else {
-              this.setState({readOnly:true});
-          }
-      }
+     handleClick() {
+       if (this.state.readOnly) {
+         this.setState({readOnly:false});
+       } else {
+         this.setState({readOnly:true});
+       }
+     }
 
 
-    render() {
+     render() {
 
       /* the save/edit button */
       let button;

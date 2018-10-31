@@ -315,12 +315,13 @@ class Register extends Component {
                         onChange={this.handlePasswordConfirm('confirmPassword')}
                         error={this.state.confirmPasswordError}
                     />
+                    <div className="registerPage-button-container">
+                      <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
+                          Create Account
+                      </Button>
+                    </div>
                 </form>
-                <div className="registerPage-button-container">
-                  <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
-                      Create Account
-                  </Button>
-                </div>
+
                 {/* <Modal open={this.state.open} onClose={this.handleClose}>
                     <div style={getModalStyle()} className={classes.paper}>{this.state.errorMsg}</div>
                 </Modal> */}
