@@ -8,7 +8,8 @@ import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
-import "../mainPage/MainPage.css"
+import "../mainPage/MainPage.css";
+
 // Temporary style TODO
 const Main = props => <Link to="./" {...props} />
 const Profile = props => <Link to="./profile" {...props} />

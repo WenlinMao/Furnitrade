@@ -77,11 +77,12 @@ class ProfilePage extends Component {
       }
 
       handleChange(event) {
-       this.setState(
-           {username:event.target.username,
+       this.setState({
+            username:event.target.username,
             email:event.target.email,
             address:event.target.address,
-            univeristy:event.target.univeristy});
+            univeristy:event.target.univeristy
+        });
       }
 
       handleClick() {

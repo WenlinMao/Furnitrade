@@ -8,7 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {setLocal, getLocal} from '../../utils/util';
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+
+// main link
+const Main = props => <Link to="./" {...props} />
 
 const styles = {
     list: {
@@ -52,6 +55,9 @@ const styles = {
       const sideList = (
         <div className={classes.list}>
           <List>
+              <li>
+                  <Button color="secondary" component={Main}>Home</Button>
+              </li>
               <li>
                   {/* TODO - just for testing profile page */}
                   <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>

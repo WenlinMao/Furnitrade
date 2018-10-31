@@ -13,6 +13,7 @@
   
     /* max-width: 1800px; */
     width: 100%;
+    height: 1vw;
   
     /* content justification */
     position: inherit;
@@ -28,6 +29,7 @@
     width: calc(40px + 2vmin);
     height: calc(40px + 2vmin);
     margin-top: 3vw;
+    margin-bottom: 1vw;
   }
   
   .logo-img {
