@@ -68,13 +68,8 @@ const MainTheme = createMuiTheme({
 
         <div className="main-page">
           <MuiThemeProvider theme = {MainTheme}>
-
-            <div className="nav-bar">
               <NavigationBar hasLogin={this.state.hasLogin}/>
-            </div>
-            {/* <div className = "img-intro"> */}
-              {/* <img src = {landing}></img> */}
-              {/* TODO */}
+
               <StyleRoot>
               <div className="slogan-container" style={textStyle.fadeIn}>
 
@@ -89,10 +84,6 @@ const MainTheme = createMuiTheme({
                 </div>
               </div>
               </StyleRoot>
-
-
-            {/* </div> */}
-
           </MuiThemeProvider>
         </div>
       );

@@ -8,8 +8,7 @@ import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
-import "../mainPage/MainPage.css";
-// import "./NavigationBar.css";
+import "./NavigationBar.css";
 
 // Temporary style TODO
 const Main = props => <Link to="./" {...props} />
@@ -50,8 +49,7 @@ const styles = {
         // const open = Boolean(anchorEl);
         console.log("in bar", this.props.hasLogin);
         return (
-            <div className="app-bar-container">
-
+            <div>
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
                     <Toolbar>
