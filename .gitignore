@@ -2,6 +2,7 @@
 
 # dependencies
 /source/react/node_modules
+/.vscode
 
 # testing
 /coverage
