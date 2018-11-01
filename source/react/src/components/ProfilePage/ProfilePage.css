@@ -8,30 +8,32 @@
     flex-wrap: wrap;
     width: 80%;
   }
-  
+
   /* profile page nav bar style */
   .nav-bar {
     width: 10%;
   }
-  
+
   /* Profile info section */
   .user-info-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
-  
+
   .info-lhs {
+    padding-top: 100px;
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 30ew;
+    padding-right: 50px;
   }
   .user-photo {
     display: flex;
     border-radius: 50%;
     justify-content: space-around;
-    height: 80px;
-    width: 22%;
+    height: 8ew;
+    width: 8ew;
   }
   /* color changed, no width right now */
   .standard-read-only-input {
@@ -39,11 +41,10 @@
     flex-wrap: nowrap;
     flex-direction:column;
     background-color: #F6BD60;
+    width:40ew;
   }
   .info-rhs {
-    width: 50%;
-  }
-  
-  .info-rhs {
-    width: 60%;
+    padding-top: 100px;
+    width: 50ew;
+    padding-left: 30px;
   }

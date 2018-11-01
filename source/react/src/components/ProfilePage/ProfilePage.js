@@ -123,7 +123,7 @@ class ProfilePage extends Component {
 
                 <img title="user-photo"
                 src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user photo" 
+                alt = "used to store user photo"
                 // todo
                 width="100" height="100"
                 />
@@ -166,13 +166,25 @@ class ProfilePage extends Component {
                     variant="filled"/>
                     <br/>
                 {/* Save/ Edit button */}
-                {button}
+                  {button}
 
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <TextField
 
+                  label="Address"
+                  defaultValue={this.state.university}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{readOnly: this.state.readOnly,}}
+                  variant="filled"/>
               </div>
 
             </div>
