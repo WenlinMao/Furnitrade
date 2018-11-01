@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, TextField, Paper } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 
@@ -123,7 +123,7 @@ class ProfilePage extends Component {
 
                 <img title="user-photo"
                 src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user photo"
+                alt = "used to store user info"
                 // todo
                 width="100" height="100"
                 />

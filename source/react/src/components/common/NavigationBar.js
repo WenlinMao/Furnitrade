@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import "./NavigationBar.css";
 
 // Temporary style TODO
