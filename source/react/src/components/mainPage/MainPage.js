@@ -69,7 +69,9 @@ const MainTheme = createMuiTheme({
         <div className="main-page">
           <MuiThemeProvider theme = {MainTheme}>
 
-            <NavigationBar className="nav-bar" hasLogin={this.state.hasLogin}/>
+            <div className="nav-bar">
+              <NavigationBar hasLogin={this.state.hasLogin}/>
+            </div>
             {/* <div className = "img-intro"> */}
               {/* <img src = {landing}></img> */}
               {/* TODO */}

@@ -9,6 +9,7 @@ import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import "../mainPage/MainPage.css";
+// import "./NavigationBar.css";
 
 // Temporary style TODO
 const Main = props => <Link to="./" {...props} />
@@ -49,7 +50,7 @@ const styles = {
         // const open = Boolean(anchorEl);
         console.log("in bar", this.props.hasLogin);
         return (
-            <div>
+            <div className="app-bar-container">
 
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
@@ -60,7 +61,7 @@ const styles = {
 
                             <div className="logo">
                                 <a href="http://localhost:3000/">
-                                    <img title="logo-img" src={testLogo} width="40px" height="40px"
+                                    <img className="logo-img" title="logo-img" src={testLogo} width="40px" height="40px"
                                     alt = "The logo of Furnitrade Platform."/>
                                 </a>
                             </div>
