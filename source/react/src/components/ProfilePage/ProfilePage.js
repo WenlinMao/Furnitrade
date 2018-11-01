@@ -156,14 +156,6 @@ class ProfilePage extends Component {
                     InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
-                <TextField
-
-                    label="Address"
-                    defaultValue={this.state.university}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    variant="filled"/>
                     <br/>
                 {/* Save/ Edit button */}
                   {button}
