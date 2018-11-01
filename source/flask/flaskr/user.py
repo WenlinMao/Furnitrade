@@ -23,12 +23,15 @@ class Delete(Resource):
 		pass;
 
 # take revised info, change profile info in database
+# Get userID from session. Then parse basic infos. And Overwrite
+# perhaps using pymongo. Due by SAT; Mao Li.
 class Edit(Resource):
 	@auth.login_required
 	def post(self):
 		pass;
 
 # take an id return user info
+# Get all user related info in database as JSON file.
 class Profile(Resource):
     @auth.login_required
 	def get(self):
