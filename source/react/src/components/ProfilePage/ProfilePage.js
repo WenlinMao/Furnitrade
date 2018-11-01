@@ -3,6 +3,7 @@ import NavigationBar from '../common/NavigationBar';
 import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
+import Dialog from '../common/Dialog';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -177,6 +178,7 @@ class ProfilePage extends Component {
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   variant="filled"/>
+              <Dialog/>
               </div>
 
             </div>
