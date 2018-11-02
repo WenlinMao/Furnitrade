@@ -36,5 +36,11 @@ def create_app(config_object=ProductionConfig):
         from . import furniture
         application.register_blueprint(furniture.bp)
 
+    # Added User session; By Mao.
+    with application.app_context():
+        from . import user
+        application.register_blueprint(user.bp)
+
+
 
     return application;
