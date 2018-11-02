@@ -23,33 +23,50 @@ export default class FormDialog extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
+        <Button onClick={this.handleClickOpen}>Reset Password</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occasionally.
+              You probably cannot reset your password from this page since I DONT WRITE DAT SHIT
             </DialogContentText>
+
+            {// TODO: 1: Need logic behind: check password state, change password state, error notification,
+             //       tooltips, etc.
+             //       2: style needed to add
+            }
             <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
+                id="password-input"
+                label="Old Password"
+                type="password"
+                margin="normal"
+                variant="outlined"
+                required={true}
+            />
+            <TextField
+                id="password-input"
+                label="New Password"
+                type="password"
+                margin="normal"
+                variant="outlined"
+                required={true}
+            />
+            <TextField
+                id="password-input"
+                label="Confirm New Password"
+                type="password"
+                margin="normal"
+                variant="outlined"
+                required={true}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Subscribe
+              Submit
             </Button>
           </DialogActions>
         </Dialog>
