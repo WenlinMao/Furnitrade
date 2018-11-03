@@ -1,5 +1,4 @@
 import functools
-<<<<<<< HEAD
 from flask_restful import Api, Resource, url_for
 
 from flask import (
@@ -20,30 +19,33 @@ import re
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 api = Api(bp);
 
-# TODO: Wrap up
-db = get_db();
-users = pymongo.collection.Collection(db, 'User');
+def get_users_collection():
+	db = get_db();
+	users = pymongo.collection.Collection(db, 'User');
+	return users;
 
 
-# helper funciton to find user name
-# TODO: suggest using verity_user
-def user_exist(username):
+# check if username exist in database
+def user_exist(username, users):
 	if users.find_one({"username": username}) is not None:
 		return True;
 	else:
 		return False;
 
-def check_username(mystring):
+# check if username format valid
+def check_username_valid(mystring):
 	user_allowed = string.ascii_letters + string.digits + '_' + '.' +'-';
 	return all(c in user_allowed for c in mystring)
 
-def email_exist(email):
+# check if email exist in database
+def email_exist(email, users):
 	if users.find_one({"email": email}) is not None:
 		return True;
 	else:
 		return False;
 
-def check_email(email):
+# check if email format correctly
+def check_email_valid(email):
 	return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email);
 
 # helper function to for login. Avoids multiple queries
@@ -52,17 +54,28 @@ def check_email(email):
 #		If password doesn't match
 # Input: username and password get from post
 # Output: status_code, msg, user_id
+#
 # TODO: set error/status code as global variable
 def verify_user(username, password):
+	users = get_users_collection();
 	if not username:
 		return 310, 'Username is required', None
 	elif not password:
 		return 311, 'Password is required', None
 
-	if not user_exist(username):
-		return 312, 'Username Doesnt Exist', None
+	# Use username or email to login in:
+	# First check if username exist, if exists, login in with username,
+	# if not, check if the user use email
+	# if neither username nor email exists, return error code 312
+	# if the user use email, use email to login in
+	if not user_exist(username, users):
+		if not email_exist(username, users):
+			return 312, 'Username/Email Doesnt Exist', None
+		else:
+			user = users.find_one({"email": username})
+	else:
+		user = users.find_one({"username": username})
 
-	user = users.find_one({"username": username})
 	if check_password_hash(user['password'], password):
 		return 200, 'Login Succeeded', str(user.get('_id'))
 	else:
@@ -77,11 +90,12 @@ def login_required():
 # 		check email is valid
 class Register(Resource):
 	def post(self):
-
+		users = get_users_collection();
 		postedData = request.get_json();
-
+		#print (type(postedData));
 		username = postedData['username'];
 		password = postedData['password'];
+		#address = "8520 Costa Verde";
 		address = postedData['address'];
 		email = postedData['email'];
 
@@ -101,18 +115,18 @@ class Register(Resource):
 		elif not email:
 			error_code = 318;
 			error = 'email is required.'
-		elif user_exist(username):
+		elif user_exist(username, users):
 			error_code = 310;
 			error = 'User {} is already registered.'.format(username)
-		elif email_exist(email):
+		elif email_exist(email, users):
 			error_code = 318;
 			error = 'Email {} is already registered.'.format(email)
-		elif check_username(username) == False:
+		elif check_username_valid(username) == False:
 			error_code = 310;
 			error = 'Username contains invalid symbols';
-		elif not check_email(email):
+		elif not check_email_valid(email):
 			error_code = 318;
-			error = 'Email invalid';	
+			error = 'Email invalid';
 
 		if error is None:
 			users.insert_one({
@@ -192,6 +206,7 @@ class Logout(Resource):
 # /auth/list : list users
 class List(Resource):
 	def get(self):
+		users = get_users_collection();
 		col_results = json.loads(dumps(users.find()));
 		return jsonify(col_results);
 
@@ -200,42 +215,3 @@ api.add_resource(Register, '/register');
 api.add_resource(List, '/list');
 api.add_resource(Login, '/login');
 api.add_resource(Logout, '/logout');
-=======
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-from werkzeug.security import check_password_hash, generate_password_hash
-
-bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
-
-        # TODO: change depends on database
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
-
-        if error is None:
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
-            return redirect(url_for('auth.login'))
-
-        flash(error)
-
-    return render_template('auth/register.html')
->>>>>>> b01fcb0a3086d436fdd0c5316a0add7ce5711dc2

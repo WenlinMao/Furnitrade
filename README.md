@@ -1,6 +1,7 @@
-<<<<<<< HEAD
-# Project name
+# Furnitrade
+
 ## Developer
+
 CSE 110 group name
 
 ## Dependencies
@@ -16,10 +17,3 @@ To assist your development, recommend have the following development tools:
 * Chrome: https://chrome.com For front-end debugging
 * Postman: https://getpostman.com For back end development
 * Robo3T: https://robomongo.org For Mongo DB Management
-=======
-# Furnitrade
-## Developer
-Team FTP (Furniture Trade Platform)
-
-
->>>>>>> b01fcb0a3086d436fdd0c5316a0add7ce5711dc2

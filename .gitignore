@@ -1,7 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/source/react/node_modules
+/.vscode
+<<<<<<< HEAD
+.idea
+=======
+>>>>>>> 08efa5322b75e9530b83939100eac9fed08e2ed6
 
 # testing
 /coverage
