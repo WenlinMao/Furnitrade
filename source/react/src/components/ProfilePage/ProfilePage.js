@@ -4,6 +4,7 @@ import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
+import ButtonBases from '../common/ButtonBases';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -122,12 +123,7 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <img title="user-photo"
-                src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user info"
-                // todo
-                width="100" height="100"
-                />
+                <ButtonBases imagePath={require("../../static/images/test-propic.jpg")}/>
                 <br/>
                 <TextField
 
