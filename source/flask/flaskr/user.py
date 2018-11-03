@@ -99,7 +99,37 @@ class Edit(Resource):
 class Profile(Resource):
     # @auth.login_required
     def get(self):
-        pass;
+        
+        # Check if user is logged in
+        if "user_id" not in session:
+            return jsonify({
+                "status": 316,
+                "msg": 'User is not logged in',
+                })
+
+        # Get user profile from database
+        user_id = session['user_id'];
+        users = auth.get_users_collection();
+        user = users.find_one({'_id': ObjectId(user_id)});
+
+        current_username = user['username'];
+        current_email = user['email'];
+        current_address = user['address'];
+        current_picture = user['picture'];
+
+        # Collect profile data
+        retJson = {
+            "status:" 200,
+            "msg": 'Get profile succeeded',
+            'username': current_username,
+            'email': current_email,
+            'address': current_address,
+            'picture': current_picture
+        }
+
+        # Return received data
+        return josnify(retJson);
+
 
 
 api.add_resource(Delete, '/delete');
