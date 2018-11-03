@@ -6,21 +6,19 @@ html, body {
     width: 100%;
     min-height: 100%;
 }
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
 
-.button:hover {
+/* .button:hover {
     background-color: #F6BD60;
-}
+} */
 .App-header {
   background-color: #3A8FB7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
+  width: 100%;
+  max-width: 1800px;
+  align-items: center;
+  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -28,81 +26,238 @@ html, body {
 .App-link {
   color: #61dafb;
 }
-/* Save rotate for later use */
+
 /*
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
-.img-intro img {
-  width: '800';
-  height: '600';
-  max-width:100%;
-}
-
-.img-intro h1 {
-    width: "280";
-    height: "40";
-    position: absolute;
-    /* color: #3A8FB7; */
-    color: #FFF;
-    top: 20%;
-    left: 52%;
-    font-size: 7vw !important;
-    text-align: center;
-    background-color: none;
-
-}
-
-.img-intro h2{
-  width: "250";
-  height: "40";
-  position: absolute;
-  color: #FFF;
-  top: 34%;
-  left: 60%;
-  font-size: 3vw !important;
-  text-align: center;
-  background-color: none;
-}
+  ************  Navbar CSS ************
+*/
 
 /* for nav bar container */
 .nav-container{
+  /* flex box set up */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+
+  /* width setup */
+
+  max-width: 1800px;
   width: 100%;
+
+  /* content justification */
   position: inherit;
+  justify-content: space-between;
   justify-items: center;
   align-items: center;
-  /* adjust padding top*/
+
   padding-top: 0px;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .logo {
-  width: 5%;
-  position: fixed left;
+  width: 40;
+  height: 40;
 }
 
-.title {
-  width: 90%;
-  /* font-size: 2.5vw; */
+.logo-img {
+  padding: 15%;
+}
+
+.title .furnitrade-title{
   justify-self: center;
   text-align: center;
-  text-size-adjust: 50%;
+
   /* Centered "Furnitrade"*/
   align-self: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  /* TODO - remove the underline */
+  text-decoration: none;
+  color: #3A8FB7;
 }
 
 .nav-drawer{
-  width: 5%;
   position:right;
 
+}
+
+/*
+  ************  Main page CSS ************
+*/
+
+/* slogan message part */
+.slogan-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  /* width setup */
+  max-width: 1800px;
+  width: 100%;
+}
+
+.slogan-container .login-button {
+  background-color: #F6BD60;
+  padding: 14px 16px;
+  border: none;
+  height: 48px;
+  border-radius: 4px;
+  width: 45%;
+
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.07px;
+  line-height: 5px;
+  text-transform: none;
+}
+
+.slogan-container .slogan {
+  -webkit-margin-before: 0.83em;
+  margin-block-start: 0.83em;
+  -webkit-margin-after: 0.93em;
+  margin-block-end: 2em;
+}
+
+.mainpage-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/*
+  ************  Profile page CSS ************
+*/
+
+/* main container for profile page */
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+/* profile page nav bar style */
+.nav-bar {
+  width: 10%;
+}
+
+/* Profile info section */
+.user-info-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.info-lhs {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.user-photo {
+    display: flex;
+    border-radius: 50%;
+    justify-content: space-around;
+    height: 80px;
+    weight: 80px;
+    width: 22%;
+}
+
+/* color changed, no width right now */
+.standard-read-only-input {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction:column;
+    background-color: #F6BD60;
+}
+
+.info-rhs {
+    width: 50%;
+}
+
+/*
+  ************  Login page CSS ************
+*/
+
+/* login page */
+.login-page{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 50%;
+}
+
+/* login title */
+.login-title{
+  text-align:center;
+}
+
+/* login text field */
+.login-form{
+  padding-top:5%;
+  display: flex;
+  flex-direction:column;
+
+  /* text field size */
+  width:50%;
+  align-self:center;
+}
+
+/* login-page button container*/
+.loginPage-button-container{
+  display: flex;
+  padding-top: 5%;
+  align-self: center;
+  justify-content: center;
+  width: 40%;
+}
+
+/* login-page button */
+.loginPage-button-container .login-page-button{
+  justify-content: center;
+  background-color: #F6BD60;
+  width: inherit;
+}
+
+/*
+  ************  Register page CSS ************
+*/
+/* register page */
+.register-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 50%;
+}
+
+/* register page title */
+.register-title{
+  text-align: center;
+  padding-top: 10%;
+}
+
+/* register text fields */
+.register-form{
+  padding-top:5%;
+  display: flex;
+  flex-direction:column;
+
+  /* text field size */
+  width:50%;
+  align-self:center;
+}
+
+/* register button */
+.registerPage-button-container{
+  display: flex;
+  padding-top: 5%;
+  align-self: center;
+  justify-content: center;
+}
+
+/* register button */
+.registerPage-button-container .register-button{
+  justify-content: center;
+  background-color: #F6BD60;
+  width: inherit;
 }

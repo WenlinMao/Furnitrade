@@ -6,7 +6,6 @@ import Routes from './Routes';
 class App extends Component {
   render() {
     return (
-
       <div>
         <header className="App-header">
           <Routes/>

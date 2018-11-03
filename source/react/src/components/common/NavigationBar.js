@@ -1,24 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 // Temporary style TODO
+const Main = props => <Link to="./" {...props} />
+const Profile = props => <Link to="./profile" {...props} />
+
 const styles = {
     root: {
       flexGrow: 1,
     },
     grow: {
       flexGrow: 1,
-    },
-    menuButton: {
-      width: "400",
-      marginLeft: -12,
-      marginRight: 20,
     },
   };
 
@@ -46,28 +46,34 @@ const styles = {
         // const { classes } = this.props;
         // const { anchorEl } = this.state;
         // const open = Boolean(anchorEl);
-
+        console.log("in bar", this.props.hasLogin);
         return (
             <div>
 
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
                     <Toolbar>
-                        <div class="nav-container">
+                        <div className="nav-container">
 
                             {/* This logo image should redirect the user to the MainPage - TODO */}
-                            <div class="logo">
-                                <img title="logo-img" src={testLogo} width="100%" height="100%"
+
+                            <div className="logo">
+                                <Button component={Main}>
+                                <img title="logo-img" src={testLogo} width="64px" height="64px"
                                 alt = "The logo of Furnitrade Platform."/>
+                                </Button>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
-                            <div class="title">
-                                <Typography variant = 'h6' color = 'secondary'>
+                            <div className="title">
+                                <Typography className="furnitrade-title" variant = 'title' 
+                                color = 'secondary' component={Main}>
                                 Furnitrade </Typography>
                             </div>
 
-                            <div class="nav-drawer"> <NavigationDrawer/> </div>
+                            <div className="nav-drawer"> 
+                                <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer> 
+                            </div>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -76,8 +82,8 @@ const styles = {
       }
   }
 
-  NavigationBar.PropTypes = {
-    classes: PropTypes.object.isRequired,
+  NavigationBar.propTypes = {
+    classes: propTypes.object.isRequired,
   };
 
 export default withStyles(styles)(NavigationBar)
