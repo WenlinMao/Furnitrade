@@ -6,6 +6,7 @@ import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
 import ButtonBases from '../common/ButtonBases';
 
+
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
 //      - Use container structure to divide page into a few parts
@@ -67,6 +68,7 @@ class ProfilePage extends Component {
       constructor(props) {
         super(props);
         this.state = {
+          picture: '',
           username: 'Jack Ma',
           email: 'jackma@alibaba.com',
           address: 'Hangzhou, China',
@@ -76,6 +78,7 @@ class ProfilePage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.onDrop = this.onDrop.bind(this);
       }
 
       handleChange(event) {
@@ -95,6 +98,11 @@ class ProfilePage extends Component {
           }
       }
 
+      onDrop(event) {
+          this.setState({
+              picture: event.target.picture
+          });
+      }
 
     render() {
 
@@ -123,7 +131,13 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <ButtonBases imagePath={require("../../static/images/test-propic.jpg")}/>
+              <img title="user-photo"
+              src={this.state.picture}className="user-photo"
+              alt = "used to store user info"
+              // todo
+              width="100" height="100"
+              />
+              <Button onClick={this.onDrop}>Update picture</Button>
                 <br/>
                 <TextField
 

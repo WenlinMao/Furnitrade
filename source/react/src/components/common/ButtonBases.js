@@ -84,7 +84,7 @@ const styles = theme => ({
 function ButtonBases(props) {
   const { classes } = props;
   const image={
-    url:classes.imagePath,
+    url:"test-propic.jpg",
     title:"Update",
     width:'50%',
   };
@@ -102,7 +102,7 @@ function ButtonBases(props) {
           <span
             className={classes.imageSrc}
             style={{
-              backgroundImage: `${image.url}`,
+              backgroundImage: `url(${image.url})`,
             }}
           />
           <span className={classes.imageBackdrop} />
@@ -114,7 +114,7 @@ function ButtonBases(props) {
               className={classes.imageTitle}
             >
               {image.title}
-              
+
             </Typography>
           </span>
         </ButtonBase>
