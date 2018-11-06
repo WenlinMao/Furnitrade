@@ -2,116 +2,71 @@
 ************  Main Page CSS ************
 */
 
-/* for nav bar container */
-.nav-container{
-    /* flex box set up */
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+/* main page css */
+.main-page {
+  display: flex;
+  flex-direction: column;
+
+  /* keep space for nav bar */
+  margin-top: 70px !important;
+  margin-bottom: 70px !important;
+}
+
+/* slogan message part */
+.slogan-container { 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  /* width setup */
+  max-width: 1800px;
+  width: 100%;
+
+  /* content alignment */
+  justify-content: center;
+  text-align: center;
+}
+
+.slogan-container .furnitrade {
+  font-size: 18vw;
+  font-weight: 300;
+  font-family: "Righteous", sans-serif;
+  line-height: 1.14286em;
+  letter-spacing: -.04em;
+}
+
+.slogan-container .login-button {
+  background-color: #F6BD60;
+  padding: 14px 16px;
+  border: none;
+  height: 48px;
+  border-radius: 4px;
+  width: 45%;
+
+  font-size: calc(10px + 2vmin);
+  font-weight: 500;
+  letter-spacing: 0.07px;
+  line-height: auto;
+  text-transform: none;
+}
+
+.slogan-container .slogan {
+  /* layout settings */
+  -webkit-margin-before: 0.83em;
+  margin-block-start: 0.83em;
+  -webkit-margin-after: 0.93em;
+  margin-block-end: 2em;
   
-    /* width setup */
-  
-    /* max-width: 1800px; */
-    width: 100%;
-    height: 1vw;
-  
-    /* content justification */
-    position: inherit;
-    justify-content: space-between;
-    justify-items: center;
-    align-items: center;
-  
-    padding-top: 0px;
-    margin: 0 auto;
-  }
-  
-  .logo {
-    width: calc(40px + 2vmin);
-    height: calc(40px + 2vmin);
-    margin-top: 3vw;
-    margin-bottom: 1vw;
-  }
-  
-  .logo-img {
-    padding: 15%;
-  }
-  
-  .title .furnitrade-title{
-    justify-self: center;
-    text-align: center;
-  
-    /* Centered "Furnitrade"*/
-    align-self: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
-    /* TODO - remove the underline */
-    text-decoration: none;
-    
-    /* TODO - plz delete after complete the theme */
-    color: #3A8FB7;
-  }
-  
-  .nav-drawer{
-    position:right;
-  
-  }
-  
-  /* slogan message part */
-  .slogan-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  
-    /* width setup */
-    max-width: 1800px;
-    width: 100%;
-  
-    /* content alignment */
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .slogan-container .furnitrade {
-    font-size: 18vw;
-    font-weight: 300;
-    font-family: "Righteous", sans-serif;
-    line-height: 1.14286em;
-    letter-spacing: -.04em;
-  }
-  
-  .slogan-container .login-button {
-    background-color: #F6BD60;
-    padding: 14px 16px;
-    border: none;
-    height: 48px;
-    border-radius: 4px;
-    width: 45%;
-  
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.07px;
-    line-height: 5px;
-    text-transform: none;
-  }
-  
-  .slogan-container .slogan {
-    /* layout settings */
-    -webkit-margin-before: 0.83em;
-    margin-block-start: 0.83em;
-    -webkit-margin-after: 0.93em;
-    margin-block-end: 2em;
-    
-    /* text settings */
-    text-align: left;
-    font-size: 3vw;
-    font-weight: 300;
-  }
-  
-  .mainpage-button-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+  /* text settings */
+  text-align: left;
+  font-size: 3vw;
+}
+
+.mainpage-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
   
   

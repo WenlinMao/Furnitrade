@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, TextField, Paper } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
+import Dialog from '../common/Dialog';
+import ButtonBases from '../common/ButtonBases';
+
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -65,6 +68,7 @@ class ProfilePage extends Component {
       constructor(props) {
         super(props);
         this.state = {
+          picture: '',
           username: 'Jack Ma',
           email: 'jackma@alibaba.com',
           address: 'Hangzhou, China',
@@ -74,6 +78,7 @@ class ProfilePage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.onDrop = this.onDrop.bind(this);
       }
 
       handleChange(event) {
@@ -93,6 +98,11 @@ class ProfilePage extends Component {
           }
       }
 
+      onDrop(event) {
+          this.setState({
+              picture: event.target.picture
+          });
+      }
 
     render() {
 
@@ -121,12 +131,13 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <img title="user-photo"
-                src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user photo" 
-                // todo
-                width="100" height="100"
-                />
+              <img title="user-photo"
+              src={this.state.picture}className="user-photo"
+              alt = "used to store user info"
+              // todo
+              width="100" height="100"
+              />
+              <Button onClick={this.onDrop}>Update picture</Button>
                 <br/>
                 <TextField
 
@@ -156,23 +167,28 @@ class ProfilePage extends Component {
                     InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
-                <TextField
-
-                    label="Address"
-                    defaultValue={this.state.university}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    variant="filled"/>
                     <br/>
                 {/* Save/ Edit button */}
-                {button}
+                  {button}
 
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <TextField
 
+                  label="Address"
+                  defaultValue={this.state.university}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{readOnly: this.state.readOnly,}}
+                  variant="filled"/>
+              <Dialog/>
               </div>
 
             </div>
