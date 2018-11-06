@@ -3,10 +3,7 @@
 # dependencies
 /source/react/node_modules
 /.vscode
-<<<<<<< HEAD
 .idea
-=======
->>>>>>> 08efa5322b75e9530b83939100eac9fed08e2ed6
 
 # testing
 /coverage
