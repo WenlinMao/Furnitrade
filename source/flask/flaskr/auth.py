@@ -1,4 +1,4 @@
-import functools
+from functools import wraps
 from flask_restful import Api, Resource, url_for
 
 from flask import (
@@ -7,7 +7,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
+from flaskr.db import get_db, get_users_collection
 import pymongo
 from bson.json_util import dumps
 import json
@@ -18,12 +18,6 @@ import re
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 api = Api(bp);
-
-def get_users_collection():
-	db = get_db();
-	users = pymongo.collection.Collection(db, 'User');
-	return users;
-
 
 # check if username exist in database
 def user_exist(username, users):
@@ -81,9 +75,19 @@ def verify_user(username, password):
 	else:
 		return 313, 'Password is incorrect. Try Again', None
 
-# TODO
-def login_required():
-	pass;
+# use this function to guard all resources that required login
+def login_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		if "user_id" in session:
+			return f(*args,**kwargs);
+
+		return jsonify({
+			"status" : 316,
+			"msg" : "User hasn't loged in",
+		});
+	return decorated;
+
 
 # /auth/register : register
 # TODO: add address, check password is valid, add email
@@ -189,19 +193,15 @@ class Login(Resource):
 
 
 class Logout(Resource):
+	@login_required
 	def get(self):
-		if "user_id" in session:
-			session['user_id'] = 0
-			session.pop('user_id', None)
-			return jsonify({
-				"status" : 200,
-				"msg" : "User successfully loged out",
-			});
-
+		session['user_id'] = 0
+		session.pop('user_id', None)
 		return jsonify({
-			"status" : 316,
-			"msg" : "User not loged in",
+			"status" : 200,
+			"msg" : "User successfully loged out",
 		});
+
 
 # /auth/list : list users
 class List(Resource):

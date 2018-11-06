@@ -4,8 +4,9 @@ from bson.json_util import dumps
 import json
 
 ########### Additional Dependencies Please Add Here ###################
-from flask_httpauth import HTTPBasicAuth
-from . import auth
+#from flask_httpauth import HTTPBasicAuth
+from flaskr import auth
+from flaskr.db import get_users_collection
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for,
@@ -18,19 +19,9 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp);
 
 
-# auth = HTTPBasicAuth()
-
-
-# @auth.verify_password
-def verify():
-    if "user_id" in session:
-        return True
-    return False
-
-
 # take an id of user, delete from database
 class Delete(Resource):
-    # @auth.login_required
+    @auth.login_required
     def get(self):
         pass;
 
@@ -41,8 +32,7 @@ class Delete(Resource):
 # Output: boolean - if success; msg - error message
 # Due by Sat; Mao Li
 class Edit(Resource):
-
-    # @auth.login_required
+    @auth.login_required
     def post(self):
         # Step1: Get post's jason file
         posted_data = request.get_json();
@@ -68,8 +58,7 @@ class Edit(Resource):
             if not auth.check_username_valid(new_username):
                 return jsonify({
                     "status": 310,
-                    "msg": "New username contains invalid \
-                        symbols"
+                    "msg": "New username contains invalid symbols"
                 })
 
         if new_email != user['email']:
@@ -97,38 +86,38 @@ class Edit(Resource):
 # take an id return user info
 # Get all user related info in database as JSON file.
 class Profile(Resource):
-    # @auth.login_required
-    def get(self):
-        
+    @auth.login_required
+    def get(self, username):
+
         # Check if user is logged in
         if "user_id" not in session:
             return jsonify({
-                "status": 316,
-                "msg": 'User is not logged in',
+                    "status": 316,
+                    "msg": 'User is not logged in',
                 })
 
         # Get user profile from database
         user_id = session['user_id'];
-        users = auth.get_users_collection();
+        users = get_users_collection();
         user = users.find_one({'_id': ObjectId(user_id)});
 
         current_username = user['username'];
         current_email = user['email'];
         current_address = user['address'];
-        current_picture = user['picture'];
+        # current_picture = user['picture'];
 
         # Collect profile data
         retJson = {
-            "status:" 200,
+            "status": 200,
             "msg": 'Get profile succeeded',
             'username': current_username,
             'email': current_email,
             'address': current_address,
-            'picture': current_picture
+            #'picture': current_picture
         }
 
         # Return received data
-        return josnify(retJson);
+        return jsonify(retJson);
 
 
 

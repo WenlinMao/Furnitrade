@@ -5,7 +5,7 @@ from flask import (
 from flask_restful import Api, Resource, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
+from flaskr.db import get_furniture_collection
 import pymongo
 from bson.json_util import dumps
 import json
