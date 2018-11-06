@@ -47,7 +47,7 @@ const styles = {
         // const { classes } = this.props;
         // const { anchorEl } = this.state;
         // const open = Boolean(anchorEl);
-        console.log("in bar", this.props.hasLogin);
+        // console.log("in bar", this.props.hasLogin);
         return (
             <div>
                 {/* App bar */}

@@ -9,23 +9,24 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {setLocal, getLocal} from '../../utils/util';
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 
 // main link
 const Main = props => <Link to="./" {...props} />
 
 const styles = {
-    list: {
-      width: 250,
-      textAlign:'center',
-    },
-    fullList: {
-      width: 'auto',
-    },
-  };
+  list: {
+    width: 250,
+    textAlign: 'center',
+  },
+  fullList: {
+    width: 'auto',
+  },
+};
 
 // const MyLink = props => <Link to="./login" {...props} />
 
-  class NavigationDrawer extends React.Component {
+class NavigationDrawer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -35,7 +36,9 @@ const styles = {
     }
 
     componentWillMount() {
-      this.setState({showLogout: this.props.showLogout});
+      this.setState({
+        showLogout: this.props.showLogout
+      });
     }
     NavigationDrawer = (side, open) => () => {
       this.setState({
@@ -45,12 +48,25 @@ const styles = {
 
     // Temporay hack 
     handleLogout = (e) => {
-      setLocal("username", "");
-      this.setState({showLogout: false});
-    }
+        setLocal("username", "");
+        this.setState({
+          showLogout: false
+        });
+
+      axios({
+          method: 'get',
+          url: 'http://127.0.0.1:5000/auth/logout'
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
 
     render() {
-      console.log("in drawer", this.props.showLogout);
+      // console.log("in drawer", this.props.showLogout);
       const { classes } = this.props;
       const sideList = (
         <div className={classes.list}>
