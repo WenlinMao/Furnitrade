@@ -74,8 +74,8 @@ class Edit(Resource):
                 })
 
         # Step 3: update the user's info in database
-        users.replace_one({'_id': ObjectId(user_id)},
-                          {"username": new_username, "email": new_email, "address": new_address});
+        users.update_one({'_id': ObjectId(user_id)},
+                          {"$set": {"username": new_username, "email": new_email, "address": new_address}});
 
         return jsonify({
             "status": 200,
