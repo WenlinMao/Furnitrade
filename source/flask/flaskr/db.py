@@ -45,3 +45,8 @@ def get_furniture_collection():
 	db = get_db();
 	users = pymongo.collection.Collection(db, 'Furniture');
 	return users;
+
+def get_contact_form_collection():
+	db = get_db();
+	users = pymongo.collection.Collection(db, 'Contact_Form');
+	return users;

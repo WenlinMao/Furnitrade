@@ -88,11 +88,26 @@ def login_required(f):
 		});
 	return decorated;
 
+# use this function to guard all resources that required logout
+def logout_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		if "user_id" not in session:
+			return f(*args,**kwargs);
+
+		# Return the status to front end.
+		return jsonify({
+			"status" : 315,
+			"msg" : "User already loged in",
+		});
+	return decorated;
+
 
 # /auth/register : register
 # TODO: add address, check password is valid, add email
 # 		check email is valid
 class Register(Resource):
+	@logout_required
 	def post(self):
 		users = get_users_collection();
 		postedData = request.get_json();
@@ -160,36 +175,26 @@ class Register(Resource):
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
+	@logout_required
 	def post(self):
+		# 1. Get username and password from POST
+		postedData = request.get_json();
+		username = postedData['username'];
+		password = postedData['password'];
 
-		# Check if user is loged in, uncomment after logout is finished
-		if "user_id" not in session:
+		# 2. Error Checking:
+		status_code, msg, user_id = verify_user(username, password)
 
-			# 1. Get username and password from POST
-			postedData = request.get_json();
-			username = postedData['username'];
-			password = postedData['password'];
+		# 3. successfully logged in by setting session id.
+		if status_code == 200:
+			session.clear()
+			session['user_id'] = user_id
 
-			# 2. Error Checking:
-			status_code, msg, user_id = verify_user(username, password)
-
-			# 3. successfully logged in by setting session id.
-			if status_code == 200:
-				session.clear()
-				session['user_id'] = user_id
-
-			# Return the status to front end.
-			return jsonify({
-				"status" : status_code,
-				"msg" : msg,
-			})
-
-		else:
-			# Return the status to front end.
-			return jsonify({
-				"status" : 315,
-				"msg" : "User already loged in",
-			});
+		# Return the status to front end.
+		return jsonify({
+			"status" : status_code,
+			"msg" : msg,
+		})
 
 
 class Logout(Resource):

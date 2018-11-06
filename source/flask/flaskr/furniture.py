@@ -23,7 +23,6 @@ def verify():
         return True
     return False
 
-
 # take a form, store information in the database
 class Post(Resource):
 	def post(self):
@@ -45,13 +44,10 @@ class Update(Resource):
 
 # take an id return furniture info
 class Detail(Resource):
-	def get(self):
-		# multiset that takes argument
-		args = request.args
-		furniture_name = args['furniture_name'];
+	def get(self, furniture_name):
 		pass;
 
 api.add_resource(Post, '/post');
 api.add_resource(Delete, '/delete');
 api.add_resource(Update, '/update');
-api.add_resource(Detail, '/detail');
+api.add_resource(Detail, '/detail/<string:furniture_name>');
