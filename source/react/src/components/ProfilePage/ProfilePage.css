@@ -27,8 +27,10 @@
     flex-direction: column;
     width: 30ew;
     padding-right: 50px;
+    padding-left:200px;
   }
   .user-photo {
+    padding-left: 200px;
     display: flex;
     border-radius: 50%;
     justify-content: space-around;
@@ -44,7 +46,9 @@
     width:40ew;
   }
   .info-rhs {
-    padding-top: 100px;
-    width: 50ew;
+    padding-top: 265px;
+    display: flex;
+    flex-direction: column;
+    width: 30ew;
     padding-left: 30px;
   }

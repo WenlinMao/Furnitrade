@@ -68,7 +68,7 @@ class ProfilePage extends Component {
       constructor(props) {
         super(props);
         this.state = {
-          picture: '',
+          picture: 'http://localhost:3000/static/images/test-propic.jpg',
           username: 'Jack Ma',
           email: 'jackma@alibaba.com',
           address: 'Hangzhou, China',
@@ -132,7 +132,7 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
               <img title="user-photo"
-              src={this.state.picture}className="user-photo"
+              src={this.props.picture}className="user-photo"
               alt = "used to store user info"
               // todo
               width="100" height="100"
@@ -167,19 +167,13 @@ class ProfilePage extends Component {
                     InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
-                    <br/>
-                {/* Save/ Edit button */}
-                  {button}
+
 
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
+
               <TextField
 
                   label="Address"
@@ -189,6 +183,10 @@ class ProfilePage extends Component {
                   InputProps={{readOnly: this.state.readOnly,}}
                   variant="filled"/>
               <Dialog/>
+              <br/>
+              {/* Save/ Edit button */}
+                {button}
+
               </div>
 
             </div>
