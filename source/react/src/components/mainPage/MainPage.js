@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NavigationBar from '../common/NavigationBar';
+import NavBar from '../common/NavBar/NavBar';
 import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import {Link} from 'react-router-dom';
@@ -69,6 +70,8 @@ const MainTheme = createMuiTheme({
         <div className="main-page">
           <MuiThemeProvider theme = {MainTheme}>
               <NavigationBar hasLogin={this.state.hasLogin}/>
+
+              {/* <NavBar hasLogin={this.state.hasLogin}/> */}
 
               <StyleRoot>
               <div className="slogan-container" style={textStyle.fadeIn}>
