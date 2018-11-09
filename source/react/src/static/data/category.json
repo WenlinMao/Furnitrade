@@ -1,51 +1,51 @@
 {
     "cells": [
         {
-            "title": "Intro to React",
+            "title": "Home electronics",
             "image": "https://cl.ly/0Q1n3K431Y1S/download/logo-react-small.png"
         },
 		{
-			"title": "Basic Styling in CSS",
+			"title": "Kitchens",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Adaptive Layout with CSS Grid",
+			"title": "Dining",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Interactions and Animations",
+			"title": "Living room",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "SVG Animation",
+			"title": "Bedroom",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Components and Props",
+			"title": "Office furniture",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "States and Events",
+			"title": "Laundry",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Styled Components",
+			"title": "Bathroom",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Static Data with JSON",
+			"title": "Storage",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "GraphQL with Contentful",
+			"title": "Textiles & Rugs",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Publish to Netlify",
+			"title": "Lighting",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		},
 		{
-			"title": "Payment with Stripe Checkout",
+			"title": "Cooking",
 			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
 		}
     ]
