@@ -80,6 +80,8 @@ class ProfilePage extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.handleEmailInput=this.handleEmailInput.bind(this);
+    this.handleNameInput=this.handleNameInput.bind(this);
   }
 
   // send get request, get the user profile
@@ -125,13 +127,31 @@ class ProfilePage extends Component {
 
     // need to change
     handleChange(event) {
-      this.setState({
-        username: event.target.username,
-        email: event.target.email,
+      this.handleEmailInput();
+      this.handleNameInput();
+    this.setState({
         address: event.target.address,
         univeristy: event.target.univeristy
       });
 
+    }
+
+
+    handleNameInput = name=>event=>{
+      
+      if(event.target.value.match(nameRegex)){
+        this.setState({username:event.target.value,nameRegex});
+      }else{
+        this.setState({nameError:true});
+      }
+    }
+
+    handleEmailInput = email=>event=>{
+      if(event.target.value.match(emailRegex)){
+        this.setState({email:event.target.value,emailRegex});
+      }else{
+        this.setState({emailError:true});
+      }
     }
 
     handleClick() {
