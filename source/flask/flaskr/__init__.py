@@ -7,6 +7,7 @@ import os;
 from flask import Flask, request, abort, jsonify, send_from_directory;
 from config import ProductionConfig;
 from flask_cors import CORS
+from flask_mail import Message, Mail
 
 def create_app(config_object=ProductionConfig):
     # create and configure the app
@@ -23,6 +24,10 @@ def create_app(config_object=ProductionConfig):
     # aviod CORS
     cors = CORS(application, resources={r"*": {"origins": "*"}})
 
+    # initialize mailer
+    mail = Mail()
+    mail.init_app(application)
+
     # a simple page that says hello
     @application.route('/hello')
     def hello():
@@ -35,6 +40,16 @@ def create_app(config_object=ProductionConfig):
     with application.app_context():
         from . import furniture
         application.register_blueprint(furniture.bp)
+
+    # Added User session; By Mao.
+    with application.app_context():
+        from . import user
+        application.register_blueprint(user.bp)
+
+    with application.app_context():
+        from . import contact_form
+        application.register_blueprint(contact_form.bp)
+
 
 
     return application;

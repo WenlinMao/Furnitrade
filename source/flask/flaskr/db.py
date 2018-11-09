@@ -21,8 +21,8 @@ def init_db():
 def get_db():
     if 'db' not in g:
         mongo = pymongo.MongoClient(
-        	current_app.config['MONGODB_DATABASE_URI'], 
-        	maxPoolSize=50, 
+        	current_app.config['MONGODB_DATABASE_URI'],
+        	maxPoolSize=50,
         	connect=False
         )
 
@@ -36,5 +36,17 @@ def close_db(e=None):
     if db is not None:
         db.close();
 
+def get_users_collection():
+	db = get_db();
+	users = pymongo.collection.Collection(db, 'User');
+	return users;
 
+def get_furniture_collection():
+	db = get_db();
+	users = pymongo.collection.Collection(db, 'Furniture');
+	return users;
 
+def get_contact_form_collection():
+	db = get_db();
+	users = pymongo.collection.Collection(db, 'Contact_Form');
+	return users;

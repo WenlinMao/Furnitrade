@@ -5,6 +5,11 @@ class Config(object):
 	DEBUG = False
 	TESTING = False
 	SECRET_KEY='CSE110!Wenlin'
+	MAIL_SERVER = 'smtp.gmail.com'
+	MAIL_PORT = 465
+	MAIL_USE_SSL = True
+	MAIL_USERNAME = 'furnitradeftp@gmail.com'
+	MAIL_PASSWORD = 'furnitrade110'
 
 class ProductionConfig(Config):
 	ENV = 'production'
@@ -23,9 +28,9 @@ class TestingConfig(Config):
 	DATABASE = "test";
 
 config = {
-	'development': DevelopmentConfig, 
-	'testing': TestingConfig, 
+	'development': DevelopmentConfig,
+	'testing': TestingConfig,
 	'production': ProductionConfig,
 
-	'default': DevelopmentConfig 
+	'default': DevelopmentConfig
 }

@@ -5,34 +5,27 @@ from flask import (
 from flask_restful import Api, Resource, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
 import pymongo
 from bson.json_util import dumps
 import json
 
 ########### Additional Dependencies Please Add Here ###################
-from flask_httpauth import HTTPBasicAuth
+from flaskr import auth
+from flaskr.db import get_furniture_collection
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
 api = Api(bp);
-auth = HTTPBasicAuth()
-
-@auth.verify_password
-def verify():
-    if "user_id" in session:
-        return True
-    return False
-
 
 # take a form, store information in the database
 class Post(Resource):
+	@auth.login_required
 	def post(self):
 		pass;
 
 # take an id of furniture, delete from database
 class Delete(Resource):
 	@auth.login_required
-	def get(self):
+	def get(self, furniture_name):
 		args = request.args
 		furniture_name = args['furniture_id'];
 		pass;
@@ -45,13 +38,11 @@ class Update(Resource):
 
 # take an id return furniture info
 class Detail(Resource):
-	def get(self):
-		# multiset that takes argument
-		args = request.args
-		furniture_name = args['furniture_name'];
+	@auth.login_required
+	def get(self, furniture_name):
 		pass;
 
 api.add_resource(Post, '/post');
-api.add_resource(Delete, '/delete');
+api.add_resource(Delete, '/delete/<string:furniture_name>');
 api.add_resource(Update, '/update');
-api.add_resource(Detail, '/detail');
+api.add_resource(Detail, '/detail/<string:furniture_name>');
