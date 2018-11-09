@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NavigationBar from '../common/NavigationBar';
+import NavBar from '../common/NavBar/NavBar';
 import { fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import {getLocal} from '../../utils/util';
+import "./MainPage.css";
 
 // log-in link
 const MyLink = props => <Link to="./Register" {...props} />
@@ -67,15 +69,14 @@ const MainTheme = createMuiTheme({
 
         <div className="main-page">
           <MuiThemeProvider theme = {MainTheme}>
+              <NavigationBar hasLogin={this.state.hasLogin}/>
 
-            <NavigationBar className="nav-bar" hasLogin={this.state.hasLogin}/>
-            {/* <div className = "img-intro"> */}
-              {/* <img src = {landing}></img> */}
-              {/* TODO */}
+              {/* <NavBar hasLogin={this.state.hasLogin}/> */}
+
               <StyleRoot>
               <div className="slogan-container" style={textStyle.fadeIn}>
 
-                <Typography className="furnitrade" variant = 'display4' color = 'inherit'>Furnitrade </Typography>
+                <Typography className="furnitrade" variant = 'display4' color = 'inherit' fontSize="18vw">Furnitrade </Typography>
                 <Typography className="slogan" variant = 'subheading' color = 'inherit'>
                 Trade Dat Shit. Yea, Dat's Right. I Know What U Want Babbee. <br/>Be fucking
                 surprised. Biatch </Typography>
@@ -86,10 +87,6 @@ const MainTheme = createMuiTheme({
                 </div>
               </div>
               </StyleRoot>
-
-
-            {/* </div> */}
-
           </MuiThemeProvider>
         </div>
       );

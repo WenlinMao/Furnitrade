@@ -4,7 +4,7 @@ import MainPage from './components/mainPage/MainPage';
 import Register from './components/register/Register';
 import Login from './components/mainPage/login/Login.js';
 
-import Profile from './components/ProfilePage/ProfilePage.js'
+import ProfilePage from './components/profilePage/ProfilePage.js'
 
 export default () =>
     <Switch>
@@ -13,5 +13,5 @@ export default () =>
         <Route path = "/login" component = {Login} />
 
         {/* Testing - profile page */}
-        <Route path = "/profile" component = {Profile} />
+        <Route path = "/profile" component = {ProfilePage} />
     </Switch>;

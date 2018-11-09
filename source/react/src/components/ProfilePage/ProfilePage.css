@@ -1,0 +1,53 @@
+/*
+************  Profile Page CSS ************
+*/
+
+.profile-page-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80%;
+  }
+
+  /* profile page nav bar style */
+  .nav-bar {
+    width: 10%;
+  }
+
+  /* Profile info section */
+  .user-info-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .info-lhs {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 30ew;
+    padding-right: 50px;
+    padding-left:200px;
+  }
+  .user-photo {
+    padding-left: 50px;
+    display:block;
+    justify-content: space-around;
+    height: 5ew;
+    width: 5ew;
+  }
+  /* color changed, no width right now */
+  .standard-read-only-input {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction:column;
+    background-color: #F6BD60;
+    width:40ew;
+  }
+  .info-rhs {
+    padding-top:260px;
+    display: flex;
+    flex-direction: column;
+    width: 30ew;
+    padding-left: 30px;
+  }

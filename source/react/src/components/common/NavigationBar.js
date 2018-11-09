@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import NavigationDrawer from './NavigationDrawer';
 import testLogo from '../../static/images/test-logo.jpg';
 import { Link } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import "./NavigationBar.css";
 
 // Temporary style TODO
 const Main = props => <Link to="./" {...props} />
@@ -46,10 +47,9 @@ const styles = {
         // const { classes } = this.props;
         // const { anchorEl } = this.state;
         // const open = Boolean(anchorEl);
-        console.log("in bar", this.props.hasLogin);
+        // console.log("in bar", this.props.hasLogin);
         return (
             <div>
-
                 {/* App bar */}
                 <AppBar position = 'fixed' color="inherit">
                     <Toolbar>
@@ -58,21 +58,21 @@ const styles = {
                             {/* This logo image should redirect the user to the MainPage - TODO */}
 
                             <div className="logo">
-                                <Button component={Main}>
-                                <img title="logo-img" src={testLogo} width="64px" height="64px"
-                                alt = "The logo of Furnitrade Platform."/>
-                                </Button>
+                                <a href="http://localhost:3000/">
+                                    <img className="logo-img" title="logo-img" src={testLogo} width="40px" height="40px"
+                                    alt = "The logo of Furnitrade Platform."/>
+                                </a>
                             </div>
 
                             {/* This text should redirect the user to the MainPage - TODO */}
                             <div className="title">
-                                <Typography className="furnitrade-title" variant = 'title' 
+                                <Typography className="furnitrade-title" variant = 'title'
                                 color = 'secondary' component={Main}>
                                 Furnitrade </Typography>
                             </div>
 
-                            <div className="nav-drawer"> 
-                                <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer> 
+                            <div className="nav-drawer">
+                                <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
                             </div>
                         </div>
                     </Toolbar>

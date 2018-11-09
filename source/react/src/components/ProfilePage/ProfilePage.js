@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, TextField, Paper } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import "./ProfilePage.css";
+import Dialog from '../common/Dialog';
+
+import axios from 'axios';
+import {getLocal} from '../../utils/util';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -55,46 +60,100 @@ const MainTheme = createMuiTheme({
       dark: '#ac8443',
     },
   },
-    typography: {
-      fontFamily: '"Righteous", sans-serif',
-    },
-  });
+  typography: {
+    fontFamily: '"Righteous", sans-serif',
+  },
+});
 
 class ProfilePage extends Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          username: 'Jack Ma',
-          email: 'jackma@alibaba.com',
-          address: 'Hangzhou, China',
-          university: 'University of California, San Diego',
+  constructor(props) {
+    super(props);
+    this.state = {
+      picture: 'test-propic.jpg',
+      username: 'Jack Ma',
+      email: 'jackma@alibaba.com',
+      address: 'Hangzhou, China',
+      university: 'University of California, San Diego',
+      readOnly: true
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+  }
+
+  // send get request, get the user profile
+ /* componentDidMount() {
+    let username = getLocal("username");
+    // change the logic later
+    let reqData = {
+      'username': username
+    };
+    if (username !== '') {
+      axios({
+        method: 'get',
+        url: 'http://127.0.0.1:5000/profile/' + username,
+        // withCredentials: false,
+        // crossdomain: true,
+        data: reqData,
+        // responseType: 'json',
+        // headers: {
+        //   //"Content-Type": "application/x-www-form-urlencoded",
+        //   "Content-Type": "application/json",
+        //   "Cache-Control": "no-cache",
+        // }
+      }).then((response) => {
+        console.log(response.data);
+        let code = response.data.status;
+        if (code === 200) {
+          this.setState({
+            username: response.data.username,
+            email: response.data.email,
+            address: response.data.address,
+            university: response.data.univeristy,
+          });
+        } else if (code === 316) {
+          console.log("user not logged in");
+        }
+      }).catch((error) => {
+        console.log("get profile: " + error);
+      });
+    }
+  }*/
+
+
+
+    // need to change
+    handleChange(event) {
+      this.setState({
+        username: event.target.username,
+        email: event.target.email,
+        address: event.target.address,
+        univeristy: event.target.univeristy
+      });
+
+    }
+
+    handleClick() {
+      if (this.state.readOnly) {
+        this.setState({
+          readOnly: false
+        });
+      } else {
+        this.setState({
           readOnly: true
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        });
       }
+    }
 
-     handleChange(event) {
-       this.setState({
-         sername:event.target.username,
-         email:event.target.email,
-         address:event.target.address,
-         univeristy:event.target.univeristy,
-       });
-     }
-
-     handleClick() {
-       if (this.state.readOnly) {
-         this.setState({readOnly:false});
-       } else {
-         this.setState({readOnly:true});
-       }
-     }
+    onDrop(event) {
+      this.setState({
+        picture: event.target.picture
+      });
+    }
 
 
-     render() {
-
+    render() {
       /* the save/edit button */
       let button;
       if (this.state.readOnly) {
@@ -109,18 +168,10 @@ class ProfilePage extends Component {
 
       return (
 
+        <MuiThemeProvider theme = {MainTheme}>
         <div className="profile-page-container">
             {/* Major part one - nav bar */}
             <NavigationBar className="nav-bar"/>
-
-            {/* <div class="card">
-            <img src="" alt="profile-pic"/>
-            <Button class="update-pic">Update picture</Button>
-            <p>
-            <textarea value={this.state.firstname}></textarea>
-            &nbsp; <textarea value={this.state.lastname}></textarea>
-            </p>
-            </div> */}
 
             {/* Major part two - user info */}
             <div className="user-info-container">
@@ -128,9 +179,13 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <img title="user-photo"
-                src={require("../../static/images/test-propic.jpg")}className="user-photo"
-                alt = "used to store user photo"/>
+              <img title="user-photo"
+              src={require("../../static/images/"+this.state.picture)}className="user-photo"
+              alt = "used to store user info"
+              // todo
+              width="100" height="100"
+              />
+              <Button onClick={this.onDrop}>Update picture</Button>
                 <br/>
                 <TextField
 
@@ -160,28 +215,32 @@ class ProfilePage extends Component {
                     InputProps={{readOnly: this.state.readOnly,}}
                     variant="filled"/>
 
-                <TextField
 
-                    label="Address"
-                    defaultValue={this.state.university}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    variant="filled"/>
-                    <br/>
-                {/* Save/ Edit button */}
-                {button}
 
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
 
+              <TextField
+
+                  label="Address"
+                  defaultValue={this.state.university}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{readOnly: this.state.readOnly,}}
+                  variant="filled"/>
+              <Dialog/>
+              <br/>
+              {/* Save/ Edit button */}
+                {button}
+
               </div>
 
             </div>
 
         </div>
+        </MuiThemeProvider>
       );
     }
   }
