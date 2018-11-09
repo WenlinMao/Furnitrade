@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../common/NavBar/NavBar';
+import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
 import Wave from '../common/Wave';
@@ -44,9 +44,12 @@ import "./MainPage.css";
               
             </div>
             <Wave/>          
-
           {/* End of Index DIV */}
           </div>
+
+          {/* Section of About US */}
+          
+          {/* Section of categories */}
 
         {/* Final DIV - add everything above this DIV */}
         </div>

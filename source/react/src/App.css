@@ -21,7 +21,7 @@ html, body {
 .App h1{
   margin: 0;
   color: white;
-  font-size: 80px;
+  font-size: 85px;
   line-height: 1.2;
   opacity: 0;
   animation: IndexAnimation;

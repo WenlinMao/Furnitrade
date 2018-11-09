@@ -31,3 +31,23 @@
     grid-template-columns: repeat(2, auto);
     grid-gap: 40px;
 }
+
+@media (max-width: 640px) {
+    .Index-group {
+        padding: 100px 20px;
+    }
+  
+    .Index h1 {
+        font-size: 40px;
+    }
+  
+    .Index p {
+        font-size: 24px;
+    }
+  }
+
+  .Index svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

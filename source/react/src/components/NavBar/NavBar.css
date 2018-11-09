@@ -57,7 +57,7 @@
     }
 
     .Header-group {
-        grid-template-columns: repeat(3, auto); 
+        grid-template-columns: repeat(4, auto); 
     }
 
     .Header a:nth-child(4){
