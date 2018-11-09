@@ -16,16 +16,23 @@ const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
 
+/* password condition */
+const password_lower = /(?=.*[a-z])/;
+const password_upper = /(?=.*[A-Z])/;
+const password_number = /(?=.*\d)/;
+const password_symbol = /(?=.*[!#\$%&\?])/;
+const password_length = /.{8,20}/;
+
 /**
  * TODO:
- * Forget password 
+ * Forget password
  * Remember me
- * 
+ *
  * DONE:
- * Input syntax validation by regex and red error status 
- * Create account button is disabled until syntax validation passed 
- * Username rule / password rule by tooltips 
- * Error message by helper text 
+ * Input syntax validation by regex and red error status
+ * Create account button is disabled until syntax validation passed
+ * Username rule / password rule by tooltips
+ * Error message by helper text
  * Send request, local storage and redirect to homepage (current routing)
  */
 
@@ -329,7 +336,7 @@ class Register extends Component {
                             <React.Fragment>
                             8 characters minimum <br/>
                             Contains at least 1 capital letter <br/>
-                            Contains at least 1 number 
+                            Contains at least 1 number
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
