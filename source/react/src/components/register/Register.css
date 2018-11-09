@@ -28,6 +28,10 @@
   }
 
 
+  .register-icon {
+    padding-left: 10%;
+    display: inline-block;
+  }
   /* register button */
   .registerPage-form .register-button{
   justify-content: center;

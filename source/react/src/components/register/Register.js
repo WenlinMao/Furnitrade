@@ -255,8 +255,8 @@ class Register extends Component {
                     <Tooltip
                         title={
                             <React.Fragment>
-                            4 characters minimum <br/>
-                            No special characters
+                            4 characters minimum <div className="register-icon"><i class="far fa-check-circle"></i></div><br/>
+                            No special characters<div className="register-icon"><i class="far fa-times-circle"></i></div>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
