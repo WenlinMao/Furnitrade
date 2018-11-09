@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header className="App-header">
+        <header className="App">
           <Routes/>
         </header>
       </div>

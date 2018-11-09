@@ -55,9 +55,12 @@ class NavBar extends React.Component {
       <div className={this.state.hasScrolled ? "Header HeaderScrolled" : "Header"}>
         <div className="Header-group">
           <Link to="/"><img src={require('../../../static/images/test-logo.jpg')} width="30"/></Link>
-          <p> </p>
-          <p> </p>
-          <p> </p>
+          {/* <a>Home</a>
+          <a>Category</a>
+          <a>About Us</a> */}
+          <a href='./'>Home</a>
+          <a>Category</a>
+          <a>About Us</a>
           <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
         </div>
       </div>

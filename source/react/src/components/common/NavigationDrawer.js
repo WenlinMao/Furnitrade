@@ -11,9 +11,6 @@ import {setLocal, getLocal} from '../../utils/util';
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 
-// main link
-const Main = props => <Link to="./" {...props} />
-
 const styles = {
   list: {
     width: 250,
@@ -72,26 +69,20 @@ class NavigationDrawer extends React.Component {
         <div className={classes.list}>
           <List>
               <li>
-                  <Button color="secondary" component={Main}>Home</Button>
-              </li>
-              <li>
                   {/* TODO - just for testing profile page */}
-                  <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
+                  <Button component={this.props.passLink}>{this.props.buttonName}</Button>
               </li>
               <li>
-                  <Button color="secondary">About Us</Button>
+                  <Button>My Furniture</Button>
               </li>
               <li>
-                  <Button color="secondary">Category</Button>
-              </li>
-              <li>
-                  <Button color="secondary">Privacy</Button>
+                  <Button>Privacy</Button>
               </li>
               {
                 this.state.showLogout
                 ?
                 <li>
-                  <Button color="secondary" onClick={this.handleLogout}>Log out</Button>
+                  <Button onClick={this.handleLogout}>Log out</Button>
                 </li>
                 :
                 <div></div>
@@ -109,7 +100,7 @@ class NavigationDrawer extends React.Component {
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
           {/* Icon button - pop over from right */}
           <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="inherit" aria-label="Menu">
-            <MenuIcon color="secondary"/>
+            <MenuIcon/>
           </IconButton>
 
           <Drawer anchor="right" open={this.state.right} onClose={this.NavigationDrawer('right', false)}>

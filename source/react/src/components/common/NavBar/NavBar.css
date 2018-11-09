@@ -28,6 +28,27 @@
 .Header a {
     color: white;
     font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.Header button {
+    padding: 8px 20px;
+    font-size: 20px;
+    color: white;
+    background: none;
+    font-weight: 700;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.Header button:hover {
+    color: #56CCF2;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
 }
 
 @media (max-width: 640px) {
@@ -36,7 +57,7 @@
     }
 
     .Header-group {
-        grid-template-columns: repeat(4, auto); 
+        grid-template-columns: repeat(3, auto); 
     }
 
     .Header a:nth-child(4){
