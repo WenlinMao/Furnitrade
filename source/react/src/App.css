@@ -5,104 +5,28 @@
 html, body {
     width: 100%;
     min-height: 100%;
-}
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+    
+    /* restrict min size */
+    min-width: 360px;
+    min-height: 500px;
 }
 
-.button:hover {
+/* .button:hover {
     background-color: #F6BD60;
-}
+} */
 .App-header {
   background-color: #3A8FB7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
+  width: 100%;
+  max-width: 1800px;
+  align-items: center;
+  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
-}
-/* Save rotate for later use */
-/*
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
-.img-intro img {
-  width: '800';
-  height: '600';
-  max-width:100%;
-}
-
-.img-intro h1 {
-    width: "280";
-    height: "40";
-    position: absolute;
-    /* color: #3A8FB7; */
-    color: #FFF;
-    top: 20%;
-    left: 52%;
-    font-size: 7vw !important;
-    text-align: center;
-    background-color: none;
-
-}
-
-.img-intro h2{
-  width: "250";
-  height: "40";
-  position: absolute;
-  color: #FFF;
-  top: 34%;
-  left: 60%;
-  font-size: 3vw !important;
-  text-align: center;
-  background-color: none;
-}
-
-/* for nav bar container */
-.nav-container{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  position: inherit;
-  justify-items: center;
-  align-items: center;
-  /* adjust padding top*/
-  padding-top: 0px;
-  margin: 0;
-}
-
-.logo {
-  width: 5%;
-  position: fixed left;
-}
-
-.title {
-  width: 90%;
-  /* font-size: 2.5vw; */
-  justify-self: center;
-  text-align: center;
-  text-size-adjust: 50%;
-  /* Centered "Furnitrade"*/
-  align-self: center;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.nav-drawer{
-  width: 5%;
-  position:right;
-
 }
