@@ -30,12 +30,11 @@
     padding-left:200px;
   }
   .user-photo {
-    padding-left: 200px;
-    display: flex;
-    border-radius: 50%;
+    padding-left: 50px;
+    display:block;
     justify-content: space-around;
-    height: 8ew;
-    width: 8ew;
+    height: 5ew;
+    width: 5ew;
   }
   /* color changed, no width right now */
   .standard-read-only-input {
@@ -46,7 +45,7 @@
     width:40ew;
   }
   .info-rhs {
-    padding-top: 265px;
+    padding-top:260px;
     display: flex;
     flex-direction: column;
     width: 30ew;
