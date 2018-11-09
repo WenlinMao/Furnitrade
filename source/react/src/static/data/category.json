@@ -1,52 +1,288 @@
 {
-    "cells": [
+    "categories": [
         {
             "title": "Home electronics",
-            "image": "https://cl.ly/0Q1n3K431Y1S/download/logo-react-small.png"
+            "image": "https://cl.ly/0Q1n3K431Y1S/download/logo-react-small.png",
+            "subcategories": [
+                "Cooktops",
+                "Smart lighting",
+                "Cords & chargers",
+                "Extractor hoods & filters",
+                "Dishwashers",
+                "Mobile & tablet accessories",
+                "Refrigerators & freezers",
+                "Tools & hardware",
+                "Microwave ovens",
+                "Speakers",
+                "Ranges",
+                "Ovens"
+            ]
         },
 		{
 			"title": "Kitchens",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Cooktops",
+                "Countertops",
+                "Dishwashers",
+                "Extractor hoods & filters",
+                "Kitchen faucets & sinks",
+                "Kitchen integrated lighting",
+                "Kitchen islands & carts",
+                "Knobs & handles",
+                "Microwave ovens",
+                "Modular kitchens",
+                "Ovens",
+                "Pantry",
+                "Ranges",
+                "Refrigerators & freezers",
+                "SEKTION interior organizers",
+                "SEKTION Kitchen cabinets & fronts",
+                "Step stools & step ladders",
+                "Tools & hardware",
+                "Wall storage"
+            ]
 		},
 		{
 			"title": "Dining",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Dining tables",
+                "Dining chairs",
+                "Dining sets",
+                "Dining storage",
+                "Bar tables & chairs",
+                "Stools & benches",
+                "Café furniture",
+                "High chairs",
+                "Junior chairs"
+            ]
 		},
 		{
 			"title": "Living room",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "All sofas",
+                "Ceiling lights",
+                "Fabric sofas",
+                "Living room storage system",
+                "Rugs",
+                "Bookcases",
+                "Cushions & cushions covers",
+                "Leather & coated fabric sofas",
+                "TV & Media Storage",
+                "Wall lamps",
+                "Curtain rods & rails",
+                "Floor lamps",
+                "Shelf units",
+                "Sleeper sofas",
+                "Cabinets & display cabinets",
+                "Coffee & side tables",
+                "Curtains & blinds",
+                "Sectionals",
+                "Table lamps",
+                "Armchairs & chaises",
+                "Blankets & throws",
+                "Integrated lighting",
+                "Sideboards, buffets & sofa tables",
+                "Fabrics & sewing",
+                "Ottomans",
+                "Shades, bases & cords",
+                "Wall shelves",
+                "Sofa accessories",
+                "Spotlights",
+                "Storage boxes & baskets",
+                "Extra covers",
+                "LED Light bulbs",
+                "Extra legs",
+                "LED lights",
+                "Smart lighting"
+            ]
 		},
 		{
 			"title": "Bedroom",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Bedlinen",
+                "Ceiling lights",
+                "Full, Queen and King beds",
+                "Spring mattresses",
+                "Wardrobes",
+                "Comforters",
+                "Foam & latex mattresses",
+                "PAX wardrobe system",
+                "Single beds",
+                "Wall lamps",
+                "Divan beds",
+                "Pillow tops",
+                "Pillows",
+                "Table lamps",
+                "Bedspreads",
+                "Daybeds",
+                "Floor lamps",
+                "Mattress & pillow protectors",
+                "Open clothes & shoe storage system",
+                "Beds with storage",
+                "Chests of drawers",
+                "Cushions & cushions covers",
+                "Shades, bases & cords",
+                "Slatted bed bases",
+                "Dressing tables",
+                "Loft beds & bunk beds",
+                "Mattress bases",
+                "Mirrors",
+                "Rugs",
+                "Spotlights",
+                "Bed legs",
+                "Bed storage",
+                "Blankets & throws",
+                "Integrated lighting",
+                "Nightstands",
+                "Curtains & blinds",
+                "LED Light bulbs",
+                "Clothes organizers",
+                "Curtain rods & rails",
+                "LED lights",
+                "Fabrics & sewing",
+                "Hooks & hangers",
+                "Smart lighting",
+                "Headboards",
+                "Wall shelves",
+                "Racks & stands"
+            ]
 		},
 		{
 			"title": "Office furniture",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Desks & computer desks",
+                "Wall shelves",
+                "Work lamps",
+                "LED lights",
+                "Office chairs",
+                "Storage cabinets",
+                "Table tops & legs",
+                "Cable management & accessories",
+                "Drawer units",
+                "Shades, bases & cords",
+                "Wall lamps",
+                "Bins & bags",
+                "Bookcases",
+                "Floor lamps",
+                "Smart lighting",
+                "Integrated lighting",
+                "Paper & media organizers",
+                "Shelf units",
+                "Cabinets & display cabinets",
+                "Ceiling lights",
+                "Sideboards, buffets & sofa tables",
+                "Table lamps",
+                "Spotlights",
+                "LED Light bulbs"
+            ]
 		},
 		{
 			"title": "Laundry",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Laundry & cleaning",
+                "Open clothes & shoe storage system",
+                "Clothes organizers",
+                "Hooks & hangers"
+            ]
 		},
 		{
 			"title": "Bathroom",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Sink cabinets",
+                "Towels",
+                "Bath mats",
+                "Bathroom storage",
+                "Shower curtains",
+                "Sinks",
+                "Faucets",
+                "Showers",
+                "Bathroom mirrors",
+                "Bathroom accessories",
+                "Bathroom lighting",
+                "Bathrobes & slippers"
+            ]
 		},
 		{
 			"title": "Storage",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Storage boxes & baskets",
+                "Paper & media organizers",
+                "Hooks & hangers",
+                "Bins & bags",
+                "Waste sorting",
+                "Clothes organizers",
+                "Bathroom accessories",
+                "Food storage & organizing",
+                "Wall Storage"
+            ]
 		},
 		{
 			"title": "Textiles & Rugs",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Bedlinen",
+                "Rugs",
+                "Towels",
+                "Bath mats",
+                "Comforters",
+                "Curtains & blinds",
+                "Pillows",
+                "Shower curtains",
+                "Bathrobes & slippers",
+                "Bedspreads",
+                "Curtain rods & rails",
+                "Fabrics & sewing",
+                "Cushions & cushions covers",
+                "Blankets & throws",
+                "Kitchen textiles",
+                "Table linen",
+                "Children's textiles",
+                "Baby textiles",
+                "Children's textile 8-12",
+                "Mattress & pillow protectors"
+            ]
 		},
 		{
 			"title": "Lighting",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Smart lighting",
+                "Ceiling lights",
+                "Table lamps",
+                "Floor lamps",
+                "Work lamps",
+                "Shades, bases & cords",
+                "Integrated lighting",
+                "Spotlights",
+                "Wall lamps",
+                "Children's lighting",
+                "LED Light bulbs",
+                "Cords & chargers",
+                "LED lights",
+                "Decorative lighting",
+                "Outdoor lighting",
+                "Bathroom lighting",
+                "Children's lighting 8-12"
+            ]
 		},
 		{
-			"title": "Cooking",
-			"image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png"
+			"title": "Home improvement",
+            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "subcategories": [
+                "Outdoor flooring",
+                "Tools & hardware",
+                "Oils, stains & product care",
+                "Knobs & handles",
+                "Safety"
+            ]
 		}
     ]
 }
