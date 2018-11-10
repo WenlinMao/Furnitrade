@@ -73,7 +73,9 @@ class ProfilePage extends Component {
       picture: 'test-propic.jpg',
       username: 'Jack Ma',
       email: 'jackma@alibaba.com',
-      address: 'Hangzhou, China',
+      city:'San Diego',
+      zipcode:'92122',
+      state: 'California',
       university: 'University of California, San Diego',
       password: '1234',
       readOnly: true,
@@ -202,7 +204,7 @@ class ProfilePage extends Component {
         console.log(response.data);
         let code = response.data.status;
         if (code === 200) {
-      
+
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
             if (code === 310 || code === 315) {
@@ -260,17 +262,18 @@ class ProfilePage extends Component {
           {/* Major part two - user info */}
           <div className="user-info-container">
 
+
             {/* left hand side of user info - photo & names */}
             <div className="info-lhs">
-
-            <img title="user-photo"
+            <div className="pro-image">
+            <img className="user-photo" title="user-photo"
             src={require("../../static/images/"+this.state.picture)}className="user-photo"
             alt = "used to store user info"
             // todo
             width="100" height="100"
             />
             <Button onClick={this.onDrop}>Update picture</Button>
-              <br/>
+              </div>
               <TextField
 
                 label="Username"
@@ -292,33 +295,40 @@ class ProfilePage extends Component {
                   error={this.state.emailError}
                   variant="filled"/>
 
-              <TextField
 
-                  label="Address"
-                  defaultValue={this.state.address}
-                  className="standard-read-only-input"
-                  margin="normal"
-                  InputProps={{readOnly: this.state.readOnly,}}
-                  variant="filled"/>
 
             </div>
 
             {/* right hand side of user info - address */}
             <div className="info-rhs">
-
             <TextField
 
-                label="Address"
+                label="State"
+                defaultValue={this.state.state}
+                className="standard-read-only-input"
+                margin="normal"
+                InputProps={{readOnly: this.state.readOnly,}}
+                variant="filled"/>
+
+                <TextField
+
+                    label="City"
+                    defaultValue={this.state.city}
+                    className="standard-read-only-input"
+                    margin="normal"
+                    InputProps={{readOnly: this.state.readOnly,}}
+                    variant="filled"/>
+            <TextField
+
+                label="University"
                 defaultValue={this.state.university}
                 className="standard-read-only-input"
                 margin="normal"
                 InputProps={{readOnly: this.state.readOnly,}}
                 variant="filled"/>
-            <Dialog password={this.state.password} onConfirm={this.changePassword} />
-            <br/>
             {/* Save/ Edit button */}
               {button}
-
+  <Dialog password={this.state.password} onConfirm={this.changePassword} />
             </div>
 
           </div>
