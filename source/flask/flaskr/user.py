@@ -23,13 +23,7 @@ api = Api(bp);
 class Delete(Resource):
     def get(self, username):
         users = get_users_collection();
-<<<<<<< HEAD
         users.delete_one({'username': username});
-=======
-        users.remove({'username': username});
-        pass;
->>>>>>> 86965bf382966b2c121cb0f377c1dcb049140b39
-
 
 # This updates/edits the user's Profile
 # First verify if new modification is valid;
