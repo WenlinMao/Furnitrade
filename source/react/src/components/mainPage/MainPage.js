@@ -3,7 +3,29 @@ import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
 import Wave from '../common/Wave';
-import "./MainPage.css";
+import styled from 'styled-components'
+import './MainPage.css';
+import categories from '../../static/data/category.json';
+
+const SectionCaption = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #94A4BA;
+  text-align: center;
+`
+
+const SectionCategory = styled.div`
+  max-width: 800px;
+  margin: 0 auto 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  padding: 0 20px;
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
 
   class MainPage extends Component {
     constructor(props) {
@@ -46,6 +68,20 @@ import "./MainPage.css";
           {/* Section of About US */}
           
           {/* Section of categories */}
+          {/* <SectionCaption>Furniture Categories</SectionCaption>
+          <SectionCategory>
+            {categories.categories.map(category => (
+              <FurniCategory 
+                title={category.title}
+                image={category.image}
+                subcategories=
+                  {category.subcategories.map(subcategory => (
+                    <SubCategory />
+                  ))} 
+                
+              />
+            ))}
+          </SectionCategory> */}
 
         {/* Final DIV - add everything above this DIV */}
         </div>
