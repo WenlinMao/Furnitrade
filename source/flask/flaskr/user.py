@@ -4,8 +4,9 @@ from bson.json_util import dumps
 import json
 
 ########### Additional Dependencies Please Add Here ###################
-from flask_httpauth import HTTPBasicAuth
-from . import auth
+#from flask_httpauth import HTTPBasicAuth
+from flaskr import auth
+from flaskr.db import get_users_collection
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for,
@@ -18,19 +19,9 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp);
 
 
-# auth = HTTPBasicAuth()
-
-
-# @auth.verify_password
-def verify():
-    if "user_id" in session:
-        return True
-    return False
-
-
 # take an id of user, delete from database
 class Delete(Resource):
-    # @auth.login_required
+    @auth.login_required
     def get(self):
         pass;
 
@@ -41,8 +32,7 @@ class Delete(Resource):
 # Output: boolean - if success; msg - error message
 # Due by Sat; Mao Li
 class Edit(Resource):
-
-    # @auth.login_required
+    @auth.login_required
     def post(self):
         # Step1: Get post's jason file
         posted_data = request.get_json();
@@ -68,8 +58,7 @@ class Edit(Resource):
             if not auth.check_username_valid(new_username):
                 return jsonify({
                     "status": 310,
-                    "msg": "New username contains invalid \
-                        symbols"
+                    "msg": "New username contains invalid symbols"
                 })
 
         if new_email != user['email']:
@@ -85,8 +74,8 @@ class Edit(Resource):
                 })
 
         # Step 3: update the user's info in database
-        users.replace_one({'_id': ObjectId(user_id)},
-                          {"username": new_username, "email": new_email, "address": new_address});
+        users.update_one({'_id': ObjectId(user_id)},
+                          {"$set": {"username": new_username, "email": new_email, "address": new_address}});
 
         return jsonify({
             "status": 200,
@@ -97,9 +86,37 @@ class Edit(Resource):
 # take an id return user info
 # Get all user related info in database as JSON file.
 class Profile(Resource):
-    # @auth.login_required
-    def get(self):
-        pass;
+    @auth.login_required
+    def get(self, username):
+        # Get user profile from database
+        #user_id = session['user_id'];
+        users = get_users_collection();
+
+        if users.find_one({"username": username}) is None:
+            return jsonify({
+                "status": 312,
+                "msg": "User doesn't exist"
+                })
+
+        user = users.find_one({'username': username});
+        current_username = user['username'];
+        current_email = user['email'];
+        current_address = user['address'];
+        # current_picture = user['picture'];
+
+        # Collect profile data
+        retJson = {
+            "status": 200,
+            "msg": 'Get profile succeeded',
+            'username': current_username,
+            'email': current_email,
+            'address': current_address,
+            #'picture': current_picture
+        }
+
+        # Return received data
+        return jsonify(retJson);
+
 
 
 api.add_resource(Delete, '/delete');
