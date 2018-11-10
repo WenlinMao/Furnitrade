@@ -39,3 +39,17 @@
   background-color: #F6BD60;
   width: inherit;
   }
+
+.fa-check-circle {
+  color: #80f080;
+  float: right;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.fa-times-circle {
+  color: #f08080;
+  float: right;
+  font-weight: bold;
+  margin-left: 4px;
+}

@@ -40,7 +40,8 @@ import {getLocal} from '../../utils/util';
 // Note:
 //     - feel free to redesign the layout. Keep dis shit good looking tho.
 //     - feel free to use a new theme. Just make sure the color stays the same
-
+const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 
 const MainTheme = createMuiTheme({
   palette: {
