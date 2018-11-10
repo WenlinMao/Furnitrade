@@ -90,16 +90,16 @@ class Profile(Resource):
     def get(self, username):
 
         # Check if user is logged in
-        if "user_id" not in session:
-            return jsonify({
-                    "status": 316,
-                    "msg": 'User is not logged in',
-                })
+        #if "user_id" not in session:
+        #   return jsonify({
+        #            "status": 316,
+        #            "msg": 'User is not logged in',
+        #        })
 
         # Get user profile from database
-        user_id = session['user_id'];
+        #user_id = session['user_id'];
         users = get_users_collection();
-        user = users.find_one({'_id': ObjectId(user_id)});
+        user = users.find_one(username);
 
         current_username = user['username'];
         current_email = user['email'];
