@@ -21,10 +21,14 @@ api = Api(bp);
 
 # take an id of user, delete from database
 class Delete(Resource):
-    @auth.login_required
     def get(self, username):
         users = get_users_collection();
+<<<<<<< HEAD
         users.delete_one({'username': username});
+=======
+        users.remove({'username': username});
+        pass;
+>>>>>>> 86965bf382966b2c121cb0f377c1dcb049140b39
 
 
 # This updates/edits the user's Profile
