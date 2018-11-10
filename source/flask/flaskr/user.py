@@ -23,7 +23,9 @@ api = Api(bp);
 class Delete(Resource):
     @auth.login_required
     def get(self):
-        pass;
+        user_id = session['user_id'];
+        users = get_users_collection();
+        users.remove({"_id": ObjectId(user_id)})
 
 
 # This updates/edits the user's Profile

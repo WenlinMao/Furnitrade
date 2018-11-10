@@ -46,9 +46,9 @@ def create_app(config_object=ProductionConfig):
         from . import user
         application.register_blueprint(user.bp)
 
-<<<<<<< HEAD
+
     return application;
-=======
+
     with application.app_context():
         from . import contact_form
         application.register_blueprint(contact_form.bp)
@@ -56,4 +56,4 @@ def create_app(config_object=ProductionConfig):
 
 
     return application;
->>>>>>> b04e929d79e60b3592126f014529a6ac1ac8cb27
+
