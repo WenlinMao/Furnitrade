@@ -28,18 +28,14 @@ import "./MainPage.css";
     render() {
       return (
         <div>
-          <NavBar/>
+          <NavBar hideLogin={this.props.hasLogin}/>
           <div className="Index">
             <div className="Index-group">
               <h1>Furnitrade </h1>
               <p>Furniture Trade Platform</p>
               <p>Best Trading Platform ever. Make your life easier. Finding your desired furnitures at the most inexpensive price and best quality! </p>
-              {
-                !this.state.hasLogin ?
-                <div className="login-signup-group">
-                  <Link to="./Login">Login</Link>
-                  <Link to="./Register">Register</Link>
-              </div> : null
+              {!this.state.hasLogin ?
+                <Link to="./Register">Register</Link>: null
               }
               
             </div>

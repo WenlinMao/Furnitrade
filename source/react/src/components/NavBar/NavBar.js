@@ -13,8 +13,7 @@ class NavBar extends React.Component {
 
     this.state = {
         hasScrolled: false,
-        auth: true,
-        anchorEl: null,
+        hideLogin: false
     }
   }
 
@@ -41,14 +40,6 @@ class NavBar extends React.Component {
         this.setState ({auth: event.target.checked});
     };
 
-    handleMenu = event => {
-        this.setState({anchorEl: event.currentTarget});
-    };
-
-    handleClose = () => {
-    this.setState({anchorEl: null});
-    };
-
 
   render () {
     return (
@@ -64,7 +55,11 @@ class NavBar extends React.Component {
           <a href='./'>Home</a>
           <a>Category</a>
           <a>About Us</a>
-          <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
+          {
+            !this.state.hideLogin ?
+            <Link to="./Login"><button>Login</button></Link> : 
+            <NavigationDrawer showLogout={this.props.hideLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
+          }
         </div>
       </div>
     );
