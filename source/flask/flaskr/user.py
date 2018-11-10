@@ -116,8 +116,16 @@ class Profile(Resource):
         # Return received data
         return jsonify(retJson);
 
+# TODO: reset password
+class ChangePassword(Resource):
+	@login_required
+	def post(self):
+		pass;
+
+# TODO: forget passwords
 
 
 api.add_resource(Delete, '/delete/<string:username>');
 api.add_resource(Edit, '/edit');
 api.add_resource(Profile, '/profile/<string:username>');
+api.add_resource(ChangePassword, '/change_password');
