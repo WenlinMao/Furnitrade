@@ -50,7 +50,7 @@ const SectionCategory = styled.div`
     render() {
       return (
         <div>
-          <NavBar hideLogin={this.props.hasLogin}/>
+          <NavBar hasLogin={this.state.hasLogin}/>
           <div className="Index">
             <div className="Index-group">
               <h1>Furnitrade </h1>

@@ -36,11 +36,6 @@ class NavBar extends React.Component {
 
     }
 
-    handleChange = event => {
-        this.setState ({auth: event.target.checked});
-    };
-
-
   render () {
     return (
       // initialize the className depending on if the user has scrolled
