@@ -25,7 +25,6 @@ class Delete(Resource):
     def get(self, username):
         users = get_users_collection();
         users.delete_one({'username': username});
-        pass;
 
 
 # This updates/edits the user's Profile
@@ -94,13 +93,13 @@ class Profile(Resource):
         #user_id = session['user_id'];
         users = get_users_collection();
 
-        if users.find_one({"username": username}) is None:
+        user = users.find_one({'username': username});
+        if user is None:
             return jsonify({
                 "status": 312,
                 "msg": "User doesn't exist"
-                })
+            });
 
-        user = users.find_one({'username': username});
         current_username = user['username'];
         current_email = user['email'];
         current_address = user['address'];
