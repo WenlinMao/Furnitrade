@@ -368,7 +368,7 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            Valid email address <i class={this.state.emailError?times:check}></i>
+                            Valid email address <i class={validEmail?check:times}></i>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
