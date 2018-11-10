@@ -88,19 +88,17 @@ class Edit(Resource):
 class Profile(Resource):
     @auth.login_required
     def get(self, username):
-
-        # Check if user is logged in
-        #if "user_id" not in session:
-        #   return jsonify({
-        #            "status": 316,
-        #            "msg": 'User is not logged in',
-        #        })
-
         # Get user profile from database
         #user_id = session['user_id'];
         users = get_users_collection();
-        user = users.find_one(username);
 
+        if users.find_one({"username": username}) is None:
+            return jsonify({
+                "status": 312,
+                "msg": "User doesn't exist"
+                })
+
+        user = users.find_one({'username': username});
         current_username = user['username'];
         current_email = user['email'];
         current_address = user['address'];
