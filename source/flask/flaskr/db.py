@@ -2,6 +2,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+
 import pymongo
 
 def init_app(app):
@@ -50,3 +51,4 @@ def get_contact_form_collection():
 	db = get_db();
 	users = pymongo.collection.Collection(db, 'Contact_Form');
 	return users;
+
