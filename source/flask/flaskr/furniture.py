@@ -26,8 +26,6 @@ class Post(Resource):
 class Delete(Resource):
 	@auth.login_required
 	def get(self, furniture_name):
-		args = request.args
-		furniture_name = args['furniture_id'];
 		pass;
 
 # take revised info, change info in database
