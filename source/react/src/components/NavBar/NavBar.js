@@ -1,10 +1,11 @@
 import React from 'react'
-// import { Link } from 'gatsby'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
 import NavigationDrawer from '../NavigationDrawer/NavigationDrawer';
+import logo from '../../static/images/logo_v1.svg';
 
 const Profile = props => <Link to="./profile" {...props} />
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class NavBar extends React.Component {
       // initialize the className depending on if the user has scrolled
       <div className={this.state.hasScrolled ? "Header HeaderScrolled" : "Header"}>
         <div className="Header-group">
-          <Link to="/"><img src={require('../../static/images/logo_v1.svg')} width="70" height="35" /></Link>
+          <Link to="/"><embed src={logo} width="70"></embed></Link>
 
 
           {/* <a>Home</a>
