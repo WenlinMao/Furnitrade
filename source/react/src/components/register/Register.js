@@ -120,7 +120,7 @@ class Register extends Component {
             open: false,
             errorMsg: '',
             arrowRef: null,
-            // individual regex check 
+            // individual regex check
             lower: false,
             upper: false,
             number: false,
@@ -128,7 +128,7 @@ class Register extends Component {
             length: false,
             nameNoSymbol: true,
             nameLength: false,
-            validEmail: false   
+            validEmail: false
         };
     }
 
@@ -141,7 +141,7 @@ class Register extends Component {
     handleNameInput = name => event => {
         let input = event.target.value;
         this.setState({username: event.target.value});
-        
+
         if(event.target.value.match(nameRegex)) {
             this.setState({username: event.target.value, nameError: false});
         }
@@ -186,35 +186,35 @@ class Register extends Component {
 
         if(input.match(password_lower)) {
             this.setState({lower: true});
-        } 
+        }
         else {
             this.setState({lower: false});
         }
 
         if(input.match(password_upper)) {
             this.setState({upper: true});
-        } 
+        }
         else {
             this.setState({upper: false});
         }
 
         if(input.match(password_number)) {
             this.setState({number: true});
-        } 
+        }
         else {
             this.setState({number: false});
         }
 
         if(input.match(password_symbol)) {
             this.setState({symbol: true});
-        } 
+        }
         else {
             this.setState({symbol: false});
         }
 
         if(input.match(password_length)) {
             this.setState({length: true});
-        } 
+        }
         else {
             this.setState({length: false});
         }
@@ -424,8 +424,8 @@ class Register extends Component {
                             8 ~ 20 characters <i class={length?check:times}></i> <br/>
                             At least 1 uppercase letter <i class={upper?check:times}></i> <br/>
                             At least 1 lowercase letter <i class={lower?check:times}></i> <br/>
-                            At least 1 number <i class={number?check:times}></i> <br/> 
-                            At least 1 special characters <i class={symbol?check:times}></i> 
+                            At least 1 number <i class={number?check:times}></i> <br/>
+                            At least 1 special character <i class={symbol?check:times}></i> 
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
