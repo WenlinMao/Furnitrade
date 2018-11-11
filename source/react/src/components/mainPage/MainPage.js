@@ -3,6 +3,8 @@ import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
 import Wave from '../common/Wave';
+import FurniCategory from '../FurniCategory/FurniCategory';
+import SubCategory from '../FurniCategory/SubCategory';
 import styled from 'styled-components'
 import './MainPage.css';
 import categories from '../../static/data/category.json';
@@ -11,8 +13,9 @@ const SectionCaption = styled.p`
   font-weight: 600;
   font-size: 18px;
   text-transform: uppercase;
-  color: #94A4BA;
+  color: #BDBDBD;
   text-align: center;
+  position: relative;
 `
 
 const SectionCategory = styled.div`
@@ -22,6 +25,7 @@ const SectionCategory = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 20px;
   padding: 0 20px;
+  position: relative;
   @media (max-width: 800px) {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -59,7 +63,15 @@ const SectionCategory = styled.div`
               {!this.state.hasLogin ?
                 <Link to="./Register">Register</Link>: null
               }
-              
+
+              {/* logos */}
+              <div className="logos">
+                <img src={require("../../static/images/fb_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/mail_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+              </div>   
             </div>
             <Wave/>          
           {/* End of Index DIV */}
@@ -68,20 +80,16 @@ const SectionCategory = styled.div`
           {/* Section of About US */}
           
           {/* Section of categories */}
-          {/* <SectionCaption>Furniture Categories</SectionCaption>
+          <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
               <FurniCategory 
                 title={category.title}
                 image={category.image}
-                subcategories=
-                  {category.subcategories.map(subcategory => (
-                    <SubCategory />
-                  ))} 
-                
+                subcategories={category.subcategories} 
               />
             ))}
-          </SectionCategory> */}
+          </SectionCategory>
 
         {/* Final DIV - add everything above this DIV */}
         </div>

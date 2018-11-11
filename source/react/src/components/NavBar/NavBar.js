@@ -13,7 +13,6 @@ class NavBar extends React.Component {
 
     this.state = {
         hasScrolled: false,
-        hideLogin: false
     }
   }
 
@@ -51,9 +50,9 @@ class NavBar extends React.Component {
           <a>Category</a>
           <a>About Us</a>
           {
-            !this.state.hideLogin ?
+            !this.props.hasLogin ?
             <Link to="./Login"><button>Login</button></Link> : 
-            <NavigationDrawer showLogout={this.props.hideLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
+            <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
           }
         </div>
       </div>

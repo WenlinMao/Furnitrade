@@ -1,45 +1,37 @@
 import React from 'react';
-import FurniCard from './FurniCard';
+import FurniCard from '../FurniCard/FurniCard';
+import SubCategory from './SubCategory';
+import styled from 'styled-components';
 import './FurniCategory.css';
 
+const CategoryGroup = styled.div`
+    display: grid;
+    grid-template-columns: 60px auto;
+    grid-gap: 25px;
+    align-items: center;
+`
 
-class FurniCategory extends React.Component {
-    // states initialization
+const CategoryImage = styled.div`
+    width: 60px;
+    height: 60px;
+    background: black;
+    border-radius: 10px;
+    background-image: url(${props => props.image});
+    background-size: 60px;
+`
 
-    // functions
+const CategoryTitle = styled.div`
+    font-size: 24px;
+    border-bottom: 1px solid rgba(0,0,0, 0.1);
+    padding: 30px 0;
+`
 
-    // render 
-    render() {
-        return (
-            <div className="category-container">
-                    <h2>My Works</h2>
-                <div className="category-group">
-                <FurniCard 
-                    title="cate1" 
-                    text="description for category1"
-                    image={require('../../static/images/test-logo.jpg')}
-                />
-                <FurniCard 
-                    title="cate2" 
-                    text="description for category2"
-                    image={require('../../static/images/test-logo.jpg')}
-                />
-                <FurniCard 
-                    title="cate3" 
-                    text="description for category3"
-                    image={require('../../static/images/test-logo.jpg')}
-                />
-                <FurniCard 
-                    title="cate4" 
-                    text="description1 for category4"
-                    image={require('../../static/images/test-logo.jpg')}
-                />
-                </div>
-            </div>
-        );
-    }
-}
+const FurniCategory = props => (
+    <CategoryGroup>
+        {/* <CategoryImage image={props.image}></CategoryImage> */}
+        {/* <CategoryTitle>{props.title}</CategoryTitle> */}
+        <SubCategory image={props.image} subcategories={props.subcategories} title={props.title}></SubCategory>
+    </CategoryGroup>
+)
 
-FurniCategory.protoTypes = {
-    classes: protoTypes.object.isRequired,
-};
+export default FurniCategory
