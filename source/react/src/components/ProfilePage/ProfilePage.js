@@ -72,11 +72,11 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       picture: 'test-propic.jpg',
-      username: 'Jack Ma',
-      email: 'jackma@alibaba.com',
+      username: '',
+      email: '',
       city:'San Diego',
       zipcode:'92122',
-      state: 'California',
+      state: '',
       university: 'University of California, San Diego',
       password: '1234',
       readOnly: true,
@@ -132,21 +132,20 @@ class ProfilePage extends Component {
   }
 
   // need to change
-  handleChange = event => {
-    this.handleEmailInput();
-    this.handleNameInput();
-    this.setState({
-      address: event.target.address,
-      univeristy: event.target.univeristy
-    });
-  }
+  // handleChange = event => {
+  //   this.handleEmailInput();
+  //   this.handleNameInput();
+  //   this.setState({
+  //     address: event.target.address,
+  //     univeristy: event.target.univeristy
+  //   });
+  // }
 
   handleNameInput = name => event => {
-
+    this.setState({username: event.target.value});
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
-        nameRegex
       });
     } else {
       this.setState({
@@ -156,16 +155,20 @@ class ProfilePage extends Component {
   }
 
   handleEmailInput = email => event => {
+    this.setState({email: event.target.email});
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
-        emailRegex
       });
     } else {
       this.setState({
         emailError: true
       });
     }
+  }
+
+  handleAddressInput = address => event =>{
+    this.setState({address: event.target.value});
   }
 
   handleEdit = () => {
@@ -184,6 +187,7 @@ class ProfilePage extends Component {
       'address': this.state.address,
       'password': this.state.password,
     };
+    console.log(reqData);
     const token = localStorage.getItem('usertoken');
     console.log("Saving profile data,", reqData);
     if (token){
@@ -231,9 +235,10 @@ class ProfilePage extends Component {
     }
   }
 
-  changePassword = (newPassword) => {
-    this.setState({password: newPassword});
-  }
+  // Move this logic to Dialog 
+  // changePassword = (newPassword) => {
+  //   this.setState({password: newPassword});
+  // }
 
   onDrop = event => {
     this.setState({
@@ -287,7 +292,10 @@ class ProfilePage extends Component {
                     readOnly: this.state.readOnly,
                 }}
                 error={this.state.nameError}
-                variant="filled"/>
+                variant="filled"
+                value={this.state.username}
+                onChange={this.handleNameInput('name')}
+              />
               <TextField
 
                   label="E-mail"
@@ -296,7 +304,11 @@ class ProfilePage extends Component {
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   error={this.state.emailError}
-                  variant="filled"/>
+                  variant="filled"
+                  value={this.state.email}
+                  onChange={this.handleEmailInput('email')}
+                  />
+
 
 
 
@@ -307,11 +319,14 @@ class ProfilePage extends Component {
             <TextField
 
                 label="State"
-                defaultValue={this.state.state}
+                defaultValue={this.state.address}
                 className="standard-read-only-input"
                 margin="normal"
                 InputProps={{readOnly: this.state.readOnly,}}
-                variant="filled"/>
+                variant="filled"
+                value={this.state.address}
+                onChange={this.handleAddressInput('address')}
+                />
 
                 <TextField
 
