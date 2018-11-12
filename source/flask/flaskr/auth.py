@@ -140,7 +140,7 @@ def logout_required(method):
 # TODO: add address, check password is valid, add email
 # 		check email is valid
 class Register(Resource):
-	@logout_required
+	# @logout_required
 	def post(self):
 		users = get_users_collection();
 		postedData = request.get_json();
@@ -213,7 +213,7 @@ class Register(Resource):
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
-	@logout_required
+	# @logout_required
 	def post(self):
 		# 1. Get username and password from POST
 		postedData = request.get_json();
