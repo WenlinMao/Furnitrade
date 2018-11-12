@@ -181,16 +181,21 @@ class Register(Resource):
 			error = 'Email invalid';
 
 		if error is None:
-			users.insert_one({
+			user = users.insert_one({
 				"username" : username,
 				"password" : generate_password_hash(password),
 				"email" : email,
 				"address" : address
 			});
-
+			print(str(user.inserted_id));
+			exp = datetime.datetime.utcnow() \
+					+ datetime.timedelta(hours=current_app.config['TOKEN_EXPIRE_HOURS'])
+			encoded = jwt.encode({'user_id': str(user.inserted_id), 'exp': exp},
+						 current_app.config['SECRET_KEY'], algorithm='HS256')
 			retJson = {
 				"status" : 200,
-				"msg" : "You successfully signed up for the furnitrade"
+				"msg" : "You successfully signed up for the furnitrade",
+				"token" : encoded.decode('utf-8')
 			};
 			return jsonify(retJson);
 
