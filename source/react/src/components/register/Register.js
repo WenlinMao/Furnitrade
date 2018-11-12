@@ -16,6 +16,9 @@ const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
 
+/* name condition */
+const name_length = /.{4,20}/;
+const name_no_symbol = /(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 /* password condition */
 const password_lower = /(?=.*[a-z])/;
 const password_upper = /(?=.*[A-Z])/;
@@ -116,7 +119,16 @@ class Register extends Component {
             address: '',
             open: false,
             errorMsg: '',
-            arrowRef: null
+            arrowRef: null,
+            // individual regex check
+            lower: false,
+            upper: false,
+            number: false,
+            symbol: false,
+            length: false,
+            nameNoSymbol: true,
+            nameLength: false,
+            validEmail: false
         };
     }
 
@@ -127,33 +139,84 @@ class Register extends Component {
     };
 
     handleNameInput = name => event => {
+        let input = event.target.value;
         this.setState({username: event.target.value});
+
         if(event.target.value.match(nameRegex)) {
             this.setState({username: event.target.value, nameError: false});
         }
         else {
             this.setState({nameError: true});
         }
+
+        if(input.match(name_length)) {
+            this.setState({nameLength: true});
+        }
+        else {
+            this.setState({nameLength: false});
+        }
+
+        if(input.match(name_no_symbol)) {
+            this.setState({nameNoSymbol: true});
+        }
+        else {
+            this.setState({name_no_symbol: false});
+        }
     }
 
     handleEmailInput = email => event => {
         this.setState({email: event.target.value});
         if(event.target.value.match(emailRegex)) {
-            this.setState({email: event.target.value, emailError: false});
+            this.setState({email: event.target.value, emailError: false, validEmail: true});
         }
         else {
-            this.setState({emailError: true});
+            this.setState({emailError: true, validEmail: false});
         }
     }
 
     handlePasswordInput = password => event => {
         this.setState({password: event.target.value, passwordError: false});
-        if(event.target.value.match(passwordRegex)) {
-            console.log('here');
-            this.setState({password: event.target.value, passwordError: false});
+        let input = event.target.value;
+        if(input.match(passwordRegex)) {
+            this.setState({password: input, passwordError: false});
         }
         else {
             this.setState({passwordError: true});
+        }
+
+        if(input.match(password_lower)) {
+            this.setState({lower: true});
+        }
+        else {
+            this.setState({lower: false});
+        }
+
+        if(input.match(password_upper)) {
+            this.setState({upper: true});
+        }
+        else {
+            this.setState({upper: false});
+        }
+
+        if(input.match(password_number)) {
+            this.setState({number: true});
+        }
+        else {
+            this.setState({number: false});
+        }
+
+        if(input.match(password_symbol)) {
+            this.setState({symbol: true});
+        }
+        else {
+            this.setState({symbol: false});
+        }
+
+        if(input.match(password_length)) {
+            this.setState({length: true});
+        }
+        else {
+            this.setState({length: false});
         }
     }
 
@@ -248,6 +311,9 @@ class Register extends Component {
 
     render() {
         const {classes} = this.props;
+        const check = "far fa-check-circle";
+        const times = "far fa-times-circle";
+        let {lower, upper, number, symbol, length, validEmail, nameLength, nameNoSymbol} = this.state;
 
         return (
             <div className="register-container">
@@ -263,8 +329,8 @@ class Register extends Component {
                     <Tooltip
                         title={
                             <React.Fragment>
-                            4 characters minimum <br/>
-                            No special characters
+                            4 ~ 20 characters  <i class={nameLength?check:times}></i> <br/>
+                            No special characters <i class={nameNoSymbol?check:times}></i>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
@@ -300,20 +366,41 @@ class Register extends Component {
                         :
                         <div></div>
                     }
-                    <TextField
-                        id="email-input"
-                        label="Email Address"
-                        className={classes.textField}
-                        type="email"
-                        name="email"
-                        // autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                        required={true}
-                        value={this.state.email}
-                        onChange={this.handleEmailInput('email')}
-                        error={this.state.emailError}
-                    />
+                     <Tooltip
+                        title={
+                            <React.Fragment>
+                            Valid email address <i class={validEmail?check:times}></i>
+                            <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                            </React.Fragment>
+                        }
+                        classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
+                        placement="right"
+                        PopperProps={{
+                            popperOptions: {
+                            modifiers: {
+                                arrow: {
+                                enabled: Boolean(this.state.arrowRef),
+                                element: this.state.arrowRef,
+                                },
+                            },
+                            },
+                        }}
+                    >
+                        <TextField
+                            id="email-input"
+                            label="Email Address"
+                            className={classes.textField}
+                            type="email"
+                            name="email"
+                            // autoComplete="email"
+                            margin="normal"
+                            variant="outlined"
+                            required={true}
+                            value={this.state.email}
+                            onChange={this.handleEmailInput('email')}
+                            error={this.state.emailError}
+                        />
+                     </Tooltip>
                     {
                         this.state.emailError && this.state.errorMsg !== ""
                         ?
@@ -335,9 +422,11 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            8 characters minimum <br/>
-                            Contains at least 1 capital letter <br/>
-                            Contains at least 1 number
+                            8 ~ 20 characters <i class={length?check:times}></i> <br/>
+                            At least 1 uppercase letter <i class={upper?check:times}></i> <br/>
+                            At least 1 lowercase letter <i class={lower?check:times}></i> <br/>
+                            At least 1 number <i class={number?check:times}></i> <br/>
+                            At least 1 special character <i class={symbol?check:times}></i> 
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
