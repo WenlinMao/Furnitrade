@@ -3,18 +3,24 @@ from flask_restful import Api, Resource, url_for
 
 from flask import (
 	Blueprint, flash, g, redirect, render_template, request, session, url_for,
-	jsonify
+	jsonify, current_app
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db, get_users_collection
 import pymongo
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 import json
+import jwt
 
 ########### Additional Dependencies Please Add Here ###################
 import string
 import re
+import datetime
+from flaskr.model.user_model import get_users_collection
+from flaskr.model.blacklist_model import (
+	check_blacklist_token_exist, add_token_to_blacklist
+)
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 api = Api(bp);
@@ -75,32 +81,59 @@ def verify_user(username, password):
 	else:
 		return 313, 'Password is incorrect. Try Again', None
 
-# use this function to guard all resources that required login
-def login_required(f):
-	@wraps(f)
-	def decorated(*args,**kwargs):
-		if "user_id" in session:
-			return f(*args,**kwargs);
+def login_required(method):
+	@wraps(method)
+	def wrapper(self):
+		users = get_users_collection();
+		header = request.headers.get('Authorization');
+		_, token = header.split();
 
-		return jsonify({
-			"status" : 316,
-			"msg" : "User hasn't loged in",
-		});
-	return decorated;
+		try:
+			decoded = jwt.decode(token, current_app.config['SECRET_KEY'],
+									algorithms='HS256');
+			if check_blacklist_token_exist(token):
+				return jsonify({
+					"status" : 316,
+					"msg" : "User hasn't loged in",
+				});
 
-# use this function to guard all resources that required logout
-def logout_required(f):
-	@wraps(f)
-	def decorated(*args,**kwargs):
-		if "user_id" not in session:
-			return f(*args,**kwargs);
+		except jwt.DecodeError:
+			return jsonify({
+				"status" : 400,
+				"msg" : "Token is not valid.",
+			});
+		except jwt.ExpiredSignatureError:
+			return jsonify({
+				"status" : 400,
+				"msg" : "Token is expired."
+			});
+		user_id = decoded['user_id']
+		if users.find({'_id':  ObjectId(user_id)}).count() == 0:
+			print(users.find({'_id':  ObjectId(user_id)}).count())
+			return jsonify({
+				"status" : 312,
+				"msg" : "User doesn't exist"
+			});
+		user = users.find_one({'_id': ObjectId(user_id)})
+		return method(self, user)
+	return wrapper
 
-		# Return the status to front end.
-		return jsonify({
-			"status" : 315,
-			"msg" : "User already loged in",
-		});
-	return decorated;
+
+def logout_required(method):
+	@wraps(method)
+	def wrapper(*args,**kwargs):
+		header = request.headers.get('Authorization');
+		_, token = header.split();
+
+		if check_blacklist_token_exist(token):
+			return method(*args,**kwargs);
+		else:
+			return jsonify({
+				"status" : 315,
+				"msg" : "User already loged in",
+			});
+
+	return wrapper;
 
 
 # /auth/register : register
@@ -171,7 +204,7 @@ class Register(Resource):
 
 # This handles Login url request. It verifies username and password
 # using information from database. If user successfully logged in,
-# it assigns session id as user's id in database.
+# it assigns jwt token as user's id in database.
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
@@ -185,10 +218,17 @@ class Login(Resource):
 		# 2. Error Checking:
 		status_code, msg, user_id = verify_user(username, password)
 
-		# 3. successfully logged in by setting session id.
+		# 3. successfully logged in by setting jwt token.
 		if status_code == 200:
-			session.clear()
-			session['user_id'] = user_id
+			exp = datetime.datetime.utcnow() \
+					+ datetime.timedelta(hours=current_app.config['TOKEN_EXPIRE_HOURS'])
+			encoded = jwt.encode({'user_id': user_id, 'exp': exp},
+						 current_app.config['SECRET_KEY'], algorithm='HS256')
+			return jsonify({
+				"status" : 200,
+				"msg" : msg,
+				"token": encoded.decode('utf-8')
+			})
 
 		# Return the status to front end.
 		return jsonify({
@@ -199,13 +239,23 @@ class Login(Resource):
 
 class Logout(Resource):
 	@login_required
-	def get(self):
-		session['user_id'] = 0
-		session.pop('user_id', None)
-		return jsonify({
-			"status" : 200,
-			"msg" : "User successfully loged out",
-		});
+	def get(self, user):
+		header = request.headers.get('Authorization');
+		_, token = header.split();
+		if token:
+			ret = add_token_to_blacklist(token);
+			if ret == 200:
+				return jsonify({
+					"status": 200,
+					"msg" : "success logout",
+				})
+			else:
+				return jsonify({
+					"status": 512,
+					"msg": ret
+				})
+		return
+
 
 
 # /auth/list : list users

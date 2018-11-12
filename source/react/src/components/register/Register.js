@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
 
 /* name condition */
 const name_length = /.{4,20}/;
@@ -261,6 +261,8 @@ class Register extends Component {
             'password': this.state.password,
         };
         console.log(reqData);
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
                 url: 'http://127.0.0.1:5000/auth/register',
@@ -273,6 +275,7 @@ class Register extends Component {
                     //"Content-Type": "application/x-www-form-urlencoded",
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache",
+                    "Authorization": `Bearer ${token}`
                 }
             })
             // handle success
@@ -282,6 +285,7 @@ class Register extends Component {
                 if (code === 200) {
                     // successfully register and login
                     setLocal("username", reqData.username);
+                    localStorage.setItem('usertoken', response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
                     this.props.history.push("/");
@@ -425,7 +429,7 @@ class Register extends Component {
                             At least 1 uppercase letter <i class={upper?check:times}></i> <br/>
                             At least 1 lowercase letter <i class={lower?check:times}></i> <br/>
                             At least 1 number <i class={number?check:times}></i> <br/>
-                            At least 1 special character <i class={symbol?check:times}></i> 
+                            At least 1 special character <i class={symbol?check:times}></i>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }

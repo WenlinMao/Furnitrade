@@ -21,7 +21,6 @@ def create_app(config_object=ProductionConfig):
     except OSError:
         pass
 
-    # aviod CORS
     cors = CORS(application, resources={r"*": {"origins": "*"}})
 
     # initialize mailer
@@ -49,7 +48,5 @@ def create_app(config_object=ProductionConfig):
     with application.app_context():
         from . import contact_form
         application.register_blueprint(contact_form.bp)
-
-
 
     return application;
