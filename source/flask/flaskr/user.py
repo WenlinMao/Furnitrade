@@ -6,7 +6,8 @@ import json
 ########### Additional Dependencies Please Add Here ###################
 #from flask_httpauth import HTTPBasicAuth
 from flaskr import auth
-from flaskr.db import get_users_collection
+from flaskr.model.user_model import get_users_collection
+
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for,
@@ -21,10 +22,9 @@ api = Api(bp);
 
 # take an id of user, delete from database
 class Delete(Resource):
-    @auth.login_required
-    def get(self):
-        pass;
-
+    def get(self, user):
+        users = get_users_collection();
+        users.delete_one({'_id': user["_id"]});
 
 # This updates/edits the user's Profile
 # First verify if new modification is valid;
@@ -33,7 +33,7 @@ class Delete(Resource):
 # Due by Sat; Mao Li
 class Edit(Resource):
     @auth.login_required
-    def post(self):
+    def post(self, user):
         # Step1: Get post's jason file
         posted_data = request.get_json();
         new_username = posted_data['username'];
@@ -44,9 +44,7 @@ class Edit(Resource):
 
         # 2.1 get user's original info from database
         # TODO: get user without getting all collection
-        user_id = session['user_id'];
-        users = auth.get_users_collection();
-        user = users.find_one({'_id': ObjectId(user_id)});
+        users = get_users_collection();
 
         # 2.2 verify the changes to user's Profile
         if new_username != user['username']:
@@ -74,7 +72,7 @@ class Edit(Resource):
                 })
 
         # Step 3: update the user's info in database
-        users.update_one({'_id': ObjectId(user_id)},
+        users.update_one({'_id': user['_id']},
                           {"$set": {"username": new_username, "email": new_email, "address": new_address}});
 
         return jsonify({
@@ -87,19 +85,8 @@ class Edit(Resource):
 # Get all user related info in database as JSON file.
 class Profile(Resource):
     @auth.login_required
-    def get(self, username):
-
-        # Check if user is logged in
-        if "user_id" not in session:
-            return jsonify({
-                    "status": 316,
-                    "msg": 'User is not logged in',
-                })
-
+    def get(self, user):
         # Get user profile from database
-        user_id = session['user_id'];
-        users = get_users_collection();
-        user = users.find_one({'_id': ObjectId(user_id)});
 
         current_username = user['username'];
         current_email = user['email'];
@@ -120,7 +107,17 @@ class Profile(Resource):
         return jsonify(retJson);
 
 
+# TODO: reset password
+class ChangePassword(Resource):
+	@auth.login_required
+	def post(self, user):
+		pass;
+
+
+# TODO: forget passwords
+
 
 api.add_resource(Delete, '/delete');
 api.add_resource(Edit, '/edit');
-api.add_resource(Profile, '/profile/<string:username>');
+api.add_resource(Profile, '/profile');
+api.add_resource(ChangePassword, '/change_password');

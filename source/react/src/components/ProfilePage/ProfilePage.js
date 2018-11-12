@@ -5,6 +5,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
 
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
@@ -93,23 +94,23 @@ class ProfilePage extends Component {
   // send get request, get the user profile
   componentDidMount() {
     let username = getLocal("username");
+    const token = localStorage.getItem('usertoken');
+    // const decoded = jwt_decode(token);
     // change the logic later
     let reqData = {
       'username': username
     };
-    if (username !== '') {
+    if (token){
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:5000/profile/' + username,
-        // withCredentials: false,
-        // crossdomain: true,
+        url: 'http://127.0.0.1:5000/user/profile',
+        withCredentials: false,
+        crossdomain: true,
         data: reqData,
-        // responseType: 'json',
-        // headers: {
-        //   //"Content-Type": "application/x-www-form-urlencoded",
-        //   "Content-Type": "application/json",
-        //   "Cache-Control": "no-cache",
-        // }
+        responseType: 'json',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
       }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
@@ -182,50 +183,52 @@ class ProfilePage extends Component {
       'email': this.state.email,
       'address': this.state.address,
       'password': this.state.password,
-  };
+    };
+    const token = localStorage.getItem('usertoken');
+    console.log("Saving profile data,", reqData);
+    if (token){
+        axios({
+          method: 'post',
+          url: 'http://127.0.0.1:5000/user/edit',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer ${token}`
+          }
+        })
+        // handle success
+        .then((response) => {
+            console.log(response.data);
+            let code = response.data.status;
+            if (code === 200) {
 
-  console.log("Saving profile data,", reqData);
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:5000/edit',
-      // TODO: fix bug when change withCredentials to true
-      withCredentials: false,
-      crossdomain: true,
-      data: reqData,
-      responseType: 'json',
-      headers: {
-          //"Content-Type": "application/x-www-form-urlencoded",
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-      }
-    })
-    // handle success
-    .then((response) => {
-        console.log(response.data);
-        let code = response.data.status;
-        if (code === 200) {
-
-        } else {
-            //    this.setState({errorMsg: response.data.msg, open: true});
-            if (code === 310 || code === 315) {
-                this.setState({
-                    nameError: true,
-                    emailError: false,
-                    errorMsg: response.data.msg
-                });
-            } else if (code === 318) {
-                this.setState({
-                    nameError: false,
-                    emailError: true,
-                    errorMsg: response.data.msg
-                });
+            } else {
+                //    this.setState({errorMsg: response.data.msg, open: true});
+                if (code === 310 || code === 315) {
+                    this.setState({
+                        nameError: true,
+                        emailError: false,
+                        errorMsg: response.data.msg
+                    });
+                } else if (code === 318) {
+                    this.setState({
+                        nameError: false,
+                        emailError: true,
+                        errorMsg: response.data.msg
+                    });
+                }
             }
-        }
-    })
-    // handle error
-    .catch((error) => {
-        console.log("post error: " + error);
-    });
+        })
+        // handle error
+        .catch((error) => {
+            console.log("post error: " + error);
+        });
+    }
   }
 
   changePassword = (newPassword) => {

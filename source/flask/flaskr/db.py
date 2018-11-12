@@ -2,6 +2,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+
 import pymongo
 
 def init_app(app):
@@ -35,11 +36,6 @@ def close_db(e=None):
 
     if db is not None:
         db.close();
-
-def get_users_collection():
-	db = get_db();
-	users = pymongo.collection.Collection(db, 'User');
-	return users;
 
 def get_furniture_collection():
 	db = get_db();

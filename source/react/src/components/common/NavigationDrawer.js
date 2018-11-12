@@ -46,16 +46,20 @@ class NavigationDrawer extends React.Component {
       });
     };
 
-    // Temporay hack 
+    // Temporay hack
     handleLogout = (e) => {
         setLocal("username", "");
         this.setState({
           showLogout: false
         });
-
-      axios({
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
+        axios({
           method: 'get',
-          url: 'http://127.0.0.1:5000/auth/logout'
+          url: 'http://127.0.0.1:5000/auth/logout',
+          headers: {
+              "Authorization": `Bearer ${token}`
+          }
         })
         .then((response) => {
           console.log(response);
@@ -63,7 +67,7 @@ class NavigationDrawer extends React.Component {
         .catch((error) => {
           console.log(error);
         });
-      }
+        }
 
     render() {
       // console.log("in drawer", this.props.showLogout);
@@ -105,7 +109,7 @@ class NavigationDrawer extends React.Component {
       return (
         <div>
           {/* Button text --- */}
-          
+
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
           {/* Icon button - pop over from right */}
           <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="inherit" aria-label="Menu">
