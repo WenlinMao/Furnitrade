@@ -100,6 +100,8 @@ class Login extends Component {
             'password': this.state.password,
         };
         console.log(reqData);
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
                 url: 'http://127.0.0.1:5000/auth/login',
@@ -112,6 +114,7 @@ class Login extends Component {
                     //"Content-Type": "application/x-www-form-urlencoded",
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache",
+                    "Authorization": `Bearer ${token}`
                 }
             })
             .then((response) => {
@@ -121,7 +124,7 @@ class Login extends Component {
                     // successfully login
                     setLocal("username", reqData.username);
                     localStorage.setItem('usertoken', response.data.token);
-                    console.log("localStorgae", getLocal("username"));
+                    console.log("localStorage", localStorage.getItem('usertoken'));
                     // redirect to hompage
                     this.props.history.push("/");
                 } else {
