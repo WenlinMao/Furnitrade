@@ -111,7 +111,7 @@ class Profile(Resource):
         return jsonify(retJson)
 
 
-# TODO: reset password
+# reset password
 class ChangePassword(Resource):
     @auth.login_required
     def post(self, user):
