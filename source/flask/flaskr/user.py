@@ -8,6 +8,7 @@ import json
 from flaskr import auth
 from flaskr.model.user_model import get_users_collection
 
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for,
     jsonify
@@ -105,11 +106,13 @@ class Profile(Resource):
         # Return received data
         return jsonify(retJson);
 
+
 # TODO: reset password
 class ChangePassword(Resource):
 	@auth.login_required
 	def post(self, user):
 		pass;
+
 
 # TODO: forget passwords
 

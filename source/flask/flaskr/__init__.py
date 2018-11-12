@@ -45,13 +45,8 @@ def create_app(config_object=ProductionConfig):
         from . import user
         application.register_blueprint(user.bp)
 
-
-    return application;
-
     with application.app_context():
         from . import contact_form
         application.register_blueprint(contact_form.bp)
-
-
 
     return application;

@@ -81,7 +81,6 @@ def verify_user(username, password):
 	else:
 		return 313, 'Password is incorrect. Try Again', None
 
-
 def login_required(method):
 	@wraps(method)
 	def wrapper(self):
@@ -256,6 +255,7 @@ class Logout(Resource):
 					"msg": ret
 				})
 		return
+
 
 
 # /auth/list : list users
