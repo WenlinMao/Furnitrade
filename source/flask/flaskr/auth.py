@@ -3,18 +3,21 @@ from flask_restful import Api, Resource, url_for
 
 from flask import (
 	Blueprint, flash, g, redirect, render_template, request, session, url_for,
-	jsonify
+	jsonify, current_app
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db, get_users_collection
 import pymongo
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 import json
+import jwt
 
 ########### Additional Dependencies Please Add Here ###################
 import string
 import re
+import datetime
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 api = Api(bp);
@@ -87,6 +90,36 @@ def login_required(f):
 			"msg" : "User hasn't loged in",
 		});
 	return decorated;
+
+
+# def login_required(method):
+# 	@wraps(method)
+# 	def wrapper(self):
+# 		users = get_users_collection();
+# 		header = request.headers.get('Authorization');
+# 		_, token = header.split();
+# 		try:
+# 			decoded = jwt.decode(token, current_app.config['SECRET_KEY'],
+# 									algorithms='HS256');
+# 		except jwt.DecodeError:
+# 			return jsonify({
+# 				"status" : 400,
+# 				"msg" : "Token is not valid.",
+# 			});
+# 		except jwt.ExpiredSignatureError:
+# 			return jsonify({
+# 				"status" : 400,
+# 				"msg" : "Token is expired."
+# 			});
+# 		user_id = decoded['user_id']
+# 		if users.find({'_id':  ObjectId(user_id)}).count() == 0:
+# 			return jsonify({
+# 				"status" : 312,
+# 				"msg" : "User doesn't exist"
+# 			});
+# 		user = users.find_one({'_id': ObjectId(user_id)})
+# 		return method(self, user)
+# 	return wrapper
 
 # use this function to guard all resources that required logout
 def logout_required(f):
@@ -189,6 +222,15 @@ class Login(Resource):
 		if status_code == 200:
 			session.clear()
 			session['user_id'] = user_id
+			# exp = datetime.datetime.utcnow() \
+			# 		+ datetime.timedelta(hours=current_app.config['TOKEN_EXPIRE_HOURS'])
+			# encoded = jwt.encode({'user_id': user_id, 'exp': exp},
+			# 			 current_app.config['SECRET_KEY'], algorithm='HS256')
+			# return jsonify({
+			# 	"status" : 200,
+			# 	"msg" : msg,
+			# 	"token": encoded.decode('utf-8')
+			# })
 
 		# Return the status to front end.
 		return jsonify({
@@ -199,7 +241,7 @@ class Login(Resource):
 
 class Logout(Resource):
 	@login_required
-	def get(self):
+	def get(self, user):
 		session['user_id'] = 0
 		session.pop('user_id', None)
 		return jsonify({

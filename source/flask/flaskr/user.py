@@ -118,7 +118,7 @@ class Profile(Resource):
 
 # TODO: reset password
 class ChangePassword(Resource):
-	@login_required
+	@auth.login_required
 	def post(self):
 		pass;
 

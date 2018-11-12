@@ -5,6 +5,7 @@ class Config(object):
 	DEBUG = False
 	TESTING = False
 	SECRET_KEY='CSE110!Wenlin'
+	TOKEN_EXPIRE_HOURS = 1
 	MAIL_SERVER = 'smtp.gmail.com'
 	MAIL_PORT = 465
 	MAIL_USE_SSL = True

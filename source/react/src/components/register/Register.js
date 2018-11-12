@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
 
 /* password condition */
 const password_lower = /(?=.*[a-z])/;
@@ -219,6 +219,7 @@ class Register extends Component {
                 if (code === 200) {
                     // successfully register and login
                     setLocal("username", reqData.username);
+                    localStorage.setItem('usertoken', response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
                     this.props.history.push("/");

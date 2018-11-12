@@ -19,9 +19,9 @@ import "./Login.css";
 
 /**
  * DONE:
- * Send request 
- * Error message based on response status code by helper text 
- * Local storage and redirect to homepage 
+ * Send request
+ * Error message based on response status code by helper text
+ * Local storage and redirect to homepage
  */
 
 const styles = {
@@ -120,6 +120,7 @@ class Login extends Component {
                 if (code === 200) {
                     // successfully login
                     setLocal("username", reqData.username);
+                    localStorage.setItem('usertoken', response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
                     this.props.history.push("/");

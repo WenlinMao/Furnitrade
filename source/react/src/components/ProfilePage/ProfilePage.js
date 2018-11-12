@@ -5,6 +5,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
 
+import jwt_decode from 'jwt_decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
