@@ -1,54 +1,55 @@
-from flaskr.db import get_db
-import pymongo
-from bson.json_util import dumps
-import json
+from werkzeug.security import check_password_hash, generate_password_hash
 
-########### Additional Dependencies Please Add Here ###################
-#from flask_httpauth import HTTPBasicAuth
+"""
+Additional Dependencies Please Add Here
+"""
 from flaskr import auth
-from flaskr.model.user_model import get_users_collection
-
+from flaskr.model.user_model import (
+    update_user_by_id, delete_user_by_username
+)
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for,
-    jsonify
+    Blueprint, request, jsonify
 )
-from flask_restful import Api, Resource, url_for
-from bson import ObjectId
+from flask_restful import Api, Resource
 
 bp = Blueprint('user', __name__, url_prefix='/user')
-api = Api(bp);
+api = Api(bp)
 
 
 # take an id of user, delete from database
 class Delete(Resource):
-    def get(self, user):
-        users = get_users_collection();
-        users.delete_one({'_id': user["_id"]});
+    def get(self, username):
+        if delete_user_by_username(username) is not None:
+            return jsonify({
+                "status": 200,
+                "msg": "delete succeeded"
+            })
 
 # This updates/edits the user's Profile
 # First verify if new modification is valid;
 # Then update databse fields if so.
 # Output: boolean - if success; msg - error message
 # Due by Sat; Mao Li
+
+
 class Edit(Resource):
     @auth.login_required
     def post(self, user):
         # Step1: Get post's jason file
-        posted_data = request.get_json();
-        new_username = posted_data['username'];
-        new_email = posted_data['email'];
-        new_address = posted_data['address'];
+        posted_data = request.get_json()
+        new_username = posted_data['username']
+        new_email = posted_data['email']
+        new_address = posted_data['address']
 
         # Step2: Verify edited username and email
 
         # 2.1 get user's original info from database
         # TODO: get user without getting all collection
-        users = get_users_collection();
 
         # 2.2 verify the changes to user's Profile
         if new_username != user['username']:
-            if auth.user_exist(new_username, users):
+            if auth.user_exist(new_username):
                 return jsonify({
                     "status": 310,
                     "msg": 'New username already exists'
@@ -65,15 +66,18 @@ class Edit(Resource):
                     "status": 318,
                     "msg": 'New email invalid',
                 })
-            if auth.email_exist(new_email, users):
+            if auth.email_exist(new_email):
                 return jsonify({
                     "status": 318,
                     "msg": 'New email already exists'
                 })
 
         # Step 3: update the user's info in database
-        users.update_one({'_id': user['_id']},
-                          {"$set": {"username": new_username, "email": new_email, "address": new_address}});
+        update_user_by_id(user['_id'], {
+            "username": new_username,
+            "email": new_email,
+            "address": new_address
+        })
 
         return jsonify({
             "status": 200,
@@ -88,9 +92,9 @@ class Profile(Resource):
     def get(self, user):
         # Get user profile from database
 
-        current_username = user['username'];
-        current_email = user['email'];
-        current_address = user['address'];
+        current_username = user['username']
+        current_email = user['email']
+        current_address = user['address']
         # current_picture = user['picture'];
 
         # Collect profile data
@@ -100,24 +104,42 @@ class Profile(Resource):
             'username': current_username,
             'email': current_email,
             'address': current_address,
-            #'picture': current_picture
+            # 'picture': current_picture
         }
 
         # Return received data
-        return jsonify(retJson);
+        return jsonify(retJson)
 
 
 # TODO: reset password
 class ChangePassword(Resource):
-	@auth.login_required
-	def post(self, user):
-		pass;
+    @auth.login_required
+    def post(self, user):
+        posted_data = request.get_json()
+        old_password = posted_data["old_password"]
+        new_password = posted_data["new_password"]
+        check_password_hash(user['password'], old_password)
 
+        if check_password_hash(user['password'], old_password):
+            update_user_by_id(user['_id'], {
+                "password": generate_password_hash(new_password)
+            })
+
+            return jsonify({
+                "status": 200,
+                "msg": "change password succeeded"
+            })
+
+        else:
+            return jsonify({
+                "status": 313,
+                "msg": "Password is incorrect. Try Again"
+            })
 
 # TODO: forget passwords
 
 
-api.add_resource(Delete, '/delete');
-api.add_resource(Edit, '/edit');
-api.add_resource(Profile, '/profile');
-api.add_resource(ChangePassword, '/change_password');
+api.add_resource(Delete, '/delete/<string:username>')
+api.add_resource(Edit, '/edit')
+api.add_resource(Profile, '/profile')
+api.add_resource(ChangePassword, '/change_password')

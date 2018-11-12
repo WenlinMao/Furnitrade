@@ -63,6 +63,12 @@ class NavigationDrawer extends React.Component {
         })
         .then((response) => {
           console.log(response);
+          let code = response.data.status;
+          if (code === 400){
+              localStorage.removeItem('usertoken');
+              // redirect to login (following line not working)
+              //this.props.history.push("/Login");
+          }
         })
         .catch((error) => {
           console.log(error);
