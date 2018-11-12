@@ -328,8 +328,8 @@ class Register extends Component {
                     <Tooltip
                         title={
                             <React.Fragment>
-                            4 ~ 20 characters  <i class={nameLength?check:times}></i> <br/>
-                            No special characters <i class={nameNoSymbol?check:times}></i>
+                            4 ~ 20 characters  <i className={nameLength?check:times}></i> <br/>
+                            No special characters <i className={nameNoSymbol?check:times}></i>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
@@ -368,7 +368,7 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            Valid email address <i class={validEmail?check:times}></i>
+                            Valid email address <i className={validEmail?check:times}></i>
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
@@ -421,11 +421,11 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            8 ~ 20 characters <i class={length?check:times}></i> <br/>
-                            At least 1 uppercase letter <i class={upper?check:times}></i> <br/>
-                            At least 1 lowercase letter <i class={lower?check:times}></i> <br/>
-                            At least 1 number <i class={number?check:times}></i> <br/>
-                            At least 1 special character <i class={symbol?check:times}></i> 
+                            8 ~ 20 characters <i className={length?check:times}></i> <br/>
+                            At least 1 uppercase letter <i className={upper?check:times}></i> <br/>
+                            At least 1 lowercase letter <i className={lower?check:times}></i> <br/>
+                            At least 1 number <i className={number?check:times}></i> <br/>
+                            At least 1 special character <i className={symbol?check:times}></i> 
                             <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
