@@ -2,22 +2,23 @@
 # and it tells Python that the flaskr directory
 # should be treated as a package.
 
-import os;
+import os
 
-from flask import Flask, request, abort, jsonify, send_from_directory;
-from config import ProductionConfig;
+from flask import Flask
+from config import ProductionConfig
 from flask_cors import CORS
 from flask_mail import Message, Mail
 
+
 def create_app(config_object=ProductionConfig):
     # create and configure the app
-    application = Flask(__name__, instance_relative_config=True);
+    application = Flask(__name__, instance_relative_config=True)
 
-    application.config.from_object(config_object);
+    application.config.from_object(config_object)
 
     # ensure the instance folder exists
     try:
-        os.makedirs(application.instance_path);
+        os.makedirs(application.instance_path)
     except OSError:
         pass
 
@@ -30,7 +31,7 @@ def create_app(config_object=ProductionConfig):
     # a simple page that says hello
     @application.route('/hello')
     def hello():
-        return 'Hello, World!';
+        return 'Hello, World!'
 
     with application.app_context():
         from . import auth
@@ -49,4 +50,4 @@ def create_app(config_object=ProductionConfig):
         from . import contact_form
         application.register_blueprint(contact_form.bp)
 
-    return application;
+    return application

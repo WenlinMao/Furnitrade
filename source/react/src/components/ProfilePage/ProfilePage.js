@@ -100,8 +100,7 @@ class ProfilePage extends Component {
     let reqData = {
       'username': username
     };
-    if (token){
-      axios({
+    axios({
         method: 'get',
         url: 'http://127.0.0.1:5000/user/profile',
         withCredentials: false,
@@ -110,8 +109,8 @@ class ProfilePage extends Component {
         responseType: 'json',
         headers: {
             "Authorization": `Bearer ${token}`
-        }
-      }).then((response) => {
+    }
+    }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
         if (code === 200) {
@@ -124,11 +123,14 @@ class ProfilePage extends Component {
           });
         } else if (code === 316) {
           console.log("user not logged in");
+        }  else if (code === 400) {
+            localStorage.removeItem('usertoken');
+            this.props.history.push("/Login");
         }
-      }).catch((error) => {
+    }).catch((error) => {
         console.log("get profile: " + error);
-      });
-    }
+    });
+
   }
 
   // need to change
@@ -190,49 +192,51 @@ class ProfilePage extends Component {
     console.log(reqData);
     const token = localStorage.getItem('usertoken');
     console.log("Saving profile data,", reqData);
-    if (token){
         axios({
-          method: 'post',
-          url: 'http://127.0.0.1:5000/user/edit',
-          withCredentials: false,
-          crossdomain: true,
-          data: reqData,
-          responseType: 'json',
-          headers: {
-              //"Content-Type": "application/x-www-form-urlencoded",
-              "Content-Type": "application/json",
-              "Cache-Control": "no-cache",
-              "Authorization": `Bearer ${token}`
-          }
-        })
-        // handle success
-        .then((response) => {
-            console.log(response.data);
-            let code = response.data.status;
-            if (code === 200) {
+        method: 'post',
+        url: 'http://127.0.0.1:5000/user/edit',
+        withCredentials: false,
+        crossdomain: true,
+        data: reqData,
+        responseType: 'json',
+        headers: {
+          //"Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          "Authorization": `Bearer ${token}`
+        }
+    })
+    // handle success
+    .then((response) => {
+        console.log(response.data);
+        let code = response.data.status;
+        if (code === 200) {
 
-            } else {
-                //    this.setState({errorMsg: response.data.msg, open: true});
-                if (code === 310 || code === 315) {
-                    this.setState({
-                        nameError: true,
-                        emailError: false,
-                        errorMsg: response.data.msg
-                    });
-                } else if (code === 318) {
-                    this.setState({
-                        nameError: false,
-                        emailError: true,
-                        errorMsg: response.data.msg
-                    });
-                }
+        } else {
+            //    this.setState({errorMsg: response.data.msg, open: true});
+            if (code === 310 || code === 315) {
+                this.setState({
+                    nameError: true,
+                    emailError: false,
+                    errorMsg: response.data.msg
+                });
+            } else if (code === 318) {
+                this.setState({
+                    nameError: false,
+                    emailError: true,
+                    errorMsg: response.data.msg
+                });
+            } else if (code === 400) {
+                localStorage.removeItem('usertoken');
+                this.props.history.push("/Login");
             }
-        })
-        // handle error
-        .catch((error) => {
-            console.log("post error: " + error);
-        });
-    }
+        }
+    })
+    // handle error
+    .catch((error) => {
+        console.log("post error: " + error);
+    });
+
   }
 
   // Move this logic to Dialog 
