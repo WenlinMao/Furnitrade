@@ -81,7 +81,8 @@ class ProfilePage extends Component {
       password: '1234',
       readOnly: true,
       emailError: false,
-      nameError: false
+      nameError: false,
+      hasLogin: false 
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -90,6 +91,15 @@ class ProfilePage extends Component {
     // this.handleEmailInput=this.handleEmailInput.bind(this);
     // this.handleNameInput=this.handleNameInput.bind(this);
   }
+  componentWillMount() {
+    if(getLocal("username") !== "" ){
+        this.setState({hasLogin: true});
+         // TODO: GET request
+      }
+      else {
+        this.setState({hasLogin: false});
+      }
+    }
 
   // send get request, get the user profile
   componentDidMount() {
@@ -269,7 +279,7 @@ class ProfilePage extends Component {
       <MuiThemeProvider theme = {MainTheme}>
       <div className="profile-page-container">
           {/* Major part one - nav bar */}
-          <NavigationBar className="nav-bar"/>
+          <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
 
           {/* Major part two - user info */}
           <div className="user-info-container">

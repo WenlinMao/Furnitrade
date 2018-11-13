@@ -31,13 +31,13 @@ class NavigationDrawer extends React.Component {
       super(props);
       this.state = {
         right: false,
-        showLogout: false
+        hasLogin: false,
       };
     }
 
     componentWillMount() {
       this.setState({
-        showLogout: this.props.showLogout
+        hasLogin: this.props.hasLogin
       });
     }
     NavigationDrawer = (side, open) => () => {
@@ -85,8 +85,13 @@ class NavigationDrawer extends React.Component {
                   <Button color="secondary" component={Main}>Home</Button>
               </li>
               <li>
-                  {/* TODO - just for testing profile page */}
+                {
+                  this.state.hasLogin
+                  ?
                   <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
+                  : 
+                  <div></div>
+                }
               </li>
               <li>
                   <Button color="secondary">About Us</Button>
@@ -98,7 +103,7 @@ class NavigationDrawer extends React.Component {
                   <Button color="secondary">Privacy</Button>
               </li>
               {
-                this.state.showLogout
+                this.state.hasLogin
                 ?
                 <li>
                   <Button color="secondary" onClick={this.handleLogout}>Log out</Button>

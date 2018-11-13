@@ -128,8 +128,18 @@ class Register extends Component {
             length: false,
             nameNoSymbol: true,
             nameLength: false,
-            validEmail: false
+            validEmail: false,
+            hasLogin: false
         };
+    }
+    componentWillMount() {
+        if(getLocal("username") !== "" ){
+            this.setState({hasLogin: true});
+             // TODO: GET request
+          }
+          else {
+            this.setState({hasLogin: false});
+          }
     }
 
     handleArrowRef = node => {
@@ -323,7 +333,7 @@ class Register extends Component {
                 <MuiThemeProvider theme = {MainTheme}>
 
                 {/* add NavigationBar to register page */}
-                  <NavigationBar className="nav-bar"/>
+                  <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
                 <div className="register-title">
                   <Typography variant = "display2" color = "inherit"> Create Your Furnitrade Account
                   </Typography>

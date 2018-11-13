@@ -72,7 +72,7 @@ const styles = {
                             </div>
 
                             <div className="nav-drawer">
-                                <NavigationDrawer showLogout={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
+                                <NavigationDrawer hasLogin={this.props.hasLogin} buttonName="Profile" passLink={Profile} ></NavigationDrawer>
                             </div>
                         </div>
                     </Toolbar>
