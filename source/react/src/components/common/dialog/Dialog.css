@@ -1,0 +1,6 @@
+.passwordInputField
+{
+  display: flex;
+  flex-flow: column;
+  width:50%;
+}

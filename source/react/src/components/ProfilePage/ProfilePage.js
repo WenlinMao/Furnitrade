@@ -3,7 +3,7 @@ import NavigationBar from '../common/NavigationBar';
 import { Button}  from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
-import Dialog from '../common/Dialog';
+import Dialog from '../common/dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';

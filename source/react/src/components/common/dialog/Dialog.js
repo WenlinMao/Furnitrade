@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import "./Dialog.css";
 
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
 
@@ -15,21 +16,21 @@ export default class FormDialog extends React.Component {
     oldPassword: this.props.password,
     newPassword: '',
     confirmPassword: '',
-    oldPasswordError: true, 
+    oldPasswordError: true,
     newPasswordError: false,
-    confirmPasswordError: false 
+    confirmPasswordError: false
   };
 
   oldPassword = password => event => {
     if(event.target.value !== this.state.oldPassword) {
       this.setState({oldPasswordError: true, });
       console.log("The old password that you entered is not correct.")
-    } 
+    }
     else {
       this.setState({oldPasswordError: false});
       console.log("The old password that you entered is correct.")
     }
-  } 
+  }
 
   newPassword = password => event => {
     this.setState({newPassword: event.target.value, newPasswordError: false});
@@ -54,7 +55,7 @@ export default class FormDialog extends React.Component {
   buttonStatus = () => {
     let emptyStatus = this.state.newPassword === "" || this.state.confirmPassword === "";
     let errorStatus = this.state.oldPasswordError || this.state.newPasswordError || this.state.confirmPasswordError;
-  
+
     return emptyStatus || errorStatus;
   }
 
@@ -91,41 +92,43 @@ export default class FormDialog extends React.Component {
              //       tooltips, etc.
              //       2: style needed to add
             }
-            <TextField
-                id="password-input"
-                label="Old Password"
-                type="password"
-                margin="normal"
-                variant="outlined"
-                required={true}
-                onChange={this.oldPassword('password')}
-                error={this.state.oldPasswordError}
-            />
-            <TextField
-                id="password-input"
-                label="New Password"
-                type="password"
-                margin="normal"
-                variant="outlined"
-                required={true}
-                onChange={this.newPassword('password')}
-                error={this.state.newPasswordError}
-            />
-            <TextField
-                id="password-input"
-                label="Confirm New Password"
-                type="password"
-                margin="normal"
-                variant="outlined"
-                required={true}
-                onChange={this.confirmPassword('password')}
-                error={this.state.confirmPasswordError}
-            />
+            <div className = "passwordInputField">
+              <TextField
+                  id="password-input"
+                  label="Old Password"
+                  type="password"
+                  margin="normal"
+                  variant="outlined"
+                  required={true}
+                  onChange={this.oldPassword('password')}
+                  error={this.state.oldPasswordError}
+              />
+              <TextField
+                  id="password-input"
+                  label="New Password"
+                  type="password"
+                  margin="normal"
+                  variant="outlined"
+                  required={true}
+                  onChange={this.newPassword('password')}
+                  error={this.state.newPasswordError}
+              />
+              <TextField
+                  id="password-input"
+                  label="Confirm New Password"
+                  type="password"
+                  margin="normal"
+                  variant="outlined"
+                  required={true}
+                  onChange={this.confirmPassword('password')}
+                  error={this.state.confirmPasswordError}
+              />
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCancel} color="secondary">
-              Cancel 
-            </Button> 
+              Cancel
+            </Button>
             <Button disabled={this.buttonStatus()} onClick={this.handleSubmit} color="primary">
               Submit
             </Button>
