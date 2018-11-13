@@ -70,10 +70,11 @@ render(){
   <label>
     Send a resuest:
     <br/>
-    <textarea type="text" name="request" />
+    <textarea type="text" name="request" rows="4" cols="50"/>
   </label>
   <br/>
-  <input type="submit" value="Submit" />
+
+  <input type="submit" value="I want this!" />
 </form>
   </div>
   </MuiThemeProvider>
