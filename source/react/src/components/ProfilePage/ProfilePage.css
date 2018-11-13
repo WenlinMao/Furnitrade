@@ -42,7 +42,7 @@
   /* color changed, no width right now */
   .standard-read-only-input {
     display: flex;
-    flex-wrap: nowrap;
+    /*flex-wrap: nowrap;*/
     flex-direction:column;
     background-color: #F6BD60;
     width:30ew;

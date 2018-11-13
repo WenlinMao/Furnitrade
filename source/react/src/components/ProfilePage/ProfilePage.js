@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, TextField } from "@material-ui/core";
+import { Button}  from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
-
-import jwt_decode from 'jwt-decode';
+import TextField from '@material-ui/core/TextField';
+//import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
@@ -76,13 +76,13 @@ class ProfilePage extends Component {
       email: '',
       city:'San Diego',
       zipcode:'92122',
-      state: '',
+      address: '',
       university: 'University of California, San Diego',
       password: '1234',
       readOnly: true,
       emailError: false,
       nameError: false,
-      hasLogin: false 
+      hasLogin: false
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -249,7 +249,7 @@ class ProfilePage extends Component {
 
   }
 
-  // Move this logic to Dialog 
+  // Move this logic to Dialog
   // changePassword = (newPassword) => {
   //   this.setState({password: newPassword});
   // }
@@ -330,17 +330,6 @@ class ProfilePage extends Component {
 
             {/* right hand side of user info - address */}
             <div className="info-rhs">
-            <TextField
-
-                label="State"
-                defaultValue={this.state.address}
-                className="standard-read-only-input"
-                margin="normal"
-                InputProps={{readOnly: this.state.readOnly,}}
-                variant="filled"
-                value={this.state.address}
-                onChange={this.handleAddressInput('address')}
-                />
 
                 <TextField
 
@@ -358,6 +347,20 @@ class ProfilePage extends Component {
                 margin="normal"
                 InputProps={{readOnly: this.state.readOnly,}}
                 variant="filled"/>
+
+            <TextField
+
+                    label="Address"
+                    floatingLabelFixed={true}
+                    defaultValue={this.state.address}
+                    className="standard-read-only-input"
+                    margin="normal"
+                    InputProps={{readOnly: this.state.readOnly,}}
+                    variant="filled"
+                    value={this.state.address}
+                    onChange={this.handleAddressInput('address')}
+                    />
+
             {/* Save/ Edit button */}
               {button}
   <Dialog password={this.state.password} onConfirm={this.changePassword} />
