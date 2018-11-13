@@ -3,9 +3,7 @@
 # dependencies
 /source/react/node_modules
 /.vscode
-
 .idea
-
 
 # testing
 /coverage

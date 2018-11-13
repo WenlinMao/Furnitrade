@@ -14,7 +14,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
 
 /* name condition */
 const name_length = /.{4,20}/;
@@ -128,8 +128,18 @@ class Register extends Component {
             length: false,
             nameNoSymbol: true,
             nameLength: false,
-            validEmail: false
+            validEmail: false,
+            hasLogin: false
         };
+    }
+    componentWillMount() {
+        if(getLocal("username") !== "" ){
+            this.setState({hasLogin: true});
+             // TODO: GET request
+          }
+          else {
+            this.setState({hasLogin: false});
+          }
     }
 
     handleArrowRef = node => {
@@ -261,6 +271,8 @@ class Register extends Component {
             'password': this.state.password,
         };
         console.log(reqData);
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
                 url: 'http://127.0.0.1:5000/auth/register',
@@ -273,6 +285,7 @@ class Register extends Component {
                     //"Content-Type": "application/x-www-form-urlencoded",
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache",
+                    "Authorization": `Bearer ${token}`
                 }
             })
             // handle success
@@ -282,6 +295,7 @@ class Register extends Component {
                 if (code === 200) {
                     // successfully register and login
                     setLocal("username", reqData.username);
+                    localStorage.setItem('usertoken', response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
                     this.props.history.push("/");
@@ -319,7 +333,7 @@ class Register extends Component {
                 <MuiThemeProvider theme = {MainTheme}>
 
                 {/* add NavigationBar to register page */}
-                  <NavigationBar className="nav-bar"/>
+                  <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
                 <div className="register-title">
                   <Typography variant = "display2" color = "inherit"> Create Your Furnitrade Account
                   </Typography>
@@ -328,9 +342,9 @@ class Register extends Component {
                     <Tooltip
                         title={
                             <React.Fragment>
-                            4 ~ 20 characters  <i class={nameLength?check:times}></i> <br/>
-                            No special characters <i class={nameNoSymbol?check:times}></i>
-                            <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                4 ~ 20 characters  <i className={nameLength?check:times}></i> <br/>
+                                No special characters <i className={nameNoSymbol?check:times}></i>
+                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
                         classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
@@ -368,8 +382,8 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            Valid email address <i class={validEmail?check:times}></i>
-                            <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                Valid email address <i className={validEmail?check:times}></i>
+                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
                         classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
@@ -421,12 +435,12 @@ class Register extends Component {
                      <Tooltip
                         title={
                             <React.Fragment>
-                            8 ~ 20 characters <i class={length?check:times}></i> <br/>
-                            At least 1 uppercase letter <i class={upper?check:times}></i> <br/>
-                            At least 1 lowercase letter <i class={lower?check:times}></i> <br/>
-                            At least 1 number <i class={number?check:times}></i> <br/>
-                            At least 1 special character <i class={symbol?check:times}></i> 
-                            <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                8 ~ 20 characters <i className={length?check:times}></i> <br/>
+                                At least 1 uppercase letter <i className={upper?check:times}></i> <br/>
+                                At least 1 lowercase letter <i className={lower?check:times}></i> <br/>
+                                At least 1 number <i className={number?check:times}></i> <br/>
+                                At least 1 special character <i className={symbol?check:times}></i> 
+                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                             </React.Fragment>
                         }
                         classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}

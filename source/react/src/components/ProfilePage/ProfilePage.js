@@ -5,6 +5,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
 
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
@@ -71,16 +72,17 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       picture: 'test-propic.jpg',
-      username: 'Jack Ma',
-      email: 'jackma@alibaba.com',
+      username: '',
+      email: '',
       city:'San Diego',
       zipcode:'92122',
-      state: 'California',
+      state: '',
       university: 'University of California, San Diego',
       password: '1234',
       readOnly: true,
       emailError: false,
-      nameError: false
+      nameError: false,
+      hasLogin: false 
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -89,28 +91,36 @@ class ProfilePage extends Component {
     // this.handleEmailInput=this.handleEmailInput.bind(this);
     // this.handleNameInput=this.handleNameInput.bind(this);
   }
+  componentWillMount() {
+    if(getLocal("username") !== "" ){
+        this.setState({hasLogin: true});
+         // TODO: GET request
+      }
+      else {
+        this.setState({hasLogin: false});
+      }
+    }
 
   // send get request, get the user profile
   componentDidMount() {
     let username = getLocal("username");
+    const token = localStorage.getItem('usertoken');
+    // const decoded = jwt_decode(token);
     // change the logic later
     let reqData = {
       'username': username
     };
-    if (username !== '') {
-      axios({
+    axios({
         method: 'get',
-        url: 'http://127.0.0.1:5000/profile/' + username,
-        // withCredentials: false,
-        // crossdomain: true,
+        url: 'http://127.0.0.1:5000/user/profile',
+        withCredentials: false,
+        crossdomain: true,
         data: reqData,
-        // responseType: 'json',
-        // headers: {
-        //   //"Content-Type": "application/x-www-form-urlencoded",
-        //   "Content-Type": "application/json",
-        //   "Cache-Control": "no-cache",
-        // }
-      }).then((response) => {
+        responseType: 'json',
+        headers: {
+            "Authorization": `Bearer ${token}`
+    }
+    }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
         if (code === 200) {
@@ -123,29 +133,31 @@ class ProfilePage extends Component {
           });
         } else if (code === 316) {
           console.log("user not logged in");
+        }  else if (code === 400) {
+            localStorage.removeItem('usertoken');
+            this.props.history.push("/Login");
         }
-      }).catch((error) => {
+    }).catch((error) => {
         console.log("get profile: " + error);
-      });
-    }
+    });
+
   }
 
   // need to change
-  handleChange = event => {
-    this.handleEmailInput();
-    this.handleNameInput();
-    this.setState({
-      address: event.target.address,
-      univeristy: event.target.univeristy
-    });
-  }
+  // handleChange = event => {
+  //   this.handleEmailInput();
+  //   this.handleNameInput();
+  //   this.setState({
+  //     address: event.target.address,
+  //     univeristy: event.target.univeristy
+  //   });
+  // }
 
   handleNameInput = name => event => {
-
+    this.setState({username: event.target.value});
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
-        nameRegex
       });
     } else {
       this.setState({
@@ -155,16 +167,20 @@ class ProfilePage extends Component {
   }
 
   handleEmailInput = email => event => {
+    this.setState({email: event.target.email});
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
-        emailRegex
       });
     } else {
       this.setState({
         emailError: true
       });
     }
+  }
+
+  handleAddressInput = address => event =>{
+    this.setState({address: event.target.value});
   }
 
   handleEdit = () => {
@@ -182,22 +198,23 @@ class ProfilePage extends Component {
       'email': this.state.email,
       'address': this.state.address,
       'password': this.state.password,
-  };
-
-  console.log("Saving profile data,", reqData);
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:5000/edit',
-      // TODO: fix bug when change withCredentials to true
-      withCredentials: false,
-      crossdomain: true,
-      data: reqData,
-      responseType: 'json',
-      headers: {
+    };
+    console.log(reqData);
+    const token = localStorage.getItem('usertoken');
+    console.log("Saving profile data,", reqData);
+        axios({
+        method: 'post',
+        url: 'http://127.0.0.1:5000/user/edit',
+        withCredentials: false,
+        crossdomain: true,
+        data: reqData,
+        responseType: 'json',
+        headers: {
           //"Content-Type": "application/x-www-form-urlencoded",
           "Content-Type": "application/json",
           "Cache-Control": "no-cache",
-      }
+          "Authorization": `Bearer ${token}`
+        }
     })
     // handle success
     .then((response) => {
@@ -219,6 +236,9 @@ class ProfilePage extends Component {
                     emailError: true,
                     errorMsg: response.data.msg
                 });
+            } else if (code === 400) {
+                localStorage.removeItem('usertoken');
+                this.props.history.push("/Login");
             }
         }
     })
@@ -226,11 +246,13 @@ class ProfilePage extends Component {
     .catch((error) => {
         console.log("post error: " + error);
     });
+
   }
 
-  changePassword = (newPassword) => {
-    this.setState({password: newPassword});
-  }
+  // Move this logic to Dialog 
+  // changePassword = (newPassword) => {
+  //   this.setState({password: newPassword});
+  // }
 
   onDrop = event => {
     this.setState({
@@ -257,7 +279,7 @@ class ProfilePage extends Component {
       <MuiThemeProvider theme = {MainTheme}>
       <div className="profile-page-container">
           {/* Major part one - nav bar */}
-          <NavigationBar className="nav-bar"/>
+          <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
 
           {/* Major part two - user info */}
           <div className="user-info-container">
@@ -284,7 +306,10 @@ class ProfilePage extends Component {
                     readOnly: this.state.readOnly,
                 }}
                 error={this.state.nameError}
-                variant="filled"/>
+                variant="filled"
+                value={this.state.username}
+                onChange={this.handleNameInput('name')}
+              />
               <TextField
 
                   label="E-mail"
@@ -293,7 +318,11 @@ class ProfilePage extends Component {
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   error={this.state.emailError}
-                  variant="filled"/>
+                  variant="filled"
+                  value={this.state.email}
+                  onChange={this.handleEmailInput('email')}
+                  />
+
 
 
 
@@ -304,11 +333,14 @@ class ProfilePage extends Component {
             <TextField
 
                 label="State"
-                defaultValue={this.state.state}
+                defaultValue={this.state.address}
                 className="standard-read-only-input"
                 margin="normal"
                 InputProps={{readOnly: this.state.readOnly,}}
-                variant="filled"/>
+                variant="filled"
+                value={this.state.address}
+                onChange={this.handleAddressInput('address')}
+                />
 
                 <TextField
 
