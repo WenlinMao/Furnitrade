@@ -87,7 +87,7 @@ class Profile(Resource):
     @auth.login_required
     def get(self, user):
         # Get user profile from database
-
+        
         current_username = user['username'];
         current_email = user['email'];
         current_address = user['address'];

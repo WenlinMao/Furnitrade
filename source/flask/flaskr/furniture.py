@@ -38,7 +38,37 @@ class Update(Resource):
 class Detail(Resource):
 	@auth.login_required
 	def get(self, furniture_name):
-		pass;
+		# Get furniture data from database
+		furnitures = get_furniture_collection();
+
+		furniture = furnitures.find_one({'product_name': furniture_name});
+		if furniture is None:
+			return jsonify({
+				"status": 319,
+				"msg": "Can not find the furniture"
+				})
+
+		# Get detail from the database
+		product_name = furniture['product_name'];
+		category = furniture['Category'];
+		images = furniture['images'];
+		is_delivery_included = furniture['Is_delivery_included'];
+		price = furniture['Price'];
+		location = furniture['location'];
+		seller_id = furniture['seller'];
+		retJson = {
+			"status": 200,
+			"msg": "Get furniture detail succeeded",
+			'product_name': product_name,
+			'Category': category,
+			'images': images,
+			'Is_delivery_included': is_delivery_included,
+			'Price': price,
+			'location': location,
+			'seller': seller_id
+		}
+
+		return jsonify(retJson);
 
 api.add_resource(Post, '/post');
 api.add_resource(Delete, '/delete/<string:furniture_name>');
