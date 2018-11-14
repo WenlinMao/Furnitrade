@@ -75,7 +75,7 @@
 }
 
 .logos img:hover {
-    transform: translateY(-3px);
+    transform: translateY(-6px);
 }
 
 @media (max-width: 640px) {

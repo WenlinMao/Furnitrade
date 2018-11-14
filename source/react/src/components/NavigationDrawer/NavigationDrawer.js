@@ -65,6 +65,8 @@ class NavigationDrawer extends React.Component {
               localStorage.removeItem('usertoken');
               // redirect to login (following line not working)
               //this.props.history.push("/Login");
+          } else if (code === 200){
+            this.props.history.push("/");
           }
         })
         .catch((error) => {
@@ -88,10 +90,9 @@ class NavigationDrawer extends React.Component {
               <li>
                   <Button>Privacy</Button>
               </li>
-
-                <li>
-                  <Button onClick={this.handleLogout}>Log out</Button>
-                </li>
+              <li>
+                <Button onClick={this.handleLogout}>Log out</Button>
+              </li>
  
           </List>
           <Divider />

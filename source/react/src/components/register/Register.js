@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import NavigationBar from '../common/NavigationBar';
-// import MenuItem from '@material-ui/core/MenuItem';
+import NavBar from '../NavBar/NavBar';
+import Wave from '../common/Wave';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -329,163 +329,167 @@ class Register extends Component {
         let {lower, upper, number, symbol, length, validEmail, nameLength, nameNoSymbol} = this.state;
 
         return (
-            <div className="register-container">
-                <MuiThemeProvider theme = {MainTheme}>
-
+            // <div className="register-container">
+            <div>
                 {/* add NavigationBar to register page */}
-                  <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
-                <div className="register-title">
-                  <Typography variant = "display2" color = "inherit"> Create Your Furnitrade Account
-                  </Typography>
+                <NavBar hasLogin={this.state.hasLogin} className="nav-bar"/>
+                <div className="register">
+                    <div className="register-items">
+                    <h2>Create Your Furnitrade Account</h2>
+                        <form className="register-form" noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                            <Tooltip
+                                title={
+                                    <React.Fragment>
+                                        4 ~ 20 characters  <i className={nameLength?check:times}></i> <br/>
+                                        No special characters <i className={nameNoSymbol?check:times}></i>
+                                        <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                    </React.Fragment>
+                                }
+                                classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
+                                placement="right"
+                                PopperProps={{
+                                    popperOptions: {
+                                    modifiers: {
+                                        arrow: {
+                                        enabled: Boolean(this.state.arrowRef),
+                                        element: this.state.arrowRef,
+                                        },
+                                    },
+                                    },
+                                }}
+                            >
+                                <TextField
+                                    id="name-input"
+                                    label="Username"
+                                    className={classes.textField}
+                                    value={this.state.username}
+                                    onChange={this.handleNameInput('username')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    required={true}
+                                    error={this.state.nameError}
+                                />
+                            </Tooltip>
+                            {
+                                this.state.nameError && this.state.errorMsg !== ""
+                                ?
+                                <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                                :
+                                <div></div>
+                            }
+                            <Tooltip
+                                title={
+                                    <React.Fragment>
+                                        Valid email address <i className={validEmail?check:times}></i>
+                                        <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                    </React.Fragment>
+                                }
+                                classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
+                                placement="right"
+                                PopperProps={{
+                                    popperOptions: {
+                                    modifiers: {
+                                        arrow: {
+                                        enabled: Boolean(this.state.arrowRef),
+                                        element: this.state.arrowRef,
+                                        },
+                                    },
+                                    },
+                                }}
+                            >
+                                <TextField
+                                    id="email-input"
+                                    label="Email Address"
+                                    className={classes.textField}
+                                    type="email"
+                                    name="email"
+                                    // autoComplete="email"
+                                    margin="normal"
+                                    variant="outlined"
+                                    required={true}
+                                    value={this.state.email}
+                                    onChange={this.handleEmailInput('email')}
+                                    error={this.state.emailError}
+                                />
+                            </Tooltip>
+                            {
+                                this.state.emailError && this.state.errorMsg !== ""
+                                ?
+                                <FormHelperText error={true}> {this.state.errorMsg} </FormHelperText>
+                                :
+                                <div></div>
+                            }
+                            <TextField
+                                id="address-input"
+                                label="Address"
+                                className={classes.textField}
+                                value={this.state.address}
+                                onChange={this.handleAddressInput('address')}
+                                margin="normal"
+                                variant="outlined"
+                                required={true}
+                                error={this.state.addressError}
+                            />
+                            <Tooltip
+                                title={
+                                    <React.Fragment>
+                                        8 ~ 20 characters <i className={length?check:times}></i> <br/>
+                                        At least 1 uppercase letter <i className={upper?check:times}></i> <br/>
+                                        At least 1 lowercase letter <i className={lower?check:times}></i> <br/>
+                                        At least 1 number <i className={number?check:times}></i> <br/>
+                                        At least 1 special character <i className={symbol?check:times}></i> 
+                                        <span className={classes.arrowArrow} ref={this.handleArrowRef} />
+                                    </React.Fragment>
+                                }
+                                classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
+                                placement="right"
+                                PopperProps={{
+                                    popperOptions: {
+                                    modifiers: {
+                                        arrow: {
+                                        enabled: Boolean(this.state.arrowRef),
+                                        element: this.state.arrowRef,
+                                        },
+                                    },
+                                    },
+                                }}
+                            >
+                                <TextField
+                                    id="password-input"
+                                    label="Password"
+                                    className={classes.textField}
+                                    type="password"
+                                    margin="normal"
+                                    variant="outlined"
+                                    required={true}
+                                    value={this.state.password}
+                                    onChange={this.handlePasswordInput('password')}
+                                    error={this.state.passwordError}
+                                />
+                            </Tooltip>
+                            <TextField
+                                id="confirm-password-input"
+                                label="Confirm Password"
+                                className={classes.textField}
+                                type="password"
+                                margin="normal"
+                                variant="outlined"
+                                required={true}
+                                value={this.state.confirmPassword}
+                                onChange={this.handlePasswordConfirm('confirmPassword')}
+                                error={this.state.confirmPasswordError}
+                            />
+                            {/* Show different button depending on input validality */}
+                            { this.checkButtonStatus() ?
+                            <Button className = "register-button" disabled={this.checkButtonStatus()} variant="contained" > Create Account </Button> :
+                            <button disabled={this.checkButtonStatus()} variant="contained" type="submit">CREATE ACCOUNT</button>
+                            }
+                        </form>
+                    </div>
+                    
+                {/* this is the end of register tag */}
                 </div>
-                <form className="register-form" noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-                    <Tooltip
-                        title={
-                            <React.Fragment>
-                                4 ~ 20 characters  <i className={nameLength?check:times}></i> <br/>
-                                No special characters <i className={nameNoSymbol?check:times}></i>
-                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
-                            </React.Fragment>
-                        }
-                        classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
-                        placement="right"
-                        PopperProps={{
-                            popperOptions: {
-                            modifiers: {
-                                arrow: {
-                                enabled: Boolean(this.state.arrowRef),
-                                element: this.state.arrowRef,
-                                },
-                            },
-                            },
-                        }}
-                    >
-                        <TextField
-                            id="name-input"
-                            label="Username"
-                            className={classes.textField}
-                            value={this.state.username}
-                            onChange={this.handleNameInput('username')}
-                            margin="normal"
-                            variant="outlined"
-                            required={true}
-                            error={this.state.nameError}
-                        />
-                    </Tooltip>
-                    {
-                        this.state.nameError && this.state.errorMsg !== ""
-                        ?
-                        <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
-                        :
-                        <div></div>
-                    }
-                     <Tooltip
-                        title={
-                            <React.Fragment>
-                                Valid email address <i className={validEmail?check:times}></i>
-                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
-                            </React.Fragment>
-                        }
-                        classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
-                        placement="right"
-                        PopperProps={{
-                            popperOptions: {
-                            modifiers: {
-                                arrow: {
-                                enabled: Boolean(this.state.arrowRef),
-                                element: this.state.arrowRef,
-                                },
-                            },
-                            },
-                        }}
-                    >
-                        <TextField
-                            id="email-input"
-                            label="Email Address"
-                            className={classes.textField}
-                            type="email"
-                            name="email"
-                            // autoComplete="email"
-                            margin="normal"
-                            variant="outlined"
-                            required={true}
-                            value={this.state.email}
-                            onChange={this.handleEmailInput('email')}
-                            error={this.state.emailError}
-                        />
-                     </Tooltip>
-                    {
-                        this.state.emailError && this.state.errorMsg !== ""
-                        ?
-                        <FormHelperText error={true}> {this.state.errorMsg} </FormHelperText>
-                        :
-                        <div></div>
-                    }
-                    <TextField
-                        id="address-input"
-                        label="Address"
-                        className={classes.textField}
-                        value={this.state.address}
-                        onChange={this.handleAddressInput('address')}
-                        margin="normal"
-                        variant="outlined"
-                        required={true}
-                        error={this.state.addressError}
-                    />
-                     <Tooltip
-                        title={
-                            <React.Fragment>
-                                8 ~ 20 characters <i className={length?check:times}></i> <br/>
-                                At least 1 uppercase letter <i className={upper?check:times}></i> <br/>
-                                At least 1 lowercase letter <i className={lower?check:times}></i> <br/>
-                                At least 1 number <i className={number?check:times}></i> <br/>
-                                At least 1 special character <i className={symbol?check:times}></i> 
-                                <span className={classes.arrowArrow} ref={this.handleArrowRef} />
-                            </React.Fragment>
-                        }
-                        classes={{ popper: classes.arrowPopper ,tooltip: classes.lightTooltip}}
-                        placement="right"
-                        PopperProps={{
-                            popperOptions: {
-                            modifiers: {
-                                arrow: {
-                                enabled: Boolean(this.state.arrowRef),
-                                element: this.state.arrowRef,
-                                },
-                            },
-                            },
-                        }}
-                    >
-                        <TextField
-                            id="password-input"
-                            label="Password"
-                            className={classes.textField}
-                            type="password"
-                            margin="normal"
-                            variant="outlined"
-                            required={true}
-                            value={this.state.password}
-                            onChange={this.handlePasswordInput('password')}
-                            error={this.state.passwordError}
-                        />
-                    </Tooltip>
-                    <TextField
-                        id="confirm-password-input"
-                        label="Confirm Password"
-                        className={classes.textField}
-                        type="password"
-                        margin="normal"
-                        variant="outlined"
-                        required={true}
-                        value={this.state.confirmPassword}
-                        onChange={this.handlePasswordConfirm('confirmPassword')}
-                        error={this.state.confirmPasswordError}
-                    />
-                    <Button className = "register-button" disabled={this.checkButtonStatus()} type="submit" variant="contained" color="inherit">
-                        Create Account
-                    </Button>
-                </form>
-                </MuiThemeProvider>
+                <Wave/>
             </div>
         );
     }
