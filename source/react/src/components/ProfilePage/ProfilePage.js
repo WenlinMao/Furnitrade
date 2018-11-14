@@ -4,8 +4,8 @@ import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
+import { UploadImg } from '../../UploadImg';
 
-import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
@@ -82,7 +82,7 @@ class ProfilePage extends Component {
       readOnly: true,
       emailError: false,
       nameError: false,
-      hasLogin: false 
+      hasLogin: false
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -249,7 +249,7 @@ class ProfilePage extends Component {
 
   }
 
-  // Move this logic to Dialog 
+  // Move this logic to Dialog
   // changePassword = (newPassword) => {
   //   this.setState({password: newPassword});
   // }
@@ -358,6 +358,7 @@ class ProfilePage extends Component {
                 margin="normal"
                 InputProps={{readOnly: this.state.readOnly,}}
                 variant="filled"/>
+            <UploadImg resource_type='user' name={this.state.username} />
             {/* Save/ Edit button */}
               {button}
   <Dialog password={this.state.password} onConfirm={this.changePassword} />

@@ -8,10 +8,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import pymongo
 from bson.json_util import dumps
 import json
-
-########### Additional Dependencies Please Add Here ###################
+"""
+Additional Dependencies Please Add Here
+"""
 from flaskr import auth
-from flaskr.db import get_furniture_collection
+from flaskr.model.furniture_model import get_furniture_collection
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
 api = Api(bp)

@@ -89,7 +89,7 @@ class NavigationDrawer extends React.Component {
                   this.state.hasLogin
                   ?
                   <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
-                  : 
+                  :
                   <div></div>
                 }
               </li>
