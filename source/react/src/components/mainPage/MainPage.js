@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
-import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import NavigationBar from '../common/NavigationBar';
-import NavBar from '../common/NavBar/NavBar';
-import { fadeIn } from 'react-animations';
-import Radium, {StyleRoot} from 'radium';
+import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 import {getLocal} from '../../utils/util';
-import "./MainPage.css";
+import Wave from '../common/Wave';
+import FurniCategory from '../FurniCategory/FurniCategory';
+import SubCategory from '../FurniCategory/SubCategory';
+import styled from 'styled-components'
+import './MainPage.css';
+import categories from '../../static/data/category.json';
 
-// log-in link
-const MyLink = props => <Link to="./Register" {...props} />
-const MyLink1 = props => <Link to="./Login" {...props} />
+const SectionCaption = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #BDBDBD;
+  text-align: center;
+  position: relative;
+`
 
-var textStyle = {
-  fadeIn: {
-    animation: 'x 3s',
-    animationName: Radium.keyframes(fadeIn, 'fadeIn')
+const SectionCategory = styled.div`
+  max-width: 800px;
+  margin: 0 auto 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  padding: 0 20px;
+  position: relative;
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
   }
-};
-
-const MainTheme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#42668f',
-      main: '#134074',
-      dark: '#0d2c51',
-    },
-    secondary: {
-      light: '#61a5c5',
-      main: '#3A8FB7',
-      dark: '#286480',
-    },
-    inherit: {
-      light: '#f7ca7f',
-      main: '#F6BD60',
-      dark: '#ac8443',
-    },
-  },
-    typography: {
-      fontFamily: '"Righteous", sans-serif',
-    },
-  });
+`
 
   class MainPage extends Component {
     constructor(props) {
@@ -66,32 +53,49 @@ const MainTheme = createMuiTheme({
 
     render() {
       return (
+        <div>
+          <NavBar hasLogin={this.state.hasLogin}/>
+          <div className="Index">
+            <div className="Index-group">
+              <h1>Furnitrade </h1>
+              <p>Furniture Trade Platform</p>
+              <p>Best Trading Platform ever. Make your life easier. Finding your desired furnitures at the most inexpensive price and best quality! </p>
+              {!this.state.hasLogin ?
+                <Link to="./Register">Register</Link>: null
+              }
 
-        <div className="main-page">
-          <MuiThemeProvider theme = {MainTheme}>
-              <NavigationBar hasLogin={this.state.hasLogin}/>
+              {/* logos */}
+              <div className="logos">
+                <img src={require("../../static/images/fb_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/mail_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+              </div>   
+            </div>
+            <Wave/>          
+          {/* End of Index DIV */}
+          </div>
 
-              {/* <NavBar hasLogin={this.state.hasLogin}/> */}
+          {/* Section of About US */}
+          
+          {/* Section of categories */}
+          <SectionCaption>Furniture Categories</SectionCaption>
+          <SectionCategory>
+            {categories.categories.map(category => (
+              <FurniCategory 
+                title={category.title}
+                image={category.image}
+                subcategories={category.subcategories} 
+              />
+            ))}
+          </SectionCategory>
 
-              <StyleRoot>
-              <div className="slogan-container" style={textStyle.fadeIn}>
-
-                <Typography className="furnitrade" variant = 'display4' color = 'inherit' fontSize="18vw">Furnitrade </Typography>
-                <Typography className="slogan" variant = 'subheading' color = 'inherit'>
-                Trade Dat Shit. Yea, Dat's Right. I Know What U Want Babbee. <br/>Be fucking
-                surprised. Biatch </Typography>
-
-                <div className="mainpage-button-container">
-                  <Button className="login-button" color="inherit" component={MyLink}>Sign Up</Button>
-                  <Button className="login-button" color="inherit" component={MyLink1}>Log In</Button>
-                </div>
-              </div>
-              </StyleRoot>
-          </MuiThemeProvider>
+        {/* Final DIV - add everything above this DIV */}
         </div>
       );
     }
   }
 
-  export default withStyles(textStyle)(MainPage)
+  export default MainPage
   // export default MainPage;
