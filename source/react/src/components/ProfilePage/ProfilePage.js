@@ -4,7 +4,7 @@ import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/Dialog';
-import ButtonBases from '../common/ButtonBases';
+
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 
@@ -69,7 +69,7 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      picture: 'http://localhost:3000/static/images/test-propic.jpg',
+      picture: 'test-propic.jpg',
       username: 'Jack Ma',
       email: 'jackma@alibaba.com',
       address: 'Hangzhou, China',
@@ -81,11 +81,11 @@ class ProfilePage extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
-  
-  // send get request, get the user profile 
+
+  // send get request, get the user profile
  /* componentDidMount() {
     let username = getLocal("username");
-    // change the logic later 
+    // change the logic later
     let reqData = {
       'username': username
     };
@@ -121,8 +121,8 @@ class ProfilePage extends Component {
     }
   }*/
 
-  
-  
+
+
     // need to change
     handleChange(event) {
       this.setState({
@@ -152,9 +152,8 @@ class ProfilePage extends Component {
       });
     }
 
-      
-    render() {
 
+    render() {
       /* the save/edit button */
       let button;
       if (this.state.readOnly) {
@@ -181,7 +180,7 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
               <img title="user-photo"
-              src={this.props.picture}className="user-photo"
+              src={require("../../static/images/"+this.state.picture)}className="user-photo"
               alt = "used to store user info"
               // todo
               width="100" height="100"
