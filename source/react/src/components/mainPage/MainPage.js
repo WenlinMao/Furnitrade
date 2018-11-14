@@ -42,7 +42,7 @@ const SectionCategory = styled.div`
     // Easy hack; 别的方法试了一下,不好使,先用这个方法。
     // check if the user has logged in
     componentWillMount() {
-      if(getLocal("username") !== "" ){
+      if(getLocal("usertoken") !== "" ){
         this.setState({hasLogin: true});
          // TODO: GET request
       }
@@ -71,22 +71,22 @@ const SectionCategory = styled.div`
                 <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
-              </div>   
+              </div>
             </div>
-            <Wave/>          
+            <Wave/>
           {/* End of Index DIV */}
           </div>
 
           {/* Section of About US */}
-          
+
           {/* Section of categories */}
           <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
-              <FurniCategory 
+              <FurniCategory
                 title={category.title}
                 image={category.image}
-                subcategories={category.subcategories} 
+                subcategories={category.subcategories}
               />
             ))}
           </SectionCategory>

@@ -28,15 +28,15 @@ class NavigationDrawer extends React.Component {
       super(props);
       this.state = {
         right: false,
-        hasLogin: false,
+        // hasLogin: false,
       };
     }
 
-    componentWillMount() {
-      this.setState({
-        hasLogin: this.props.hasLogin
-      });
-    }
+    // componentWillMount() {
+    //   this.setState({
+    //     hasLogin: this.props.hasLogin
+    //   });
+    // }
     NavigationDrawer = (side, open) => () => {
       this.setState({
         [side]: open,
@@ -45,10 +45,7 @@ class NavigationDrawer extends React.Component {
 
     // Temporay hack
     handleLogout = (e) => {
-        setLocal("username", "");
-        this.setState({
-          showLogout: false
-        });
+        //setLocal('username', "")
         const token = localStorage.getItem('usertoken');
         // TODO: check what should happen if token is Null
         axios({
@@ -64,7 +61,10 @@ class NavigationDrawer extends React.Component {
           if (code === 400){
               localStorage.removeItem('usertoken');
               // redirect to login (following line not working)
-              //this.props.history.push("/Login");
+              // this.props.history.push("/Login");
+          } else if (code === 200) {
+              setLocal('usertoken', "");
+              this.props.history.push("/");
           }
         })
         .catch((error) => {
@@ -88,15 +88,10 @@ class NavigationDrawer extends React.Component {
               <li>
                   <Button>Privacy</Button>
               </li>
-              {
-                this.state.hasLogin
-                ?
+
                 <li>
                   <Button onClick={this.handleLogout}>Log out</Button>
                 </li>
-                :
-                <div></div>
-              }
           </List>
           <Divider />
           <List></List>
