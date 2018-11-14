@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import NavigationBar from '../common/NavigationBar';
+import NavBar from '../NavBar/NavBar';
+import Wave from '../common/Wave';
 import { Button}  from "@material-ui/core";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import "./ProfilePage.css";
 import Dialog from '../common/dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -43,29 +43,6 @@ import {getLocal} from '../../utils/util';
 //     - feel free to use a new theme. Just make sure the color stays the same
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-
-const MainTheme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#42668f',
-      main: '#134074',
-      dark: '#0d2c51',
-    },
-    secondary: {
-      light: '#61a5c5',
-      main: '#3A8FB7',
-      dark: '#286480',
-    },
-    inherit: {
-      light: '#f7ca7f',
-      main: '#F6BD60',
-      dark: '#ac8443',
-    },
-  },
-  typography: {
-    fontFamily: '"Righteous", sans-serif',
-  },
-});
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -275,101 +252,100 @@ class ProfilePage extends Component {
     }
 
     return (
-
-      <MuiThemeProvider theme = {MainTheme}>
-      <div className="profile-page-container">
-          {/* Major part one - nav bar */}
-          <NavigationBar hasLogin={this.state.hasLogin} className="nav-bar"/>
-
-          {/* Major part two - user info */}
-          <div className="user-info-container">
+      <div>
+        {/* Major part one - nav bar */}
+        <NavBar hasLogin={this.state.hasLogin} className="nav-bar"/>
+        {/* Major part two - user info */}
+        <div className="profile-page-container">
+            <div className="user-info-container">
 
 
-            {/* left hand side of user info - photo & names */}
-            <div className="info-lhs">
-            <div className="pro-image">
-            <img className="user-photo" title="user-photo"
-            src={require("../../static/images/"+this.state.picture)}className="user-photo"
-            alt = "used to store user info"
-            // todo
-            width="100" height="100"
-            />
-            <Button onClick={this.onDrop}>Update picture</Button>
-              </div>
-              <TextField
-
-                label="Username"
-                defaultValue={this.state.username}
-                className="standard-read-only-input"
-                margin="normal"
-                InputProps={{
-                    readOnly: this.state.readOnly,
-                }}
-                error={this.state.nameError}
-                variant="filled"
-                value={this.state.username}
-                onChange={this.handleNameInput('name')}
+              {/* left hand side of user info - photo & names */}
+              <div className="info-lhs">
+              <div className="pro-image">
+              <img className="user-photo" title="user-photo"
+              src={require("../../static/images/"+this.state.picture)}className="user-photo"
+              alt = "used to store user info"
+              // todo
+              width="100" height="100"
               />
+              <Button onClick={this.onDrop}>Update picture</Button>
+                </div>
+                <TextField
+
+                  label="Username"
+                  defaultValue={this.state.username}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{
+                      readOnly: this.state.readOnly,
+                  }}
+                  error={this.state.nameError}
+                  variant="filled"
+                  value={this.state.username}
+                  onChange={this.handleNameInput('name')}
+                />
+                <TextField
+
+                    label="E-mail"
+                    defaultValue={this.state.email}
+                    className="standard-read-only-input"
+                    margin="normal"
+                    InputProps={{readOnly: this.state.readOnly,}}
+                    error={this.state.emailError}
+                    variant="filled"
+                    value={this.state.email}
+                    onChange={this.handleEmailInput('email')}
+                    />
+
+
+
+
+              </div>
+
+              {/* right hand side of user info - address */}
+              <div className="info-rhs">
+
+                  <TextField
+
+                      label="City"
+                      defaultValue={this.state.city}
+                      className="standard-read-only-input"
+                      margin="normal"
+                      InputProps={{readOnly: this.state.readOnly,}}
+                      variant="filled"/>
               <TextField
 
-                  label="E-mail"
-                  defaultValue={this.state.email}
+                  label="University"
+                  defaultValue={this.state.university}
                   className="standard-read-only-input"
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
-                  error={this.state.emailError}
-                  variant="filled"
-                  value={this.state.email}
-                  onChange={this.handleEmailInput('email')}
-                  />
+                  variant="filled"/>
 
+              <TextField
 
+                      label="Address"
+                      floatingLabelFixed={true}
+                      defaultValue={this.state.address}
+                      className="standard-read-only-input"
+                      margin="normal"
+                      InputProps={{readOnly: this.state.readOnly,}}
+                      variant="filled"
+                      value={this.state.address}
+                      onChange={this.handleAddressInput('address')}
+                      />
 
+              {/* Save/ Edit button */}
+                {button}
+    <Dialog password={this.state.password} onConfirm={this.changePassword} />
+              </div>
 
             </div>
-
-            {/* right hand side of user info - address */}
-            <div className="info-rhs">
-
-                <TextField
-
-                    label="City"
-                    defaultValue={this.state.city}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    variant="filled"/>
-            <TextField
-
-                label="University"
-                defaultValue={this.state.university}
-                className="standard-read-only-input"
-                margin="normal"
-                InputProps={{readOnly: this.state.readOnly,}}
-                variant="filled"/>
-
-            <TextField
-
-                    label="Address"
-                    floatingLabelFixed={true}
-                    defaultValue={this.state.address}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    variant="filled"
-                    value={this.state.address}
-                    onChange={this.handleAddressInput('address')}
-                    />
-
-            {/* Save/ Edit button */}
-              {button}
-  <Dialog password={this.state.password} onConfirm={this.changePassword} />
-            </div>
-
-          </div>
-
+            <Wave/>
+        </div>
+      {/* the very last div tag */}
       </div>
-      </MuiThemeProvider >
     );
   }
 }
