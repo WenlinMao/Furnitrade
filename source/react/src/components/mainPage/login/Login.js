@@ -118,13 +118,15 @@ class Login extends Component {
                 }
             })
             .then((response) => {
+                console.log(response);
                 console.log(response.data);
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully login
-                    setLocal("username", reqData.username);
-                    localStorage.setItem('usertoken', response.data.token);
-                    console.log("localStorage", localStorage.getItem('usertoken'));
+                    //setLocal('username', reqData.username)
+                    setLocal('usertoken', response.data.token);
+                    // console.log("localStorage", localStorage.getItem('usertoken'));
+                    console.log("response.data.token = ", response.data.token);
                     // redirect to hompage
                     this.props.history.push("/");
                 } else {
@@ -180,7 +182,6 @@ class Login extends Component {
                             variant="outlined"
                             error={this.state.usernameError}
                         />
-                        {/* FormHelperText也不好用 */}
                         {
                             this.state.usernameError
                             ?
