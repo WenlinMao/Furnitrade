@@ -54,12 +54,6 @@
     }
   }
 
-  .Index svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
 .Index .logos {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

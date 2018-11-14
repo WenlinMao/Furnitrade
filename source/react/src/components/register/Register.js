@@ -479,6 +479,7 @@ class Register extends Component {
                                 onChange={this.handlePasswordConfirm('confirmPassword')}
                                 error={this.state.confirmPasswordError}
                             />
+
                             {/* Show different button depending on input validality */}
                             { this.checkButtonStatus() ?
                             <Button className = "register-button" disabled={this.checkButtonStatus()} variant="contained" > Create Account </Button> :
@@ -486,10 +487,9 @@ class Register extends Component {
                             }
                         </form>
                     </div>
-                    
+                    <Wave/>
                 {/* this is the end of register tag */}
                 </div>
-                <Wave/>
             </div>
         );
     }
