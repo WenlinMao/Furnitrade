@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { withStyles} from '@material-ui/core/styles';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import TextField from '@material-ui/core/TextField';
@@ -12,9 +11,11 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import "./Register.css";
 import Tooltip from '@material-ui/core/Tooltip';
 
+/* reg epx */
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?@]).{8,20}/;
+// const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?@]).{8,20}/;
 
 /* name condition */
 const name_length = /.{4,20}/;
@@ -23,7 +24,8 @@ const name_no_symbol = /(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const password_lower = /(?=.*[a-z])/;
 const password_upper = /(?=.*[A-Z])/;
 const password_number = /(?=.*\d)/;
-const password_symbol = /(?=.*[!#\$%&\?])/;
+const password_symbol = /(?=.*[!#$%&?])/;
+// const password_symbol = /(?=.*[!#\$%&\?])/;
 const password_length = /.{8,20}/;
 
 /**
@@ -39,29 +41,6 @@ const password_length = /.{8,20}/;
  * Send request, local storage and redirect to homepage (current routing)
  */
 
-/* create theme */
-const MainTheme = createMuiTheme({
-    palette: {
-        primary: {
-            light: '#42668f',
-            main: '#134074',
-            dark: '#0d2c51',
-        },
-        secondary: {
-            light: '#61a5c5',
-            main: '#3A8FB7',
-            dark: '#286480',
-        },
-        inherit: {
-            light: '#f7ca7f',
-            main: '#F6BD60',
-            dark: '#ac8443',
-        },
-    },
-    typography: {
-        fontFamily: '"Righteous", sans-serif',
-    },
-});
 
   /** Material UI builtin theme used in Tooltip */
 const styles = theme => ({

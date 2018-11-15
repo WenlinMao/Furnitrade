@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
 import Wave from '../common/Wave';
 import FurniCategory from '../FurniCategory/FurniCategory';
-import SubCategory from '../FurniCategory/SubCategory';
 import styled from 'styled-components'
 import './MainPage.css';
 import categories from '../../static/data/category.json';

@@ -7,8 +7,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {setLocal, getLocal} from '../../utils/util';
-import {Link} from 'react-router-dom'
+import {setLocal /*, getLocal*/} from '../../utils/util';
 import axios from 'axios';
 
 const styles = {
@@ -20,8 +19,6 @@ const styles = {
     width: 'auto',
   },
 };
-
-// const MyLink = props => <Link to="./login" {...props} />
 
 class NavigationDrawer extends React.Component {
     constructor(props) {

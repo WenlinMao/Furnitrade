@@ -4,7 +4,7 @@
 */
 import React, { Component } from 'react';
 import NavigationBar from '../common/NavigationBar';
-import { Button, TextField } from "@material-ui/core";
+// import { Button, TextField } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const MainTheme = createMuiTheme({
@@ -63,7 +63,7 @@ render(){
   <h1>{this.state.name}</h1>
   </header>
   <p>{this.state.description}</p>
-  <img src={require("../../static/images/"+this.state.picture)} alt="furniture image"
+  <img src={require("../../static/images/"+this.state.picture)} alt="furniture display"
   width="200" height="200"/>
   </article>
   <form>
