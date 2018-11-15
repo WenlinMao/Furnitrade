@@ -77,64 +77,69 @@ export default class FormDialog extends React.Component {
     console.log(this.state.oldPassword);
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Reset Password</Button>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              You probably cannot reset your password from this page since I DONT WRITE DAT SHIT
-            </DialogContentText>
+        <div className="dialog">
+          <a onClick={this.handleClickOpen}>Reset Password</a>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                You probably cannot reset your password from this page since I HAVE NOT WRITTEN DAT SHIT
+              </DialogContentText>
 
-            {// TODO: 1: Need logic behind: check password state, change password state, error notification,
-             //       tooltips, etc.
-             //       2: style needed to add
-            }
-            <div className = "passwordInputField">
-              <TextField
-                  id="password-input"
-                  label="Old Password"
-                  type="password"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  onChange={this.oldPassword('password')}
-                  error={this.state.oldPasswordError}
-              />
-              <TextField
-                  id="password-input"
-                  label="New Password"
-                  type="password"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  onChange={this.newPassword('password')}
-                  error={this.state.newPasswordError}
-              />
-              <TextField
-                  id="password-input"
-                  label="Confirm New Password"
-                  type="password"
-                  margin="normal"
-                  variant="outlined"
-                  required={true}
-                  onChange={this.confirmPassword('password')}
-                  error={this.state.confirmPasswordError}
-              />
+              {// TODO: 1: Need logic behind: check password state, change password state, error notification,
+              //       tooltips, etc.
+              //       2: style needed to add
+              }
+              <div className = "passwordInputField">
+                <TextField
+                    id="password-input"
+                    label="Old Password"
+                    type="password"
+                    margin="normal"
+                    variant="outlined"
+                    required={true}
+                    onChange={this.oldPassword('password')}
+                    error={this.state.oldPasswordError}
+                />
+                <TextField
+                    id="password-input"
+                    label="New Password"
+                    type="password"
+                    margin="normal"
+                    variant="outlined"
+                    required={true}
+                    onChange={this.newPassword('password')}
+                    error={this.state.newPasswordError}
+                />
+                <TextField
+                    id="password-input"
+                    label="Confirm New Password"
+                    type="password"
+                    margin="normal"
+                    variant="outlined"
+                    required={true}
+                    onChange={this.confirmPassword('password')}
+                    error={this.state.confirmPasswordError}
+                />
             </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCancel} color="secondary">
-              Cancel
-            </Button>
-            <Button disabled={this.buttonStatus()} onClick={this.handleSubmit} color="primary">
-              Submit
-            </Button>
-          </DialogActions>
-        </Dialog>
+            </DialogContent>
+            <DialogActions>
+              <div className="buttons">
+                <button onClick={this.handleCancel}>Cancel</button>
+
+                {/* logic update - check status and return different button */}
+                { this.buttonStatus() ?
+                  <Button disabled={true} onClick={this.handleSubmit} color="primary">Submit</Button> :
+                  <button onClick={this.handleSubmit} >Submit</button>
+                }
+              </div>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
   }

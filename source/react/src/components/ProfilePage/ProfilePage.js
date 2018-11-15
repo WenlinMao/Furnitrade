@@ -264,14 +264,15 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={require("../../static/images/"+this.state.picture)} alt="user info pic" onClick={this.onDrop}/>
+                  <img src={require("../../static/images/"+this.state.picture)} alt="user info pic" />
+                  <button onClick={this.onDrop}>update picture</button>
                 </div>
                 <TextField
 
                     label="Username"
                     defaultValue={this.state.username}
                     className="standard-read-only-input"
-                    margin="normal"
+                    // margin="normal"
                     InputProps={{
                         readOnly: this.state.readOnly,
                     }}
@@ -321,7 +322,7 @@ class ProfilePage extends Component {
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
 
-              {/* Save/ Edit button */}
+                {/* Save/ Edit button */}
                 {button}
     <Dialog password={this.state.password} onConfirm={this.changePassword} />
               </div>
