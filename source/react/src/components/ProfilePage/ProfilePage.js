@@ -242,11 +242,11 @@ class ProfilePage extends Component {
     /* the save/edit button */
     let button;
     if (this.state.readOnly) {
-        button = <Button type="submit" variant="contained" color="primary" onClick={this.handleEdit}>
+        button = <Button type="submit" variant="contained" onClick={this.handleEdit}>
               Edit
         </Button>
     } else {
-        button = <Button type="submit" variant="contained" color="primary" onClick={this.handleSave}>
+        button = <Button type="submit" variant="contained" onClick={this.handleSave}>
               Save
         </Button>
     }
@@ -256,85 +256,70 @@ class ProfilePage extends Component {
         {/* Major part one - nav bar */}
         <NavBar hasLogin={this.state.hasLogin} className="nav-bar"/>
         {/* Major part two - user info */}
-        <div className="profile-page-container">
-            <div className="user-info-container">
+        <div className="profilepage">
+            <div className="info-container">
 
 
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
-              <div className="pro-image">
-              <img className="user-photo" title="user-photo"
-              src={require("../../static/images/"+this.state.picture)}className="user-photo"
-              alt = "used to store user info"
-              // todo
-              width="100" height="100"
-              />
-              <Button onClick={this.onDrop}>Update picture</Button>
+
+                <div className="pic">
+                  <img src={require("../../static/images/"+this.state.picture)} alt="user info pic" onClick={this.onDrop}/>
                 </div>
                 <TextField
 
-                  label="Username"
-                  defaultValue={this.state.username}
-                  className="standard-read-only-input"
-                  margin="normal"
-                  InputProps={{
-                      readOnly: this.state.readOnly,
-                  }}
-                  error={this.state.nameError}
-                  variant="filled"
-                  value={this.state.username}
-                  onChange={this.handleNameInput('name')}
+                    label="Username"
+                    defaultValue={this.state.username}
+                    className="standard-read-only-input"
+                    margin="normal"
+                    InputProps={{
+                        readOnly: this.state.readOnly,
+                    }}
+                    error={this.state.nameError}
+                    variant="filled"
+                    value={this.state.username}
+                    onChange={this.handleNameInput('name')}
                 />
                 <TextField
 
-                    label="E-mail"
-                    defaultValue={this.state.email}
-                    className="standard-read-only-input"
-                    margin="normal"
-                    InputProps={{readOnly: this.state.readOnly,}}
-                    error={this.state.emailError}
-                    variant="filled"
-                    value={this.state.email}
-                    onChange={this.handleEmailInput('email')}
-                    />
-
-
-
-
+                      label="E-mail"
+                      defaultValue={this.state.email}
+                      className="standard-read-only-input"
+                      margin="normal"
+                      InputProps={{readOnly: this.state.readOnly,}}
+                      error={this.state.emailError}
+                      variant="filled"
+                      value={this.state.email}
+                      onChange={this.handleEmailInput('email')}
+                />
               </div>
 
               {/* right hand side of user info - address */}
               <div className="info-rhs">
-
-                  <TextField
-
-                      label="City"
-                      defaultValue={this.state.city}
-                      className="standard-read-only-input"
-                      margin="normal"
-                      InputProps={{readOnly: this.state.readOnly,}}
-                      variant="filled"/>
-              <TextField
-
+                <TextField
+                  label="City"
+                  defaultValue={this.state.city}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{readOnly: this.state.readOnly,}}
+                  variant="filled"/>
+                <TextField
                   label="University"
                   defaultValue={this.state.university}
                   className="standard-read-only-input"
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   variant="filled"/>
-
-              <TextField
-
-                      label="Address"
-                      floatingLabelFixed={true}
-                      defaultValue={this.state.address}
-                      className="standard-read-only-input"
-                      margin="normal"
-                      InputProps={{readOnly: this.state.readOnly,}}
-                      variant="filled"
-                      value={this.state.address}
-                      onChange={this.handleAddressInput('address')}
-                      />
+                <TextField
+                  label="Address"
+                  floatingLabelFixed={true}
+                  defaultValue={this.state.address}
+                  className="standard-read-only-input"
+                  margin="normal"
+                  InputProps={{readOnly: this.state.readOnly,}}
+                  variant="filled"
+                  value={this.state.address}
+                  onChange={this.handleAddressInput('address')}/>
 
               {/* Save/ Edit button */}
                 {button}
