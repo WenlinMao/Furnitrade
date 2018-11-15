@@ -1,5 +1,7 @@
-# Project name
+# Furnitrade
+
 ## Developer
+
 CSE 110 group name
 
 ## Dependencies
