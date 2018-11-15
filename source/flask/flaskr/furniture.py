@@ -31,9 +31,16 @@ class Post(Resource):
 
 
 class Delete(Resource):
-    @auth.login_required
-    def get(self, furniture_name):
-        pass
+	def get(self, furniture_name):
+	# Get furniture data from database
+		furnitures = get_furniture_collection();
+		furniture = furnitures.delete_one({'furniture_name': furniture_name});
+		
+		return jsonify({
+			"status": 200,
+			"msg": "Delete succeeded"
+		})
+
 
 # take revised info, change info in database
 
