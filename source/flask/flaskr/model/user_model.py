@@ -60,7 +60,7 @@ def update_user_by_id(user_id, update, upsert=False):
     :rtype: UpdateResult object
     """
     users = get_users_collection()
-    return users.update_one({'_id': user_id}, {"$set": update})
+    return users.update_one({'_id': ObjectId(user_id)}, {"$set": update})
 
 
 def delete_user_by_id(user_id):

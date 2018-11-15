@@ -12,14 +12,16 @@ import json
 Additional Dependencies Please Add Here
 """
 from flaskr import auth
-from flaskr.model.furniture_model import get_furniture_collection
+from flaskr.model.furniture_model import (
+	get_furniture_collection, update_furniture_by_id
+)
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
 api = Api(bp)
 
 # take a form, store information in the database
 
-
+## Please added furniture_id field into database. [commented by Mao]
 class Post(Resource):
     @auth.login_required
     def post(self):
@@ -39,7 +41,38 @@ class Delete(Resource):
 class Update(Resource):
     @auth.login_required
     def post(self):
-        pass
+		
+		# Get post's json file
+		posted_data = request.get_json()
+		
+		product_name = posted_data['furniture_name']
+		category = posted_data['category']
+		images = posted_data['images']
+		is_delivery_included = posted_data['is_delivery_included']
+		price = posted_data['price']
+		location = posted_data['location']
+		description = posted_data['description']
+
+		# TODO: perform validation on new data
+
+		# TODO: get current furniture id. 
+		furniture = jsonify({"furniture_id": '2018'})
+
+		# Update furniture by its id
+		update_furniture_by_id(furniture['_id'], {
+			"furniture_name": product_name,
+			"category": category,
+			"images": images,
+			"is_delivery_included": is_delivery_included,
+			"price": price,
+			"location": location,
+			"description": description
+		})
+		
+		return jsonify({
+			"status": 200,
+			"msg": "Update/Edit succeeded"
+		})
 
 # take an id return furniture info
 
@@ -50,6 +83,8 @@ class Detail(Resource):
 		# Get furniture data from database
 		furnitures = get_furniture_collection();
 
+		#TODO: find one by furniture's id?
+		# furniture = furnitures.find_one({'furniture_id': ObjectId(fid)})
 		furniture = furnitures.find_one({'furniture_name': furniture_name});
 		if furniture is None:
 			return jsonify({
