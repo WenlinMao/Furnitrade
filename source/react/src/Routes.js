@@ -8,7 +8,7 @@ import ProfilePage from './components/profilePage/ProfilePage.js';
 import FurniPage from './components/FurniPage/FurniPage.js';
 
 // Don't know the reason but once added, the logo messed up
-// import furniture from './components/FurniPage/Furniture/Furniture.js';
+import furniture from './components/FurniPage/Furniture/Furniture.js';
 
 export default () =>
     <Switch>
@@ -23,6 +23,6 @@ export default () =>
         <Route path = "/furniPage" component = {FurniPage} />
 
         {/* Testing - specific furniture */}
-        {/* <Route path = "/furniture" component = {furniture} /> */}
+        <Route path = "/furniture" component = {furniture} />
 
     </Switch>;

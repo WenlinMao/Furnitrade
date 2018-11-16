@@ -86,7 +86,7 @@
     transform: scale(0.9);
   }
 
-  img {
+  .slide img {
     object-fit: cover;
     position: absolute;
     top: 0;
