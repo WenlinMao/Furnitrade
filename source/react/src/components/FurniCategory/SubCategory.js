@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import './SubCategory.css';
 
 
@@ -17,6 +18,7 @@ const CategoryTitle = styled.div`
     font-size: 24px;
     border-bottom: 1px solid rgba(0,0,0, 0.1);
     padding: 30px 0;
+    cursor: pointer;
 `
 
 
@@ -37,19 +39,19 @@ for (i = 0; i < coll.length; i++) {
 
 
 const SubCategory = props => (
-  <div className="subcategory">
+  <label>
+    <div className="subcategory">
       <CategoryImage image={props.image}></CategoryImage>
 
-    <label><CategoryTitle>{props.title}</CategoryTitle>
-    <input id="toggle" type="checkbox"/>
-      <div id="content">
-          {props.subcategories.sub.map(sub => (
-              <p>{sub.list}</p>
-          ))}
-      </div>
-    </label>
-
-  </div>
+      <CategoryTitle>{props.title}</CategoryTitle>
+      <input id="toggle" type="checkbox"/>
+        <div id="content">
+            {props.subcategories.sub.map(sub => (
+                <Link to={"./" + sub.list}><p>{sub.list}</p></Link>
+            ))}
+        </div>
+    </div>
+  </label>
 )
 
 
