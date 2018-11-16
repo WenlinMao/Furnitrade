@@ -1,0 +1,34 @@
+/*
+************  FurniCategory CSS ************
+*/
+
+/* outside layer container */
+/* Card css */
+.category-container h2 {
+    margin: 50px 20px;
+    font-size: 60px;
+    text-align: center;
+    font-weight: 700;
+    background: linear-gradient(104deg, #050A27 0%, #4a548c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.category-group {
+    margin: 50px 40px 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+    justify-items: center;
+}
+
+@media (max-width: 1060px) {
+    .category-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+    .category-group {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

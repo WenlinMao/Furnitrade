@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import styled from 'styled-components';
 import './SubCategory.css';
+
 
 
 const CategoryImage = styled.div`
@@ -25,25 +26,29 @@ var i;
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
+    var content = document.getElementsByClassName("content");
+    if (content.style.display=="block"){
+      content.style.display = "none";
     } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    } 
+      content.style.display ="block" ;
+    }
   });
 }
 
+
 const SubCategory = props => (
-    <div className="subcategory">
-        <CategoryImage image={props.image}></CategoryImage>
-        <CategoryTitle>{props.title}</CategoryTitle>
-        <div class="content">
-            {props.subcategories.sub.map(sub => (
-                <p>{sub.list}</p>
-            ))}
-        </div>
-    </div>
+  <div className="subcategory">
+      <CategoryImage image={props.image}></CategoryImage>
+      <CategoryTitle>
+      {props.title}
+      </CategoryTitle>
+  <input id="toggle" type="checkbox"/>
+      <div id="content">
+          {props.subcategories.sub.map(sub => (
+              <p>{sub.list}</p>
+          ))}
+      </div>
+  </div>
 )
 
 
