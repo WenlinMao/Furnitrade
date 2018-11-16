@@ -39,15 +39,18 @@ for (i = 0; i < coll.length; i++) {
 const SubCategory = props => (
   <div className="subcategory">
       <CategoryImage image={props.image}></CategoryImage>
-      <CategoryTitle>
-      {props.title}
-      </CategoryTitle>
-  <input id="toggle" type="checkbox"/>
-      <div id="content">
-          {props.subcategories.sub.map(sub => (
-              <p>{sub.list}</p>
-          ))}
-      </div>
+
+<label><CategoryTitle>
+{props.title}
+</CategoryTitle>
+<input id="toggle" type="checkbox"/>
+<div id="content">
+    {props.subcategories.sub.map(sub => (
+        <p>{sub.list}</p>
+    ))}
+</div>
+</label>
+
   </div>
 )
 

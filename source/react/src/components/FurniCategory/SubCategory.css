@@ -37,7 +37,9 @@
     /*transition: max-height 0.2s ease-out;*/
 }
 
+
 #toggle{
+    display: none;
     width: 20px;
     height: 20px;
     background: #ddd;
