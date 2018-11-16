@@ -40,16 +40,14 @@ const SubCategory = props => (
   <div className="subcategory">
       <CategoryImage image={props.image}></CategoryImage>
 
-<label><CategoryTitle>
-{props.title}
-</CategoryTitle>
-<input id="toggle" type="checkbox"/>
-<div id="content">
-    {props.subcategories.sub.map(sub => (
-        <p>{sub.list}</p>
-    ))}
-</div>
-</label>
+    <label><CategoryTitle>{props.title}</CategoryTitle>
+    <input id="toggle" type="checkbox"/>
+      <div id="content">
+          {props.subcategories.sub.map(sub => (
+              <p>{sub.list}</p>
+          ))}
+      </div>
+    </label>
 
   </div>
 )
