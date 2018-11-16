@@ -72,7 +72,7 @@ const SectionCategory = styled.div`
                 <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
               </div>   
             </div>
-            <Wave/>          
+            <Wave/>                  
           {/* End of Index DIV */}
           </div>
 
