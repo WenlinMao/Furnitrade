@@ -6,6 +6,8 @@ import './FurniPage.css';
 
 /* Furniture page class */
 class FurniPage extends Component {
+
+    /* TODO - need to pass in data through props in the future */
     constructor(props) {
         super(props);
     }
@@ -129,6 +131,8 @@ render () {
                         image={require('../../static/images/wallpaper1.png')}
                     />
                 </div>
+
+            {/* TODO - Should be a section of shit like "all rights reserved" */}
         {/* End of the last DIV  - everything should be above this tag */}
         </div>
     );
