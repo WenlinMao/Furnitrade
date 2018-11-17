@@ -100,33 +100,33 @@ class Update(Resource):
     def post(self):
 		
 		# Get post's json file
-		posted_data = request.get_json()
+        posted_data = request.get_json();
 		
-		product_name = posted_data['furniture_name']
-		category = posted_data['category']
-		images = posted_data['images']
-		is_delivery_included = posted_data['is_delivery_included']
-		price = posted_data['price']
-		location = posted_data['location']
-		description = posted_data['description']
+        product_name = posted_data['furniture_name']
+        category = posted_data['category']
+        images = posted_data['images']
+        is_delivery_included = posted_data['is_delivery_included']
+        price = posted_data['price']
+        location = posted_data['location']
+        description = posted_data['description']
 
 		# TODO: perform validation on new data
 
 		# TODO: get current furniture id. 
-		furniture = jsonify({"furniture_id": '2018'})
+        furniture = jsonify({"furniture_id": '2018'})
 
 		# Update furniture by its id
-		update_furniture_by_id(furniture['_id'], {
-			"furniture_name": product_name,
-			"category": category,
-			"images": images,
-			"is_delivery_included": is_delivery_included,
-			"price": price,
-			"location": location,
-			"description": description
+        update_furniture_by_id(furniture['_id'], {
+            "furniture_name": product_name,
+            "category": category,
+            "images": images,
+            "is_delivery_included": is_delivery_included,
+            "price": price,
+            "location": location,
+            "description": description
 		})
 		
-		return jsonify({
+        return jsonify({
 			"status": 200,
 			"msg": "Update/Edit succeeded"
 		})
