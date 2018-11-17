@@ -96,6 +96,11 @@ def login_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
+        if header is None:
+            return jsonify({
+                "status": 316,
+                "msg": "User hasn't loged in",
+            })
         _, token = header.split()
 
         try:
@@ -133,7 +138,7 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
-        if header == '':
+        if header is None:
             return method(*args, **kwargs)
         _, token = header.split()
 
@@ -152,7 +157,7 @@ def logout_required(method):
 # TODO: add address, check password is valid, add email
 # 		check email is valid
 class Register(Resource):
-    # @logout_required
+    @logout_required
     def post(self):
         postedData = request.get_json()
         # print (type(postedData));
@@ -227,7 +232,7 @@ class Register(Resource):
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
-    # @logout_required
+    @logout_required
     def post(self):
         # 1. Get username and password from POST
         postedData = request.get_json()

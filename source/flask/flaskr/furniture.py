@@ -126,6 +126,7 @@ class Update(Resource):
         posted_data = request.get_json()
 
         product_name = posted_data['furniture_name']
+        '''TODO: Category collection should be updated '''
         category = posted_data['category']
         images = posted_data['images']
         is_delivery_included = posted_data['is_delivery_included']
