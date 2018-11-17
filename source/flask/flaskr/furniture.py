@@ -4,7 +4,6 @@ from flask import (
 from flask_restful import Api, Resource
 
 from bson.json_util import dumps
-from bson.objectid import ObjectId
 import json
 """
 Additional Dependencies Please Add Here
@@ -122,10 +121,9 @@ class Delete(Resource):
 class Update(Resource):
     @auth.login_required
     def post(self):
-		
-		# Get post's json file
-        posted_data = request.get_json();
-		
+
+                # Get post's json file
+        posted_data = request.get_json()
 
         # Get post's json file
         posted_data = request.get_json()
@@ -139,7 +137,7 @@ class Update(Resource):
         location = posted_data['location']
         description = posted_data['description']
 
-		# TODO: perform validation on new data
+        # TODO: perform validation on new data
 
         # TODO: get current furniture id.
         furniture_id = posted_data['furniture_id']
@@ -153,7 +151,7 @@ class Update(Resource):
             "price": price,
             "location": location,
             "description": description
-		})
+        })
 
         return jsonify({
             "status": 200,
