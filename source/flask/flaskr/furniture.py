@@ -136,11 +136,10 @@ class Update(Resource):
         # TODO: perform validation on new data
 
         # TODO: get current furniture id.
-        # TODO: ????
-        furniture = jsonify({"furniture_id": '2018'})
+        furniture_id = posted_data['furniture_id']
 
         # Update furniture by its id
-        update_furniture_by_id(furniture['_id'], {
+        update_furniture_by_id(furniture_id, {
             "furniture_name": product_name,
             "category": category,
             "images": images,
