@@ -11,7 +11,8 @@ Additional Dependencies Please Add Here
 """
 from flaskr import auth
 from flaskr.model.furniture_model import (
-    get_furniture_collection, update_furniture_by_id
+    get_furniture_collection, find_furniture_by_id,
+    update_furniture_by_id
 )
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -139,13 +140,6 @@ class Update(Resource):
 
 		# TODO: perform validation on new data
 
-		# TODO: get current furniture id. 
-        furniture = jsonify({"furniture_id": '2018'})
-
-		# Update furniture by its id
-        update_furniture_by_id(furniture['_id'], {
-        # TODO: perform validation on new data
-
         # TODO: get current furniture id.
         furniture_id = posted_data['furniture_id']
 
@@ -159,8 +153,6 @@ class Update(Resource):
             "location": location,
             "description": description
 		})
-# take an id return furniture info
-        })
 
         return jsonify({
             "status": 200,
