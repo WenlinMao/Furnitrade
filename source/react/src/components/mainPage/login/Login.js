@@ -19,9 +19,9 @@ import "./Login.css";
 
 /**
  * DONE:
- * Send request 
- * Error message based on response status code by helper text 
- * Local storage and redirect to homepage 
+ * Send request
+ * Error message based on response status code by helper text
+ * Local storage and redirect to homepage
  */
 
 const styles = {
@@ -100,6 +100,8 @@ class Login extends Component {
             'password': this.state.password,
         };
         console.log(reqData);
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
                 url: 'http://127.0.0.1:5000/auth/login',
@@ -112,15 +114,19 @@ class Login extends Component {
                     //"Content-Type": "application/x-www-form-urlencoded",
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache",
+                    "Authorization": `Bearer ${token}`
                 }
             })
             .then((response) => {
+                console.log(response);
                 console.log(response.data);
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully login
-                    setLocal("username", reqData.username);
-                    console.log("localStorgae", getLocal("username"));
+                    //setLocal('username', reqData.username)
+                    setLocal('usertoken', response.data.token);
+                    // console.log("localStorage", localStorage.getItem('usertoken'));
+                    console.log("response.data.token = ", response.data.token);
                     // redirect to hompage
                     this.props.history.push("/");
                 } else {
@@ -176,7 +182,6 @@ class Login extends Component {
                             variant="outlined"
                             error={this.state.usernameError}
                         />
-                        {/* FormHelperText也不好用 */}
                         {
                             this.state.usernameError
                             ?
