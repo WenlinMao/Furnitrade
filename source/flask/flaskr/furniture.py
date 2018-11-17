@@ -27,12 +27,14 @@ class Post(Resource):
 	def post(self):
 		furnitures = get_furniture_collection();
 		postedData = request.get_json();
-		#print (type(postedData));
+
 		fur_name = postedData['furniture_name'];
+		category = postedData['category'];
 		images = postedData['images'];
-		#address = "8520 Costa Verde";
 		price = postedData['price'];
+		is_delivery_included = postedData['is_delivery_included'];
 		location = postedData['location'];
+		seller_id = postedData['seller'];
 		description = postedData['description'];
 
 		error = None;
@@ -45,6 +47,15 @@ class Post(Resource):
 		elif not images:
 			error_code = 411;
 			error = 'Images are required.'
+		elif not category:
+			error_code = 412;
+			error = 'Category needs to be specified.'
+		elif not is_delivery_included:
+			error_code = 413;
+			error = 'Is delivery included?'
+		elif not seller_id:
+			error_code = 414;
+			error = 'Seller name is required.'
 		elif not price:
 			error_code = 417;
 			error = 'Price is required.'
@@ -58,9 +69,12 @@ class Post(Resource):
 		if error is None:
 			furnitures.insert_one({
 				"furniture_name" : fur_name,
+				"category" : category,
 				"images" : images,
 				"price" : price,
+				"is_delivery_included" : is_delivery_included,
 				"location" : location,
+				"seller" : seller_id,
 				"description" : description
 			});
 
@@ -100,40 +114,38 @@ class Update(Resource):
     def post(self):
 		
 		# Get post's json file
-		posted_data = request.get_json()
+        posted_data = request.get_json()
 		
-		product_name = posted_data['furniture_name']
-		category = posted_data['category']
-		images = posted_data['images']
-		is_delivery_included = posted_data['is_delivery_included']
-		price = posted_data['price']
-		location = posted_data['location']
-		description = posted_data['description']
+        product_name = posted_data['furniture_name']
+        category = posted_data['category']
+        images = posted_data['images']
+        is_delivery_included = posted_data['is_delivery_included']
+        price = posted_data['price']
+        location = posted_data['location']
+        description = posted_data['description']
 
 		# TODO: perform validation on new data
 
 		# TODO: get current furniture id. 
-		furniture = jsonify({"furniture_id": '2018'})
+        furniture = jsonify({"furniture_id": '2018'})
 
 		# Update furniture by its id
-		update_furniture_by_id(furniture['_id'], {
-			"furniture_name": product_name,
-			"category": category,
-			"images": images,
-			"is_delivery_included": is_delivery_included,
-			"price": price,
-			"location": location,
-			"description": description
-		})
+        update_furniture_by_id(furniture['_id'], {
+            "furniture_name": product_name,
+            "category": category,
+            "images": images,
+            "is_delivery_included": is_delivery_included,
+            "price": price,
+            "location": location,
+            "description": description
+        })
 		
-		return jsonify({
-			"status": 200,
-			"msg": "Update/Edit succeeded"
-		})
+        return jsonify({
+            "status": 200,
+            "msg": "Update/Edit succeeded"
+        })
 
 # take an id return furniture info
-
-
 class Detail(Resource):
 	@auth.login_required
 	def get(self, furniture_name):
