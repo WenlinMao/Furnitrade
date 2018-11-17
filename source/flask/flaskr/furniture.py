@@ -1,11 +1,8 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for,
-    jsonify
+    Blueprint, request, jsonify
 )
 from flask_restful import Api, Resource
-from werkzeug.security import check_password_hash, generate_password_hash
 
-import pymongo
 from bson.json_util import dumps
 import json
 """
@@ -27,11 +24,77 @@ api = Api(bp)
 class Post(Resource):
     @auth.login_required
     def post(self):
-        pass
+        furnitures = get_furniture_collection()
+        postedData = request.get_json()
+
+        fur_name = postedData['furniture_name']
+        category = postedData['category']
+        images = postedData['images']
+        price = postedData['price']
+        is_delivery_included = postedData['is_delivery_included']
+        location = postedData['location']
+        seller_id = postedData['seller']
+        description = postedData['description']
+
+        error = None
+        error_code = 200
+
+        # TODO: change depends on database
+        if not fur_name:
+            error_code = 410
+            error = 'Furniture name is required.'
+        elif not images:
+            error_code = 411
+            error = 'Images are required.'
+        elif not category:
+            error_code = 412
+            error = 'Category needs to be specified.'
+        elif not is_delivery_included:
+            error_code = 413
+            error = 'Is delivery included?'
+        elif not seller_id:
+            error_code = 414
+            error = 'Seller name is required.'
+        elif not price:
+            error_code = 417
+            error = 'Price is required.'
+        elif not location:
+            error_code = 418
+            error = 'Pick up location is required.'
+        elif not description:
+            error_code = 419
+            error = 'Description of furniture is required.'
+
+        if error is None:
+            '''
+            TODO: add function in model layer for every database access
+            '''
+            furnitures.insert_one({
+                "furniture_name": fur_name,
+                "category": category,
+                "images": images,
+                "price": price,
+                "is_delivery_included": is_delivery_included,
+                "location": location,
+                "seller": seller_id,
+                "description": description
+            })
+
+            retJson = {
+                "status": 200,
+                "msg": "You have successfully uploaded the furniture!"
+            }
+            return jsonify(retJson)
+
+        retJson = {
+            "status": error_code,
+            "msg": error
+        }
+
+        return jsonify(retJson)
+
 
 # take an id of furniture, delete from database
-
-
 class Delete(Resource):
     def get(self, furniture_name):
         # Get furniture data from database
@@ -50,8 +113,6 @@ class Delete(Resource):
 
 
 # take revised info, change info in database
-
-
 class Update(Resource):
     @auth.login_required
     def post(self):
@@ -88,10 +149,10 @@ class Update(Resource):
             "msg": "Update/Edit succeeded"
         })
 
+
 # take an id return furniture info
-
-
 class Detail(Resource):
+
     @auth.login_required
     def get(self, furniture_name):
         # Get furniture data from database
@@ -118,6 +179,7 @@ class Detail(Resource):
         location = furniture['location']
         seller_id = furniture['seller']
         description = furniture['description']
+
         retJson = {
             "status": 200,
             "msg": "Get furniture detail succeeded",
@@ -134,7 +196,15 @@ class Detail(Resource):
         return jsonify(retJson)
 
 
+class List(Resource):
+    def get(self):
+        furnitures = get_furniture_collection()
+        col_results = json.loads(dumps(furnitures.find()))
+        return jsonify(col_results)
+
+
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_name>')
 api.add_resource(Update, '/update')
 api.add_resource(Detail, '/detail/<string:furniture_name>')
+api.add_resource(List, '/list')
