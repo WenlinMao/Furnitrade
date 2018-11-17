@@ -108,6 +108,7 @@ class Detail(Resource):
 		location = furniture['location'];
 		seller_id = furniture['seller'];
 		description = furniture['description'];
+
 		retJson = {
 			"status": 200,
 			"msg": "Get furniture detail succeeded",

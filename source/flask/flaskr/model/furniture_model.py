@@ -15,3 +15,7 @@ def update_furniture_by_id(furniture_id, update, upsert=False):
     """
     furnitures = get_furniture_collection()
     return furnitures.update_one({'_id': ObjectId(furniture_id)}, {"$set": update})
+
+def find_all_furnitures():
+	furnitures = get_furniture_collection;
+	return furnitures.find();
