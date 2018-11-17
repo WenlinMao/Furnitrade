@@ -11,7 +11,8 @@ Additional Dependencies Please Add Here
 """
 from flaskr import auth
 from flaskr.model.furniture_model import (
-    get_furniture_collection, update_furniture_by_id
+    get_furniture_collection, find_furniture_by_id,
+    update_furniture_by_id
 )
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -121,6 +122,10 @@ class Delete(Resource):
 class Update(Resource):
     @auth.login_required
     def post(self):
+		
+		# Get post's json file
+        posted_data = request.get_json();
+		
 
         # Get post's json file
         posted_data = request.get_json()
@@ -134,14 +139,13 @@ class Update(Resource):
         location = posted_data['location']
         description = posted_data['description']
 
-        # TODO: perform validation on new data
+		# TODO: perform validation on new data
 
         # TODO: get current furniture id.
-        # TODO: ????
-        furniture = jsonify({"furniture_id": '2018'})
+        furniture_id = posted_data['furniture_id']
 
         # Update furniture by its id
-        update_furniture_by_id(furniture['_id'], {
+        update_furniture_by_id(furniture_id, {
             "furniture_name": product_name,
             "category": category,
             "images": images,
@@ -149,7 +153,7 @@ class Update(Resource):
             "price": price,
             "location": location,
             "description": description
-        })
+		})
 
         return jsonify({
             "status": 200,
@@ -168,8 +172,7 @@ class Detail(Resource):
         move find one in model layer
         '''
         # TODO: find one by furniture's id?
-        furniture = furnitures.find_one(
-            {'_id': ObjectId(furniture_id)})
+        furniture = find_furniture_by_id(furniture_id)
         # furniture = furnitures.find_one({'furniture_name': furniture_name})
         if furniture is None:
             return jsonify({
