@@ -16,30 +16,33 @@ from flaskr import auth
 bp = Blueprint('contact_form', __name__, url_prefix='/contact_form')
 api = Api(bp)
 
-# take a contact form, send it to seller using mailer
-# Need seller id, buyer id, title, and Message
-# buyer's id can be obtained from session, seller's
-# id has to be passed in by frontend. Frontend can get
-# it from furniture details
-
 
 class Contact(Resource):
+    '''
+    take a contact form, send it to seller using mailer
+    Need seller id, buyer id, title, and Message
+    buyer's id can be obtained from session, seller's
+    id has to be passed in by frontend. Frontend can get
+    it from furniture details
+    '''
     @auth.login_required
     def post(self):
         pass
 
-# take an id of contact form and delete it
-
 
 class Delete(Resource):
+    '''
+    take an id of contact form and delete it
+    '''
     @auth.login_required
     def get(self, contact_form_id):
         pass
 
-# take an id return detailed contact form info
-
 
 class Detail(Resource):
+    '''
+    take an id return detailed contact form info
+    '''
     @auth.login_required
     def get(self, contact_form_id):
         pass

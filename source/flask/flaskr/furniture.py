@@ -23,7 +23,7 @@ api = Api(bp)
 
 class Post(Resource):
     @auth.login_required
-    def post(self):
+    def post(self, user):
         furnitures = get_furniture_collection()
         postedData = request.get_json()
 
@@ -53,6 +53,7 @@ class Post(Resource):
             error_code = 413
             error = 'Is delivery included?'
         elif not seller_id:
+            ''' TODO: check if seller is inside the database '''
             error_code = 414
             error = 'Seller name is required.'
         elif not price:
@@ -68,6 +69,7 @@ class Post(Resource):
         if error is None:
             '''
             TODO: add function in model layer for every database access
+            category should also update category database
             '''
             furnitures.insert_one({
                 "furniture_name": fur_name,
@@ -102,7 +104,8 @@ class Delete(Resource):
 
         '''
         TODO:
-        please move delete_one to model layer
+        please move delete_one to model layer and check if there is
+        a furniture exist
         '''
         furniture = furnitures.delete_one({'furniture_name': furniture_name})
 
@@ -131,6 +134,7 @@ class Update(Resource):
         # TODO: perform validation on new data
 
         # TODO: get current furniture id.
+        # TODO: ????
         furniture = jsonify({"furniture_id": '2018'})
 
         # Update furniture by its id
@@ -150,9 +154,8 @@ class Update(Resource):
         })
 
 
-# take an id return furniture info
 class Detail(Resource):
-
+    # take an id return furniture info
     @auth.login_required
     def get(self, furniture_name):
         # Get furniture data from database
@@ -177,6 +180,7 @@ class Detail(Resource):
         is_delivery_included = furniture['is_delivery_included']
         price = furniture['price']
         location = furniture['location']
+        ''' TODO: seller id shouldn't return '''
         seller_id = furniture['seller']
         description = furniture['description']
 
@@ -196,6 +200,26 @@ class Detail(Resource):
         return jsonify(retJson)
 
 
+class AddWishList(Resource):
+    '''
+    should be called every time user click on add wishlist, add
+    furniture id to user's wishlist
+    '''
+    @auth.login_required
+    def get(self, user):
+        pass
+
+
+class AddHistory(Resource):
+    '''
+    should be called every time when user click on a furniture page,
+    add furniture id to user's history
+    '''
+    @auth.login_required
+    def get(self, user):
+        pass
+
+
 class List(Resource):
     def get(self):
         furnitures = get_furniture_collection()
@@ -207,4 +231,5 @@ api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_name>')
 api.add_resource(Update, '/update')
 api.add_resource(Detail, '/detail/<string:furniture_name>')
-api.add_resource(List, '/list')
+api.add_resource(AddWishList, '/add_wish_list')
+api.add_resource(AddHistory, '/add_history')
