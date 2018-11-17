@@ -4,6 +4,7 @@ from flask import (
 from flask_restful import Api, Resource
 
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 import json
 """
 Additional Dependencies Please Add Here
@@ -98,16 +99,17 @@ class Post(Resource):
 
 # take an id of furniture, delete from database
 class Delete(Resource):
-    def get(self, furniture_name):
+    @auth.login_required
+    def get(self, user, furniture_id):
         # Get furniture data from database
         furnitures = get_furniture_collection()
 
         '''
         TODO:
         please move delete_one to model layer and check if there is
-        a furniture exist
+        a furniture exist, handle edge cases
         '''
-        furniture = furnitures.delete_one({'furniture_name': furniture_name})
+        furniture = furnitures.delete_one({'_id': furniture_id})
 
         return jsonify({
             "status": 200,
@@ -157,7 +159,7 @@ class Update(Resource):
 class Detail(Resource):
     # take an id return furniture info
     @auth.login_required
-    def get(self, furniture_name):
+    def get(self, user, furniture_id):
         # Get furniture data from database
         furnitures = get_furniture_collection()
         '''
@@ -165,8 +167,9 @@ class Detail(Resource):
         move find one in model layer
         '''
         # TODO: find one by furniture's id?
-        # furniture = furnitures.find_one({'furniture_id': ObjectId(fid)})
-        furniture = furnitures.find_one({'furniture_name': furniture_name})
+        furniture = furnitures.find_one(
+            {'_id': ObjectId(furniture_id)})
+        # furniture = furnitures.find_one({'furniture_name': furniture_name})
         if furniture is None:
             return jsonify({
                 "status": 319,
@@ -228,8 +231,8 @@ class List(Resource):
 
 
 api.add_resource(Post, '/post')
-api.add_resource(Delete, '/delete/<string:furniture_name>')
+api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update')
-api.add_resource(Detail, '/detail/<string:furniture_name>')
+api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wish_list')
 api.add_resource(AddHistory, '/add_history')

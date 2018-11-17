@@ -94,7 +94,7 @@ def verify_user(username, password):
 
 def login_required(method):
     @wraps(method)
-    def wrapper(self):
+    def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
         _, token = header.split()
 
@@ -125,7 +125,7 @@ def login_required(method):
                 "msg": "User doesn't exist"
             })
 
-        return method(self, user)
+        return method(user, *args, **kwargs)
     return wrapper
 
 
