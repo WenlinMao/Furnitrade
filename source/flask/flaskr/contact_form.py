@@ -35,7 +35,7 @@ class Delete(Resource):
     take an id of contact form and delete it
     '''
     @auth.login_required
-    def get(self, contact_form_id):
+    def get(self, user, contact_form_id):
         pass
 
 
@@ -44,7 +44,7 @@ class Detail(Resource):
     take an id return detailed contact form info
     '''
     @auth.login_required
-    def get(self, contact_form_id):
+    def get(self, user, contact_form_id):
         pass
 
 

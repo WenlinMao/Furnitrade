@@ -120,10 +120,7 @@ class Delete(Resource):
 # take revised info, change info in database
 class Update(Resource):
     @auth.login_required
-    def post(self):
-
-                # Get post's json file
-        posted_data = request.get_json()
+    def post(self, user):
 
         # Get post's json file
         posted_data = request.get_json()
@@ -163,8 +160,6 @@ class Detail(Resource):
     # take an id return furniture info
     @auth.login_required
     def get(self, user, furniture_id):
-        # Get furniture data from database
-        furnitures = get_furniture_collection()
         '''
         TODO:
         move find one in model layer
