@@ -3,32 +3,14 @@
  * and a contact form
 */
 import React, { Component } from 'react';
-import NavigationBar from '../common/NavigationBar';
+import NavBar from '../NavBar/NavBar';
+import Wave from '../common/Wave'
 // import { Button, TextField } from "@material-ui/core";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+//import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import "./FurniModal.css";
+import axios from 'axios';
+import {getLocal} from '../../utils/util';
 
-const MainTheme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#42668f',
-      main: '#134074',
-      dark: '#0d2c51',
-    },
-    secondary: {
-      light: '#61a5c5',
-      main: '#3A8FB7',
-      dark: '#286480',
-    },
-    inherit: {
-      light: '#f7ca7f',
-      main: '#F6BD60',
-      dark: '#ac8443',
-    },
-  },
-  typography: {
-    fontFamily: '"Righteous", sans-serif',
-  },
-});
 
 class FurniModal extends Component{
   constructor(props){
@@ -37,7 +19,9 @@ class FurniModal extends Component{
        picture:'test-propic.jpg',
        description:'this is a table with subarashi anime.',
        name:'Table one',
+       price:'88',
        request:'',
+       hasLogin:false
     };
     this.handleChange = this.handleChange.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,29 +39,32 @@ handleSubmit(event){
 render(){
 
   return(
-  <MuiThemeProvider theme = {MainTheme}>
-  <div class="furniture-container">
-  <NavigationBar/>
+  <div className="furniture-container">
+  <NavBar hasLogin={this.state.hasLogin}/>
+  <div className="intro">
   <article>
   <header>
-  <h1>{this.state.name}</h1>
+  <h4>{this.state.name}</h4>
   </header>
-  <p>{this.state.description}</p>
+
   <img src={require("../../static/images/"+this.state.picture)} alt="furniture display"
   width="200" height="200"/>
+    <p>{this.state.description}</p>
+  <footer>  <p id="price">${this.state.price}</p></footer>
   </article>
+  </div>
   <form>
   <label>
     Send a resuest:
     <br/>
-    <textarea type="text" name="request" rows="4" cols="50"/>
+    <textarea type="text" name="request" rows="10" cols="40"/>
   </label>
   <br/>
 
   <input type="submit" value="I want this!" />
 </form>
   </div>
-  </MuiThemeProvider>
+
 );
 }
 
