@@ -79,6 +79,7 @@ const SectionCategory = styled.div`
           {/* Section of About US */}
           
           {/* Section of categories */}
+          <section id="category">
           <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
@@ -89,6 +90,7 @@ const SectionCategory = styled.div`
               />
             ))}
           </SectionCategory>
+          </section>
 
         {/* Final DIV - add everything above this DIV */}
         </div>
