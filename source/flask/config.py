@@ -25,6 +25,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     ENV = 'development'
+    DEBUG = True
     MONGODB_DATABASE_URI = 'mongodb+srv://admin:CSE110!Gary@cluster0-lzui4.mongodb.net/Dev?retryWrites=true'
     S3_BUCKET = 'furnitrade-dev-attachments'
     DATABASE = "Dev"
