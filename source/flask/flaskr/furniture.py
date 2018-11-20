@@ -101,15 +101,16 @@ class Post(Resource):
 class Delete(Resource):
     @auth.login_required
     def get(self, user, furniture_id):
-        # Get furniture data from database
-        furnitures = get_furniture_collection()
 
-        '''
-        TODO:
-        please move delete_one to model layer and check if there is
-        a furniture exist, handle edge cases
-        '''
-        furniture = furnitures.delete_one({'_id': furniture_id})
+        furniture = find_furniture_by_id(furniture_id)
+
+        if furniture is None:
+            return jsonify({
+                "status": 319,
+                "msg": "Can not find the furniture"
+            })
+
+        result = delete_furniture_by_id(furniture_id)
 
         return jsonify({
             "status": 200,

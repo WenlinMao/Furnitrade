@@ -25,6 +25,10 @@ def find_furniture_by_id(furniture_id):
     furnitures = get_furniture_collection()
     return furnitures.find_one({'_id': ObjectId(furniture_id)})
 
+def delete_furniture_by_id(furniture_id):
+    furnitures = get_furniture_collection()
+    return furnitures.delete_one({'_id': ObjectId(furniture_id)})
+
 
 def find_all_furnitures():
     furnitures = get_furniture_collection
