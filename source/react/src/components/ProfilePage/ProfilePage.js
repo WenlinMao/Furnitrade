@@ -55,23 +55,16 @@ class ProfilePage extends Component {
       zipcode:'92122',
       address: '',
       university: 'University of California, San Diego',
-      password: '',
       readOnly: true,
       emailError: false,
       nameError: false,
       hasLogin: false
     };
 
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-    // this.onDrop = this.onDrop.bind(this);
-    // this.handleEmailInput=this.handleEmailInput.bind(this);
-    // this.handleNameInput=this.handleNameInput.bind(this);
   }
   componentWillMount() {
     if(getLocal("username") !== "" ){
         this.setState({hasLogin: true});
-         // TODO: GET request
       }
       else {
         this.setState({hasLogin: false});
@@ -106,7 +99,7 @@ class ProfilePage extends Component {
             email: response.data.email,
             address: response.data.address,
             // university: response.data.univeristy,
-            password: response.data.password
+            // password: response.data.password
           });
         } else if (code === 316) {
           console.log("user not logged in");
@@ -314,7 +307,7 @@ class ProfilePage extends Component {
 
                 {/* Save/ Edit button */}
                 {button}
-    <Dialog password={this.state.password} onConfirm={this.changePassword} />
+              <Dialog />
               </div>
 
             </div>

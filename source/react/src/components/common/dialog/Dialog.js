@@ -14,13 +14,17 @@ const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?]).{8,20}/;
 export default class FormDialog extends React.Component {
   state = {
     open: false,
-    oldPassword: this.props.password,
+    oldPassword: '',
     newPassword: '',
     confirmPassword: '',
     oldPasswordError: true,
     newPasswordError: false,
     confirmPasswordError: false
   };
+
+  componentWillMount() {
+    
+  }
 
   oldPassword = password => event => {
     if(event.target.value !== this.state.oldPassword) {
