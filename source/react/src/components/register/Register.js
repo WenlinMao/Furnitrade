@@ -251,6 +251,7 @@ class Register extends Component {
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');
+        // console.log("token is", token);
         // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
@@ -274,7 +275,8 @@ class Register extends Component {
                 if (code === 200) {
                     // successfully register and login
                     setLocal("username", reqData.username);
-                    localStorage.setItem('usertoken', response.data.token);
+                    // localStorage.setItem('usertoken', response.data.token);
+                    setLocal("usertoken", response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
                     this.props.history.push("/");

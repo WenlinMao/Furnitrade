@@ -24,28 +24,18 @@ class NavigationDrawer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        right: false,
-        // hasLogin: true,
+        right: false
       };
     }
 
-    // componentWillMount() {
-    //   this.setState({
-    //     hasLogin: this.props.hasLogin
-    //   });
-    // }
     NavigationDrawer = (side, open) => () => {
       this.setState({
         [side]: open,
       });
     };
 
-    // Temporay hack
     handleLogout = (e) => {
         setLocal("username", "");
-        // this.setState({
-        //   showLogout: false
-        // });
         const token = localStorage.getItem('usertoken');
         // TODO: check what should happen if token is Null
         axios({
@@ -60,19 +50,19 @@ class NavigationDrawer extends React.Component {
           let code = response.data.status;
           if (code === 400){
               localStorage.removeItem('usertoken');
-              // redirect to login (following line not working)
-              //this.props.history.push("/Login");
+              this.props.redirectToLogin(true);
+              this.props.logout();
           } else if (code === 200){
-            this.props.history.push("/");
+            this.props.redirectToHome(true);
+            this.props.logout();
           }
         })
         .catch((error) => {
           console.log(error);
         });
-        }
+    }
 
     render() {
-      // console.log("in drawer", this.props.showLogout);
       const { classes } = this.props;
       const sideList = (
         <div className={classes.list}>
