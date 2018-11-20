@@ -55,7 +55,7 @@ class ProfilePage extends Component {
       zipcode:'92122',
       address: '',
       university: 'University of California, San Diego',
-      password: '1234',
+      password: '',
       readOnly: true,
       emailError: false,
       nameError: false,
@@ -119,16 +119,6 @@ class ProfilePage extends Component {
     });
 
   }
-
-  // need to change
-  // handleChange = event => {
-  //   this.handleEmailInput();
-  //   this.handleNameInput();
-  //   this.setState({
-  //     address: event.target.address,
-  //     univeristy: event.target.univeristy
-  //   });
-  // }
 
   handleNameInput = name => event => {
     this.setState({username: event.target.value});

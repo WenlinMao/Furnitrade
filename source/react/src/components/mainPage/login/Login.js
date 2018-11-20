@@ -9,6 +9,7 @@ import Wave from '../../common/Wave';
 import "./Login.css";
 import { Link } from 'react-router-dom';
 import logo from '../../../static/images/logo_v1.svg';
+import passwordHash from 'password-hash';
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
@@ -50,7 +51,7 @@ class Login extends Component {
         e.preventDefault();
         let reqData = {
             'username': this.state.username,
-            'password': this.state.password,
+            'password': passwordHash.generate(this.state.password),
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');
