@@ -42,7 +42,7 @@ const SectionCategory = styled.div`
     // Easy hack; 别的方法试了一下,不好使,先用这个方法。
     // check if the user has logged in
     componentWillMount() {
-      if(getLocal("usertoken") !== "" ){
+      if(getLocal("username") !== "" ){
         this.setState({hasLogin: true});
          // TODO: GET request
       }

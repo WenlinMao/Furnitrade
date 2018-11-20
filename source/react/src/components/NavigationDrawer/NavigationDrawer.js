@@ -45,7 +45,7 @@ class NavigationDrawer extends React.Component {
 
     // Temporay hack
     handleLogout = (e) => {
-        //setLocal('username', "")
+        setLocal('username', "")
         const token = localStorage.getItem('usertoken');
         // TODO: check what should happen if token is Null
         axios({
@@ -63,7 +63,7 @@ class NavigationDrawer extends React.Component {
               // redirect to login (following line not working)
               // this.props.history.push("/Login");
           } else if (code === 200) {
-              setLocal('usertoken', "");
+              //setLocal('usertoken', "");
               this.props.history.push("/");
           }
         })
