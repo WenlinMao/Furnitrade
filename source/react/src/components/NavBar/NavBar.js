@@ -78,6 +78,7 @@ class NavBar extends React.Component {
     
     logout = () => {
         this.setState({hasLogin: false});
+        this.props.logout();
     }
 
   render () {

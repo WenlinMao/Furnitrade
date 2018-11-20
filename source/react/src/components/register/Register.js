@@ -276,6 +276,7 @@ class Register extends Component {
                     // successfully register and login
                     setLocal("username", reqData.username);
                     // localStorage.setItem('usertoken', response.data.token);
+                    
                     setLocal("usertoken", response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage

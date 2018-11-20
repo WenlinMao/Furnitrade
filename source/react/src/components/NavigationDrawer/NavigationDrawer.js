@@ -53,6 +53,7 @@ class NavigationDrawer extends React.Component {
               this.props.redirectToLogin(true);
               this.props.logout();
           } else if (code === 200){
+            localStorage.removeItem('usertoken');
             this.props.redirectToHome(true);
             this.props.logout();
           }

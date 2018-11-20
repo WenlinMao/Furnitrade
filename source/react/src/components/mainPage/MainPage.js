@@ -38,7 +38,6 @@ const SectionCategory = styled.div`
       }
     }
 
-    // Easy hack; 别的方法试了一下,不好使,先用这个方法。
     // check if the user has logged in
     componentWillMount() {
       if(getLocal("username") !== "" ){
@@ -50,10 +49,13 @@ const SectionCategory = styled.div`
       }
     }
 
+    logout = () => {
+      this.setState({hasLogin: false});
+    }
     render() {
       return (
         <div>
-          <NavBar />
+          <NavBar logout={this.logout}/>
           <div className="Index">
             <div className="Index-group">
               <h1>Furnitrade </h1>
