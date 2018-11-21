@@ -94,8 +94,8 @@ class NavigationDrawer extends React.Component {
 
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
           {/* Icon button - pop over from right */}
-          <IconButton onClick={this.NavigationDrawer('right', true)} className="test">
-            <MenuIcon />
+          <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="primary" aria-label="Menu">
+            <MenuIcon/>
           </IconButton>
 
           <Drawer anchor="right" open={this.state.right} onClose={this.NavigationDrawer('right', false)}>
