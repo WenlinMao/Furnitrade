@@ -36,7 +36,7 @@
     padding: 8px 20px;
     font-size: 20px;
     color: white;
-    background: #56CCF2;
+    /* background: #56CCF2; */
     font-weight: 700;
     border-radius: 10px;
     outline: none;
@@ -47,9 +47,9 @@
 
 .Header button:hover {
     color: #56CCF2;
-    background: white;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    transform: translateY(-3px);
+    background: none;
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); */
+    transform: scale(1.5)
 }
 
 @media (max-width: 640px) {
@@ -58,7 +58,7 @@
     }
 
     .Header-group {
-        grid-template-columns: repeat(4, auto); 
+        grid-template-columns: repeat(4, auto);
     }
 
     .Header a:nth-child(4){

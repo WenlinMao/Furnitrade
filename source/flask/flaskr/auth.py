@@ -150,7 +150,7 @@ def logout_required(method):
 # TODO: add address, check password is valid, add email
 # 		check email is valid
 class Register(Resource):
-    @logout_required
+    # @logout_required
     def post(self):
         postedData = request.get_json()
         # print (type(postedData));
