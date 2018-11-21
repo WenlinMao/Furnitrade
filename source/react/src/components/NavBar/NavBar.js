@@ -92,12 +92,7 @@ class NavBar extends React.Component {
         <div className="Header-group">
           <Link to="/"><embed src={logo} width="70"></embed></Link>
 
-
-          {/* <a>Home</a>
-          <a>Category</a>
-          <a>About Us</a> */}
           <a href='./'>Home</a>
-
           {/* These two links should be udpated in the future - to onClick => scroll */}
           <a href='#category'>Category</a>
           <a href='./'>About Us</a>
