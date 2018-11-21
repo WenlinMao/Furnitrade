@@ -1,5 +1,5 @@
 import pymongo
-from flaskr.db import get_db
+from .db import get_db
 from bson.objectid import ObjectId
 
 
@@ -7,8 +7,6 @@ def get_users_collection():
     db = get_db()
     users = pymongo.collection.Collection(db, 'User')
     return users
-
-# check if email exist in database
 
 
 def find_user_by_email(email):
@@ -18,8 +16,6 @@ def find_user_by_email(email):
     """
     users = get_users_collection()
     return users.find_one({"email": email})
-
-# check if username exist in database
 
 
 def find_user_by_username(username):

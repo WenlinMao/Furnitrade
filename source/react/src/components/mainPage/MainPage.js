@@ -72,14 +72,14 @@ const SectionCategory = styled.div`
                 <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
-              </div>   
+              </div>
             </div>
-            <Wave/>                  
+            <Wave/>
           {/* End of Index DIV */}
           </div>
 
           {/* Section of About US */}
-          
+
           {/* Section of categories */}
           <section id="category">
           <SectionCaption>Furniture Categories</SectionCaption>
@@ -89,7 +89,7 @@ const SectionCategory = styled.div`
               <FurniCategory 
                 title={category.title}
                 image={category.image}
-                subcategories={category.subcategories} 
+                subcategories={category.subcategories}
               />
               </div>
             ))}
