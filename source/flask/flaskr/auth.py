@@ -96,6 +96,11 @@ def login_required(method):
     @wraps(method)
     def wrapper(self):
         header = request.headers.get('Authorization')
+        if header is None or header == '':
+            return jsonify({
+                "status": 316,
+                "msg": "User hasn't loged in",
+            })
         _, token = header.split()
 
         try:
@@ -133,6 +138,8 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
+        if header is None or header == '':
+            return method(*args, **kwargs)
         _, token = header.split()
 
         if check_blacklist_token_exist(token):

@@ -9,7 +9,7 @@ from flask import (
 """
 Additional Dependencies Please Add Here
 """
-from flaskr.db import get_contact_form_collection
+from flaskr.model.contact_form_model import get_contact_form_collection
 from flask_mail import Message, Mail
 from flaskr import auth
 
