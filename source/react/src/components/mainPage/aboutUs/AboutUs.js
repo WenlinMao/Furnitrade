@@ -10,8 +10,15 @@ const SectionGroup = styled.div`
     grid-template-rows: 300px auto;
     grid-gap: 20px;
     position: relative;
-    z-index: 100;
-    @media (max-width: 640px) {
+    z-index: 10;
+
+    @media (max-width: 1640px) {
+        height: 740px;
+    }
+    @media (max-width: 1040px) {
+        height: 840px;
+    }
+    @media (max-width: 840px) {
         height: 940px;
     }
     @media (max-width: 440px) {
