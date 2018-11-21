@@ -7,8 +7,12 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {setLocal /*, getLocal*/} from '../../utils/util';
+import {setLocal, getLocal} from '../../utils/util';
+import {Link} from 'react-router-dom'
 import axios from 'axios';
+
+// main link
+const Main = props => <Link to="./" {...props} />
 
 const styles = {
   list: {
@@ -20,22 +24,34 @@ const styles = {
   },
 };
 
+// const MyLink = props => <Link to="./login" {...props} />
+
 class NavigationDrawer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        right: false
+        right: false,
+        hasLogin: false,
       };
     }
 
+    componentWillMount() {
+      this.setState({
+        hasLogin: this.props.hasLogin
+      });
+    }
     NavigationDrawer = (side, open) => () => {
       this.setState({
         [side]: open,
       });
     };
 
+    // Temporay hack
     handleLogout = (e) => {
-        setLocal('username', "")
+        setLocal("username", "");
+        this.setState({
+          showLogout: false
+        });
         const token = localStorage.getItem('usertoken');
         // TODO: check what should happen if token is Null
         axios({
@@ -49,39 +65,52 @@ class NavigationDrawer extends React.Component {
           console.log(response);
           let code = response.data.status;
           if (code === 400){
-            localStorage.removeItem('usertoken');
-            this.props.redirectToLogin(true);
-            this.props.logout();
-          } else if (code === 200){
-            // localStorage.removeItem('usertoken');
-            this.props.redirectToHome(true);
-            this.props.logout();
+              localStorage.removeItem('usertoken');
+              // redirect to login (following line not working)
+              //this.props.history.push("/Login");
           }
         })
         .catch((error) => {
           console.log(error);
         });
-    }
+        }
 
     render() {
+      // console.log("in drawer", this.props.showLogout);
       const { classes } = this.props;
       const sideList = (
         <div className={classes.list}>
           <List>
               <li>
-                  {/* TODO - just for testing profile page */}
-                  <Button component={this.props.passLink}>{this.props.buttonName}</Button>
+                  <Button color="secondary" component={Main}>Home</Button>
               </li>
               <li>
-                  <Button>My Furniture</Button>
+                {
+                  this.state.hasLogin
+                  ?
+                  <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
+                  : 
+                  <div></div>
+                }
               </li>
               <li>
-                  <Button>Privacy</Button>
+                  <Button color="secondary">About Us</Button>
               </li>
               <li>
-                <Button onClick={this.handleLogout}>Log out</Button>
+                  <Button color="secondary">Category</Button>
               </li>
-
+              <li>
+                  <Button color="secondary">Privacy</Button>
+              </li>
+              {
+                this.state.hasLogin
+                ?
+                <li>
+                  <Button color="secondary" onClick={this.handleLogout}>Log out</Button>
+                </li>
+                :
+                <div></div>
+              }
           </List>
           <Divider />
           <List></List>
@@ -95,7 +124,7 @@ class NavigationDrawer extends React.Component {
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
           {/* Icon button - pop over from right */}
           <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="inherit" aria-label="Menu">
-            <MenuIcon/>
+            <MenuIcon color="secondary"/>
           </IconButton>
 
           <Drawer anchor="right" open={this.state.right} onClose={this.NavigationDrawer('right', false)}>
