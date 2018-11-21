@@ -9,11 +9,7 @@
     "axios": "^0.18.0",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
-<<<<<<< HEAD
     "jsonwebtoken": "^8.4.0",
-=======
-    "jwt-decode": "^2.2.0",
->>>>>>> 1e86986da6f66c2a4f6595e746790146855fa991
     "material-ui-icons": "^1.0.0-beta.36",
     "npm": "^6.4.1",
     "password-hash": "^1.2.2",
