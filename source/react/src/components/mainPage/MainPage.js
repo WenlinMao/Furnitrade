@@ -85,11 +85,13 @@ const SectionCategory = styled.div`
           <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
+              <div className="one-category">
               <FurniCategory 
                 title={category.title}
                 image={category.image}
                 subcategories={category.subcategories} 
               />
+              </div>
             ))}
           </SectionCategory>
           </section>

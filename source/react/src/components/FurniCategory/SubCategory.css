@@ -23,12 +23,7 @@
     color: #56CCF2;
 }
 
-.subcategory h5 {
-    transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
-}
-
 .subcategory h5:hover {
-    font-size: 25px;
     color: #56CCF2;
 }
 
