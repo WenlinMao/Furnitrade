@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
+import './MyFurniture.css';
 
-/* History page and wishlist page share the same css */
-import './WishhistPage.css';
-
-class WishlistPage extends Component {
+class MyFurniture extends Component {
 
     render() {
         return (
             <div>
                 {/* Part one - NavBar - logic needed*/}
                 <NavBar/>
-                <div className="wishhist">
-                    <h2>My Wishlist</h2>
+                <div className="my-furni">
+                    <h2>My Furnitures</h2>
                     <Wave/>
                 {/* end of furni-page tag */}
                 </div>
@@ -23,10 +21,12 @@ class WishlistPage extends Component {
                     {/* Should send request for wished furnitures */}
                 </div>
 
+                {/* Part 3 - fixed "add" button - post a new furniture */}
+
             {/* end of  DIV */}
             </div>
         );
     }
 }
 
-export default WishlistPage;
+export default MyFurniture;
