@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
-import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-// import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
-// * import navbar
-import NavigationBar from '../../common/NavigationBar';
 import axios from 'axios';
-import {setLocal, getLocal} from '../../../utils/util';
+import {setLocal/*, getLocal*/} from '../../../utils/util';
+import Wave from '../../common/Wave';
 import "./Login.css";
+import { Link } from 'react-router-dom';
+import logo from '../../../static/images/logo_v1.svg';
+import passwordHash from 'password-hash';
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
@@ -19,58 +17,14 @@ import "./Login.css";
 
 /**
  * DONE:
- * Send request 
- * Error message based on response status code by helper text 
- * Local storage and redirect to homepage 
+ * Send request
+ * Error message based on response status code by helper text
+ * Local storage and redirect to homepage
  */
 
 const styles = {
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-    },
-    /*
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
-    dense: {
-      marginTop: 16,
-    },
-    /*
-    button: {
-        margin: theme.spacing.unit,
-      },*/
-    // menu: {
-    //   width: 200,
-    // },
-  };
 
-  // apply main theme to login
-  const MainTheme = createMuiTheme({
-      palette: {
-          primary: {
-              light: '#42668f',
-              main: '#134074',
-              dark: '#0d2c51',
-          },
-          secondary: {
-              light: '#61a5c5',
-              main: '#3A8FB7',
-              dark: '#286480',
-          },
-          inherit: {
-              light: '#f7ca7f',
-              main: '#F6BD60',
-              dark: '#ac8443',
-          },
-      },
-      typography: {
-          fontFamily: '"Righteous", sans-serif',
-      },
-  });
-
+};
 
 class Login extends Component {
     constructor(props) {
@@ -97,9 +51,12 @@ class Login extends Component {
         e.preventDefault();
         let reqData = {
             'username': this.state.username,
+            // 'password': passwordHash.generate(this.state.password),
             'password': this.state.password,
         };
         console.log(reqData);
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
         axios({
                 method: 'post',
                 url: 'http://127.0.0.1:5000/auth/login',
@@ -112,15 +69,19 @@ class Login extends Component {
                     //"Content-Type": "application/x-www-form-urlencoded",
                     "Content-Type": "application/json",
                     "Cache-Control": "no-cache",
+                    "Authorization": `Bearer ${token}`
                 }
             })
             .then((response) => {
+                console.log(response);
                 console.log(response.data);
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully login
-                    setLocal("username", reqData.username);
-                    console.log("localStorgae", getLocal("username"));
+                    setLocal('username', reqData.username)
+                    setLocal('usertoken', response.data.token);
+                    // console.log("localStorage", localStorage.getItem('usertoken'));
+                    console.log("response.data.token = ", response.data.token);
                     // redirect to hompage
                     this.props.history.push("/");
                 } else {
@@ -154,20 +115,17 @@ class Login extends Component {
         // const {classes} = this.props;
 
         return (
-
+        <div>
             <div className="login-page">
-            <MuiThemeProvider theme = {MainTheme}>
+            <Link to="/"><embed src={logo} width="270"></embed></Link>
+              <div className="login-container">
 
-              <NavigationBar className="nav-bar"/>
-
-              <div className="login-title">
-
-                      {/* display2 for correct font size */}
-                      <Typography variant = 'display2' color = 'inherit'>Login </Typography>
-                    </div>
+                    {/* display2 for correct font size */}
+                    <h2>Login To Your Furnitrade</h2>
 
                     <form className="login-form" noValidate autoComplete="on" onSubmit={this.handleSubmit}>
                         <TextField
+                            className="textfield"
                             id="name-input"
                             label="Username"
                             value={this.state.name}
@@ -176,7 +134,6 @@ class Login extends Component {
                             variant="outlined"
                             error={this.state.usernameError}
                         />
-                        {/* FormHelperText也不好用 */}
                         {
                             this.state.usernameError
                             ?
@@ -184,8 +141,8 @@ class Login extends Component {
                             :
                             <div></div>
                         }
-                        {/* <br/> */}
                         <TextField
+                            className="textfield"
                             id="password-input"
                             label="Password"
                             value={this.state.password}
@@ -202,13 +159,15 @@ class Login extends Component {
                             :
                             <div></div>
                         }
-                        <Button className = "login-page-button" type="submit" variant="contained" color="inherit">
-                          Login
-                        </Button>
+                        <div className="buttons">
+                            <Link to="/"><button>Go Back</button></Link>
+                            <button type="submit">Login</button>
+                        </div>
                     </form>
-            </MuiThemeProvider>
+                </div>
+            <Wave/>
             </div>
-
+        </div>
         );
     }
 }

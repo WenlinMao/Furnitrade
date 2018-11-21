@@ -2,71 +2,80 @@
 ************  Main Page CSS ************
 */
 
-/* main page css */
-.main-page {
-  display: flex;
-  flex-direction: column;
-
-  /* keep space for nav bar */
-  margin-top: 70px !important;
-  margin-bottom: 70px !important;
+.Index-group {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 150px 50px;
+    text-align: center;
 }
 
-/* slogan message part */
-.slogan-container { 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-
-  /* width setup */
-  max-width: 1800px;
-  width: 100%;
-
-  /* content alignment */
-  justify-content: center;
-  text-align: center;
+.Index a{
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 9px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.slogan-container .furnitrade {
-  font-size: 18vw;
-  font-weight: 300;
-  font-family: "Righteous", sans-serif;
-  line-height: 1.14286em;
-  letter-spacing: -.04em;
+.Index p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 30px;
+    line-height: 1.5;
+    animation: IndexAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity: 0;
 }
 
-.slogan-container .login-button {
-  background-color: #F6BD60;
-  padding: 14px 16px;
-  border: none;
-  height: 48px;
-  border-radius: 4px;
-  width: 45%;
-
-  font-size: calc(10px + 2vmin);
-  font-weight: 500;
-  letter-spacing: 0.07px;
-  line-height: auto;
-  text-transform: none;
+.Index a:hover {
+    background: white;
+    color: black;
 }
 
-.slogan-container .slogan {
-  /* layout settings */
-  -webkit-margin-before: 0.83em;
-  margin-block-start: 0.83em;
-  -webkit-margin-after: 0.93em;
-  margin-block-end: 2em;
-  
-  /* text settings */
-  text-align: left;
-  font-size: 3vw;
+.login-signup-group {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 40px;
 }
 
-.mainpage-button-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+@media (max-width: 640px) {
+    .Index-group {
+        padding: 100px 20px;
+    }
+
+    .Index h1 {
+        font-size: 40px;
+    }
+
+    .Index p {
+        font-size: 24px;
+    }
+  }
+
+.Index .logos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 40px;
+    margin: 100px 0;
+    justify-items: center;
 }
-  
-  
+
+.logos img {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 50px;
+    height: 50px;
+}
+
+.logos img:hover {
+    transform: translateY(-6px);
+}
+
+@media (max-width: 640px) {
+    .Index .logos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

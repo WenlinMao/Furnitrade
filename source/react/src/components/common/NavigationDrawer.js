@@ -31,13 +31,13 @@ class NavigationDrawer extends React.Component {
       super(props);
       this.state = {
         right: false,
-        showLogout: false
+        hasLogin: false,
       };
     }
 
     componentWillMount() {
       this.setState({
-        showLogout: this.props.showLogout
+        hasLogin: this.props.hasLogin
       });
     }
     NavigationDrawer = (side, open) => () => {
@@ -46,24 +46,34 @@ class NavigationDrawer extends React.Component {
       });
     };
 
-    // Temporay hack 
+    // Temporay hack
     handleLogout = (e) => {
         setLocal("username", "");
         this.setState({
           showLogout: false
         });
-
-      axios({
+        const token = localStorage.getItem('usertoken');
+        // TODO: check what should happen if token is Null
+        axios({
           method: 'get',
-          url: 'http://127.0.0.1:5000/auth/logout'
+          url: 'http://127.0.0.1:5000/auth/logout',
+          headers: {
+              "Authorization": `Bearer ${token}`
+          }
         })
         .then((response) => {
           console.log(response);
+          let code = response.data.status;
+          if (code === 400){
+              localStorage.removeItem('usertoken');
+              // redirect to login (following line not working)
+              //this.props.history.push("/Login");
+          }
         })
         .catch((error) => {
           console.log(error);
         });
-      }
+        }
 
     render() {
       // console.log("in drawer", this.props.showLogout);
@@ -75,8 +85,13 @@ class NavigationDrawer extends React.Component {
                   <Button color="secondary" component={Main}>Home</Button>
               </li>
               <li>
-                  {/* TODO - just for testing profile page */}
+                {
+                  this.state.hasLogin
+                  ?
                   <Button color="secondary" component={this.props.passLink}>{this.props.buttonName}</Button>
+                  : 
+                  <div></div>
+                }
               </li>
               <li>
                   <Button color="secondary">About Us</Button>
@@ -88,7 +103,7 @@ class NavigationDrawer extends React.Component {
                   <Button color="secondary">Privacy</Button>
               </li>
               {
-                this.state.showLogout
+                this.state.hasLogin
                 ?
                 <li>
                   <Button color="secondary" onClick={this.handleLogout}>Log out</Button>
@@ -105,7 +120,7 @@ class NavigationDrawer extends React.Component {
       return (
         <div>
           {/* Button text --- */}
-          
+
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"> */}
           {/* Icon button - pop over from right */}
           <IconButton onClick={this.NavigationDrawer('right', true)} className="test" color="inherit" aria-label="Menu">
