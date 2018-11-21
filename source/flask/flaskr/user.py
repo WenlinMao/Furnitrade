@@ -95,6 +95,7 @@ class Profile(Resource):
         current_username = user['username']
         current_email = user['email']
         current_address = user['address']
+        current_id = str(user['_id'])
         # current_picture = user['picture'];
 
         # Collect profile data
@@ -104,6 +105,7 @@ class Profile(Resource):
             'username': current_username,
             'email': current_email,
             'address': current_address,
+            'user_id': current_id,
             # 'picture': current_picture
         }
 

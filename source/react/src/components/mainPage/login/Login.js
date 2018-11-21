@@ -51,7 +51,8 @@ class Login extends Component {
         e.preventDefault();
         let reqData = {
             'username': this.state.username,
-            'password': passwordHash.generate(this.state.password),
+            // 'password': passwordHash.generate(this.state.password),
+            'password': this.state.password,
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');
@@ -77,7 +78,7 @@ class Login extends Component {
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully login
-                    //setLocal('username', reqData.username)
+                    setLocal('username', reqData.username)
                     setLocal('usertoken', response.data.token);
                     // console.log("localStorage", localStorage.getItem('usertoken'));
                     console.log("response.data.token = ", response.data.token);

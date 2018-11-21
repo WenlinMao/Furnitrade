@@ -248,7 +248,8 @@ class Register extends Component {
             'username': this.state.username,
             'email': this.state.email,
             'address': this.state.address,
-            'password': passwordHash.generate(this.state.password),
+            // 'password': passwordHash.generate(this.state.password),
+            'password': this.state.password,
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');
@@ -277,7 +278,7 @@ class Register extends Component {
                     // successfully register and login
                     setLocal("username", reqData.username);
                     // localStorage.setItem('usertoken', response.data.token);
-                    
+
                     setLocal("usertoken", response.data.token);
                     console.log("localStorgae", getLocal("username"));
                     // redirect to hompage
@@ -420,7 +421,7 @@ class Register extends Component {
                                         At least 1 uppercase letter <i className={upper?check:times}></i> <br/>
                                         At least 1 lowercase letter <i className={lower?check:times}></i> <br/>
                                         At least 1 number <i className={number?check:times}></i> <br/>
-                                        At least 1 special character <i className={symbol?check:times}></i> 
+                                        At least 1 special character <i className={symbol?check:times}></i>
                                         <span className={classes.arrowArrow} ref={this.handleArrowRef} />
                                     </React.Fragment>
                                 }

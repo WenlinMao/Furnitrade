@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
+import {UploadImg} from '../uploadImg/UploadImg';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -48,7 +49,9 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: '',
       picture: 'test-propic.jpg',
+      picture_pathes: [],
       username: '',
       email: '',
       city:'San Diego',
@@ -98,6 +101,7 @@ class ProfilePage extends Component {
             username: response.data.username,
             email: response.data.email,
             address: response.data.address,
+            user_id: response.data.user_id,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -162,7 +166,7 @@ class ProfilePage extends Component {
     console.log(reqData);
     const token = localStorage.getItem('usertoken');
     console.log("Saving profile data,", reqData);
-        axios({
+    axios({
         method: 'post',
         url: 'http://127.0.0.1:5000/user/edit',
         withCredentials: false,
@@ -207,6 +211,13 @@ class ProfilePage extends Component {
         console.log("post error: " + error);
     });
 
+  }
+
+  handleUploadImg = (img_pathes) => {
+    this.setState({
+      picture_pathes: img_pathes
+    });
+    console.log(this.state.picture_pathes)
   }
 
   // Move this logic to Dialog
@@ -304,7 +315,7 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
-
+                <UploadImg resource_type="user" _id={this.state.user_id} onUploadImg={this.handleUploadImg}/>
                 {/* Save/ Edit button */}
                 {button}
               <Dialog />
