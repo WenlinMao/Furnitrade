@@ -35,7 +35,7 @@ class NavigationDrawer extends React.Component {
     };
 
     handleLogout = (e) => {
-        setLocal("username", "");
+        setLocal('username', "")
         const token = localStorage.getItem('usertoken');
         // TODO: check what should happen if token is Null
         axios({
@@ -49,9 +49,9 @@ class NavigationDrawer extends React.Component {
           console.log(response);
           let code = response.data.status;
           if (code === 400){
-              localStorage.removeItem('usertoken');
-              this.props.redirectToLogin(true);
-              this.props.logout();
+            localStorage.removeItem('usertoken');
+            this.props.redirectToLogin(true);
+            this.props.logout();
           } else if (code === 200){
             // localStorage.removeItem('usertoken');
             this.props.redirectToHome(true);
@@ -81,7 +81,7 @@ class NavigationDrawer extends React.Component {
               <li>
                 <Button onClick={this.handleLogout}>Log out</Button>
               </li>
- 
+
           </List>
           <Divider />
           <List></List>

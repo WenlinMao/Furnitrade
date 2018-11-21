@@ -1,11 +1,11 @@
 import pymongo
-from flaskr.db import get_db
+from .db import get_db
 
 
 def get_blacklist_collection():
     db = get_db()
-    users = pymongo.collection.Collection(db, 'Blacklist')
-    return users
+    blacklist = pymongo.collection.Collection(db, 'Blacklist')
+    return blacklist
 
 
 def check_blacklist_token_exist(token):
