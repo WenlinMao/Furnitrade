@@ -77,8 +77,8 @@ class Login extends Component {
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully login
-                    setLocal("username", reqData.username);
-                    localStorage.setItem('usertoken', response.data.token);
+                    //setLocal('username', reqData.username)
+                    setLocal('usertoken', response.data.token);
                     // console.log("localStorage", localStorage.getItem('usertoken'));
                     console.log("response.data.token = ", response.data.token);
                     // redirect to hompage

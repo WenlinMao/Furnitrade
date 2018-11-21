@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
+import {UploadImg} from '../../UploadImg.js';
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -49,8 +50,8 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       picture: 'test-propic.jpg',
-      username: '',
-      email: '',
+      username: 'Jack Ma',
+      email: 'jackma@alibaba.com',
       city:'San Diego',
       zipcode:'92122',
       address: '',
@@ -80,7 +81,8 @@ class ProfilePage extends Component {
     let reqData = {
       'username': username
     };
-    axios({
+    if (token){
+      axios({
         method: 'get',
         url: 'http://127.0.0.1:5000/user/profile',
         withCredentials: false,
@@ -89,8 +91,8 @@ class ProfilePage extends Component {
         responseType: 'json',
         headers: {
             "Authorization": `Bearer ${token}`
-    }
-    }).then((response) => {
+        }
+      }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
         if (code === 200) {
@@ -103,21 +105,19 @@ class ProfilePage extends Component {
           });
         } else if (code === 316) {
           console.log("user not logged in");
-        }  else if (code === 400) {
-            localStorage.removeItem('usertoken');
-            this.props.history.push("/Login");
         }
-    }).catch((error) => {
+      }).catch((error) => {
         console.log("get profile: " + error);
-    });
-
+      });
+    }
   }
 
   handleNameInput = name => event => {
-    this.setState({username: event.target.value});
+
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
+        nameRegex
       });
     } else {
       this.setState({
@@ -127,20 +127,16 @@ class ProfilePage extends Component {
   }
 
   handleEmailInput = email => event => {
-    this.setState({email: event.target.email});
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
+        emailRegex
       });
     } else {
       this.setState({
         emailError: true
       });
     }
-  }
-
-  handleAddressInput = address => event =>{
-    this.setState({address: event.target.value});
   }
 
   handleEdit = () => {
@@ -159,54 +155,51 @@ class ProfilePage extends Component {
       'address': this.state.address,
       'password': this.state.password,
     };
-    console.log(reqData);
     const token = localStorage.getItem('usertoken');
     console.log("Saving profile data,", reqData);
+    if (token){
         axios({
-        method: 'post',
-        url: 'http://127.0.0.1:5000/user/edit',
-        withCredentials: false,
-        crossdomain: true,
-        data: reqData,
-        responseType: 'json',
-        headers: {
-          //"Content-Type": "application/x-www-form-urlencoded",
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-          "Authorization": `Bearer ${token}`
-        }
-    })
-    // handle success
-    .then((response) => {
-        console.log(response.data);
-        let code = response.data.status;
-        if (code === 200) {
+          method: 'post',
+          url: 'http://127.0.0.1:5000/user/edit',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer ${token}`
+          }
+        })
+        // handle success
+        .then((response) => {
+            console.log(response.data);
+            let code = response.data.status;
+            if (code === 200) {
 
-        } else {
-            //    this.setState({errorMsg: response.data.msg, open: true});
-            if (code === 310 || code === 315) {
-                this.setState({
-                    nameError: true,
-                    emailError: false,
-                    errorMsg: response.data.msg
-                });
-            } else if (code === 318) {
-                this.setState({
-                    nameError: false,
-                    emailError: true,
-                    errorMsg: response.data.msg
-                });
-            } else if (code === 400) {
-                localStorage.removeItem('usertoken');
-                this.props.history.push("/Login");
+            } else {
+                //    this.setState({errorMsg: response.data.msg, open: true});
+                if (code === 310 || code === 315) {
+                    this.setState({
+                        nameError: true,
+                        emailError: false,
+                        errorMsg: response.data.msg
+                    });
+                } else if (code === 318) {
+                    this.setState({
+                        nameError: false,
+                        emailError: true,
+                        errorMsg: response.data.msg
+                    });
+                }
             }
-        }
-    })
-    // handle error
-    .catch((error) => {
-        console.log("post error: " + error);
-    });
-
+        })
+        // handle error
+        .catch((error) => {
+            console.log("post error: " + error);
+        });
+    }
   }
 
   // Move this logic to Dialog

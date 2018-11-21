@@ -96,6 +96,11 @@ def login_required(method):
     @wraps(method)
     def wrapper(self):
         header = request.headers.get('Authorization')
+        if header is None or header == '':
+            return jsonify({
+                "status": 316,
+                "msg": "User hasn't loged in",
+            })
         _, token = header.split()
 
         try:
@@ -133,6 +138,8 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
+        if header is None or header == '':
+            return method(*args, **kwargs)
         _, token = header.split()
 
         if check_blacklist_token_exist(token):
@@ -150,7 +157,7 @@ def logout_required(method):
 # TODO: add address, check password is valid, add email
 # 		check email is valid
 class Register(Resource):
-    @logout_required
+    # @logout_required
     def post(self):
         postedData = request.get_json()
         # print (type(postedData));
