@@ -10,7 +10,9 @@ import './FurniCard.css'
 
 const Card = props => (
     <div className="Card">
+        <a href={props.link}>
         <img src={props.image} alt="This is the furniture representation passed in through JSON requested from the back-end"/>
+        </a>
         <h3>{props.title}</h3>
         <p>{props.text}</p>
     </div>

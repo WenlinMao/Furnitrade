@@ -7,7 +7,7 @@ Cards group padding and margin adjust needed
     margin: 0 auto;
     max-width: 500px;
     padding: 150px 50px 50px 50px;
-    text-align: center; 
+    text-align: center;
 }
 
 h2 {
@@ -31,6 +31,12 @@ h2 {
     grid-gap: 100px;
     justify-items: center;
 }
+
+Button{
+  float:right;
+}
+
+
 
 @media (max-width: 1600px) {
     .Card-group {
