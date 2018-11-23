@@ -30,7 +30,7 @@ class GeneratePresigned(Resource):
         _id = args['_id']
         file_type = args['file_type']
 
-        s3_key = resource_type + "/" + _id + "/" + resource_name
+        s3_key = resource_type + "/" + _id + "/img/" + resource_name
 
         s3 = boto3.client(
             's3',
