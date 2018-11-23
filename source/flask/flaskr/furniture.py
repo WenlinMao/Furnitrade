@@ -182,7 +182,6 @@ class Detail(Resource):
         price = furniture['price']
         location = furniture['location']
         ''' TODO: seller id shouldn't return '''
-        seller_id = furniture['seller']
         description = furniture['description']
 
         retJson = {
@@ -194,7 +193,6 @@ class Detail(Resource):
             'is_delivery_included': is_delivery_included,
             'price': price,
             'location': location,
-            'seller': seller_id,
             'description': description
         }
 
