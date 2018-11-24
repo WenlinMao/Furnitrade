@@ -253,7 +253,7 @@ class AddHistory(Resource):
     add furniture id to user's history
     '''
     @auth.login_required
-    def get(self, user):
+    def get(self, user, furniture_id):
         history = user['history']
 
         # add to history
