@@ -72,7 +72,7 @@ class Contact(Resource):
                 seller_username=seller_username,
                 buyer_username=buyer_username,
                 furniture_name=furniture_name,
-                detail_link="http://localhost:3000/"
+                detail_link=current_app.config['FRONTEND_DOMAIN']
                 # detail_link="http://localhost:3000/Contact/"
                 # + str(contact_form.inserted_id)
             ),

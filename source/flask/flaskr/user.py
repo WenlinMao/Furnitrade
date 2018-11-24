@@ -8,9 +8,10 @@ from flaskr.model.user_model import (
 )
 
 from flask import (
-    Blueprint, request, jsonify, json
+    Blueprint, request, jsonify
 )
 from flask_restful import Api, Resource, reqparse
+from flaskr import mail
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -201,7 +202,18 @@ class getHistory(Resource):
             "history": history
         })
 
-# TODO: forget passwords
+
+class ForgetPassword(Resource):
+    '''
+    user will send a email, and this api will check if the email is exist
+    in database, and send an email that include a link to
+    change the password
+    '''
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str)
+        args = parser.parse_args()
 
 
 api.add_resource(Delete, '/delete/<string:username>')
@@ -211,3 +223,4 @@ api.add_resource(ChangePassword, '/change_password')
 api.add_resource(getWishList, '/get_wishlist')
 api.add_resource(getHistory, '/get_history')
 api.add_resource(ChangeProfileImg, '/change_img')
+api.add_resource(ForgetPassword, '/reset_password')
