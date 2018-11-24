@@ -80,7 +80,7 @@ def delete_user_by_username(username):
     users = get_users_collection()
     return users.delete_one({'username': username})
 
-def add_wishlist_by_id(user_id, wishlist, upsert=False):
+def update_wishlist_by_id(user_id, wishlist, upsert=False):
     """
     :type user_id: string, wishlist: document (wishlist as a list)
     :rtype: UpdateResult object

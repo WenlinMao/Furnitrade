@@ -144,9 +144,27 @@ class getWishList(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        wishlist = user['Wishlist']
-        return json.dumps(wishlist)
+        wishlist = user['wishlist']
+        return jsonify({
+            "status": 200,
+            "msg": "wishlsit get from user",
+            "wishlist": wishlist
+        })
 
+class deleteWishList(Resource):
+    '''
+    delete a furniture id from the wish list
+    '''
+    @auth.login_required
+    def get(self, user, furniture_id):
+        wishlist = user['wishlist']
+        temp = wishlist.split(furniture_id)
+        wishlist = ''.join(temp)
+        user.update_wishlist_by_id(user['user_id'], wishlist)
+        return jsonify({
+            "status": 200,
+            "msg": "Furniture deleted from wishlist"
+        })
 
 class getHistory(Resource):
     '''

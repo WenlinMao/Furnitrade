@@ -137,7 +137,7 @@ class Update(Resource):
 
         # TODO: perform validation on new data
 
-        # TODO: get current furniture id.
+        # Get current furniture id.
         furniture_id = posted_data['furniture_id']
 
         # Update furniture by its id
@@ -218,10 +218,13 @@ class AddWishList(Resource):
             return jsonify(retJson)
 
         # Insert to wishlist by appending
-        wish_list.append(furniture_id)
+        wish_list = wish_list + ", " + furniture_id
         user.add_wishlist_by_id(user['user_id'], wish_list)
-        return retJson
 
+        return jsonify({
+            "status": 200,
+            "msg": "Furniture added to wishlist"
+        })
 
 class AddHistory(Resource):
     '''
@@ -242,7 +245,7 @@ class List(Resource):
 
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
-api.add_resource(Update, '/update')
+api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
-api.add_resource(AddWishList, '/add_wish_list')
+api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
 api.add_resource(AddHistory, '/add_history')

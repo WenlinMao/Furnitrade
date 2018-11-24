@@ -198,14 +198,14 @@ class Register(Resource):
             error = 'Email invalid'
 
         if error is None:
-            # Add a default empty wish list field.
-            wish_list = []
+            # Add a default empty wishlist field.
+            # Wishlist as a string
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
                 "address": address,
-                "wishlist": wish_list
+                "wishlist": ""
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(
