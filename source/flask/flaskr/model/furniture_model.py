@@ -33,3 +33,12 @@ def delete_furniture_by_id(furniture_id):
 def find_all_furnitures():
     furnitures = get_furniture_collection
     return furnitures.find()
+
+def find_furniture_by_info(info):
+    """
+    Fing a furniture by infomation. All registed json field
+    Return furniture id
+    """
+    furnitures = get_furniture_collection()
+    furniture = furnitures.find_one(info)
+    return str(furniture.get('_id'))

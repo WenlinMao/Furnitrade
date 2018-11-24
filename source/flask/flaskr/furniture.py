@@ -11,7 +11,12 @@ Additional Dependencies Please Add Here
 from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
-    update_furniture_by_id, delete_furniture_by_id
+    update_furniture_by_id, delete_furniture_by_id,
+    find_furniture_by_info
+)
+
+from flaskr.model.category_model import (
+    get_category_by_name, get_category_collection
 )
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -26,6 +31,7 @@ class Post(Resource):
     @auth.login_required
     def post(self, user):
         furnitures = get_furniture_collection()
+        categories = get_category_collection()
         postedData = request.get_json()
 
         fur_name = postedData['furniture_name']
@@ -72,7 +78,7 @@ class Post(Resource):
             TODO: add function in model layer for every database access
             category should also update category database
             '''
-            furnitures.insert_one({
+            toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
                 "images": images,
@@ -81,6 +87,16 @@ class Post(Resource):
                 "location": location,
                 "seller": seller_id,
                 "description": description
+            }
+
+            furnitures.insert_one(toInsert)
+            
+            # TODO: how to insert to certain category
+            # get inserted furniture id and insert the id to category
+            furniture_id = find_furniture_by_info(toInsert)
+            categories.insert_one({
+                "category_name": category,
+                "furniture_id": furniture_id
             })
 
             retJson = {
