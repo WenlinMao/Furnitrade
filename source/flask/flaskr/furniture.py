@@ -16,7 +16,7 @@ from flaskr.model.furniture_model import (
 )
 
 from flaskr.model.category_model import (
-    get_category_by_name, get_category_collection
+    get_category_by_catname, get_category_collection
 )
 
 from flaskr.model.user_model import (
