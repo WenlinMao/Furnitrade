@@ -1,5 +1,4 @@
 from werkzeug.security import check_password_hash, generate_password_hash
-
 """
 Additional Dependencies Please Add Here
 """
@@ -11,7 +10,8 @@ from flaskr.model.user_model import (
 from flask import (
     Blueprint, request, jsonify
 )
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
+
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp)
@@ -85,8 +85,27 @@ class Edit(Resource):
         })
 
 
+class ChangeProfileImg(Resource):
+    @auth.login_required
+    def get(self, user):
+        parser = reqparse.RequestParser()
+        parser.add_argument('img_pathes', type=str)
+        args = parser.parse_args()
+
+        # update the user's profile in database
+        update_user_by_id(user['_id'], {
+            "profile": args['img_pathes']
+        })
+
+        return jsonify({
+            "status": 200,
+            "msg": "Update succeeded"
+        })
+
 # take an id return user info
 # Get all user related info in database as JSON file.
+
+
 class Profile(Resource):
     @auth.login_required
     def get(self, user):
@@ -96,7 +115,7 @@ class Profile(Resource):
         current_email = user['email']
         current_address = user['address']
         current_id = str(user['_id'])
-        # current_picture = user['picture'];
+        current_picture = user['profile']
 
         # Collect profile data
         retJson = {
@@ -106,7 +125,7 @@ class Profile(Resource):
             'email': current_email,
             'address': current_address,
             'user_id': current_id,
-            # 'picture': current_picture
+            'profile': current_picture
         }
 
         # Return received data
@@ -145,3 +164,4 @@ api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
+api.add_resource(ChangeProfileImg, '/change_img')

@@ -166,6 +166,7 @@ class Register(Resource):
         # address = "8520 Costa Verde";
         address = postedData['address']
         email = postedData['email']
+        # profile_path = postedData['image_pathes']
 
         error = None
         error_code = 200
@@ -201,7 +202,8 @@ class Register(Resource):
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
-                "address": address
+                "address": address,
+                # "profile": profile_path
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

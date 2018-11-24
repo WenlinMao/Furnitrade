@@ -11,6 +11,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import "./Register.css";
 import Tooltip from '@material-ui/core/Tooltip';
 import passwordHash from 'password-hash';
+import {UploadImg} from '../uploadImg/UploadImg';
 
 /* reg epx */
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
@@ -109,8 +110,10 @@ class Register extends Component {
             nameNoSymbol: true,
             nameLength: false,
             validEmail: false,
-            hasLogin: false
+            hasLogin: false,
+            filesToBeSent: [],
         };
+        this.child = React.createRef();
     }
     componentWillMount() {
         if(getLocal("username") !== "" ){
@@ -241,6 +244,40 @@ class Register extends Component {
         });
     }
 
+    handleBeforeUpload = (files) => {
+        this.setState({
+            filesToBeSent: files
+        });
+        console.log(this.state.filesToBeSent)
+    }
+
+    // call back handle when uploadImg finished
+    handleUploadImg = (img_pathes) => {
+        console.log(img_pathes[0])
+
+        // change image pathes in database after uploadImg to s3
+        var token = getLocal("usertoken")
+        let config = {
+            headers: {"Authorization": `Bearer ${token}`},
+            params: {
+                img_pathes: img_pathes[0]
+            },
+        }
+
+        axios.get('http://127.0.0.1:5000/user/change_img', config)
+        .then((response) => {
+            let code = response.data.status;
+            if (code === 200) {
+                console.log(response);
+            } else if (code === 400) {
+                localStorage.removeItem('usertoken');
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
     // Post request
     handleSubmit = (e) => {
         e.preventDefault();
@@ -248,7 +285,6 @@ class Register extends Component {
             'username': this.state.username,
             'email': this.state.email,
             'address': this.state.address,
-            // 'password': passwordHash.generate(this.state.password),
             'password': this.state.password,
         };
         console.log(reqData);
@@ -276,11 +312,19 @@ class Register extends Component {
                 let code = response.data.status;
                 if (code === 200) {
                     // successfully register and login
+                    // trigger for render user page or non-user page
                     setLocal("username", reqData.username);
-                    // localStorage.setItem('usertoken', response.data.token);
-
+                    // set user jwt token for later access
                     setLocal("usertoken", response.data.token);
                     console.log("localStorgae", getLocal("username"));
+
+                    // get token for userid
+                    var token = getLocal("usertoken")
+                    var jwt_decode = require('jwt-decode');
+                    var decoded = jwt_decode(token);
+                    console.log(decoded)
+                    // start execute upload image process
+                    this.child.current.beginUpload(decoded.user_id);
                     // redirect to hompage
                     this.props.history.push("/");
                 } else {
@@ -464,10 +508,27 @@ class Register extends Component {
                                 error={this.state.confirmPasswordError}
                             />
 
+                            <UploadImg resource_type="user"
+                              name={this.state.username}
+                              beforeUpload={this.handleBeforeUpload}
+                              onUploadImg={this.handleUploadImg}
+                              disabled={this.checkButtonStatus()}
+                              ref={this.child}
+                              />
                             {/* Show different button depending on input validality */}
-                            { this.checkButtonStatus() ?
-                            <Button className = "register-button" disabled={this.checkButtonStatus()} variant="contained" > Create Account </Button> :
-                            <button disabled={this.checkButtonStatus()} variant="contained" type="submit">CREATE ACCOUNT</button>
+                            { (this.checkButtonStatus()
+                                || (this.state.filesToBeSent
+                                    && this.state.filesToBeSent.length <= 0)) ?
+                            <Button
+                              className = "register-button"
+                              disabled={(this.checkButtonStatus()
+                                          || (this.state.filesToBeSent
+                                            && this.state.filesToBeSent.length <= 0))}
+                              variant="contained" > Create Account </Button> :
+                            <button
+                              disabled={this.checkButtonStatus()}
+                              variant="contained"
+                              type="submit">CREATE ACCOUNT</button>
                             }
                         </form>
                     </div>

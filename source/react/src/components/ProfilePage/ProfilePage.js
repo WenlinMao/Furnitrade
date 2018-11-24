@@ -10,6 +10,7 @@ import axios from 'axios';
 import {getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
 
+
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
 //      - Use container structure to divide page into a few parts
@@ -92,7 +93,7 @@ class ProfilePage extends Component {
         responseType: 'json',
         headers: {
             "Authorization": `Bearer ${token}`
-    }
+        }
     }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
@@ -102,6 +103,7 @@ class ProfilePage extends Component {
             email: response.data.email,
             address: response.data.address,
             user_id: response.data.user_id,
+            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/" + response.data.profile,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -213,13 +215,6 @@ class ProfilePage extends Component {
 
   }
 
-  handleUploadImg = (img_pathes) => {
-    this.setState({
-      picture_pathes: img_pathes
-    });
-    console.log(this.state.picture_pathes)
-  }
-
   // Move this logic to Dialog
   // changePassword = (newPassword) => {
   //   this.setState({password: newPassword});
@@ -258,7 +253,8 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={require("../../static/images/"+this.state.picture)} alt="user info pic" />
+                  { /*<img src={require("../../static/images/"+this.state.picture)} alt="user info pic" />*/}
+                  <img src={this.state.picture} alt="user info pic" />
                   <button onClick={this.onDrop}>update picture</button>
                 </div>
                 <TextField
@@ -315,7 +311,11 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
-                <UploadImg resource_type="user" _id={this.state.user_id} onUploadImg={this.handleUploadImg}/>
+                  <UploadImg resource_type="user"
+                    name={this.state.username}
+                    onUploadImg={this.handleUploadImg}
+                    />
+
                 {/* Save/ Edit button */}
                 {button}
               <Dialog />
