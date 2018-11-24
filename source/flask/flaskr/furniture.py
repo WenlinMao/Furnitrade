@@ -42,29 +42,29 @@ class Post(Resource):
 
         # TODO: change depends on database
         if not fur_name:
-            error_code = 410
+            error_code = 322
             error = 'Furniture name is required.'
         elif not images:
-            error_code = 411
+            error_code = 323
             error = 'Images are required.'
         elif not category:
-            error_code = 412
+            error_code = 324
             error = 'Category needs to be specified.'
         elif not is_delivery_included:
-            error_code = 413
+            error_code = 325
             error = 'Is delivery included?'
         elif not seller_id:
             ''' TODO: check if seller is inside the database '''
-            error_code = 414
+            error_code = 326
             error = 'Seller name is required.'
         elif not price:
-            error_code = 417
+            error_code = 327
             error = 'Price is required.'
         elif not location:
-            error_code = 418
+            error_code = 328
             error = 'Pick up location is required.'
         elif not description:
-            error_code = 419
+            error_code = 329
             error = 'Description of furniture is required.'
 
         if error is None:
@@ -233,7 +233,16 @@ class AddHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        pass
+        history = user['history']
+
+        # add to history
+        history = history + ", " + furniture_id
+        user.add_history_by_id(user['user_id'], history)
+
+        return jsonify({
+            "status": 200,
+            "msg": "Furniture added to history"
+        })
 
 
 class List(Resource):

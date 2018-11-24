@@ -172,7 +172,12 @@ class getHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        pass
+        history = user['history']
+        return jsonify({
+            "status": 200,
+            "msg": "history successfully loaded",
+            "history": history
+        })
 
 # TODO: forget passwords
 
