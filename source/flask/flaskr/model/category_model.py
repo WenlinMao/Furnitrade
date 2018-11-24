@@ -13,5 +13,5 @@ def get_category_by_catname(category_name):
     return: get the certain category
     TODO: error checking. 
     '''
-    categories = get_category_collection
+    categories = get_category_collection()
     return categories.find_one({"category_name": category_name})
