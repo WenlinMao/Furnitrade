@@ -20,7 +20,6 @@ def update_furniture_by_id(furniture_id, update, upsert=False):
         {'_id': ObjectId(furniture_id)}, {"$set": update}
     )
 
-
 def find_furniture_by_id(furniture_id):
     furnitures = get_furniture_collection()
     return furnitures.find_one({'_id': ObjectId(furniture_id)})

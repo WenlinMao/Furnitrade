@@ -62,6 +62,14 @@ def update_user_by_id(user_id, update, upsert=False):
     users = get_users_collection()
     return users.update_one({'_id': ObjectId(user_id)}, {"$set": update})
 
+def add_user_by_id(user_id, update, upsert=False):
+    """
+    :type user_id: string, update: document, upsert: bool
+    :rtype: UpdateResult object
+    """
+    users = get_users_collection()
+    return users.update_one({'_id': ObjectId(user_id)}, {"$set": update})
+
 
 def delete_user_by_id(user_id):
     """
@@ -88,3 +96,13 @@ def update_wishlist_by_id(user_id, wishlist, upsert=False):
     users = get_users_collection()
     return users.update_one({'_id': ObjectId(user_id)}, \
     {"$set": {'wishlist': wishlist}})
+
+def add_history_by_id(user_id,history,upsert=False):
+    """
+    :type user_id: string, history: document (history as a list)
+    :rtype: UpdateResult object
+    """
+
+    users = get_users_collection()
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {"$set": {'history': history}})

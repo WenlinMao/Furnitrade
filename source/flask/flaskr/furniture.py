@@ -257,7 +257,7 @@ class AddHistory(Resource):
         history = user['history']
 
         # add to history
-        history = history + ", " + furniture_id
+        history.append(furniture_id)
         add_history_by_id(user['user_id'], history)
 
         return jsonify({
