@@ -9,8 +9,9 @@ from flaskr.model.user_model import (
 )
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, request, jsonify, json
 )
+from bson.json_util import dumps
 from flask_restful import Api, Resource
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -139,10 +140,12 @@ class ChangePassword(Resource):
 class getWishList(Resource):
     '''
     get wishlist based on user_id
+    Simply return the jsonified wishlist
     '''
     @auth.login_required
     def get(self, user):
-        pass
+        wishlist = user['Wishlist']
+        return json.dumps(wishlist)
 
 
 class getHistory(Resource):

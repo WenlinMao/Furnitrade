@@ -156,6 +156,7 @@ def logout_required(method):
 # /auth/register : register
 # TODO: add address, check password is valid, add email
 # 		check email is valid
+# Updated to have wishlist field - by Mao Li Nov 23
 class Register(Resource):
     @logout_required
     def post(self):
@@ -197,11 +198,14 @@ class Register(Resource):
             error = 'Email invalid'
 
         if error is None:
+            # Add a default empty wish list field.
+            wish_list = []
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
-                "address": address
+                "address": address,
+                "wishlist": wish_list
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

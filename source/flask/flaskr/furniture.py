@@ -11,7 +11,7 @@ Additional Dependencies Please Add Here
 from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
-    update_furniture_by_id
+    update_furniture_by_id, delete_furniture_by_id
 )
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -205,8 +205,22 @@ class AddWishList(Resource):
     furniture id to user's wishlist
     '''
     @auth.login_required
-    def get(self, user):
-        pass
+    def get(self, user, furniture_id):
+        # Get the list of wished furniture
+        wish_list = user['wishlist']
+        
+        # Validation
+        if furniture_id in wish_list:
+            retJson = {
+                "status": 612,
+                "msg": "Wishlist furniture already exists"
+            }
+            return jsonify(retJson)
+
+        # Insert to wishlist by appending
+        wish_list.append(furniture_id)
+        user.add_wishlist_by_id(user['user_id'], wish_list)
+        return retJson
 
 
 class AddHistory(Resource):
