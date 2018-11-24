@@ -10,7 +10,8 @@ import {setLocal, getLocal} from '../../utils/util';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import "./Register.css";
 import Tooltip from '@material-ui/core/Tooltip';
-import passwordHash from 'password-hash';
+// import passwordHash from 'password-hash';
+import md5 from 'md5';
 
 /* reg epx */
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
@@ -248,7 +249,7 @@ class Register extends Component {
             'username': this.state.username,
             'email': this.state.email,
             'address': this.state.address,
-            'password': passwordHash.generate(this.state.password),
+            'password': md5(this.state.password),
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');
