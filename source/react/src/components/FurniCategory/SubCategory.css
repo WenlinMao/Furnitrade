@@ -37,7 +37,7 @@
     background-color: white;
     font-size: 12px;
     overflow: hidden;
-    height: 500px;
+    /* height: 500px; */
     transition: max-height .2s ease-in-out;
     /*transition: max-height 0.2s ease-out;*/
 }

@@ -1,22 +1,16 @@
 /*
-************  Furni Page CSS ************
+************  Myfurniture Page CSS ************
+Cards group padding and margin adjust needed
 */
-.furni-sub-cate {
-    /* background-image: url(); */    
-    background-image: url('../../static/images/wallpaper1.png');
-    height: 960px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-.furni {
+
+.my-furni {
     margin: 0 auto;
     max-width: 500px;
     padding: 150px 50px 50px 50px;
-    text-align: center;   
-} 
+    text-align: center;
+}
 
-.furni-page h2 {
+h2 {
     margin: 0;
     color: white;
     font-size: 40px;
@@ -37,6 +31,12 @@
     grid-gap: 100px;
     justify-items: center;
 }
+
+Button{
+  float:right;
+}
+
+
 
 @media (max-width: 1600px) {
     .Card-group {
