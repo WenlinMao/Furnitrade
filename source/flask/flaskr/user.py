@@ -8,7 +8,7 @@ from flaskr.model.user_model import (
 )
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, request, jsonify, json
 )
 from flask_restful import Api, Resource, reqparse
 
@@ -139,7 +139,6 @@ class ChangePassword(Resource):
         posted_data = request.get_json()
         old_password = posted_data["old_password"]
         new_password = posted_data["new_password"]
-        check_password_hash(user['password'], old_password)
 
         if check_password_hash(user['password'], old_password):
             update_user_by_id(user['_id'], {
@@ -157,6 +156,49 @@ class ChangePassword(Resource):
                 "msg": "Password is incorrect. Try Again"
             })
 
+
+class getWishList(Resource):
+    '''
+    get wishlist based on user_id
+    Simply return the jsonified wishlist
+    '''
+    @auth.login_required
+    def get(self, user):
+        wishlist = user['wishlist']
+        return jsonify({
+            "status": 200,
+            "msg": "wishlsit get from user",
+            "wishlist": wishlist
+        })
+
+class deleteWishList(Resource):
+    '''
+    delete a furniture id from the wish list
+    '''
+    @auth.login_required
+    def get(self, user, furniture_id):
+        wishlist = user['wishlist']
+        temp = wishlist.split(furniture_id)
+        wishlist = ''.join(temp)
+        user.update_wishlist_by_id(user['user_id'], wishlist)
+        return jsonify({
+            "status": 200,
+            "msg": "Furniture deleted from wishlist"
+        })
+
+class getHistory(Resource):
+    '''
+    get history based on user_id
+    '''
+    @auth.login_required
+    def get(self, user):
+        history = user['history']
+        return jsonify({
+            "status": 200,
+            "msg": "history successfully loaded",
+            "history": history
+        })
+
 # TODO: forget passwords
 
 
@@ -164,4 +206,6 @@ api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
+api.add_resource(getWishList, '/get_wishlist')
+api.add_resource(getHistory, '/get_history')
 api.add_resource(ChangeProfileImg, '/change_img')
