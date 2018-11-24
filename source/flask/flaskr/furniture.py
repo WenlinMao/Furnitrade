@@ -19,6 +19,11 @@ from flaskr.model.category_model import (
     get_category_by_name, get_category_collection
 )
 
+from flaskr.model.user_model import (
+    update_wishlist_by_id   
+)
+
+
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
 api = Api(bp)
 
@@ -235,7 +240,7 @@ class AddWishList(Resource):
 
         # Insert to wishlist by appending
         wish_list = wish_list + ", " + furniture_id
-        user.add_wishlist_by_id(user['user_id'], wish_list)
+        user.update_wishlist_by_id(user['user_id'], wish_list)
 
         return jsonify({
             "status": 200,
