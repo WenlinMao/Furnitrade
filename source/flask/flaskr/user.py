@@ -171,6 +171,7 @@ class getWishList(Resource):
             "wishlist": wishlist
         })
 
+
 class deleteWishList(Resource):
     '''
     delete a furniture id from the wish list
@@ -185,6 +186,7 @@ class deleteWishList(Resource):
             "status": 200,
             "msg": "Furniture deleted from wishlist"
         })
+
 
 class getHistory(Resource):
     '''

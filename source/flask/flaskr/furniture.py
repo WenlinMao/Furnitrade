@@ -16,7 +16,7 @@ from flaskr.model.furniture_model import (
 )
 
 from flaskr.model.category_model import (
-    get_category_by_name, get_category_collection
+    get_category_by_catname, get_category_collection
 )
 
 from flaskr.model.user_model import (
@@ -95,7 +95,7 @@ class Post(Resource):
             }
 
             furnitures.insert_one(toInsert)
-            
+
             # TODO: how to insert to certain category
             # get inserted furniture id and insert the id to category
             furniture_id = find_furniture_by_info(toInsert)
@@ -229,7 +229,7 @@ class AddWishList(Resource):
     def get(self, user, furniture_id):
         # Get the list of wished furniture
         wish_list = user['wishlist']
-        
+
         # Validation
         if furniture_id in wish_list:
             retJson = {
@@ -247,6 +247,7 @@ class AddWishList(Resource):
             "msg": "Furniture added to wishlist"
         })
 
+
 class AddHistory(Resource):
     '''
     should be called every time when user click on a furniture page,
@@ -256,6 +257,9 @@ class AddHistory(Resource):
     def get(self, user):
         history = user['history']
 
+        '''
+        add or update?
+        '''
         # add to history
         history = history + ", " + furniture_id
         add_history_by_id(user['user_id'], history)
