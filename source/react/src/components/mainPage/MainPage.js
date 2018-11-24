@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
 import Wave from '../common/Wave';
 import FurniCategory from '../FurniCategory/FurniCategory';
-import SubCategory from '../FurniCategory/SubCategory';
 import styled from 'styled-components'
 import './MainPage.css';
 import categories from '../../static/data/category.json';
@@ -39,10 +38,9 @@ const SectionCategory = styled.div`
       }
     }
 
-    // Easy hack; 别的方法试了一下,不好使,先用这个方法。
     // check if the user has logged in
     componentWillMount() {
-      if(getLocal("usertoken") !== "" ){
+      if(getLocal("username") !== "" ){
         this.setState({hasLogin: true});
          // TODO: GET request
       }
@@ -51,10 +49,13 @@ const SectionCategory = styled.div`
       }
     }
 
+    logout = () => {
+      this.setState({hasLogin: false});
+    }
     render() {
       return (
         <div>
-          <NavBar hasLogin={this.state.hasLogin}/>
+          <NavBar logout={this.logout}/>
           <div className="Index">
             <div className="Index-group">
               <h1>Furnitrade </h1>
@@ -80,6 +81,7 @@ const SectionCategory = styled.div`
           {/* Section of About US */}
 
           {/* Section of categories */}
+          <section id="category">
           <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
@@ -90,6 +92,7 @@ const SectionCategory = styled.div`
               />
             ))}
           </SectionCategory>
+          </section>
 
         {/* Final DIV - add everything above this DIV */}
         </div>

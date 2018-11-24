@@ -1,5 +1,4 @@
 from werkzeug.security import check_password_hash, generate_password_hash
-
 """
 Additional Dependencies Please Add Here
 """
@@ -11,8 +10,8 @@ from flaskr.model.user_model import (
 from flask import (
     Blueprint, request, jsonify, json
 )
-from bson.json_util import dumps
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
+
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp)
@@ -86,8 +85,27 @@ class Edit(Resource):
         })
 
 
+class ChangeProfileImg(Resource):
+    @auth.login_required
+    def get(self, user):
+        parser = reqparse.RequestParser()
+        parser.add_argument('img_pathes', type=str)
+        args = parser.parse_args()
+
+        # update the user's profile in database
+        update_user_by_id(user['_id'], {
+            "profile": args['img_pathes']
+        })
+
+        return jsonify({
+            "status": 200,
+            "msg": "Update succeeded"
+        })
+
 # take an id return user info
 # Get all user related info in database as JSON file.
+
+
 class Profile(Resource):
     @auth.login_required
     def get(self, user):
@@ -96,7 +114,8 @@ class Profile(Resource):
         current_username = user['username']
         current_email = user['email']
         current_address = user['address']
-        # current_picture = user['picture'];
+        current_id = str(user['_id'])
+        current_picture = user['profile']
 
         # Collect profile data
         retJson = {
@@ -105,7 +124,8 @@ class Profile(Resource):
             'username': current_username,
             'email': current_email,
             'address': current_address,
-            # 'picture': current_picture
+            'user_id': current_id,
+            'profile': current_picture
         }
 
         # Return received data
@@ -188,3 +208,4 @@ api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
 api.add_resource(getWishList, '/get_wishlist')
 api.add_resource(getHistory, '/get_history')
+api.add_resource(ChangeProfileImg, '/change_img')

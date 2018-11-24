@@ -10,7 +10,7 @@ class Config(object):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = 'furnitradeftp@gmail.com'
+    MAIL_DEFAULT_SENDER = 'furnitradeftp@gmail.com'
     MAIL_PASSWORD = 'furnitrade110'
     S3_KEY = 'AKIAIZQK2ON2EX4LDENA'
     S3_SECRET = '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'

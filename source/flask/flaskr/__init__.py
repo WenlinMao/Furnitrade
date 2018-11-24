@@ -7,7 +7,9 @@ import os
 from flask import Flask
 from config import ProductionConfig
 from flask_cors import CORS
-from flask_mail import Message, Mail
+from flask_mail import Mail
+
+mail = Mail()
 
 
 def create_app(config_object=ProductionConfig):
@@ -25,7 +27,6 @@ def create_app(config_object=ProductionConfig):
     cors = CORS(application, resources={r"*": {"origins": "*"}})
 
     # initialize mailer
-    mail = Mail()
     mail.init_app(application)
 
     # a simple page that says hello

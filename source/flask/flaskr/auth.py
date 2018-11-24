@@ -96,7 +96,8 @@ def login_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
-        if header is None:
+
+        if header is None or header == '':
             return jsonify({
                 "status": 316,
                 "msg": "User hasn't loged in",
@@ -138,7 +139,8 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
-        if header is None:
+
+        if header is None or header == '':
             return method(*args, **kwargs)
         _, token = header.split()
 
@@ -158,7 +160,7 @@ def logout_required(method):
 # 		check email is valid
 # Updated to have wishlist field - by Mao Li Nov 23
 class Register(Resource):
-    @logout_required
+    # @logout_required
     def post(self):
         postedData = request.get_json()
         # print (type(postedData));
@@ -167,6 +169,7 @@ class Register(Resource):
         # address = "8520 Costa Verde";
         address = postedData['address']
         email = postedData['email']
+        # profile_path = postedData['image_pathes']
 
         error = None
         error_code = 200
@@ -206,6 +209,7 @@ class Register(Resource):
                 "email": email,
                 "address": address,
                 "wishlist": ""
+
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

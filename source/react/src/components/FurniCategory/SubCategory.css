@@ -1,3 +1,5 @@
+
+
 .subcategory {
     display: grid;
     grid-template-columns: 60px auto;
@@ -5,31 +7,58 @@
     align-items: center;
 }
 
-.collapsible {
-    background-color: white;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
+.subcategory a {
+    font-size: 12px;
+    font-weight: 500;
+    color: black;
+    text-transform: none;
+    position: sticky;
+    /* padding: 9px 20px; */
     border: none;
-    text-align: left;
-    outline: none;
-
-    font-size: 24px;
-    border-bottom: 1px solid rgba(0,0,0, 0.1);
-    padding: 30px 0;
+    transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-    background-color: #ccc;
-  }
+.subcategory a:hover {
+    font-size: 13px;
+    color: #56CCF2;
+}
+
+.subcategory h5 {
+    transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+
+.subcategory h5:hover {
+    font-size: 25px;
+    color: #56CCF2;
+}
 
 /* Style the collapsible content. Note: hidden by default */
-.content {
+#content {
+
+    position: inherit;
+    max-height: 0px;
+    width: 250px;
     padding: 0 18px;
     background-color: white;
-    max-height: 0;
+    font-size: 12px;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    height: 500px;
+    transition: max-height .2s ease-in-out;
+    /*transition: max-height 0.2s ease-out;*/
+}
+
+
+#toggle{
+    
+    display: none;
+    position: relative;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+#toggle:checked +#content{
+  max-height: 500px;
+}
+
+#toggle:checked + label{
+  position: fixed;
 }
