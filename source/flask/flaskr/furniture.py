@@ -20,7 +20,7 @@ from flaskr.model.category_model import (
 )
 
 from flaskr.model.user_model import (
-    update_wishlist_by_id   
+    update_wishlist_by_id, add_history_by_id
 )
 
 
@@ -258,11 +258,11 @@ class AddHistory(Resource):
 
         # add to history
         history = history + ", " + furniture_id
-        user.add_history_by_id(user['user_id'], history)
+        add_history_by_id(user['user_id'], history)
 
         return jsonify({
             "status": 200,
-            "msg": "Furniture added to history"
+            "msg": "Furniture successfully added to history."
         })
 
 
@@ -278,4 +278,4 @@ api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
-api.add_resource(AddHistory, '/add_history')
+api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
