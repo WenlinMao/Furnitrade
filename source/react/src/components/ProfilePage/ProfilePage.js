@@ -8,6 +8,9 @@ import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
+import Dropzone from 'react-dropzone';
+import {UploadImg} from '../uploadImg/UploadImg'
+
 
 // This is profile page - used to update and modify user info
 // Goal & Requirements:
@@ -44,11 +47,12 @@ import {getLocal} from '../../utils/util';
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 
+
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      picture: 'test-propic.jpg',
+      img_pathes:[],
       username: '',
       email: '',
       city:'San Diego',
@@ -149,6 +153,41 @@ class ProfilePage extends Component {
     });
   }
 
+  handleBeforeUpload = (files) => {
+         this.setState({
+             filesToBeSent: files
+         });
+         console.log(this.state.filesToBeSent)
+     }
+
+
+  handleUploadImg = (img_pathes) => {
+         console.log(img_pathes[0])
+
+         // change image pathes in database after uploadImg to s3
+         var token = getLocal("usertoken")
+         let config = {
+             headers: {"Authorization": `Bearer ${token}`},
+             params: {
+                 img_pathes: img_pathes[0]
+             },
+         }
+
+         axios.get('http://127.0.0.1:5000/user/change_img', config)
+         .then((response) => {
+             let code = response.data.status;
+             if (code === 200) {
+                 console.log(response);
+             } else if (code === 400) {
+                 localStorage.removeItem('usertoken');
+             }
+         })
+         .catch((error) => {
+             console.log(error);
+         });
+     }
+
+
   handleSave = () => {
     this.setState({
       readOnly: true
@@ -214,11 +253,9 @@ class ProfilePage extends Component {
   //   this.setState({password: newPassword});
   // }
 
-  onDrop = event => {
-    this.setState({
-      picture: event.target.picture
-    });
-  }
+  onDrop = (uploaded) => {
+    this.setState({picture:uploaded});
+}
 
 
   render() {
@@ -247,8 +284,11 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={require("../../static/images/"+this.state.picture)} alt="user info pic" />
-                  <button onClick={this.onDrop}>update picture</button>
+                  <img src={this.state.img_pathes[0]} alt="user info pic" />
+                  <button><UploadImg resource_type="user"
+                              name={this.state.username}
+                              onUploadImg={this.handleUploadImg}
+                              /></button>
                 </div>
                 <TextField
 
@@ -319,4 +359,4 @@ class ProfilePage extends Component {
   }
 }
 
-  export default ProfilePage;
+export default ProfilePage;
