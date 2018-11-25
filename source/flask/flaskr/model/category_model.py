@@ -15,3 +15,7 @@ def get_category_by_catname(category_name):
     '''
     categories = get_category_collection()
     return categories.find_one({"category_name": category_name})
+
+def find_category_by_id(category_id):
+    category = get_category_collection()
+    return category.find_one({'_id': ObjectId(category_id)})
