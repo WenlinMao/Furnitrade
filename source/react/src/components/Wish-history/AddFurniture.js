@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './MyFurniture.css';
-import Button from '@material-ui/core/Button';
 import './AddFurniture.css';
 
 import PropTypes from 'prop-types';
@@ -30,8 +29,7 @@ class Add extends Component{
                 <Wave/>
               </div>
 
-              <div className="form">
-              <form>
+              <form className="form">
                 <TextField
                   id="standard-name"
                   label="Name"
@@ -39,7 +37,7 @@ class Add extends Component{
                   onChange={this.handleChange('name')}
                   margin="normal"
                 />
-                <br/>
+                
                 <TextField
                   id="standard-name"
                   label="$"
@@ -47,7 +45,7 @@ class Add extends Component{
                   onChange={this.handleChange('name')}
                   margin="normal"
                 />
-                <br/>
+                
                 <TextField
                   id="outlined-multiline-static"
                   label="Add a description"
@@ -57,7 +55,7 @@ class Add extends Component{
                   margin="normal"
                   variant="outlined"
                 />
-                <br/>
+                
                 <TextField
                   id="outlined-multiline-flexible"
                   label="Add an address"
@@ -68,8 +66,10 @@ class Add extends Component{
                   margin="normal"
                   variant="outlined"
                 />
+                <button> Submit </button>
               </form>
-              </div>
+        
+        {/* the very last div tag */}
         </div>
     )
   }
