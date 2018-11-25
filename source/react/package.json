@@ -20,6 +20,7 @@
     "react-dropzone": "^7.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
+    "react-slideshow-image": "^1.0.8",
     "styled-components": "^3.3.3"
   },
   "scripts": {
