@@ -1,5 +1,5 @@
 from flaskr.model.category_model import (
-    get_category_collection, get_category_by_catname
+    get_category_collection, get_category_by_catname, find_category_by_id
 )
 
 from flask_restful import Api, Resource
@@ -19,19 +19,19 @@ api = Api(bp)
 class Category(Resource):
     # takes a category name and find all furniture_id that belong to
     # this category, set return number by once
-    def get(self, category_name):
-        @auth.login_required
-    def get(self, user, category_id):
-	category = find_category_by_id(category_id)
+    @auth.login_required
+    def get(self, user, category_name):
+    	#def get(self, user, category_id):
+	category = get_category_by_catname(category_name)
         if category is None:
             return jsonify({
                 "status": 321,
                 "msg": "Can not find the category"
             })
 	size = category.included_listing.length
-	if size < 10
+	if size < 10:
 		count = size
-	else 
+	else:
 		count = 10
 	
 	result = []
