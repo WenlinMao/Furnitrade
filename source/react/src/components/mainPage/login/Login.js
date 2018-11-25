@@ -40,11 +40,11 @@ class Login extends Component {
     }
 
     handleNameInput = name => event => {
-        this.setState({username: event.target.value});
+        this.setState({username: event.target.value, usernameError: false});
     }
 
     handlePasswordInput = password => event => {
-        this.setState({password: event.target.value});
+        this.setState({password: event.target.value, passwordError: false});
     }
 
     // send post request

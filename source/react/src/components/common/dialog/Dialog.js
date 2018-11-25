@@ -6,7 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import "./Dialog.css";
+import md5 from 'md5';
+import axios from 'axios';
 
 const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?]).{8,20}/;
 // const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
@@ -17,9 +20,10 @@ export default class FormDialog extends React.Component {
     oldPassword: '',
     newPassword: '',
     confirmPassword: '',
-    oldPasswordError: true,
+    oldPasswordError: false,
     newPasswordError: false,
-    confirmPasswordError: false
+    confirmPasswordError: false,
+    success: false 
   };
 
   componentWillMount() {
@@ -27,18 +31,11 @@ export default class FormDialog extends React.Component {
   }
 
   oldPassword = password => event => {
-    if(event.target.value !== this.state.oldPassword) {
-      this.setState({oldPasswordError: true, });
-      console.log("The old password that you entered is not correct.")
-    }
-    else {
-      this.setState({oldPasswordError: false});
-      console.log("The old password that you entered is correct.")
-    }
+    this.setState({oldPassword: event.target.value, oldPasswordError: false, success: false});
   }
 
   newPassword = password => event => {
-    this.setState({newPassword: event.target.value, newPasswordError: false});
+    this.setState({newPassword: event.target.value, newPasswordError: false, success: false});
     if(event.target.value.match(passwordRegex)) {
       this.setState({newPassword: event.target.value, newPasswordError: false});
     }else {
@@ -47,13 +44,12 @@ export default class FormDialog extends React.Component {
   }
 
   confirmPassword = password => event => {
-    this.setState({confirmPassword: event.target.value})
+    this.setState({confirmPassword: event.target.value, success:false})
     if(event.target.value !== this.state.newPassword){
         this.setState({confirmPasswordError: true});
     }
     else {
         this.setState({confirmPasswordError: false});
-        console.log("yeah same passwords!")
     }
   }
 
@@ -68,9 +64,40 @@ export default class FormDialog extends React.Component {
     this.setState({ open: true });
   };
 
-  handleSubmit = () => {
-    this.setState({ open: false });
-    this.props.onConfirm(this.state.newPassword);
+  handleSubmit = (e) => {
+    this.setState({success: false});
+    e.preventDefault();
+    let reqData = {
+        'old_password': md5(this.state.oldPassword),
+        'new_password': md5(this.state.newPassword),
+    };
+    console.log(reqData);
+    const token = localStorage.getItem('usertoken');
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:5000/user/change_password',
+      withCredentials: false,
+      crossdomain: true,
+      data: reqData,
+      responseType: 'json',
+      headers: {
+          //"Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          "Authorization": `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+        let code = response.data.status;
+        if (code === 200) {
+        this.setState({success: true});
+        } else if (code === 313){
+        this.setState({oldPasswordError: true});
+        }
+    })
+    .catch((error) => {
+        console.log("post error: " + error);
+    });
   };
 
   handleCancel = () => {
@@ -78,7 +105,8 @@ export default class FormDialog extends React.Component {
   }
 
   render() {
-    console.log(this.state.oldPassword);
+    const check = "far fa-check-circle";
+    const times = "far fa-times-circle";
     return (
       <div>
         <div className="dialog">
@@ -94,10 +122,6 @@ export default class FormDialog extends React.Component {
                 You probably cannot reset your password from this page since I HAVE NOT WRITTEN DAT SHIT
               </DialogContentText>
 
-              {// TODO: 1: Need logic behind: check password state, change password state, error notification,
-              //       tooltips, etc.
-              //       2: style needed to add
-              }
               <div className = "passwordInputField">
                 <TextField
                     id="password-input"
@@ -109,6 +133,13 @@ export default class FormDialog extends React.Component {
                     onChange={this.oldPassword('password')}
                     error={this.state.oldPasswordError}
                 />
+                {
+                    this.state.oldPasswordError
+                    ?
+                    <FormHelperText error={true}>Old password is incorrect. Try again. <i className={times}></i></FormHelperText>
+                    :
+                    <div></div>
+                }
                 <TextField
                     id="password-input"
                     label="New Password"
@@ -129,16 +160,21 @@ export default class FormDialog extends React.Component {
                     onChange={this.confirmPassword('password')}
                     error={this.state.confirmPasswordError}
                 />
+                {
+                    this.state.success
+                    ?
+                    <FormHelperText error={false}>New password is already saved! <i className={check}></i></FormHelperText>
+                    :
+                    <div></div>
+                }
             </div>
             </DialogContent>
             <DialogActions>
               <div className="buttons">
-                <button onClick={this.handleCancel}>Cancel</button>
-
-                {/* logic update - check status and return different button */}
+                <button onClick={this.handleCancel}>Back</button>
                 { this.buttonStatus() ?
-                  <Button disabled={true} onClick={this.handleSubmit} color="primary">Submit</Button> :
-                  <button onClick={this.handleSubmit} >Submit</button>
+                  <Button disabled={true} onClick={this.handleSubmit} color="primary">Save</Button> :
+                  <button onClick={this.handleSubmit} >Save</button>
                 }
               </div>
             </DialogActions>

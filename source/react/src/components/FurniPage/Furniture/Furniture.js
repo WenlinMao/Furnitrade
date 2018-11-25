@@ -3,11 +3,31 @@ import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
 
+import { Fade } from 'react-slideshow-image';
+
 // TODO - just for testing
-import test from '../../../static/images/wallpaper1.png';
+import slide1 from '../../../static/images/img/slide1.png';
+import slide2 from '../../../static/images/img/slide2.png';
+import slide3 from '../../../static/images/img/slide3.png';
+import slide4 from '../../../static/images/img/slide4.png';
+import slide5 from '../../../static/images/img/slide5.png';
 
 
-
+const fadeImages = [
+    slide1,
+    slide2,
+    slide3,
+    slide4,
+    slide5
+  ];
+   
+  const fadeProperties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: true,
+    indicators: true,
+    arrow: true
+  }
 
 /* Furniture class:
     - A new page for a specific furniture
@@ -47,15 +67,15 @@ render () {
 
 
                 {/* Photo container - pictures of furnitures */}
-                <div class="slider">
-                <div className="atags">
+                {/* <div class="slider"> */}
+                {/* <div className="atags">
                     <a href="#slide-1">1</a>
                     <a href="#slide-2">2</a>
                     <a href="#slide-3">3</a>
                     <a href="#slide-4">4</a>
                     <a href="#slide-5">5</a>
-                </div>
-                <div class="slides">
+                </div> */}
+                {/* <div class="slides">
                     <div className="slide" id="slide-1"><img src={test} alt="just for test - use data requested in the future"/></div>
                     <div className="slide" id="slide-2"><img src={test} alt="just for test - use data requested in the future"/></div>
                     <div className="slide" id="slide-3"><img src={test} alt="just for test - use data requested in the future"/></div>
@@ -80,26 +100,33 @@ render () {
                 <input type="submit" value="I want this!" />
               </form>
 
-                </div>
-                {/* <article>
-                    <header><h1>{this.state.name}</h1></header>
-                    <p>{this.state.description}</p>
-                    <img src={require("../../../static/images/"+this.state.picture)} alt="furniture display" width="200" height="200"/>
-                </article>
-                <form>
-                <label>
-                    Send a resuest:
-                    <br/>
-                    <textarea type="text" name="request" rows="4" cols="50"/>
-                </label>
-                <br/>
+                </div> */}
 
-                <input type="submit" value="I want this!" />
-                </form> */}
-
-
+             <Fade {...fadeProperties}>
+        <div className="each-fade">
+            <div className="image-container">
+            <img src={fadeImages[0]} />
+            </div>
+            <h2>First Slide</h2>   
+        </div>
+        <div className="each-fade">
+            <div className="image-container">
+            <img src={fadeImages[1]} />
+            </div>
+            <h2>Second Slide</h2>
+        </div>
+        <div className="each-fade">
+            <div className="image-container">
+            <img src={fadeImages[2]} />
+            </div>
+            <h2>Third Slide</h2>
+        </div>
+        </Fade>
+            
             {/* End of furniture-container */}
             </div>
+
+       
 
         {/* End of the very last DIV tag */}
         </div>
@@ -112,3 +139,6 @@ render () {
 
 /* Export Furniture */
 export default Furniture
+
+
+

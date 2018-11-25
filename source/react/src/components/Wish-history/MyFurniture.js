@@ -3,7 +3,6 @@ import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './MyFurniture.css';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import Card from '../FurniCard/FurniCard';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -24,6 +23,8 @@ class MyFurniture extends Component {
                 <NavBar/>
                 <div className="my-furni">
                     <h2>My Furnitures</h2>
+                    {/* Part 3 - fixed "add" button - post a new furniture */}
+                    <button>+</button>
                     <Wave/>
                 {/* end of furni-page tag */}
                 </div>
@@ -61,10 +62,7 @@ class MyFurniture extends Component {
 
                     {/* Should send request for wished furnitures */}
                 </div>
-                <Button variant="fab" color="secondary" aria-label="Add" className={this.props.button} >
-                         <p>+</p>
-                       </Button>
-                {/* Part 3 - fixed "add" button - post a new furniture */}
+            
             {/* end of  DIV */}
             </div>
         );
