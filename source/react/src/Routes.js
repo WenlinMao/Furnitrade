@@ -9,6 +9,7 @@ import FurniPage from './components/FurniPage/FurniPage.js';
 import WishlistPage from './components/Wish-history/WishlistPage.js';
 import HistoryPage from './components/Wish-history/HistoryPage.js';
 import MyFurniture from './components/Wish-history/MyFurniture.js';
+import AddFurniture from './components/Wish-history/AddFurniture.js';
 
 // Don't know the reason but once added, the logo messed up
 import furniture from './components/FurniPage/Furniture/Furniture.js';
@@ -32,5 +33,6 @@ export default () =>
 
         {/* Testing - specific furniture */}
         <Route path = "/furniture" component = {furniture} />
+        <Route path = "/addfurniture" component = {AddFurniture} />
 
     </Switch>;
