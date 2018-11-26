@@ -10,6 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import {setLocal, getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 // import '../uploadImg/UploadImg'
 
 
@@ -17,23 +21,49 @@ class Add extends Component{
   constructor(props) {
       super(props);
       this.state = {
-          name: '',
+          furniture_name: '',
+          category: '',
+          images:'',
           price: '',
+          is_delivery_inclued: '',
+          location: '',
+          seller: '',
           description: '',
-          address: '',
+          furniture_nameError: false,
+          priceError: false,
+          descriptionError: false,
+          addressError: false,
+          errorMsg: '',
       };
       this.child = React.createRef();
   }
 
-    handleChange = name => event => {
-      this.setState({
-        [name]: event.target.value,
-      });
-    };
+
+
+    handleFurnitureNameInput = name => event => {
+      this.setState({furniture_name: event.target.value});
+    }
+
+    handlePriceInput = name => event => {
+      this.setState({price: event.target.value});
+    }
+
+
+    handleCategoryInput=name =>event =>{
+      this.setState({category:event.target.value});
+    }
+
+    handleDescriptionInput = name => event => {
+      this.setState({description: event.target.value});
+    }
+
+    handleAddressInput = name => event => {
+      this.setState({address: event.target.value});
+    }
 
     // returm true if any of inputs are invalid
     checkButtonStatus = () => {
-        
+
     }
 
     // call back handle when uploadImg finished
@@ -63,6 +93,67 @@ class Add extends Component{
         });
     }
 
+    handleSubmit = (e) => {
+      e.preventDefault();
+      let reqData = {
+        'furniture_name': this.state.furniture_name,
+        'price': this.state.price,
+        'description': this.state.description,
+        'address': this.state.address,
+        'category': this.state.category,
+        'image': this.img_pathes,
+      };
+      console.log(reqData);
+      const token = localStorage.getItem('usertoken');
+
+      axios({
+              method: 'post',
+              url: 'http://127.0.0.1:5000/furniture/post',
+              withCredentials: false,
+              crossdomain: true,
+              data: reqData,
+              responseType: 'json',
+              headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer ${token}`
+              }
+      })
+
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code === 200) {
+              // successfully register and login
+              // trigger for render user page or non-user page
+              setLocal("furniture_name", reqData.furniture_name);
+              // set user jwt token for later access
+              setLocal("usertoken", response.data.token);
+              console.log("localStorgae", getLocal("furniture_name"));
+              setLocal("price", reqData.price);
+              console.log("localStorgae", getLocal("price"));
+              setLocal("description", reqData.description);
+              console.log("localStorgae", getLocal("description"));
+              setLocal("address", reqData.address);
+              console.log("localStorgae", getLocal("address"));
+
+              // get token for userid
+              var token = getLocal("usertoken")
+              var jwt_decode = require('jwt-decode');
+              var decoded = jwt_decode(token);
+              console.log(decoded)
+              // start execute upload image process
+              this.child.current.beginUpload(decoded.user_id);
+              // redirect to hompage
+              this.props.history.push("/");
+          }
+      })
+      .catch((error) => {
+          console.log("post error: " + error);
+      });
+    }
+
     render(){
         const { classes } = this.props;
 
@@ -75,20 +166,12 @@ class Add extends Component{
                 <Wave/>
               </div>
 
-              <UploadImg resource_type="user"
-                name={this.state.username}
-                beforeUpload={this.handleBeforeUpload}
-                onUploadImg={this.handleUploadImg}
-                disabled={this.checkButtonStatus()}
-                ref={this.child}
-                />
-
-              <form className="form">
+              <form className="form" onSubmit={this.handleSubmit}>
                 <TextField
                   id="standard-name"
-                  label="Name"
+                  label="Funiture Name"
                   className={this.props.textField}
-                  onChange={this.handleChange('name')}
+                  onChange={this.handleFurnitureNameInput('funiture_name')}
                   margin="normal"
                 />
 
@@ -96,9 +179,26 @@ class Add extends Component{
                   id="standard-name"
                   label="$"
                   className={this.props.textField}
-                  onChange={this.handleChange('name')}
+                  onChange={this.handlePriceInput('price')}
                   margin="normal"
                 />
+
+                <InputLabel htmlFor="age-simple">Age</InputLabel>
+                <Select
+                    value={this.state.category}
+                    onChange={this.handleCategoryInput('value')}
+                    inputProps={{
+                      name: 'age',
+                      id: 'age-simple',
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={"Bedroom"}>Bedroom</MenuItem>
+                      <MenuItem value={"Cooktops"}>Cooktops</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
 
                 <TextField
                   id="outlined-multiline-static"
@@ -106,6 +206,7 @@ class Add extends Component{
                   multiline
                   rows="5"
                   className={this.props.textField}
+                  onChange={this.handleDescriptionInput('description')}
                   margin="normal"
                   variant="outlined"
                 />
@@ -115,12 +216,19 @@ class Add extends Component{
                   label="Add an address"
                   multiline
                   rowsMax="4"
-                  onChange={this.handleChange('multiline')}
+                  onChange={this.handleAddressInput('address')}
                   className={this.props.textField}
                   margin="normal"
                   variant="outlined"
                 />
-                <button> Submit </button>
+                <UploadImg resource_type="user"
+                  name={this.state.username}
+                  beforeUpload={this.handleBeforeUpload}
+                  onUploadImg={this.handleUploadImg}
+                  disabled={this.checkButtonStatus()}
+                  ref={this.child}
+                  />
+                <button type="submit"> Submit </button>
               </form>
 
         {/* the very last div tag */}
