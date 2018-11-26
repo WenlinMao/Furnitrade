@@ -1,5 +1,4 @@
 from werkzeug.security import check_password_hash, generate_password_hash
-
 """
 Additional Dependencies Please Add Here
 """
@@ -11,7 +10,9 @@ from flaskr.model.user_model import (
 from flask import (
     Blueprint, request, jsonify
 )
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
+from flaskr import mail
+
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp)
@@ -85,8 +86,27 @@ class Edit(Resource):
         })
 
 
+class ChangeProfileImg(Resource):
+    @auth.login_required
+    def get(self, user):
+        parser = reqparse.RequestParser()
+        parser.add_argument('img_pathes', type=str)
+        args = parser.parse_args()
+
+        # update the user's profile in database
+        update_user_by_id(user['_id'], {
+            "profile": args['img_pathes']
+        })
+
+        return jsonify({
+            "status": 200,
+            "msg": "Update succeeded"
+        })
+
 # take an id return user info
 # Get all user related info in database as JSON file.
+
+
 class Profile(Resource):
     @auth.login_required
     def get(self, user):
@@ -95,7 +115,8 @@ class Profile(Resource):
         current_username = user['username']
         current_email = user['email']
         current_address = user['address']
-        # current_picture = user['picture'];
+        current_id = str(user['_id'])
+        current_picture = user['profile']
 
         # Collect profile data
         retJson = {
@@ -104,7 +125,8 @@ class Profile(Resource):
             'username': current_username,
             'email': current_email,
             'address': current_address,
-            # 'picture': current_picture
+            'user_id': current_id,
+            'profile': current_picture
         }
 
         # Return received data
@@ -118,7 +140,6 @@ class ChangePassword(Resource):
         posted_data = request.get_json()
         old_password = posted_data["old_password"]
         new_password = posted_data["new_password"]
-        check_password_hash(user['password'], old_password)
 
         if check_password_hash(user['password'], old_password):
             update_user_by_id(user['_id'], {
@@ -136,10 +157,70 @@ class ChangePassword(Resource):
                 "msg": "Password is incorrect. Try Again"
             })
 
-# TODO: forget passwords
+
+class getWishList(Resource):
+    '''
+    get wishlist based on user_id
+    Simply return the jsonified wishlist
+    '''
+    @auth.login_required
+    def get(self, user):
+        wishlist = user['wishlist']
+        return jsonify({
+            "status": 200,
+            "msg": "wishlsit get from user",
+            "wishlist": wishlist
+        })
+
+
+class deleteWishList(Resource):
+    '''
+    delete a furniture id from the wish list
+    '''
+    @auth.login_required
+    def get(self, user, furniture_id):
+        wishlist = user['wishlist']
+        temp = wishlist.split(furniture_id)
+        wishlist = ''.join(temp)
+        user.update_wishlist_by_id(user['user_id'], wishlist)
+        return jsonify({
+            "status": 200,
+            "msg": "Furniture deleted from wishlist"
+        })
+
+
+class getHistory(Resource):
+    '''
+    get history based on user_id
+    '''
+    @auth.login_required
+    def get(self, user):
+        history = user['history']
+        return jsonify({
+            "status": 200,
+            "msg": "history successfully loaded",
+            "history": history
+        })
+
+
+class ForgetPassword(Resource):
+    '''
+    user will send a email, and this api will check if the email is exist
+    in database, and send an email that include a link to
+    change the password
+    '''
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str)
+        args = parser.parse_args()
 
 
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
+api.add_resource(getWishList, '/get_wishlist')
+api.add_resource(getHistory, '/get_history')
+api.add_resource(ChangeProfileImg, '/change_img')
+api.add_resource(ForgetPassword, '/reset_password')

@@ -94,8 +94,9 @@ def verify_user(username, password):
 
 def login_required(method):
     @wraps(method)
-    def wrapper(self):
+    def wrapper(self, *args, **kwargs):
         header = request.headers.get('Authorization')
+
         if header is None or header == '':
             return jsonify({
                 "status": 316,
@@ -130,7 +131,7 @@ def login_required(method):
                 "msg": "User doesn't exist"
             })
 
-        return method(self, user)
+        return method(self, user, *args, **kwargs)
     return wrapper
 
 
@@ -138,6 +139,7 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
+
         if header is None or header == '':
             return method(*args, **kwargs)
         _, token = header.split()
@@ -156,6 +158,7 @@ def logout_required(method):
 # /auth/register : register
 # TODO: add address, check password is valid, add email
 # 		check email is valid
+# Updated to have wishlist field - by Mao Li Nov 23
 class Register(Resource):
     # @logout_required
     def post(self):
@@ -166,6 +169,7 @@ class Register(Resource):
         # address = "8520 Costa Verde";
         address = postedData['address']
         email = postedData['email']
+        # profile_path = postedData['image_pathes']
 
         error = None
         error_code = 200
@@ -197,11 +201,14 @@ class Register(Resource):
             error = 'Email invalid'
 
         if error is None:
+            # Add a default empty wishlist field.
+            # Wishlist as a string
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
-                "address": address
+                "address": address,
+                "wishlist": ""
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(
@@ -232,7 +239,7 @@ class Register(Resource):
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
-    # @logout_required
+    @logout_required
     def post(self):
         # 1. Get username and password from POST
         postedData = request.get_json()

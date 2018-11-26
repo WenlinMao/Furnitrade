@@ -11,7 +11,6 @@ import {getLocal} from '../../utils/util';
 import Dropzone from 'react-dropzone';
 import {UploadImg} from '../../UploadImg'
 
-
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 
@@ -61,7 +60,7 @@ class ProfilePage extends Component {
         responseType: 'json',
         headers: {
             "Authorization": `Bearer ${token}`
-    }
+        }
     }).then((response) => {
         console.log(response.data);
         let code = response.data.status;
@@ -70,6 +69,8 @@ class ProfilePage extends Component {
             username: response.data.username,
             email: response.data.email,
             address: response.data.address,
+            user_id: response.data.user_id,
+            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/" + response.data.profile,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -169,7 +170,7 @@ class ProfilePage extends Component {
     console.log(reqData);
     const token = localStorage.getItem('usertoken');
     console.log("Saving profile data,", reqData);
-        axios({
+    axios({
         method: 'post',
         url: 'http://127.0.0.1:5000/user/edit',
         withCredentials: false,
@@ -307,6 +308,10 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
+                  <UploadImg resource_type="user"
+                    name={this.state.username}
+                    onUploadImg={this.handleUploadImg}
+                    />
 
                 {/* Save/ Edit button */}
                 {button}
