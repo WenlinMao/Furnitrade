@@ -12,7 +12,7 @@ from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
     update_furniture_by_id, delete_furniture_by_id,
-    find_furniture_by_info
+    find_furniture_by_info, add_furniture
 )
 
 from flaskr.model.category_model import (
@@ -94,19 +94,20 @@ class Post(Resource):
                 "description": description
             }
 
-            furnitures.insert_one(toInsert)
+            furniture = add_furniture(toInsert)
 
-            # TODO: how to insert to certain category
-            # get inserted furniture id and insert the id to category
-            furniture_id = find_furniture_by_info(toInsert)
-            categories.insert_one({
-                "category_name": category,
-                "furniture_id": furniture_id
-            })
+            # # TODO: how to insert to certain category
+            # # get inserted furniture id and insert the id to category
+            furniture_id = furniture.inserted_id
+            # categories.insert_one({
+            #     "category_name": category,
+            #     "furniture_id": furniture_id
+            # })
 
             retJson = {
                 "status": 200,
-                "msg": "You have successfully uploaded the furniture!"
+                "msg": "You have successfully uploaded the furniture!",
+                "furniture_id": str(furniture_id)
             }
             return jsonify(retJson)
 
