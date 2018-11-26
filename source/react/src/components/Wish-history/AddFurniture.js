@@ -69,18 +69,18 @@ class Add extends Component{
 
     // call back handle when uploadImg finished
     handleUploadImg = (img_pathes) => {
-        console.log(img_pathes[0])
+        console.log(img_pathes)
 
         // change image pathes in database after uploadImg to s3
         var token = getLocal("usertoken")
         let config = {
             headers: {"Authorization": `Bearer ${token}`},
             params: {
-                img_pathes: img_pathes[0]
+                img_pathes: img_pathes
             },
         }
 
-        axios.get('http://127.0.0.1:5000/user/change_img', config)
+        axios.get('http://127.0.0.1:5000/furniture/change_img', config)
         .then((response) => {
             let code = response.data.status;
             if (code === 200) {
