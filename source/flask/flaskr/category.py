@@ -33,7 +33,7 @@ class ChangeCategory(Resource):
         old_cat = get_category_by_catname(original_catname)
         old_cat.delete_one({'furniture_id': furniture_id})
         new_cat = get_category_by_catname(new_catname)
-        new_cat.insert_one({'category_name': new_catname, 
+        new_cat.insert_one({'category_name': new_catname,
                             'furniture_id': furniture_id})
         return jsonify({
             "status": 200,

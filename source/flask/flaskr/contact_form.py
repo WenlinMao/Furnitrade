@@ -7,7 +7,9 @@ from flask import (
 """
 Additional Dependencies Please Add Here
 """
-from flaskr.model.contact_form_model import add_contact_form
+from flaskr.model.contact_form_model import (
+    add_contact_form, find_contact_form_by_id, delete_contact_form_by_id
+)
 from flaskr.model.furniture_model import find_furniture_by_id
 from flaskr.model.user_model import find_user_by_id
 from flask_mail import Message
@@ -101,7 +103,7 @@ class Delete(Resource):
                 "msg": "Can not find the contact form"
             })
 
-        result = delete_contact_form_by_id(contact_form_id)
+        delete_contact_form_by_id(contact_form_id)
 
         return jsonify({
             "status": 200,
