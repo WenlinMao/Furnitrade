@@ -2,6 +2,10 @@ from flaskr.model.category_model import (
     get_category_collection, get_category_by_catname, find_category_by_id
 )
 
+from flaskr.model.furniture_model import (
+    find_furniture_by_id
+)
+
 from flask_restful import Api, Resource
 
 from flask import (
@@ -50,8 +54,8 @@ class Category(Resource):
             		"status": 200,
             		"msg": "Get furniture detail succeeded",
             		'furniture_name': product_name,
-            		'product_image': images,
-            		'price': price,
+            		'product_image': product_image,
+            		'price': product_price,
        		 }
 		result.append(jsonify(retJson))
 
