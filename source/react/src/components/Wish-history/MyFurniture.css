@@ -61,7 +61,9 @@ h2 {
     transform: translateY(-3px);
 }
 
-
+.my-furni button:focus {
+    outline: none;
+}
 
 @media (max-width: 1400px) {
     .Card-group {
@@ -87,3 +89,4 @@ h2 {
         position: fixed;
     }
 }
+
