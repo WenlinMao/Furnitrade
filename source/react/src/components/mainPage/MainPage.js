@@ -26,7 +26,7 @@ const SectionCategory = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 20px;
-  padding: 0 20px;
+  padding: 0 30px;
   position: relative;
   @media (max-width: 800px) {
     grid-template-columns: repeat(1, 1fr);
