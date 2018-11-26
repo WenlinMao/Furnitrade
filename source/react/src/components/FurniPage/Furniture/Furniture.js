@@ -102,26 +102,27 @@ render () {
 
                 </div> */}
 
+            {/* slideshow part */}
              <Fade {...fadeProperties}>
-        <div className="each-fade">
-            <div className="image-container">
-            <img src={fadeImages[0]} />
-            </div>
-            <h2>First Slide</h2>   
-        </div>
-        <div className="each-fade">
-            <div className="image-container">
-            <img src={fadeImages[1]} />
-            </div>
-            <h2>Second Slide</h2>
-        </div>
-        <div className="each-fade">
-            <div className="image-container">
-            <img src={fadeImages[2]} />
-            </div>
-            <h2>Third Slide</h2>
-        </div>
-        </Fade>
+                <div className="each-fade">
+                    <div className="image-container">
+                    <img src={fadeImages[0]} />
+                    </div>
+                    <h2>First Slide</h2>   
+                </div>
+                <div className="each-fade">
+                    <div className="image-container">
+                    <img src={fadeImages[1]} />
+                    </div>
+                    <h2>Second Slide</h2>
+                </div>
+                <div className="each-fade">
+                    <div className="image-container">
+                    <img src={fadeImages[2]} />
+                    </div>
+                    <h2>Third Slide</h2>
+                </div>
+            </Fade>
             
             {/* End of furniture-container */}
             </div>

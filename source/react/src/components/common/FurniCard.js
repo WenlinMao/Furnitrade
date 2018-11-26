@@ -15,7 +15,10 @@ const Card = props => (
         </a>
         <h3>{props.title}</h3>
         <p>{props.text}</p>
-
+        {
+            props.fromMyFurniture == "Yes" ? 
+            <div><button>delete</button></div> : null
+        }
     </div>
 )
 

@@ -36,6 +36,7 @@ class MyFurniture extends Component {
                     text="First wished furniture"
                     image={require('../../static/images/wallpaper1.png')}
                     link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
                 />
 
 
@@ -44,6 +45,7 @@ class MyFurniture extends Component {
                     text="Second wished furniture"
                     image={require('../../static/images/wallpaper1.png')}
                     link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
                 />
 
                 <Card
@@ -51,6 +53,7 @@ class MyFurniture extends Component {
                     text="Third wished furniture"
                     image={require('../../static/images/wallpaper1.png')}
                     link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
                 />
 
                 <Card
@@ -58,6 +61,7 @@ class MyFurniture extends Component {
                     text="Forth wished furniture"
                     image={require('../../static/images/wallpaper1.png')}
                     link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
                 />
 
                     {/* Should send request for wished furnitures */}
