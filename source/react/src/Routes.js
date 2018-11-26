@@ -4,7 +4,7 @@ import MainPage from './components/mainPage/MainPage';
 import Register from './components/register/Register';
 import Login from './components/mainPage/login/Login.js';
 import FurniModal from './components/common/FurniModal';
-import ProfilePage from './components/profilePage/ProfilePage.js';
+import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import FurniPage from './components/FurniPage/FurniPage.js';
 import WishlistPage from './components/Wish-history/WishlistPage.js';
 import HistoryPage from './components/Wish-history/HistoryPage.js';

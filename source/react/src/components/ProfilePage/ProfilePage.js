@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 import Dropzone from 'react-dropzone';
-import {UploadImg} from '../../UploadImg'
+import {UploadImg} from '../uploadImg/UploadImg'
 
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
@@ -141,7 +141,7 @@ class ProfilePage extends Component {
                  img_pathes: img_pathes[0]
              },
          }
-    
+
          axios.get('http://127.0.0.1:5000/user/change_img', config)
          .then((response) => {
              let code = response.data.status;

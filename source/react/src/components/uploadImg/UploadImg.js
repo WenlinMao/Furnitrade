@@ -101,15 +101,7 @@ export class UploadImg extends Component {
                 filesPreview.push(
                     <div>
                         {filesToBeSent[i].name}
-                        // <MuiThemeProvider>
-                        //     <Button onClick={this.handleClear}> Clear </Button> :
-                        //     <button onClick={this.handleClear}> Clear </button>
-                        <a href="#"><FontIcon
-                            className="material-icons customstyle"
-                            color={blue500}
-                            styles={{ top:10,}}
-                            > clear</FontIcon></a>
-                        </MuiThemeProvider>
+                        <button onClick={this.handleClear}> Clear </button>
                     </div>
                 )
             }
