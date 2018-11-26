@@ -130,7 +130,7 @@ class Detail(Resource):
         retJson = {
             "status": 200,
             "msg": "Get contact form succeded",
-            "buy_email": email,
+            "buyer_email": email,
             "title": title,
             "content": content,
             "furniture": furniture_id,

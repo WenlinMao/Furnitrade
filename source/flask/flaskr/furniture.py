@@ -106,7 +106,8 @@ class Post(Resource):
 
             retJson = {
                 "status": 200,
-                "msg": "You have successfully uploaded the furniture!"
+                "msg": "You have successfully uploaded the furniture!",
+                "furniture_id": furniture_id
             }
             return jsonify(retJson)
 
