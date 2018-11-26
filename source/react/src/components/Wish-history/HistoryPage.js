@@ -7,7 +7,43 @@ import Card from '../FurniCard/FurniCard';
 import './WishhistPage.css';
 
 class HistoryPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            data: [
+                {
+                    title: 'furniture', 
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'), 
+                    price: '$20',
+                    category: "Electronics"
+                }, 
+                {
+                    title: 'furniture', 
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'), 
+                    price: '$20',
+                    category: "Electronics"
+                },
+                {
+                    title: 'furniture', 
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'), 
+                    price: '$20',
+                    category: "Electronics"
+                },
+            ]
+        };
+    }
 
+    componentWillMount() {
+        
+    }
+    
+    handleClick = (id) => {
+        
+    }
+  
     render() {
         return (
             <div>
@@ -21,34 +57,20 @@ class HistoryPage extends Component {
 
                 {/* cards of furnitures viewing history, Limited to 4, need backend*/}
                 <div className="Card-group">
-                <Card
-                    title="Furniture1"
-                    text="First wished furniture"
-                    image={require('../../static/images/wallpaper1.png')}
-                    link="http://localhost:3000/Furniture"
-                />
-
-
-                <Card
-                    title="Furniture2"
-                    text="Second wished furniture"
-                    image={require('../../static/images/wallpaper1.png')}
-                    link="http://localhost:3000/Furniture"
-                />
-
-                <Card
-                    title="Furniture3"
-                    text="Third wished furniture"
-                    image={require('../../static/images/wallpaper1.png')}
-                    link="http://localhost:3000/Furniture"
-                />
-
-                <Card
-                    title="Furniture4"
-                    text="Forth wished furniture"
-                    image={require('../../static/images/wallpaper1.png')}
-                    link="http://localhost:3000/Furniture"
-                />
+                {
+                    this.state.data.length === 0 
+                    ?
+                    <div>You didn't view any furniture recently.</div>
+                    :
+                    this.state.data.map(obj=>(
+                        <Card
+                            title={obj.title}
+                            text={obj.price + obj.category}
+                            img={obj.img}
+                            onClick={this.handleClick(obj.id)}
+                        />)
+                    )
+                }
                 </div>
 
             {/* end of  DIV */}

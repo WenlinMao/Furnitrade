@@ -14,6 +14,8 @@ const styles = theme => ({
     },
 
 });
+
+/* Card component in MyFurniture has "fromMyFurniture" prop - render delete button */
 class MyFurniture extends Component {
 
     render() {

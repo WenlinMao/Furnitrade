@@ -82,4 +82,5 @@
 
 .one-category {
     position: inherit;
+    justify-items: center;
 }
