@@ -41,11 +41,11 @@ class Post(Resource):
 
         fur_name = postedData['furniture_name']
         category = postedData['category']
-        images = postedData['images']
+        # images = postedData['images']
         price = postedData['price']
-        is_delivery_included = postedData['is_delivery_included']
-        location = postedData['location']
-        seller_id = postedData['seller']
+        # is_delivery_included = postedData['is_delivery_included']
+        # location = postedData['location']
+        # seller_id = postedData['seller']
         description = postedData['description']
 
         error = None
@@ -55,25 +55,25 @@ class Post(Resource):
         if not fur_name:
             error_code = 322
             error = 'Furniture name is required.'
-        elif not images:
-            error_code = 323
-            error = 'Images are required.'
+        # elif not images:
+        #     error_code = 323
+        #     error = 'Images are required.'
         elif not category:
             error_code = 324
             error = 'Category needs to be specified.'
-        elif not is_delivery_included:
-            error_code = 325
-            error = 'Is delivery included?'
-        elif not seller_id:
-            ''' TODO: check if seller is inside the database '''
-            error_code = 326
-            error = 'Seller name is required.'
+        # elif not is_delivery_included:
+        #     error_code = 325
+        #     error = 'Is delivery included?'
+        # elif not seller_id:
+        #     ''' TODO: check if seller is inside the database '''
+        #     error_code = 326
+        #     error = 'Seller name is required.'
         elif not price:
             error_code = 327
             error = 'Price is required.'
-        elif not location:
-            error_code = 328
-            error = 'Pick up location is required.'
+        # elif not location:
+        #     error_code = 328
+        #     error = 'Pick up location is required.'
         elif not description:
             error_code = 329
             error = 'Description of furniture is required.'
@@ -86,11 +86,11 @@ class Post(Resource):
             toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
-                "images": images,
+                # "images": images,
                 "price": price,
-                "is_delivery_included": is_delivery_included,
-                "location": location,
-                "seller": seller_id,
+                # "is_delivery_included": is_delivery_included,
+                # "location": location,
+                # "seller": seller_id,
                 "description": description
             }
 
