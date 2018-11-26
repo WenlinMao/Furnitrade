@@ -10,9 +10,12 @@ import './FurniCard.css'
 
 const Card = props => (
     <div className="Card">
+    <a href="http://localhost:3000/">
         <img src={props.image} />
+        </a>
         <h3>{props.title}</h3>
         <p>{props.text}</p>
+
     </div>
 )
 
