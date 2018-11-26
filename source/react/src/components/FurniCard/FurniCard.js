@@ -3,10 +3,12 @@ import './FurniCard.css';
 
 import DeleteAlert from './deleteAlert/DeleteAlert';
 import deletebutton from '../../static/images/delete-button.png';
+
 /* Furniture card compoenent
 - image: the image of furniture posted
 - title: name of the furniture
 - text: description of the furniture (could be replaced by a button)
+- delete alert: used to delete a furniture post
 */
 
 

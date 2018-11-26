@@ -1,11 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import './DeleteAlert.css';
 
+/* TODO - delete function to be completed */
 class DeleteAlert extends React.Component {
   state = {
     open: false,
@@ -32,7 +31,7 @@ class DeleteAlert extends React.Component {
         >
           <DialogTitle id="alert-dialog-title">{"You are about to delete this furniture post. Are you sure to do so?"}</DialogTitle>
           <DialogActions>
-            <button onClick={this.handleClose}>Yes</button>
+            <button onClick={this.handleClose}>Delete</button>
             <button onClick={this.handleClose}>Cancel</button>
           </DialogActions>
         </Dialog>

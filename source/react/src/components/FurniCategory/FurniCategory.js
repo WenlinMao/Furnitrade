@@ -5,8 +5,8 @@ import './FurniCategory.css';
 
 const CategoryGroup = styled.div`
     display: grid;
-    grid-template-columns: 60px auto;
-    grid-gap: 25px;
+    grid-template-columns: 300px auto;
+    grid-gap: 20px;
     align-items: center;
 `
 
