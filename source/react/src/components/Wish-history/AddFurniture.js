@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 // import '../uploadImg/UploadImg'
+import categories from '../../static/data/category.json';
 
 
 class Add extends Component{
@@ -192,12 +193,20 @@ class Add extends Component{
                       id: 'age-simple',
                     }}
                   >
-                    <MenuItem value="">
-                      <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={"Bedroom"}>Bedroom</MenuItem>
-                      <MenuItem value={"Cooktops"}>Cooktops</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+
+
+                        {categories.categories.map(category => (
+                          <div>
+                            {category.subcategories.sub.map(sub=>(
+                              <MenuItem value={sub.list}>{sub.list}</MenuItem>
+                            ))}
+                          </div>
+                        ))}
+
+
+                      {/*<MenuItem value={"Bedroom"}>Bedroom</MenuItem>*/}
+                      //<MenuItem value={"Cooktops"}>Cooktops</MenuItem>
+                      //<MenuItem value={30}>Thirty</MenuItem>
                     </Select>
 
                 <TextField
