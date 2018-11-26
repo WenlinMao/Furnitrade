@@ -44,3 +44,15 @@
       color: #BDBDBD;
   }
 }
+
+/* icon */
+.fa-check-circle {
+  color: #80f080;
+  font-weight: bold;
+}
+
+/* icon */
+.fa-times-circle {
+  color: #f08080;
+  font-weight: bold;
+}

@@ -9,7 +9,8 @@ import Wave from '../../common/Wave';
 import "./Login.css";
 import { Link } from 'react-router-dom';
 import logo from '../../../static/images/logo_v1.svg';
-import passwordHash from 'password-hash';
+// import passwordHash from 'password-hash';
+import md5 from 'md5';
 
 // TODO: apply CORRECT navibar theme
 // TODO: Temporary styles
@@ -39,11 +40,11 @@ class Login extends Component {
     }
 
     handleNameInput = name => event => {
-        this.setState({username: event.target.value});
+        this.setState({username: event.target.value, usernameError: false});
     }
 
     handlePasswordInput = password => event => {
-        this.setState({password: event.target.value});
+        this.setState({password: event.target.value, passwordError: false});
     }
 
     // send post request
@@ -51,8 +52,7 @@ class Login extends Component {
         e.preventDefault();
         let reqData = {
             'username': this.state.username,
-            // 'password': passwordHash.generate(this.state.password),
-            'password': this.state.password,
+            'password': md5(this.state.password),
         };
         console.log(reqData);
         const token = localStorage.getItem('usertoken');

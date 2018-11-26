@@ -16,12 +16,12 @@ class NavBar extends React.Component {
     this.state = {
         hasScrolled: false,
         hasLogin: false,
-        redirectToLogin: false, 
-        redirectToHome: false  
+        redirectToLogin: false,
+        redirectToHome: false
     }
   }
 
-  // Check if user has logged in 
+  // Check if user has logged in
   componentWillMount() {
     if(getLocal("username") !== "" ){
       this.setState({hasLogin: true});
@@ -55,13 +55,13 @@ class NavBar extends React.Component {
         this.setState({redirectToHome: true});
       }
     }
-  
+
     redirectToLogin= (flag) => {
       if(flag) {
         this.setState({redirectToLogin: true});
       }
     }
-  
+
     renderRedirectToHome = () => {
       if (this.state.redirectToHome) {
         this.setState({redirectToHome: false});
@@ -75,7 +75,7 @@ class NavBar extends React.Component {
           return <Redirect to='/login' />
         }
     }
-    
+
     logout = () => {
         this.setState({hasLogin: false});
         this.props.logout();
@@ -92,26 +92,23 @@ class NavBar extends React.Component {
         <div className="Header-group">
           <Link to="/"><embed src={logo} width="70"></embed></Link>
 
-
-          {/* <a>Home</a>
-          <a>Category</a>
-          <a>About Us</a> */}
           <a href='./'>Home</a>
-          
           {/* These two links should be udpated in the future - to onClick => scroll */}
           <a href='#category'>Category</a>
           <a href='./'>About Us</a>
           {
             !this.state.hasLogin ?
-            <Link to="./Login"><button>Login</button></Link> : 
-            <NavigationDrawer 
-              redirectToHome={this.redirectToHome} 
-              redirectToLogin={this.redirectToLogin} 
-              logout={this.logout} 
-              buttonName="Profile" 
+            <div className="login-button">
+            <Link to="./Login"><button>Login</button></Link> </div>:
+            <div className="drawer-button">
+            <NavigationDrawer
+              redirectToHome={this.redirectToHome}
+              redirectToLogin={this.redirectToLogin}
+              logout={this.logout}
+              buttonName="Profile"
               passLink={Profile}
             >
-            </NavigationDrawer>
+            </NavigationDrawer></div>
           }
         </div>
       </div>
