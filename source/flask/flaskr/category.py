@@ -25,41 +25,42 @@ class Category(Resource):
     # this category, set return number by once
     @auth.login_required
     def get(self, user, category_name):
-    	#def get(self, user, category_id):
-	category = get_category_by_catname(category_name)
+        # def get(self, user, category_id):
+        category = get_category_by_catname(category_name)
         if category is None:
             return jsonify({
                 "status": 321,
                 "msg": "Can not find the category"
             })
-	size = category.included_listing.length
-	if size < 10:
-		count = size
-	else:
-		count = 10
-	
-	result = []
-	for x in range(0, count):
-	        furniture = find_furniture_by_id(category['included_listing'].x)
-		if furniture is None:
-            		return jsonify({
-                	"status": 319,
-                	"msg": "Can not find the furniture"
-           	})
-		
-		product_name = furniture['furniture_name']
-		product_image = furniture['images']
-		product_price = furniture['price']
-		retJson = {
-            		"status": 200,
-            		"msg": "Get furniture detail succeeded",
-            		'furniture_name': product_name,
-            		'product_image': product_image,
-            		'price': product_price,
-       		 }
-		result.append(jsonify(retJson))
+        size = category.included_listing.length
+        if size < 10:
+            count = size
+        else:
+            count = 10
 
-	return result
+        result = []
+        for x in range(0, count):
+            furniture = find_furniture_by_id(category['included_listing'].x)
+            if furniture is None:
+                return jsonify({
+                    "status": 319,
+                    "msg": "Can not find the furniture"
+                })
+
+            product_name = furniture['furniture_name']
+            product_image = furniture['images']
+            product_price = furniture['price']
+            retJson = {
+                "status": 200,
+                "msg": "Get furniture detail succeeded",
+                'furniture_name': product_name,
+                'product_image': product_image,
+                'price': product_price,
+            }
+            result.append(jsonify(retJson))
+
+        return result
+
 
 class ChangeCategory(Resource):
     # Take a furniture_id and an original and a new category name
@@ -76,7 +77,7 @@ class ChangeCategory(Resource):
         old_cat = get_category_by_catname(original_catname)
         old_cat.delete_one({'furniture_id': furniture_id})
         new_cat = get_category_by_catname(new_catname)
-        new_cat.update_one({'category_name': new_catname, 
+        new_cat.update_one({'category_name': new_catname,
                             'furniture_id': furniture_id})
         return jsonify({
             "status": 200,
