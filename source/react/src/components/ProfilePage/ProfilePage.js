@@ -334,11 +334,11 @@ class ProfilePage extends Component {
                     name={this.state.username}
                     onUploadImg={this.handleUploadImg}
                     />
+                {/* Reset password */}
+                <Dialog />
 
                 {/* Save/ Edit button */}
                 {button}
-              {/* Reset password */}
-              <Dialog />
               </div>
 
             </div>

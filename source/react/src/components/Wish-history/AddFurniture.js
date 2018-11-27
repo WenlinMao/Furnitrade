@@ -42,7 +42,7 @@ class Add extends Component{
 
 
 
-
+    /* set Furniture Name */ 
     handleFurnitureNameInput = name => event => {
       this.setState({furniture_name: event.target.value});
     }
@@ -77,26 +77,23 @@ class Add extends Component{
         var token = getLocal("usertoken")
         let config = {
             headers: {"Authorization": `Bearer ${token}`},
-            params: {
-                img_pathes: img_pathes
-            },
+            params: { img_pathes: img_pathes},
         }
 
+        /* LINK needs to be updated in the future - check returned code */
         axios.get('http://127.0.0.1:5000/furniture/change_img', config)
         .then((response) => {
             let code = response.data.status;
-            if (code === 200) {
-                console.log(response);
-            } else if (code === 400) {
-                localStorage.removeItem('usertoken');
-            }
+            if (code === 200) { console.log(response);}
+            else if (code === 400) { localStorage.removeItem('usertoken');}
         })
-        .catch((error) => {
-            console.log(error);
-        });
+        /* report any error encountered */
+        .catch((error) => { console.log(error);});
     }
 
+    /* submit user's updated infor to database */
     handleSubmit = (e) => {
+      /* get all current user infor (updated) */
       e.preventDefault();
       let reqData = {
         'furniture_name': this.state.furniture_name,
@@ -107,8 +104,9 @@ class Add extends Component{
         'image': this.img_pathes,
       };
       console.log(reqData);
-      const token = localStorage.getItem('usertoken');
 
+      /* get user from local storage */
+      const token = localStorage.getItem('usertoken');
       axios({
               method: 'post',
               url: 'http://127.0.0.1:5000/furniture/post',
@@ -182,8 +180,7 @@ class Add extends Component{
                   margin="normal"
                 />
 
-                  <div>
-
+                <div class="styled-select blue semi-square">
                   <select
                     value={this.state.category}
                     onChange={this.handleCategoryInput('category')}
@@ -194,24 +191,20 @@ class Add extends Component{
                   </select>
 
 
-                    {categories.categories.map(category => (
+                  {categories.categories.map(category => (
 
-                      <select
-                        value={this.state.category}
-                        onChange={this.handleCategoryInput('category')}
-                        >
-                        
-                        {category.title == this.state.category ?
-
-                          category.subcategories.sub.map(sub =>
-                             <option value={sub.list}>{sub.list}</option>
-                          )
-
-                          :null}
-                          </select>
-                    ))}
-                    {/* subcategories={category.subcategories} */}
-
+                    <select
+                      value={this.state.category}
+                      onChange={this.handleCategoryInput('category')}
+                      >
+                      
+                      {category.title == this.state.category ?
+                        category.subcategories.sub.map(sub =>
+                            <option value={sub.list}>{sub.list}</option>
+                        ) :null}
+                    </select>
+                  ))}
+                {/* end of DIVs */}
                 </div>
 
                 <TextField
