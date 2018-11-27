@@ -23,11 +23,11 @@ export default class FormDialog extends React.Component {
     oldPasswordError: false,
     newPasswordError: false,
     confirmPasswordError: false,
-    success: false 
+    success: false
   };
 
   componentWillMount() {
-    
+
   }
 
   oldPassword = password => event => {
@@ -115,12 +115,11 @@ export default class FormDialog extends React.Component {
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
+            fullWidth
+            maxWidth='xs'
           >
             <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                You probably cannot reset your password from this page since I HAVE NOT WRITTEN DAT SHIT
-              </DialogContentText>
 
               <div className = "passwordInputField">
                 <TextField
