@@ -8,6 +8,9 @@ from flaskr.model.user_model import (
     delete_wishlist_by_id, clear_history,
     find_user_by_id
 )
+from flaskr.model.furniture_model import (
+    find_furniture_by_id
+)
 
 from flask import (
     Blueprint, request, jsonify
@@ -168,16 +171,41 @@ class getWishList(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        wishlist = user['wishlist']
+
         # step 1: check if wishlist is empty
+        wishlist = user['wishlist']
+        if len(wishlist) == 0: 
+            return jsonify({
+            "status": 613,
+            "msg": "Empty wishlist"
+        })
+
         # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in wishlist:
+            
+            furniture = find_furniture_by_id(furniture_id)
+            
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            #images = furniture['images']
+            #is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            #location = furniture['location']
+            description = furniture['description']
+            
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                #'images': images,
+                #'is_delivery_included': is_delivery_included,
+                'price': price,
+                #'location': location,
+                'description': description
+            }
 
         # step 3: return json representation of furnitures
-        return jsonify({
-            "status": 200,
-            "msg": "wishlsit get from user",
-            "wishlist": wishlist
-        })
+        return jsonify(furnitures_json)
 
 
 class deleteWishList(Resource):
