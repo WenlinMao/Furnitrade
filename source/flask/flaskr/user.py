@@ -4,7 +4,9 @@ Additional Dependencies Please Add Here
 """
 from flaskr import auth
 from flaskr.model.user_model import (
-    update_user_by_id, delete_user_by_username
+    update_user_by_id, delete_user_by_username,
+    delete_wishlist_by_id, clear_history,
+    find_user_by_id
 )
 
 from flask import (
@@ -181,9 +183,17 @@ class deleteWishList(Resource):
     delete a furniture id from the wish list
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        wishlist = user['wishlist']
-        # TODO: use $pull operations.
+    def get(self, user):
+
+        # get user id and furniture id from param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
+        
+        # Use $pull operations.
+        delete_wishlist_by_id(user_id, furniture_id)
+
+        # TODO: catch and report error returned by delete.
+
         return jsonify({
             "status": 200,
             "msg": "Furniture deleted from wishlist"
@@ -202,6 +212,30 @@ class getHistory(Resource):
             "history": history
         })
 
+class clearHistory(Resource):
+    '''
+    delete a furniture id from the wish list
+    '''
+    @auth.login_required
+    def get(self, user):
+
+        # get user id and furniture id from param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
+
+        # Get the user object
+        user = find_user_by_id(user_id)
+        
+        # Use $pull operations.
+        clear_history(user_id, user['history'])
+
+        # TODO: catch and report error returned by delete.
+
+        return jsonify({
+            "status": 200,
+            "msg": "History has been cleared"
+        })
+
 # TODO: forget passwords
 
 
@@ -210,5 +244,7 @@ api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
 api.add_resource(getWishList, '/get_wishlist')
+api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
+api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')

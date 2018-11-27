@@ -98,6 +98,22 @@ def add_wishlist_by_id(user_id, furniture_id, upsert=False):
     return users.update_one({'_id': ObjectId(user_id)}, \
     {"$addToSet": {'wishlist': furniture_id}})
 
+def delete_wishlist_by_id(user_id, furniture_id, delete_all=False, \
+                        upsert=False):
+    """
+    :type user_id: string, furniture_id: string
+    :rtype: removed Result object
+    This can either remove one or remove all wishlists.
+    """
+    users = get_users_collection()
+    if not delete_all:
+        ops = "$pull"
+    else:
+        ops = "$pullAll"
+    
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {ops: {'wishlist': furniture_id}})
+
 def add_history_by_id(user_id, furniture_id,upsert=False):
     """
     :type user_id: string, history: document (history as a list)
@@ -106,3 +122,14 @@ def add_history_by_id(user_id, furniture_id,upsert=False):
     users = get_users_collection()
     return users.update_one({'_id': ObjectId(user_id)}, \
     {"$addToSet": {'history': furniture_id}})
+
+def clear_history(user_id, history, upsert=False):
+    """
+    :type user_id: string, furniture_id: string
+    :rtype: removed Result object
+    This can either remove one or remove all history.
+    """
+    users = get_users_collection()
+    
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {"$pullAll": {'history': history}})
