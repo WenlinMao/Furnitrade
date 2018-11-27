@@ -20,7 +20,7 @@ from flaskr.model.category_model import (
 )
 
 from flaskr.model.user_model import (
-    update_wishlist_by_id, add_history_by_id
+    add_wishlist_by_id, add_history_by_id
 )
 
 
@@ -227,9 +227,14 @@ class AddWishList(Resource):
     furniture id to user's wishlist
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        # Get the list of wished furniture
-        wish_list = user['wishlist']
+    def get(self, user):
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
+
+        # TODO:
+        # Validation of ids being object_id
+        # catch errors returned by add method
 
         # Validation
         if furniture_id in wish_list:
@@ -239,9 +244,9 @@ class AddWishList(Resource):
             }
             return jsonify(retJson)
 
-        # Insert to wishlist by appending
-        wish_list = wish_list + ", " + furniture_id
-        user.update_wishlist_by_id(user['user_id'], wish_list)
+
+        # Insert to user's wish 'list'.
+        add_wishlist_by_id(user_id, furniture_id)
 
         return jsonify({
             "status": 200,
@@ -256,14 +261,19 @@ class AddHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        history = user['history']
+        
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
 
-        '''
-        add or update?
-        '''
-        # add to history
-        history = history + ", " + furniture_id
-        add_history_by_id(user['user_id'], history)
+        # TODO:
+        # Validation of ids being object_id
+        # catch errors returned by add method.
+
+
+        # Add to history
+        add_history_by_id(user_id, furniture_id)
+
 
         return jsonify({
             "status": 200,
@@ -300,6 +310,7 @@ api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
-api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
-api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
+api.add_resource(AddWishList, '/add_wishlist')
+api.add_resource(AddHistory, '/add_history')
+api.add_resource(List,'/list')
 api.add_resource(ChangeFurnitureImg, '/change_img')

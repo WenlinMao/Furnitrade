@@ -62,6 +62,14 @@ def update_user_by_id(user_id, update, upsert=False):
     users = get_users_collection()
     return users.update_one({'_id': ObjectId(user_id)}, {"$set": update})
 
+def add_user_by_id(user_id, update, upsert=False):
+    """
+    :type user_id: string, update: document, upsert: bool
+    :rtype: UpdateResult object
+    """
+    users = get_users_collection()
+    return users.update_one({'_id': ObjectId(user_id)}, {"$set": update})
+
 
 def delete_user_by_id(user_id):
     """
@@ -81,15 +89,48 @@ def delete_user_by_username(username):
     return users.delete_one({'username': username})
 
 
-def update_wishlist_by_id(user_id, wishlist, upsert=False):
+def add_wishlist_by_id(user_id, furniture_id, upsert=False):
     """
-    :type user_id: string, wishlist: document (wishlist as a list)
+    :type user_id: string, furniture_id: string
+    :rtype: AddedResult object
+    Here addToSet already handles duplicates.
+    """
+    users = get_users_collection()
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {"$addToSet": {'wishlist': furniture_id}})
+
+def delete_wishlist_by_id(user_id, furniture_id, delete_all=False, \
+                        upsert=False):
+    """
+    :type user_id: string, furniture_id: string
+    :rtype: removed Result object
+    This can either remove one or remove all wishlists.
+    """
+    users = get_users_collection()
+    if not delete_all:
+        ops = "$pull"
+    else:
+        ops = "$pullAll"
+    
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {ops: {'wishlist': furniture_id}})
+
+def add_history_by_id(user_id, furniture_id,upsert=False):
+    """
+    :type user_id: string, history: document (history as a list)
     :rtype: UpdateResult object
     """
     users = get_users_collection()
-    return users.update_one({'_id': ObjectId(user_id)},
-                            {"$set": {'wishlist': wishlist}})
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {"$addToSet": {'history': furniture_id}})
 
-
-def add_history_by_id():
-    pass
+def clear_history(user_id, history, upsert=False):
+    """
+    :type user_id: string, furniture_id: string
+    :rtype: removed Result object
+    This can either remove one or remove all history.
+    """
+    users = get_users_collection()
+    
+    return users.update_one({'_id': ObjectId(user_id)}, \
+    {"$pullAll": {'history': history}})

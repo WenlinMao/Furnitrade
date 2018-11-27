@@ -9,6 +9,7 @@ from config import ProductionConfig
 from flask_cors import CORS
 from flask_mail import Mail
 
+
 mail = Mail()
 
 
@@ -50,5 +51,10 @@ def create_app(config_object=ProductionConfig):
 
         from . import s3
         application.register_blueprint(s3.bp)
+
+        from . import category
+        application.register_blueprint(category.bp)
+
+        
 
     return application
