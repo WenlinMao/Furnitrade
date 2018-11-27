@@ -219,6 +219,22 @@ mylist = [
 
 def init_category():
 	categories = get_category_collection()
+
+	# ADDED Furniture_id as list in each category.
+	# By Mao
+	for category in mylist:
+		category['furniture_id'] = []
+
 	categories.insert_many(mylist)
 
-	print(123)
+def delete_categories():
+	categories = get_category_collection()
+	categories.delete_many({})
+	print("Original errorneous categories deleted")
+
+# Check if category name is valid
+def validate_category_name(category_name):
+	for cat in mylist:
+		if category_name in cat['category_name']:
+			return True
+	return False 
