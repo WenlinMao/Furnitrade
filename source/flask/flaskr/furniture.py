@@ -20,7 +20,7 @@ from flaskr.model.category_model import (
 )
 
 from flaskr.model.user_model import (
-    update_wishlist_by_id, add_history_by_id
+    add_wishlist_by_id, add_history_by_id
 )
 
 
@@ -226,21 +226,16 @@ class AddWishList(Resource):
     furniture id to user's wishlist
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        # Get the list of wished furniture
-        wish_list = user['wishlist']
-        
-        # Validation
-        if furniture_id in wish_list:
-            retJson = {
-                "status": 612,
-                "msg": "Wishlist furniture already exists"
-            }
-            return jsonify(retJson)
+    def get(self, user):
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
 
-        # Insert to wishlist by appending
-        wish_list = wish_list + ", " + furniture_id
-        user.update_wishlist_by_id(user['user_id'], wish_list)
+        # TODO:
+        # Validation of ids being object_id
+
+        # Insert to user's wish 'list'.
+        add_wishlist_by_id(user_id, furniture_id)
 
         return jsonify({
             "status": 200,
@@ -277,6 +272,6 @@ api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
-api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
+api.add_resource(AddWishList, '/add_wishlist')
 api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
 api.add_resource(List,'/list')
