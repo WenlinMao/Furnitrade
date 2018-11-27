@@ -278,9 +278,28 @@ class List(Resource):
         return jsonify(col_results)
 
 
+class ChangeFurnitureImg(Resource):
+    @auth.login_required
+    def post(self, user):
+        posted_data = request.get_json()
+        furniture_id = posted_data['furniture_id']
+        img_pathes = posted_data['img_pathes']
+
+        # update the user's profile in database
+        update_furniture_by_id(furniture_id, {
+            "images": img_pathes
+        })
+
+        return jsonify({
+            "status": 200,
+            "msg": "Update succeeded"
+        })
+
+
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
 api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
+api.add_resource(ChangeFurnitureImg, '/change_img')
