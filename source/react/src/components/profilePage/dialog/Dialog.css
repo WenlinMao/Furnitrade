@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+TextField{
+  width:inherit;
+}
+
 /* deal with cancel and submit buttons */
 .buttons {
   display: grid;
