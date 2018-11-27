@@ -18,6 +18,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import categories from '../../static/data/category.json';
 
 
+
 class Add extends Component{
   constructor(props) {
       super(props);
@@ -41,6 +42,7 @@ class Add extends Component{
 
 
 
+
     handleFurnitureNameInput = name => event => {
       this.setState({furniture_name: event.target.value});
     }
@@ -50,7 +52,7 @@ class Add extends Component{
     }
 
 
-    handleCategoryInput = name =>event =>{
+    handleCategoryInput = name => event =>{
       this.setState({category:event.target.value});
     }
 
@@ -180,52 +182,36 @@ class Add extends Component{
                   margin="normal"
                 />
 
-                <InputLabel htmlFor="age-simple">Category</InputLabel>
-                <Select
-                    
-                  >
+                  <div>
 
-
-                        {categories.categories.map(category => (
-                          <div>
-                            {category.subcategories.sub.map(sub=>(
-                              <MenuItem value={sub.list}><p>{sub.list}</p></MenuItem>
-                            ))}
-                          </div>
-                        ))}
-                    </Select>
-
-                <div>
-                  <select 
-                    value={this.state.category}
-                    onChange={this.handleCategoryInput('value')}
-                    inputProps={{
-                      name: 'age',
-                      id: 'age-simple',
-                    }}>
-                    {categories.categories.map(category => (
-                      <option>{category.title}</option>
-                    ))}
-                  </select>
                   <select
                     value={this.state.category}
-                    // onChange={this.handleCategoryInput('value')}
-                    inputProps={{
-                      name: 'age',
-                      id: 'age-simple',
-                    }}>
+                    onChange={this.handleCategoryInput('category')}
+                    >
                     {categories.categories.map(category => (
-                      <div>
-                        {category.title === this.state.category ? 
-                          
+                      <option key={category.title}>{category.title}</option>
+                    ))}
+                  </select>
+
+
+                    {categories.categories.map(category => (
+
+                      <select
+                        value={this.state.category}
+                        onChange={this.handleCategoryInput('category')}
+                        >
+                        
+                        {category.title == this.state.category ?
+
                           category.subcategories.sub.map(sub =>
-                             <option>{sub.list}</option>   
+                             <option value={sub.list}>{sub.list}</option>
                           )
-                          : null}
-                      </div>
+
+                          :null}
+                          </select>
                     ))}
                     {/* subcategories={category.subcategories} */}
-                  </select>
+
                 </div>
 
                 <TextField
