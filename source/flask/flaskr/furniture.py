@@ -236,15 +236,6 @@ class AddWishList(Resource):
         # Validation of ids being object_id
         # catch errors returned by add method
 
-        # Validation
-        if furniture_id in wish_list:
-            retJson = {
-                "status": 612,
-                "msg": "Wishlist furniture already exists"
-            }
-            return jsonify(retJson)
-
-
         # Insert to user's wish 'list'.
         add_wishlist_by_id(user_id, furniture_id)
 
