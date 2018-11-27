@@ -16,7 +16,8 @@ from flaskr.model.furniture_model import (
 )
 
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection
+    get_category_by_catname, get_category_collection,
+    update_category_by_id
 )
 
 from flaskr.model.user_model import (
@@ -36,8 +37,9 @@ api = Api(bp)
 class Post(Resource):
     @auth.login_required
     def post(self, user):
-        furnitures = get_furniture_collection()
-        categories = get_category_collection()
+        #furnitures = get_furniture_collection()
+        #categories = get_category_collection()
+
         postedData = request.get_json()
 
         fur_name = postedData['furniture_name']
@@ -96,14 +98,9 @@ class Post(Resource):
             }
 
             furniture = add_furniture(toInsert)
-
-            # # TODO: how to insert to certain category
-            # # get inserted furniture id and insert the id to category
+            
             furniture_id = furniture.inserted_id
-            # categories.insert_one({
-            #     "category_name": category,
-            #     "furniture_id": furniture_id
-            # })
+            update_category_by_id(category['_id'], furniture_id)
 
             retJson = {
                 "status": 200,
