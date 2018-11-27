@@ -167,7 +167,6 @@ class getWishList(Resource):
     def get(self, user):
         wishlist = user['wishlist']
         # step 1: check if wishlist is empty
-        
         # step 2: query all furniture_ids to get details
 
         # step 3: return json representation of furnitures

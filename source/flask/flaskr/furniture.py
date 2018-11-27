@@ -233,6 +233,7 @@ class AddWishList(Resource):
 
         # TODO:
         # Validation of ids being object_id
+        # catch errors returned by add method
 
         # Insert to user's wish 'list'.
         add_wishlist_by_id(user_id, furniture_id)
@@ -248,12 +249,18 @@ class AddHistory(Resource):
     add furniture id to user's history
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        history = user['history']
+    def get(self, user):
+        
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
 
-        # add to history
-        history.append(furniture_id)
-        add_history_by_id(user['user_id'], history)
+        # TODO:
+        # Validation of ids being object_id
+        # catch errors returned by add method.
+
+        # Add to history
+        add_history_by_id(user_id, furniture_id)
 
         return jsonify({
             "status": 200,
@@ -273,5 +280,5 @@ api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wishlist')
-api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
+api.add_resource(AddHistory, '/add_history')
 api.add_resource(List,'/list')

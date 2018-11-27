@@ -98,12 +98,11 @@ def add_wishlist_by_id(user_id, furniture_id, upsert=False):
     return users.update_one({'_id': ObjectId(user_id)}, \
     {"$addToSet": {'wishlist': furniture_id}})
 
-def add_history_by_id(user_id,history,upsert=False):
+def add_history_by_id(user_id, furniture_id,upsert=False):
     """
     :type user_id: string, history: document (history as a list)
     :rtype: UpdateResult object
     """
-
     users = get_users_collection()
     return users.update_one({'_id': ObjectId(user_id)}, \
-    {"$set": {'history': history}})
+    {"$addToSet": {'history': furniture_id}})
