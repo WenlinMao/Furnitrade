@@ -1,5 +1,6 @@
 import pymongo
 from .db import get_db
+from bson.objectid import ObjectId
 
 
 def get_category_collection():
