@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
+import TextField from '@material-ui/core/TextField';
 
 import { Fade } from 'react-slideshow-image';
 
@@ -20,7 +21,7 @@ const fadeImages = [
     slide4,
     slide5
   ];
-   
+
   const fadeProperties = {
     duration: 5000,
     transitionDuration: 500,
@@ -108,7 +109,7 @@ render () {
                     <div className="image-container">
                     <img src={fadeImages[0]} />
                     </div>
-                    <h2>First Slide</h2>   
+                    <h2>First Slide</h2>
                 </div>
                 <div className="each-fade">
                     <div className="image-container">
@@ -123,11 +124,35 @@ render () {
                     <h2>Third Slide</h2>
                 </div>
             </Fade>
-            
+
+            {/*The descriptions, category, price and request form*/}
+            <div id="info">
+            <h3>{this.state.name}</h3>
+            <p>{this.state.description}</p>
+            <h6>${this.state.price}</h6>
+            </div>
+
+            <form>
+              <TextField
+                id="outlined-multiline-static"
+                label="Write a request"
+                multiline="True"
+                rows="3"
+                fullwidth="True"
+                className={this.props.textField}
+                onChange={this.handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+          <br/>
+            <input type="submit" value="I want this!"  onChange={this.handleSubmit}/>
+          </form>
+
+
             {/* End of furniture-container */}
             </div>
 
-       
+
 
         {/* End of the very last DIV tag */}
         </div>
@@ -140,6 +165,3 @@ render () {
 
 /* Export Furniture */
 export default Furniture
-
-
-

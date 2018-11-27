@@ -24,7 +24,7 @@ class Add extends Component{
       this.state = {
           furniture_name: '',
           category: '',
-          images:'',
+          image:'',
           price: '',
           is_delivery_inclued: '',
           location: '',
@@ -139,13 +139,9 @@ class Add extends Component{
               setLocal("address", reqData.address);
               console.log("localStorgae", getLocal("address"));
 
-              // get token for userid
-              var token = getLocal("usertoken")
-              var jwt_decode = require('jwt-decode');
-              var decoded = jwt_decode(token);
-              console.log(decoded)
+
               // start execute upload image process
-              this.child.current.beginUpload(decoded.user_id);
+              this.child.current.beginUpload(response.data.furniture_id);
               // redirect to hompage
               this.props.history.push("/");
           }
@@ -184,7 +180,7 @@ class Add extends Component{
                   margin="normal"
                 />
 
-                <InputLabel htmlFor="age-simple">Age</InputLabel>
+                <InputLabel htmlFor="age-simple">Category</InputLabel>
                 <Select
                     value={this.state.category}
                     onChange={this.handleCategoryInput('value')}
@@ -198,15 +194,10 @@ class Add extends Component{
                         {categories.categories.map(category => (
                           <div>
                             {category.subcategories.sub.map(sub=>(
-                              <MenuItem value={sub.list}>{sub.list}</MenuItem>
+                              <MenuItem value={sub.list}><p>{sub.list}</p></MenuItem>
                             ))}
                           </div>
                         ))}
-
-
-                      {/*<MenuItem value={"Bedroom"}>Bedroom</MenuItem>*/}
-                      //<MenuItem value={"Cooktops"}>Cooktops</MenuItem>
-                      //<MenuItem value={30}>Thirty</MenuItem>
                     </Select>
 
                 <TextField
@@ -230,12 +221,13 @@ class Add extends Component{
                   margin="normal"
                   variant="outlined"
                 />
-                <UploadImg resource_type="user"
+                <UploadImg resource_type="furniture"
                   name={this.state.username}
                   beforeUpload={this.handleBeforeUpload}
                   onUploadImg={this.handleUploadImg}
                   disabled={this.checkButtonStatus()}
                   ref={this.child}
+                  limit='5'
                   />
                 <button type="submit"> Submit </button>
               </form>
