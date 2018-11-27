@@ -18,6 +18,8 @@ from flask import (
 from flask_restful import Api, Resource, reqparse
 from flaskr import mail
 
+from bson import ObjectId
+
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 api = Api(bp)
@@ -223,8 +225,15 @@ class deleteWishList(Resource):
     def get(self, user):
 
         # get user id and furniture id from param
-        user_id = request.args.get('user_id')
+        user_id = user['_id']
         furniture_id = request.args.get('furniture_id')
+
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
         
         # Use $pull operations.
         delete_wishlist_by_id(user_id, furniture_id)
@@ -295,8 +304,7 @@ class clearHistory(Resource):
     def get(self, user):
 
         # get user id and furniture id from param
-        user_id = request.args.get('user_id')
-        furniture_id = request.args.get('furniture_id')
+        user_id = user['_id']
 
         # Get the user object
         user = find_user_by_id(user_id)
