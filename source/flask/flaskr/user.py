@@ -8,12 +8,17 @@ from flaskr.model.user_model import (
     delete_wishlist_by_id, clear_history,
     find_user_by_id
 )
+from flaskr.model.furniture_model import (
+    find_furniture_by_id
+)
 
 from flask import (
     Blueprint, request, jsonify
 )
 from flask_restful import Api, Resource, reqparse
 from flaskr import mail
+
+from bson import ObjectId
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -168,16 +173,48 @@ class getWishList(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        wishlist = user['wishlist']
+
         # step 1: check if wishlist is empty
+        wishlist = user['wishlist']
+        if len(wishlist) == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty wishlist"
+            })
+
         # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in wishlist:
+
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if furniture == None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            #images = furniture['images']
+            #is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            #location = furniture['location']
+            description = furniture['description']
+
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
+                'price': price,
+                # 'location': location,
+                'description': description
+            }
 
         # step 3: return json representation of furnitures
-        return jsonify({
-            "status": 200,
-            "msg": "wishlsit get from user",
-            "wishlist": wishlist
-        })
+        return jsonify(furnitures_json)
 
 
 class deleteWishList(Resource):
@@ -188,8 +225,16 @@ class deleteWishList(Resource):
     def get(self, user):
 
         # get user id and furniture id from param
-        user_id = request.args.get('user_id')
+        user_id = user['_id']
         furniture_id = request.args.get('furniture_id')
+
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
+
 
         # Use $pull operations.
         delete_wishlist_by_id(user_id, furniture_id)
@@ -208,12 +253,48 @@ class getHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
+
+        # step 1: check if history is empty
         history = user['history']
-        return jsonify({
-            "status": 200,
-            "msg": "history successfully loaded",
-            "history": history
-        })
+        if len(history) == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty history"
+            })
+
+        # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in history:
+
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if furniture == None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            #images = furniture['images']
+            #is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            #location = furniture['location']
+            description = furniture['description']
+
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
+                'price': price,
+                # 'location': location,
+                'description': description
+            }
+
+        # step 3: return json representation of furnitures
+        return jsonify(furnitures_json)
 
 
 class clearHistory(Resource):
@@ -224,8 +305,7 @@ class clearHistory(Resource):
     def get(self, user):
 
         # get user id and furniture id from param
-        user_id = request.args.get('user_id')
-        furniture_id = request.args.get('furniture_id')
+        user_id = user['_id']
 
         # Get the user object
         user = find_user_by_id(user_id)
@@ -254,6 +334,7 @@ class clearHistory(Resource):
 #         parser = reqparse.RequestParser()
 #         parser.add_argument('email', type=str)
 #         args = parser.parse_args()
+
 
 
 api.add_resource(Delete, '/delete/<string:username>')

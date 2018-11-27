@@ -16,12 +16,14 @@ from flaskr.model.furniture_model import (
 )
 
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection
+    get_category_by_catname, get_category_collection,
+    update_category_by_id
 )
 
 from flaskr.model.user_model import (
     add_wishlist_by_id, add_history_by_id
 )
+from bson import ObjectId
 
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -35,8 +37,9 @@ api = Api(bp)
 class Post(Resource):
     @auth.login_required
     def post(self, user):
-        furnitures = get_furniture_collection()
-        categories = get_category_collection()
+        #furnitures = get_furniture_collection()
+        #categories = get_category_collection()
+
         postedData = request.get_json()
 
         fur_name = postedData['furniture_name']
@@ -95,14 +98,9 @@ class Post(Resource):
             }
 
             furniture = add_furniture(toInsert)
-
-            # # TODO: how to insert to certain category
-            # # get inserted furniture id and insert the id to category
+            
             furniture_id = furniture.inserted_id
-            # categories.insert_one({
-            #     "category_name": category,
-            #     "furniture_id": furniture_id
-            # })
+            update_category_by_id(category['_id'], furniture_id)
 
             retJson = {
                 "status": 200,
@@ -232,18 +230,12 @@ class AddWishList(Resource):
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
 
-        # TODO:
-        # Validation of ids being object_id
-        # catch errors returned by add method
-
-        # Validation
-        if furniture_id in wish_list:
-            retJson = {
-                "status": 612,
-                "msg": "Wishlist furniture already exists"
-            }
-            return jsonify(retJson)
-
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
 
         # Insert to user's wish 'list'.
         add_wishlist_by_id(user_id, furniture_id)
@@ -266,14 +258,15 @@ class AddHistory(Resource):
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
 
-        # TODO:
-        # Validation of ids being object_id
-        # catch errors returned by add method.
-
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
 
         # Add to history
         add_history_by_id(user_id, furniture_id)
-
 
         return jsonify({
             "status": 200,
