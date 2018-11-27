@@ -1,0 +1,16 @@
+/* JUIZY Slideshow */
+
+Juizy slideshow was created by Geoffrey Crofte.
+You can copy, edit, change and share the content
+of this .zip archive quoting the author.
+
+Commercial use is forbidden !
+This code is an experimentation and should only be
+used for this purpose.
+
+For more information, contact support[at]creativejuiz.com
+
+Geoffrey.
+
+-- BY | NC | SA --
+http://creativecommons.org/licenses/by-nc-sa/2.0/fr/

@@ -10,9 +10,10 @@ from flaskr.model.user_model import (
 )
 
 from flask import (
-    Blueprint, request, jsonify, json
+    Blueprint, request, jsonify
 )
 from flask_restful import Api, Resource, reqparse
+from flaskr import mail
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -178,6 +179,7 @@ class getWishList(Resource):
             "wishlist": wishlist
         })
 
+
 class deleteWishList(Resource):
     '''
     delete a furniture id from the wish list
@@ -199,6 +201,7 @@ class deleteWishList(Resource):
             "msg": "Furniture deleted from wishlist"
         })
 
+
 class getHistory(Resource):
     '''
     get history based on user_id
@@ -211,6 +214,7 @@ class getHistory(Resource):
             "msg": "history successfully loaded",
             "history": history
         })
+
 
 class clearHistory(Resource):
     '''
@@ -239,6 +243,18 @@ class clearHistory(Resource):
 # TODO: forget passwords
 
 
+class ForgetPassword(Resource):
+    '''
+    user will send a email, and this api will check if the email is exist
+    in database, and send an email that include a link to
+    change the password
+    '''
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str)
+        args = parser.parse_args()
+
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
@@ -248,3 +264,4 @@ api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
 api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')
+api.add_resource(ForgetPassword, '/reset_password')

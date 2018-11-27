@@ -24,6 +24,7 @@ def find_furniture_by_id(furniture_id):
     furnitures = get_furniture_collection()
     return furnitures.find_one({'_id': ObjectId(furniture_id)})
 
+
 def delete_furniture_by_id(furniture_id):
     furnitures = get_furniture_collection()
     return furnitures.delete_one({'_id': ObjectId(furniture_id)})
@@ -33,6 +34,7 @@ def find_all_furnitures():
     furnitures = get_furniture_collection
     return furnitures.find()
 
+
 def find_furniture_by_info(info):
     """
     Fing a furniture by infomation. All registed json field
@@ -41,3 +43,12 @@ def find_furniture_by_info(info):
     furnitures = get_furniture_collection()
     furniture = furnitures.find_one(info)
     return str(furniture.get('_id'))
+
+
+def add_furniture(input):
+    """
+    :type input: document
+    :rtype: InsertOneResult object
+    """
+    furnitures = get_furniture_collection()
+    return furnitures.insert_one(input)

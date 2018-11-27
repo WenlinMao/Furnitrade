@@ -94,7 +94,7 @@ def verify_user(username, password):
 
 def login_required(method):
     @wraps(method)
-    def wrapper(*args, **kwargs):
+    def wrapper(self, *args, **kwargs):
         header = request.headers.get('Authorization')
 
         if header is None or header == '':
@@ -131,7 +131,7 @@ def login_required(method):
                 "msg": "User doesn't exist"
             })
 
-        return method(user, *args, **kwargs)
+        return method(self, user, *args, **kwargs)
     return wrapper
 
 
@@ -210,6 +210,7 @@ class Register(Resource):
                 "address": address,
                 "wishlist": [],
                 "history": []
+
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

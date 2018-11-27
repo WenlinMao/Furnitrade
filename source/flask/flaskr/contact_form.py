@@ -7,7 +7,11 @@ from flask import (
 """
 Additional Dependencies Please Add Here
 """
-from flaskr.model.contact_form_model import get_contact_form_collection
+from flaskr.model.contact_form_model import (
+    add_contact_form, find_contact_form_by_id, delete_contact_form_by_id
+)
+from flaskr.model.furniture_model import find_furniture_by_id
+from flaskr.model.user_model import find_user_by_id
 from flask_mail import Message
 from flaskr import mail
 from flaskr import auth
@@ -31,10 +35,18 @@ class Contact(Resource):
         seller_id = posted_data["seller_id"]
         content = posted_data["content"]
         furniture_id = posted_data["furniture_id"]
-        message_link = posted_data["message_link"]
 
-        buyer_email = user["email"]
-        buyer_username = user["username"]
+        buyer_id = str(user['_id'])
+        buyer_email = user['email']
+        buyer_username = user['username']
+
+        furniture = find_furniture_by_id(furniture_id)
+        if furniture is None:
+            return jsonify({
+                "status": 319,
+                "msg": "Can not find the furniture"
+            })
+        furniture_name = furniture["furniture_name"]
 
         seller = find_user_by_id(seller_id)
         if seller is None:
@@ -45,17 +57,36 @@ class Contact(Resource):
         seller_email = seller["email"]
         seller_username = seller["username"]
 
+        contact_form = add_contact_form({
+            "buyer": buyer_id,
+            "seller": seller_id,
+            "buyer_email": buyer_email,
+            "furniture": furniture_id,
+            "content": content,
+            "title": title
+        })
+
         msg = Message(
             title,
             recipients=[seller_email],
             html=render_template(
-                './templates/contact_email.html',
+                'contact_email.html',
                 seller_username=seller_username,
                 buyer_username=buyer_username,
+                furniture_name=furniture_name,
+                detail_link=current_app.config['FRONTEND_DOMAIN']
+                # detail_link="http://localhost:3000/Contact/"
+                # + str(contact_form.inserted_id)
             ),
-            sender=('furnitrade', current_app.config['MAIL_DEFAULT_SENDER'])
+            sender=('Furnitrade', current_app.config['MAIL_USERNAME'])
         )
         mail.send(msg)
+
+        return jsonify({
+            "status": 200,
+            "msg": "Contact messge successfully send",
+            "contact_form_id": str(contact_form.inserted_id)
+        })
 
 
 class Delete(Resource):
@@ -70,14 +101,14 @@ class Delete(Resource):
             return jsonify({
                 "status": 320,
                 "msg": "Can not find the contact form"
-                })
+            })
 
-        result = delete_contact_form_by_id(contact_form_id)
+        delete_contact_form_by_id(contact_form_id)
 
         return jsonify({
             "status": 200,
             "msg": "Delete succeded"
-            })
+        })
 
 
 class Detail(Resource):
@@ -86,23 +117,25 @@ class Detail(Resource):
     '''
     @auth.login_required
     def get(self, user, contact_form_id):
-        contact_form = find_contact_form_by_id(contact_form_id);
+        contact_form = find_contact_form_by_id(contact_form_id)
 
         if contact_form is None:
             return jsonify({
                 "status": 320,
                 "msg": "Can not find the contact form"
-                })
-        email = contact_form["buyer's_email"]
-        phone = contact_form["buyer's_phone_number"]
+            })
+        email = contact_form["buyer_email"]
         content = contact_form["content"]
+        title = contact_form["title"]
+        furniture_id = contact_form["furniture"]
 
         retJson = {
             "status": 200,
             "msg": "Get contact form succeded",
-            "buy's_email": email,
-            "buyer's_phone_number": phone,
-            "content": content
+            "buyer_email": email,
+            "title": title,
+            "content": content,
+            "furniture": furniture_id,
         }
 
         return jsonify(retJson)

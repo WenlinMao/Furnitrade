@@ -79,3 +79,8 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+.one-category {
+    position: inherit;
+    justify-items: center;
+}

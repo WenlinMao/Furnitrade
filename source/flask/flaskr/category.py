@@ -100,3 +100,4 @@ class InitCategory(Resource):
 api.add_resource(Category, '/<string:category_name>')
 api.add_resource(ChangeCategory, '/change_category')
 api.add_resource(InitCategory, '/init')
+

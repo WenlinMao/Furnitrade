@@ -22,12 +22,10 @@ render () {
             <div className="furni">
             <div className="furni-page">
                 <h2>Sub-category Title</h2>
-            
                 <Wave/>
             {/* end of furni-page tag */}
             </div>
             </div>
-
                     {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
                     <div className="Card-group">
                     <Card 

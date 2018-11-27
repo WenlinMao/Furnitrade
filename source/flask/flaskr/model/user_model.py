@@ -88,6 +88,7 @@ def delete_user_by_username(username):
     users = get_users_collection()
     return users.delete_one({'username': username})
 
+
 def add_wishlist_by_id(user_id, furniture_id, upsert=False):
     """
     :type user_id: string, furniture_id: string

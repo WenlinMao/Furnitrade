@@ -52,3 +52,25 @@
     margin: 0 0 20px 20px;
     z-index: 10;
 }
+
+.delete-button {
+    height: 20px;
+    width: 20px;
+    margin: 20px 20px;
+
+
+    border: 2px;
+    z-index: 100;
+}
+
+.delete-button input {
+    width: 20px;
+    height: 20px;
+    color: white;
+    outline: none;
+    transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.delete-button:hover input {
+    transform: scale(1.15);
+}
