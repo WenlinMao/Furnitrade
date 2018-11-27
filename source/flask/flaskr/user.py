@@ -185,6 +185,13 @@ class getWishList(Resource):
         for furniture_id in wishlist:
             
             furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if furniture == None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
             
             product_name = furniture['furniture_name']
             category = furniture['category']
@@ -236,12 +243,48 @@ class getHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
+        
+        # step 1: check if history is empty
         history = user['history']
-        return jsonify({
-            "status": 200,
-            "msg": "history successfully loaded",
-            "history": history
+        if len(history) == 0: 
+            return jsonify({
+            "status": 613,
+            "msg": "Empty history"
         })
+
+        # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in history:
+            
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if furniture == None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+            
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            #images = furniture['images']
+            #is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            #location = furniture['location']
+            description = furniture['description']
+            
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                #'images': images,
+                #'is_delivery_included': is_delivery_included,
+                'price': price,
+                #'location': location,
+                'description': description
+            }
+
+        # step 3: return json representation of furnitures
+        return jsonify(furnitures_json)
 
 
 class clearHistory(Resource):

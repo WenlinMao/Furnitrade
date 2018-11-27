@@ -22,6 +22,7 @@ from flaskr.model.category_model import (
 from flaskr.model.user_model import (
     add_wishlist_by_id, add_history_by_id
 )
+from bson import ObjectId
 
 
 bp = Blueprint('furniture', __name__, url_prefix='/furniture')
@@ -232,9 +233,12 @@ class AddWishList(Resource):
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
 
-        # TODO:
-        # Validation of ids being object_id
-        # catch errors returned by add method
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
 
         # Insert to user's wish 'list'.
         add_wishlist_by_id(user_id, furniture_id)
@@ -257,14 +261,15 @@ class AddHistory(Resource):
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
 
-        # TODO:
-        # Validation of ids being object_id
-        # catch errors returned by add method.
-
+        # Validation of object id
+        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid user_id or furniture_id"
+            })
 
         # Add to history
         add_history_by_id(user_id, furniture_id)
-
 
         return jsonify({
             "status": 200,
