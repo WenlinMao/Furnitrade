@@ -124,9 +124,11 @@ class Detail(Resource):
                 "status": 320,
                 "msg": "Can not find the contact form"
             })
+
         email = contact_form["buyer_email"]
         content = contact_form["content"]
         title = contact_form["title"]
+        buyer_id = contact_form["buyer"]
         furniture_id = contact_form["furniture"]
 
         retJson = {
@@ -136,6 +138,7 @@ class Detail(Resource):
             "title": title,
             "content": content,
             "furniture": furniture_id,
+            "buyer_id": buyer_id
         }
 
         return jsonify(retJson)
