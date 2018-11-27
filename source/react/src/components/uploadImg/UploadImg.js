@@ -1,10 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Button from '@material-ui/core/Button';
-import FontIcon from 'material-ui/FontIcon';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 
 export class UploadImg extends Component {
     constructor(props) {

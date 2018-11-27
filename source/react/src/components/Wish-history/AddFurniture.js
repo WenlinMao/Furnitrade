@@ -50,7 +50,7 @@ class Add extends Component{
     }
 
 
-    handleCategoryInput=name =>event =>{
+    handleCategoryInput = name =>event =>{
       this.setState({category:event.target.value});
     }
 
@@ -182,12 +182,7 @@ class Add extends Component{
 
                 <InputLabel htmlFor="age-simple">Category</InputLabel>
                 <Select
-                    value={this.state.category}
-                    onChange={this.handleCategoryInput('value')}
-                    inputProps={{
-                      name: 'age',
-                      id: 'age-simple',
-                    }}
+                    
                   >
 
 
@@ -199,6 +194,39 @@ class Add extends Component{
                           </div>
                         ))}
                     </Select>
+
+                <div>
+                  <select 
+                    value={this.state.category}
+                    onChange={this.handleCategoryInput('value')}
+                    inputProps={{
+                      name: 'age',
+                      id: 'age-simple',
+                    }}>
+                    {categories.categories.map(category => (
+                      <option>{category.title}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={this.state.category}
+                    // onChange={this.handleCategoryInput('value')}
+                    inputProps={{
+                      name: 'age',
+                      id: 'age-simple',
+                    }}>
+                    {categories.categories.map(category => (
+                      <div>
+                        {category.title == this.state.category ? 
+                          
+                          category.subcategories.sub.map(sub =>
+                             <option>{sub.list}</option>   
+                          )
+                          : null}
+                      </div>
+                    ))}
+                    {/* subcategories={category.subcategories} */}
+                  </select>
+                </div>
 
                 <TextField
                   id="outlined-multiline-static"
