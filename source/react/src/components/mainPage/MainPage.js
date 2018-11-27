@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBar/NavBar';
 import {Link} from 'react-router-dom';
 import {getLocal} from '../../utils/util';
+import styled from 'styled-components'
+
+import NavBar from '../NavBar/NavBar';
+import AboutUs from './aboutUs/AboutUs';
 import Wave from '../common/Wave';
 import FurniCategory from '../FurniCategory/FurniCategory';
-import styled from 'styled-components'
+
 import './MainPage.css';
 import categories from '../../static/data/category.json';
 
@@ -23,7 +26,7 @@ const SectionCategory = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 20px;
-  padding: 0 20px;
+  padding: 0 30px;
   position: relative;
   @media (max-width: 800px) {
     grid-template-columns: repeat(1, 1fr);
@@ -78,21 +81,29 @@ const SectionCategory = styled.div`
           {/* End of Index DIV */}
           </div>
 
-          {/* Section of About US */}
-
           {/* Section of categories */}
           <section id="category">
           <SectionCaption>Furniture Categories</SectionCaption>
           <SectionCategory>
             {categories.categories.map(category => (
+              <div className="one-category">
               <FurniCategory
                 title={category.title}
                 image={category.image}
                 subcategories={category.subcategories}
-              />
+              /></div>
             ))}
           </SectionCategory>
           </section>
+
+          {/* Section of About US */}
+          <AboutUs
+            image={require('../../static/images/wallpaper1.png')}
+            logo={require('../../static/images/logo_white.png')}
+            title="About Us"
+            text1="Furnitrade is designed to help student sellers advertise smartly and manage all post in one place."
+            text2="To save students from this painful process, we created Furnitrade, a web-based platform that aims to provide the clear and efficient furniture-trading solution for college students living off-campus. Furnitrade creates faster way for buyers to reach sellers and efficient way for sellers to search and price match what they want. It also ensures trade credibility with our engineered communication and rating system."
+          />
 
         {/* Final DIV - add everything above this DIV */}
         </div>

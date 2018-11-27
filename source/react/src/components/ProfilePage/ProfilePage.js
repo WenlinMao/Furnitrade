@@ -3,56 +3,23 @@ import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import { Button}  from "@material-ui/core";
 import "./ProfilePage.css";
-import Dialog from '../common/dialog/Dialog';
+import Dialog from './dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
-import {UploadImg} from '../uploadImg/UploadImg';
+import Dropzone from 'react-dropzone';
+import {UploadImg} from '../uploadImg/UploadImg'
 
-
-// This is profile page - used to update and modify user info
-// Goal & Requirements:
-//      - Use container structure to divide page into a few parts
-//      - Display should be "column"
-//      - In each row, there could possibly be a new container, display can be
-//        either "row" or "column"
-//      - Use the theme colors provided in MainPage.js
-
-// 2 major parts
-//     - Part One: nav bar
-//         - Nav bar should be the same
-//         - title "furnitrade" and logo should redirect the user to MainPage
-//         - drawer stays the same --(temporary) --(if you think you can update it, free
-//           free to do so)
-
-//     - Part Two: user info
-//         - Sub-part One - Left-hand-side
-//             - User Photo - include a Button for uploading new photo if user
-//                 has no profile photo. Otherwise, the button is for changing
-//                 profile photo
-//             - User First and Last Name - Under the photo, include a "save" or
-//                 "update" button
-//             - (Optional) brief introduction - brief introduction of user filled by user
-//                 himself or herself
-//         - Sub-part Two - Right-hand-side
-//             - Address information
-//             - email information
-//             - university information - should be a drop down menu which offers university List
-
-// Note:
-//     - feel free to redesign the layout. Keep dis shit good looking tho.
-//     - feel free to use a new theme. Just make sure the color stays the same
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: '',
-      picture: 'test-propic.jpg',
-      picture_pathes: [],
+      img_pathes:[],
       username: '',
       email: '',
       city:'San Diego',
@@ -155,6 +122,41 @@ class ProfilePage extends Component {
     });
   }
 
+  handleBeforeUpload = (files) => {
+         this.setState({
+             filesToBeSent: files
+         });
+         console.log(this.state.filesToBeSent)
+     }
+
+
+  handleUploadImg = (img_pathes) => {
+         console.log(img_pathes[0])
+
+         // change image pathes in database after uploadImg to s3
+         var token = getLocal("usertoken")
+         let config = {
+             headers: {"Authorization": `Bearer ${token}`},
+             params: {
+                 img_pathes: img_pathes[0]
+             },
+         }
+
+         axios.get('http://127.0.0.1:5000/user/change_img', config)
+         .then((response) => {
+             let code = response.data.status;
+             if (code === 200) {
+                 console.log(response);
+             } else if (code === 400) {
+                 localStorage.removeItem('usertoken');
+             }
+         })
+         .catch((error) => {
+             console.log(error);
+         });
+     }
+
+
   handleSave = () => {
     this.setState({
       readOnly: true
@@ -163,7 +165,7 @@ class ProfilePage extends Component {
       'username': this.state.username,
       'email': this.state.email,
       'address': this.state.address,
-      'password': this.state.password,
+      // 'password': this.state.password,
     };
     console.log(reqData);
     const token = localStorage.getItem('usertoken');
@@ -215,16 +217,9 @@ class ProfilePage extends Component {
 
   }
 
-  // Move this logic to Dialog
-  // changePassword = (newPassword) => {
-  //   this.setState({password: newPassword});
-  // }
-
-  onDrop = event => {
-    this.setState({
-      picture: event.target.picture
-    });
-  }
+  onDrop = (uploaded) => {
+    this.setState({picture:uploaded});
+}
 
 
   render() {
@@ -253,9 +248,11 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  { /*<img src={require("../../static/images/"+this.state.picture)} alt="user info pic" />*/}
-                  <img src={this.state.picture} alt="user info pic" />
-                  <button onClick={this.onDrop}>update picture</button>
+                  <img src={this.state.img_pathes[0]} alt="user info pic" />
+                  <button><UploadImg resource_type="user"
+                              name={this.state.username}
+                              onUploadImg={this.handleUploadImg}
+                              /></button>
                 </div>
                 <TextField
 
@@ -318,6 +315,7 @@ class ProfilePage extends Component {
 
                 {/* Save/ Edit button */}
                 {button}
+              {/* Reset password */}
               <Dialog />
               </div>
 
@@ -329,4 +327,5 @@ class ProfilePage extends Component {
     );
   }
 }
+
 export default ProfilePage;

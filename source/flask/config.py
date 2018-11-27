@@ -10,7 +10,7 @@ class Config(object):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_DEFAULT_SENDER = 'furnitradeftp@gmail.com'
+    MAIL_USERNAME = 'furnitradeftp@gmail.com'
     MAIL_PASSWORD = 'furnitrade110'
     S3_KEY = 'AKIAIZQK2ON2EX4LDENA'
     S3_SECRET = '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'
@@ -29,6 +29,7 @@ class DevelopmentConfig(Config):
     MONGODB_DATABASE_URI = 'mongodb+srv://admin:CSE110!Gary@cluster0-lzui4.mongodb.net/Dev?retryWrites=true'
     S3_BUCKET = 'furnitrade-dev-attachments'
     DATABASE = "Dev"
+    FRONTEND_DOMAIN = "http://localhost:3000/"
 
 
 class TestingConfig(Config):

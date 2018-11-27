@@ -33,6 +33,9 @@
   outline: none;
   height: 50px;
   cursor: pointer;
+
+  /* let button float above the wave */
+  z-index: 10;
   transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 

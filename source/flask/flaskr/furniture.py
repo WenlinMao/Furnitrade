@@ -12,15 +12,16 @@ from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
     update_furniture_by_id, delete_furniture_by_id,
-    find_furniture_by_info
+    find_furniture_by_info, add_furniture
 )
 
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection
+    get_category_by_catname, get_category_collection,
+    update_category_by_id
 )
 
 from flaskr.model.user_model import (
-    update_wishlist_by_id, add_history_by_id
+    add_wishlist_by_id, add_history_by_id
 )
 
 
@@ -42,11 +43,11 @@ class Post(Resource):
 
         fur_name = postedData['furniture_name']
         category = postedData['category']
-        images = postedData['images']
+        # images = postedData['images']
         price = postedData['price']
-        is_delivery_included = postedData['is_delivery_included']
-        location = postedData['location']
-        seller_id = postedData['seller']
+        # is_delivery_included = postedData['is_delivery_included']
+        # location = postedData['location']
+        # seller_id = postedData['seller']
         description = postedData['description']
 
         error = None
@@ -56,25 +57,25 @@ class Post(Resource):
         if not fur_name:
             error_code = 322
             error = 'Furniture name is required.'
-        elif not images:
-            error_code = 323
-            error = 'Images are required.'
+        # elif not images:
+        #     error_code = 323
+        #     error = 'Images are required.'
         elif not category:
             error_code = 324
             error = 'Category needs to be specified.'
-        elif not is_delivery_included:
-            error_code = 325
-            error = 'Is delivery included?'
-        elif not seller_id:
-            ''' TODO: check if seller is inside the database '''
-            error_code = 326
-            error = 'Seller name is required.'
+        # elif not is_delivery_included:
+        #     error_code = 325
+        #     error = 'Is delivery included?'
+        # elif not seller_id:
+        #     ''' TODO: check if seller is inside the database '''
+        #     error_code = 326
+        #     error = 'Seller name is required.'
         elif not price:
             error_code = 327
             error = 'Price is required.'
-        elif not location:
-            error_code = 328
-            error = 'Pick up location is required.'
+        # elif not location:
+        #     error_code = 328
+        #     error = 'Pick up location is required.'
         elif not description:
             error_code = 329
             error = 'Description of furniture is required.'
@@ -87,25 +88,23 @@ class Post(Resource):
             toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
-                "images": images,
+                # "images": images,
                 "price": price,
-                "is_delivery_included": is_delivery_included,
-                "location": location,
-                "seller": seller_id,
+                # "is_delivery_included": is_delivery_included,
+                # "location": location,
+                # "seller": seller_id,
                 "description": description
             }
 
             furniture = add_furniture(toInsert)
             
-            # TODO: how to insert to certain category
-            # get inserted furniture id and insert the id to category
             furniture_id = furniture.inserted_id
-
-            
+            update_category_by_id(category['_id'], furniture_id)
 
             retJson = {
                 "status": 200,
-                "msg": "You have successfully uploaded the furniture!"
+                "msg": "You have successfully uploaded the furniture!",
+                "furniture_id": str(furniture_id)
             }
             return jsonify(retJson)
 
@@ -225,10 +224,15 @@ class AddWishList(Resource):
     furniture id to user's wishlist
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        # Get the list of wished furniture
-        wish_list = user['wishlist']
-        
+    def get(self, user):
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
+
+        # TODO:
+        # Validation of ids being object_id
+        # catch errors returned by add method
+
         # Validation
         if furniture_id in wish_list:
             retJson = {
@@ -237,14 +241,15 @@ class AddWishList(Resource):
             }
             return jsonify(retJson)
 
-        # Insert to wishlist by appending
-        wish_list = wish_list + ", " + furniture_id
-        user.update_wishlist_by_id(user['user_id'], wish_list)
+
+        # Insert to user's wish 'list'.
+        add_wishlist_by_id(user_id, furniture_id)
 
         return jsonify({
             "status": 200,
             "msg": "Furniture added to wishlist"
         })
+
 
 class AddHistory(Resource):
     '''
@@ -252,12 +257,20 @@ class AddHistory(Resource):
     add furniture id to user's history
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        history = user['history']
+    def get(self, user):
+        
+        # Get user id and furniture_id from get request's param
+        user_id = request.args.get('user_id')
+        furniture_id = request.args.get('furniture_id')
 
-        # add to history
-        history.append(furniture_id)
-        add_history_by_id(user['user_id'], history)
+        # TODO:
+        # Validation of ids being object_id
+        # catch errors returned by add method.
+
+
+        # Add to history
+        add_history_by_id(user_id, furniture_id)
+
 
         return jsonify({
             "status": 200,
@@ -272,10 +285,29 @@ class List(Resource):
         return jsonify(col_results)
 
 
+class ChangeFurnitureImg(Resource):
+    @auth.login_required
+    def post(self, user):
+        posted_data = request.get_json()
+        furniture_id = posted_data['furniture_id']
+        img_pathes = posted_data['img_pathes']
+
+        # update the user's profile in database
+        update_furniture_by_id(furniture_id, {
+            "images": img_pathes
+        })
+
+        return jsonify({
+            "status": 200,
+            "msg": "Update succeeded"
+        })
+
+
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update/<string:furniture_id>')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
-api.add_resource(AddWishList, '/add_wish_list/<string:furniture_id>')
-api.add_resource(AddHistory, '/add_history/<string:furniture_id>')
+api.add_resource(AddWishList, '/add_wishlist')
+api.add_resource(AddHistory, '/add_history')
 api.add_resource(List,'/list')
+api.add_resource(ChangeFurnitureImg, '/change_img')

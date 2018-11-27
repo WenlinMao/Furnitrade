@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Juizy Slideshow - Full CSS3/HTML5 slideshow</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Amaranth:700' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	
+	<span id="sl_play" class="sl_command">&nbsp;</span>
+	<span id="sl_pause" class="sl_command">&nbsp;</span>
+	<span id="sl_i1" class="sl_command sl_i">&nbsp;</span>
+	<span id="sl_i2" class="sl_command sl_i">&nbsp;</span>
+	<span id="sl_i3" class="sl_command sl_i">&nbsp;</span>
+	<span id="sl_i4" class="sl_command sl_i">&nbsp;</span>
+	
+	<h1><span class="cursive">Juizy</span> slideshow <span>Full CSS3/HTML5 slideshow</span></h1>
+	<h2 class="sread">The slideshow</h2>
+	
+	
+	<section id="slideshow">
+	
+		<a class="commands prev commands1" href="#sl_i4" title="Go to last slide">&lt;</a>
+		<a class="commands next commands1" href="#sl_i2" title="Go to 2nd slide">&gt;</a>
+		<a class="commands prev commands2" href="#sl_i1" title="Go to 1rst slide">&lt;</a>
+		<a class="commands next commands2" href="#sl_i3" title="Go to 3rd slide">&gt;</a>
+		<a class="commands prev commands3" href="#sl_i2" title="Go to 2nd slide">&lt;</a>
+		<a class="commands next commands3" href="#sl_i4" title="Go to 4th slide">&gt;</a>
+		<a class="commands prev commands4" href="#sl_i3" title="Go to 3rd slide">&lt;</a>
+		<a class="commands next commands4" href="#sl_i1" title="Go to first slide">&gt;</a>
+		
+		<a class="play_commands pause" href="#sl_pause" title="Maintain paused">Pause</a>
+		<a class="play_commands play" href="#sl_play" title="Play the animation">Play</a>
+		
+		<div class="container">
+			<div class="c_slider"></div>
+			<div class="slider">
+				<figure>
+					<img src="img/dummy-640x310-1.jpg" alt="" width="640" height="310" />
+					<figcaption>The mirror of soul</figcaption>
+				</figure><!--
+				--><figure>
+					<img src="img/dummy-640x310-2.jpg" alt="" width="640" height="310" />
+					<figcaption>Let's cross that bridge when we come to it</figcaption>
+				</figure><!--
+				--><figure>
+					<img src="img/dummy-640x310-3.jpg" alt="" width="640" height="310" />
+					<figcaption>Sushi<em>(do)</em> time</figcaption>
+				</figure><!--
+				--><figure>
+					<img src="img/dummy-640x310-4.jpg" alt="" width="640" height="310" />
+					<figcaption>Waking Life</figcaption>
+				</figure>
+			</div>
+		</div>
+		
+		<span id="timeline"></span>
+		
+		<ul class="dots_commands"><!--
+			--><li><a title="Show slide 1" href="#sl_i1">Slide 1</a></li><!--
+			--><li><a title="Show slide 2" href="#sl_i2">Slide 2</a></li><!--
+			--><li><a title="Show slide 3" href="#sl_i3">Slide 3</a></li><!--
+			--><li><a title="Show slide 4" href="#sl_i4">Slide 4</a></li>
+		</ul>
+		
+	</section>
+	
+	<section id="main" role="main">
+		<h2 class="sread">Download and share</h2>
+	
+		<p class="download">
+			<a href="http://creativejuiz.fr/trytotry/dl/download.php?c=juizy-slideshow&amp;v=1.0.0"><span class="arrow">&#8681;</span> Download <span class="file">.zip file of 14 ko</span></a>
+		</p>
+		
+		<p class="center">
+			<img src="img/tested-on.png" alt="Tested on : Firefox 8+, Internet Explorer 9+, Chrome 16+, Safari 5+, Opera 11+" width="368" height="88" />
+		</p>
+	
+		<h2>Explanations</h2>
+		<h3>The idea</h3>
+		
+		<p class="col2">The idea comes from my two previous experiments : <a href="http://creativejuiz.fr/trytotry/webdesign-and-slideshow-with-css3/">Webdesign and Slideshow full CSS3</a>, and the <a href="http://creativejuiz.fr/trytotry/automatic-slideshow-css3/">Automatic Slideshow in CSS3</a>, and the desire to merge the two techniques to create an automatic and manual slide show.<br />
+		Some defects were effective, so it was an opportunity to correct them and to improve the technique.</p>
+		
+		
+		<h3>Principle</h3>
+		<p class="col2">I wanted to present you a method to create a slide show using only HTML5 and CSS3 technologies.<br />
+		Today, the implementation of animations (keyframes) makes easy to play in loop numerous elements simultaneously. Of course, some browsers have yet to evolve in order to incorporate these animations, but it's broadly on track!<br />
+		This CSS3 demonstration uses these keyframes combined with the transition property.</p>
+		
+		<h3>Technical details</h3>
+		<p class="col2">Technically, I just used some <code>@keyframes</code> animations with the same duration (here 32<abbr title="seconds">s</abbr>, 8<abbr>s</abbr> per image). My purpose was to use as little markup as possible to do all the design.<br /><br />
+		The play, stop and other control buttons are operated by a diversion of the <code>:target</code> pseudo-class. Thanks to the <a href="http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target">Vincent's article (french)</a> the jump to the anchor is stopped. (it was not the case in my early works)</p>
+		
+		<p class="col2">This slideshow only works for Firefox and Chrome (latest versions), but, as you can see, the click actions are working with an aditionnal element named <code>div.c_slider</code> which has all the images in CSS background. First, i tried with the same element and a variation of <code>left</code> value, but the click actions was not working because of a conflict between <code>animation</code> and <code>transition</code> property. In fact, specifically, I tried to change the same property of an element (here <code>left</code> property) and, even if I set an <code>!important</code> rule on a bigger CSS selector, the value given by <code>animation</code> is priority.<br />
+		For Internet Explorer 9, the problem doesn't arise : it can't understand <code>animation</code>, so it applies <code>:target</code> and <code>transition</code> rules.</p>
+		
+		<p>For <strong>more technical details</strong>, please visit the <a href="http://www.creativejuiz.fr/blog/" hreflang="fr">Creative Juiz blog (french)</a> with the tag "<a href="http://www.creativejuiz.fr/blog/tag/slideshow" hreflang="fr">slideshow (french)</a>". A future article coming (maybe during holidays ;) ) in french.<br />You want to improve this code ? Download it, improve it, and send me your version <a href="http://www.creativejuiz.fr/blog/contact">here</a>. Your name will be added to the contributors list (with your consent).</p>
+		
+		<h3>Author &amp; Contributors</h3>
+		<p><strong>Author</strong> : <a href="http://www.creativejuiz.fr" hreflang="fr" title="Creative Juiz web site (in french)">Geoffrey Crofte</a><br />
+		<strong>Contributors</strong> :</p>
+		<ul>
+			<li><a href="http://css3create.com/" title="CSS3Create website (in french)" hreflang="fr">Vincent De Oliveira</a> : blocked the jump to the anchor ;</li>
+			<li>&hellip;</li>
+		</ul>
+	</section>
+	<footer>
+	<p>CreativeCommons // BY - NC - SA</p>
+	<p>Created by <a href="http://www.creativejuiz.fr/blog/" hreflang="fr" title="French CSS lover">Geoffrey Crofte</a> <span class="sep">//</span> <a href="http://sharrre.com/">Sharrre jQuery Plugin</a> by Julien Hany  <span class="sep">//</span> Images from <a href="http://lorempixel.com/">Lorem Pixel</a></p></footer>
+</body>
+</html>

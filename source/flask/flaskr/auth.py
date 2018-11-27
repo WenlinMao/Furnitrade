@@ -94,7 +94,7 @@ def verify_user(username, password):
 
 def login_required(method):
     @wraps(method)
-    def wrapper(*args, **kwargs):
+    def wrapper(self, *args, **kwargs):
         header = request.headers.get('Authorization')
 
         if header is None or header == '':
@@ -131,7 +131,7 @@ def login_required(method):
                 "msg": "User doesn't exist"
             })
 
-        return method(user, *args, **kwargs)
+        return method(self, user, *args, **kwargs)
     return wrapper
 
 
@@ -201,14 +201,15 @@ class Register(Resource):
             error = 'Email invalid'
 
         if error is None:
-            # Add a default empty wishlist field.
-            # Wishlist as a string
+            # Add a default empty wishlist, history field.
+            # wishlist and history are lists
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
                 "address": address,
-                "wishlist": ""
+                "wishlist": [],
+                "history": []
 
             })
             exp = datetime.datetime.utcnow() \

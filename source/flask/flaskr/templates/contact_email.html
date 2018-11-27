@@ -1,13 +1,8 @@
-<p>Dear  {{username}},</p>
-<p><a href="{{ url_for('user', nickname=follower.nickname, _external=True) }}">{{ follower.nickname }}</a> is now a follower.</p>
-<table>
-    <tr valign="top">
-        <td><img src="{{ follower.avatar(50) }}"></td>
-        <td>
-            <a href="{{ url_for('user', nickname=follower.nickname, _external=True) }}">{{ follower.nickname }}</a><br />
-            {{ follower.about_me }}
-        </td>
-    </tr>
-</table>
+<p>Dear  {{seller_username}},</p>
+<p>
+  {{ buyer_username }} shows an interest to your furniture: {{furniture_name}}.
+  <a href={{detail_link}}> View Detail </a>
+</p>
+
 <p>Regards,</p>
-<p>The <code>microblog</code> admin</p>
+<p>The FTP Team</p>
