@@ -35,8 +35,9 @@ api = Api(bp)
 class Post(Resource):
     @auth.login_required
     def post(self, user):
-        furnitures = get_furniture_collection()
-        categories = get_category_collection()
+        #furnitures = get_furniture_collection()
+        #categories = get_category_collection()
+
         postedData = request.get_json()
 
         fur_name = postedData['furniture_name']
@@ -94,15 +95,13 @@ class Post(Resource):
                 "description": description
             }
 
-            furnitures.insert_one(toInsert)
+            furniture = add_furniture(toInsert)
             
             # TODO: how to insert to certain category
             # get inserted furniture id and insert the id to category
-            furniture_id = find_furniture_by_info(toInsert)
-            categories.insert_one({
-                "category_name": category,
-                "furniture_id": furniture_id
-            })
+            furniture_id = furniture.inserted_id
+
+            
 
             retJson = {
                 "status": 200,
