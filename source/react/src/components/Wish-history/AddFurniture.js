@@ -216,7 +216,7 @@ class Add extends Component{
                     }}>
                     {categories.categories.map(category => (
                       <div>
-                        {category.title == this.state.category ? 
+                        {category.title === this.state.category ? 
                           
                           category.subcategories.sub.map(sub =>
                              <option>{sub.list}</option>   
