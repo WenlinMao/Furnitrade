@@ -5,13 +5,13 @@ import './SubCategory.css';
 
 
 
-const CategoryImage = styled.div`
-    width: 60px;
-    height: 60px;
+const CategoryImage = styled.img`
+    width: 75px;
+    height: 55px;
     background: black;
     border-radius: 10px;
     background-image: url(${props => props.image});
-    background-size: 60px;
+    background-size: 75px;
 `
 
 const CategoryTitle = styled.div`
