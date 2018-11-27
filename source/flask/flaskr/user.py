@@ -160,11 +160,17 @@ class ChangePassword(Resource):
 class getWishList(Resource):
     '''
     get wishlist based on user_id
-    Simply return the jsonified wishlist
+    query all furniture_ids in wishlist to get details
+    return jsonified details
     '''
     @auth.login_required
     def get(self, user):
         wishlist = user['wishlist']
+        # step 1: check if wishlist is empty
+        
+        # step 2: query all furniture_ids to get details
+
+        # step 3: return json representation of furnitures
         return jsonify({
             "status": 200,
             "msg": "wishlsit get from user",
@@ -178,9 +184,7 @@ class deleteWishList(Resource):
     @auth.login_required
     def get(self, user, furniture_id):
         wishlist = user['wishlist']
-        temp = wishlist.split(furniture_id)
-        wishlist = ''.join(temp)
-        user.update_wishlist_by_id(user['user_id'], wishlist)
+        # TODO: use $pull operations.
         return jsonify({
             "status": 200,
             "msg": "Furniture deleted from wishlist"

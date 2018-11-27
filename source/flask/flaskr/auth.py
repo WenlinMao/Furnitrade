@@ -202,13 +202,13 @@ class Register(Resource):
 
         if error is None:
             # Add a default empty wishlist field.
-            # Wishlist as a string
+            # wishlist is a list
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
                 "address": address,
-                "wishlist": ""
+                "wishlist": []
 
             })
             exp = datetime.datetime.utcnow() \
