@@ -2,7 +2,7 @@
 {
   display: grid;
   flex-flow: column;
-  width:50%;
+  width:75%;
 }
 
 .dialog a {
@@ -17,6 +17,7 @@
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-gap: 10px;
+  justify-items:start;
 }
 
 .buttons button {
