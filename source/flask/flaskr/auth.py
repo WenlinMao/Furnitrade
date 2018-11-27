@@ -46,7 +46,7 @@ def check_username_valid(mystring):
 
 
 def email_exist(email):
-    if find_user_by_username(email) is not None:
+    if find_user_by_email(email) is not None:
         return True
     else:
         return False

@@ -20,6 +20,7 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       img_pathes:[],
+      picture: "",
       username: '',
       email: '',
       city:'San Diego',
@@ -70,7 +71,8 @@ class ProfilePage extends Component {
             email: response.data.email,
             address: response.data.address,
             user_id: response.data.user_id,
-            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/" + response.data.profile,
+            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                      + response.data.profile,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -248,7 +250,7 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={this.state.img_pathes[0]} alt="user info pic" />
+                  <img src={this.state.picture} alt="user info pic" />
                   <button><UploadImg resource_type="user"
                               name={this.state.username}
                               onUploadImg={this.handleUploadImg}
