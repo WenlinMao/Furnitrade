@@ -1,10 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Button from '@material-ui/core/Button';
-import FontIcon from 'material-ui/FontIcon';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 
 export class UploadImg extends Component {
     constructor(props) {
@@ -101,15 +97,7 @@ export class UploadImg extends Component {
                 filesPreview.push(
                     <div>
                         {filesToBeSent[i].name}
-                        // <MuiThemeProvider>
-                        //     <Button onClick={this.handleClear}> Clear </Button> :
-                        //     <button onClick={this.handleClear}> Clear </button>
-                        <a href="#"><FontIcon
-                            className="material-icons customstyle"
-                            color={blue500}
-                            styles={{ top:10,}}
-                            > clear</FontIcon></a>
-                        </MuiThemeProvider>
+                        <button onClick={this.handleClear}> Clear </button>
                     </div>
                 )
             }

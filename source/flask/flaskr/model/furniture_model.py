@@ -44,3 +44,12 @@ def find_furniture_by_info(info):
     furnitures = get_furniture_collection()
     furniture = furnitures.find_one(info)
     return str(furniture.get('_id'))
+
+
+def add_furniture(input):
+    """
+    :type input: document
+    :rtype: InsertOneResult object
+    """
+    furnitures = get_furniture_collection()
+    return furnitures.insert_one(input)
