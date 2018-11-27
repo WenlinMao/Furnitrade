@@ -241,7 +241,7 @@ class Register(Resource):
 # This uses verify_user as helper methods
 # TODO: check email and logging with email.
 class Login(Resource):
-    @logout_required
+    # @logout_required
     def post(self):
         # 1. Get username and password from POST
         postedData = request.get_json()
