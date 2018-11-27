@@ -190,7 +190,7 @@ class deleteWishList(Resource):
         # get user id and furniture id from param
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
-        
+
         # Use $pull operations.
         delete_wishlist_by_id(user_id, furniture_id)
 
@@ -229,7 +229,7 @@ class clearHistory(Resource):
 
         # Get the user object
         user = find_user_by_id(user_id)
-        
+
         # Use $pull operations.
         clear_history(user_id, user['history'])
 
@@ -243,17 +243,18 @@ class clearHistory(Resource):
 # TODO: forget passwords
 
 
-class ForgetPassword(Resource):
-    '''
-    user will send a email, and this api will check if the email is exist
-    in database, and send an email that include a link to
-    change the password
-    '''
+# class ForgetPassword(Resource):
+#     '''
+#     user will send a email, and this api will check if the email is exist
+#     in database, and send an email that include a link to
+#     change the password
+#     '''
+#
+#     def get(self):
+#         parser = reqparse.RequestParser()
+#         parser.add_argument('email', type=str)
+#         args = parser.parse_args()
 
-    def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', type=str)
-        args = parser.parse_args()
 
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
@@ -264,4 +265,4 @@ api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
 api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')
-api.add_resource(ForgetPassword, '/reset_password')
+# api.add_resource(ForgetPassword, '/reset_password')

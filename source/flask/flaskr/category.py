@@ -1,5 +1,5 @@
 from flaskr.model.category_model import (
-    get_category_collection, get_category_by_catname, find_category_by_id
+    get_category_by_catname
 )
 from flaskr.helper.subcategory import init_category
 
@@ -11,12 +11,10 @@ from flaskr.model.furniture_model import (
 from flask_restful import Api, Resource
 
 from flask import (
-    Blueprint, request, jsonify, current_app
+    Blueprint, request, jsonify
 )
-
 from flaskr import auth
-from bson.json_util import dumps
-import json
+
 
 bp = Blueprint('category', __name__, url_prefix='/category')
 api = Api(bp)
@@ -97,7 +95,7 @@ class InitCategory(Resource):
             "msg": "updated category of the furniture"
         })
 
+
 api.add_resource(Category, '/<string:category_name>')
 api.add_resource(ChangeCategory, '/change_category')
 api.add_resource(InitCategory, '/init')
-
