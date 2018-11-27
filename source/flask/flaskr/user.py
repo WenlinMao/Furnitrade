@@ -176,16 +176,16 @@ class getWishList(Resource):
 
         # step 1: check if wishlist is empty
         wishlist = user['wishlist']
-        if len(wishlist) == 0: 
+        if len(wishlist) == 0:
             return jsonify({
-            "status": 613,
-            "msg": "Empty wishlist"
-        })
+                "status": 613,
+                "msg": "Empty wishlist"
+            })
 
         # step 2: query all furniture_ids to get details
         furnitures_json = {}
         for furniture_id in wishlist:
-            
+
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
@@ -194,7 +194,7 @@ class getWishList(Resource):
                     "status": 614,
                     "msg": "furniture no longer available"
                 })
-            
+
             product_name = furniture['furniture_name']
             category = furniture['category']
             #images = furniture['images']
@@ -202,14 +202,14 @@ class getWishList(Resource):
             price = furniture['price']
             #location = furniture['location']
             description = furniture['description']
-            
+
             furnitures_json[furniture_id] = {
                 'furniture_name': product_name,
                 'category': category,
-                #'images': images,
-                #'is_delivery_included': is_delivery_included,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
                 'price': price,
-                #'location': location,
+                # 'location': location,
                 'description': description
             }
 
@@ -234,7 +234,7 @@ class deleteWishList(Resource):
                 "status": 615,
                 "msg": "Invalid user_id or furniture_id"
             })
-        
+
         # Use $pull operations.
         delete_wishlist_by_id(user_id, furniture_id)
 
@@ -252,19 +252,19 @@ class getHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        
+
         # step 1: check if history is empty
         history = user['history']
-        if len(history) == 0: 
+        if len(history) == 0:
             return jsonify({
-            "status": 613,
-            "msg": "Empty history"
-        })
+                "status": 613,
+                "msg": "Empty history"
+            })
 
         # step 2: query all furniture_ids to get details
         furnitures_json = {}
         for furniture_id in history:
-            
+
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
@@ -273,7 +273,7 @@ class getHistory(Resource):
                     "status": 614,
                     "msg": "furniture no longer available"
                 })
-            
+
             product_name = furniture['furniture_name']
             category = furniture['category']
             #images = furniture['images']
@@ -281,14 +281,14 @@ class getHistory(Resource):
             price = furniture['price']
             #location = furniture['location']
             description = furniture['description']
-            
+
             furnitures_json[furniture_id] = {
                 'furniture_name': product_name,
                 'category': category,
-                #'images': images,
-                #'is_delivery_included': is_delivery_included,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
                 'price': price,
-                #'location': location,
+                # 'location': location,
                 'description': description
             }
 
@@ -308,7 +308,7 @@ class clearHistory(Resource):
 
         # Get the user object
         user = find_user_by_id(user_id)
-        
+
         # Use $pull operations.
         clear_history(user_id, user['history'])
 
@@ -333,6 +333,7 @@ class ForgetPassword(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('email', type=str)
         args = parser.parse_args()
+
 
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
