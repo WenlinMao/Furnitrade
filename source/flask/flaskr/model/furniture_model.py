@@ -20,6 +20,7 @@ def update_furniture_by_id(furniture_id, update, upsert=False):
         {'_id': ObjectId(furniture_id)}, {"$set": update}
     )
 
+
 def add_furniture(input):
     """
     :type input: document
@@ -27,6 +28,7 @@ def add_furniture(input):
     """
     furnitures = get_furniture_collection()
     return furnitures.insert_one(input)
+
 
 def find_furniture_by_id(furniture_id):
     furnitures = get_furniture_collection()
@@ -53,10 +55,10 @@ def find_furniture_by_info(info):
     return str(furniture.get('_id'))
 
 
-def add_furniture(input):
-    """
-    :type input: document
-    :rtype: InsertOneResult object
-    """
-    furnitures = get_furniture_collection()
-    return furnitures.insert_one(input)
+# def add_furniture(input):
+#     """
+#     :type input: document
+#     :rtype: InsertOneResult object
+#     """
+#     furnitures = get_furniture_collection()
+#     return furnitures.insert_one(input)
