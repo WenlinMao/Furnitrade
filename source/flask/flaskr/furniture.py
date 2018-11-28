@@ -17,12 +17,18 @@ from flaskr.model.furniture_model import (
 
 from flaskr.model.category_model import (
     get_category_by_catname, get_category_collection,
-    update_category_by_id
+    update_category_by_id, update_category_by_catname,
+    change_category
 )
 
 from flaskr.model.user_model import (
     add_wishlist_by_id, add_history_by_id
 )
+
+from flaskr.helper.subcategory import (
+    validate_category_name
+)
+
 from bson import ObjectId
 
 
@@ -99,7 +105,19 @@ class Post(Resource):
 
             '''你确定这个管用吗？我测试的貌似不管用'''
             furniture_id = furniture.inserted_id
-            update_category_by_id(category['_id'], furniture_id)
+            
+            # Here category doesn't have id. 
+            # Fixed to include fid as list in category By Mao.
+            
+            # validation of category name
+            if not validate_category_name(category):
+                return jsonify({
+                    "status": 617,
+                    "msg": "Invalid/Non-Existent Category name"
+                })
+                
+            # TODO: unfound category can also be inserted.
+            update_category_by_catname(category, furniture_id)
 
             retJson = {
                 "status": 200,
@@ -148,25 +166,29 @@ class Update(Resource):
         product_name = posted_data['furniture_name']
         '''TODO: Category collection should be updated '''
         category = posted_data['category']
-        images = posted_data['images']
-        is_delivery_included = posted_data['is_delivery_included']
+        #images = posted_data['images']
+        #is_delivery_included = posted_data['is_delivery_included']
         price = posted_data['price']
-        location = posted_data['location']
+        #location = posted_data['location']
         description = posted_data['description']
-
-        # TODO: perform validation on new data
 
         # Get current furniture id.
         furniture_id = posted_data['furniture_id']
+        
+        # TODO: Change category here when updated.
+        old_furniture = find_furniture_by_id(furniture_id)
+        # Check if category has been changed
+        if category != old_furniture['category']:
+            change_category(old_furniture['category'], category, str(furniture_id))
 
         # Update furniture by its id
         update_furniture_by_id(furniture_id, {
             "furniture_name": product_name,
             "category": category,
-            "images": images,
-            "is_delivery_included": is_delivery_included,
+            #"images": images,
+            #"is_delivery_included": is_delivery_included,
             "price": price,
-            "location": location,
+            #"location": location,
             "description": description
         })
 
@@ -228,7 +250,7 @@ class AddWishList(Resource):
         # Get user id and furniture_id from get request's param
         user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
-
+        
         # Validation of object id
         if not ObjectId.is_valid(furniture_id) or \
                 find_furniture_by_id(furniture_id) is None:
@@ -302,7 +324,7 @@ class ChangeFurnitureImg(Resource):
 
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
-api.add_resource(Update, '/update/<string:furniture_id>')
+api.add_resource(Update, '/update')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wishlist')
 api.add_resource(AddHistory, '/add_history')
