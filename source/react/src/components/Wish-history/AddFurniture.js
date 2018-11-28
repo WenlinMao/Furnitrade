@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
-import './MyFurniture.css';
 import './AddFurniture.css';
 
 import PropTypes from 'prop-types';
