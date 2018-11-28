@@ -26,3 +26,12 @@ def add_contact_form(input):
     """
     contact_forms = get_contact_form_collection()
     return contact_forms.insert_one(input)
+
+
+def group_by_seller_id(user_id, limit=5):
+    """
+    :type input: ObjectId, limit: int
+    :rtype: Cursor object that is
+    """
+    contact_forms = get_contact_form_collection()
+    return contact_forms.find({"seller": str(user_id)}).limit(limit)

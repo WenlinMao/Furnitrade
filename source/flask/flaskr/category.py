@@ -1,12 +1,24 @@
 from flaskr.model.category_model import (
-    get_category_collection, get_category_by_catname
+    get_category_by_catname, get_category_collection
+)
+from flaskr.helper.subcategory import (
+    init_category, delete_categories
+)
+
+
+from flaskr.model.furniture_model import (
+    find_furniture_by_id
 )
 
 from flask_restful import Api, Resource
 
 from flask import (
-    Blueprint, request, jsonify, current_app
+    Blueprint, request, jsonify
 )
+from flaskr import auth
+import json
+from bson.json_util import dumps
+
 
 bp = Blueprint('category', __name__, url_prefix='/category')
 api = Api(bp)
@@ -15,31 +27,81 @@ api = Api(bp)
 class Category(Resource):
     # takes a category name and find all furniture_id that belong to
     # this category, set return number by once
-    def get(self, category_name):
-        pass
+    def get(self):
+        category_name = request.args.get('category_name')
 
-class ChangeCategory(Resource):
-    # Take a furniture_id and an original and a new category name
-    # Delete fid from original and add to new category
-    def post(self):
-        # get posted data
-        posted_data = request.get_json()
-        original_catname = posted_data['original_catname']
-        new_catname = posted_data['new_catname']
-        furniture_id = posted_data["furniture_id"]
+        category = get_category_by_catname(category_name)
+        if category is None:
+            return jsonify({
+                "status": 321,
+                "msg": "Can not find the category"
+            })
+        size = category.included_listing.length
+        if size < 10:
+            count = size
+        else:
+            count = 10
 
-        # TODO: figure out what categories do
-        # Swicth the furniture's category
-        old_cat = get_category_by_catname(original_catname)
-        old_cat.delete_one({'furniture_id': furniture_id})
-        new_cat = get_category_by_catname(new_catname)
-        new_cat.insert_one({'category_name': new_catname,
-                            'furniture_id': furniture_id})
+        result = []
+        for x in range(count):
+            '''category['included_listing'].x 这玩意是啥??'''
+            furniture = find_furniture_by_id(category['included_listing'].x)
+            if furniture is None:
+                return jsonify({
+                    "status": 319,
+                    "msg": "Can not find the furniture"
+                })
+
+            product_name = furniture['furniture_name']
+            product_image = furniture['images']
+            product_price = furniture['price']
+            retJson = {
+                "status": 200,
+                "msg": "Get furniture detail succeeded",
+                'furniture_name': product_name,
+                'product_image': product_image,
+                'price': product_price,
+            }
+            result.append(jsonify(retJson))
+
+        return result
+
+
+class InitCategory(Resource):
+    """
+    Add furniture ids as a list in categories, instead of 
+    a single field. By Mao.
+    """
+    def get(self):
+        init_category()
+
         return jsonify({
             "status": 200,
-            "msg": "updated category of the furniture"
+            "msg": "Initialized category collection"
         })
 
+class DeleteCategories(Resource):
+    """
+    Helper method to delete old wrong categories collection
+    """
+    def get(self):
+        delete_categories()
+        return jsonify({
+            "status": 1000,
+            "msg": "Deleted old categories"
+        })
+class List(Resource):
+    """
+    Helper method to list all categories in the database
+    """
+    def get(self):
+        categories = get_category_collection()
+        col_results = json.loads(dumps(categories.find()))
+        return jsonify(col_results)
 
-api.add_resource(Category, '/<string:category_name>')
+
+api.add_resource(Category, '/')
 api.add_resource(ChangeCategory, '/change_category')
+api.add_resource(InitCategory, '/init')
+api.add_resource(DeleteCategories, '/delete_categories')
+api.add_resource(List, '/list')
