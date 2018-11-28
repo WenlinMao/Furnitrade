@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
-import './MyFurniture.css';
 import './AddFurniture.css';
 
 import PropTypes from 'prop-types';
@@ -11,13 +10,10 @@ import axios from 'axios';
 import {setLocal, getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 // import '../uploadImg/UploadImg'
 import categories from '../../static/data/category.json';
 
-
+var subs = null;
 
 class Add extends Component{
   constructor(props) {
@@ -55,6 +51,22 @@ class Add extends Component{
 
     handleCategoryInput = name => event =>{
       this.setState({category:event.target.value});
+    }
+
+    /* render subcategories */
+    renderSubcategoryInput = () => {
+      /* get all subcategories */
+      var subs = categories.categories.map(category => (
+        category.title === this.state.category ?
+        category.subcategories.sub.map(sub => sub.list ) :null));
+
+      /* remove all null subcategories */
+      for( var i = 0; i < subs.length; i++){ 
+        if ( subs[i] === null) { subs.splice(i, 1); i--;}
+      }
+
+      /* return the subcategory of category in the state */
+      return subs
     }
 
     handleDescriptionInput = name => event => {
@@ -198,20 +210,13 @@ class Add extends Component{
                     ))}
                   </select>
 
+                  {/* Now we have category stored in category, extract the corresponding subcategories */}
+                  <select>
+                    {subs = this.renderSubcategoryInput()}
+                    {subs.map(sub => <option>{sub}</option>)}
+                  </select>
 
-                  {categories.categories.map(category => (
 
-                    <select
-                      value={this.state.category}
-                      onChange={this.handleCategoryInput('category')}
-                      >
-
-                      {category.title == this.state.category ?
-                        category.subcategories.sub.map(sub =>
-                            <option value={sub.list}>{sub.list}</option>
-                        ) :null}
-                    </select>
-                  ))}
                 {/* end of DIVs */}
                 </div>
 
