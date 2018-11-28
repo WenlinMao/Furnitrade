@@ -4,7 +4,12 @@ Additional Dependencies Please Add Here
 """
 from flaskr import auth
 from flaskr.model.user_model import (
-    update_user_by_id, delete_user_by_username
+    update_user_by_id, delete_user_by_username,
+    delete_wishlist_by_id, clear_history,
+    find_user_by_id
+)
+from flaskr.model.furniture_model import (
+    find_furniture_by_id
 )
 
 from flask import (
@@ -12,6 +17,8 @@ from flask import (
 )
 from flask_restful import Api, Resource, reqparse
 from flaskr import mail
+
+from bson import ObjectId
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -161,16 +168,53 @@ class ChangePassword(Resource):
 class getWishList(Resource):
     '''
     get wishlist based on user_id
-    Simply return the jsonified wishlist
+    query all furniture_ids in wishlist to get details
+    return jsonified details
     '''
     @auth.login_required
     def get(self, user):
+
+        # step 1: check if wishlist is empty
         wishlist = user['wishlist']
-        return jsonify({
-            "status": 200,
-            "msg": "wishlsit get from user",
-            "wishlist": wishlist
-        })
+        if len(wishlist) == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty wishlist"
+            })
+
+        # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in wishlist:
+
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if not ObjectId.is_valid(furniture_id) or furniture is None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            # images = furniture['images']
+            # is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            # location = furniture['location']
+            description = furniture['description']
+
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
+                'price': price,
+                # 'location': location,
+                'description': description
+            }
+
+        # step 3: return json representation of furnitures
+        return jsonify(furnitures_json)
 
 
 class deleteWishList(Resource):
@@ -178,11 +222,25 @@ class deleteWishList(Resource):
     delete a furniture id from the wish list
     '''
     @auth.login_required
-    def get(self, user, furniture_id):
-        wishlist = user['wishlist']
-        temp = wishlist.split(furniture_id)
-        wishlist = ''.join(temp)
-        user.update_wishlist_by_id(user['user_id'], wishlist)
+    def get(self, user):
+
+        # get user id and furniture id from param
+        user_id = user['_id']
+        furniture_id = request.args.get('furniture_id')
+
+        # Validation of object id
+        if not ObjectId.is_valid(furniture_id) or \
+                find_furniture_by_id(furniture_id) is None:
+            return jsonify({
+                "status": 615,
+                "msg": "Invalid furniture_id"
+            })
+
+        # Use $pull operations.
+        delete_wishlist_by_id(user_id, furniture_id)
+
+        # TODO: catch and report error returned by delete.
+
         return jsonify({
             "status": 200,
             "msg": "Furniture deleted from wishlist"
@@ -195,25 +253,72 @@ class getHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
+
+        # step 1: check if history is empty
         history = user['history']
+        if len(history) == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty history"
+            })
+
+        # step 2: query all furniture_ids to get details
+        furnitures_json = {}
+        for furniture_id in history:
+
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if not ObjectId.is_valid(furniture_id) or furniture is None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            # images = furniture['images']
+            # is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            # location = furniture['location']
+            description = furniture['description']
+
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
+                'price': price,
+                # 'location': location,
+                'description': description
+            }
+
+        # step 3: return json representation of furnitures
+        return jsonify(furnitures_json)
+
+
+class clearHistory(Resource):
+    '''
+    delete a furniture id from the wish list
+    '''
+    @auth.login_required
+    def get(self, user):
+
+        # get user id and furniture id from param
+        user_id = user['_id']
+
+        # # Get the user object
+        # user = find_user_by_id(user_id)
+
+        # Use $pull operations.
+        clear_history(user['_id'], user['history'])
+
+        # TODO: catch and report error returned by delete.
+
         return jsonify({
             "status": 200,
-            "msg": "history successfully loaded",
-            "history": history
+            "msg": "History has been cleared"
         })
-
-
-class ForgetPassword(Resource):
-    '''
-    user will send a email, and this api will check if the email is exist
-    in database, and send an email that include a link to
-    change the password
-    '''
-
-    def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', type=str)
-        args = parser.parse_args()
 
 
 api.add_resource(Delete, '/delete/<string:username>')
@@ -221,6 +326,7 @@ api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
 api.add_resource(ChangePassword, '/change_password')
 api.add_resource(getWishList, '/get_wishlist')
+api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
+api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')
-api.add_resource(ForgetPassword, '/reset_password')
