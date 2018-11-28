@@ -2,11 +2,11 @@
 {
   display: grid;
   flex-flow: column;
-  width:50%;
+  width:75%;
 }
 
 .dialog a {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 15px;
   line-height: 1.5;
   cursor: pointer;
@@ -17,6 +17,7 @@
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-gap: 10px;
+  justify-items:start;
 }
 
 .buttons button {

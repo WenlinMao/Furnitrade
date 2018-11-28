@@ -10,7 +10,7 @@ import axios from 'axios';
 import {getLocal} from '../../utils/util';
 import Dropzone from 'react-dropzone';
 import {UploadImg} from '../uploadImg/UploadImg'
-
+import FormHelperText from '@material-ui/core/FormHelperText';
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 
@@ -191,6 +191,10 @@ class ProfilePage extends Component {
         console.log(response.data);
         let code = response.data.status;
         if (code === 200) {
+          this.setState({
+            emailError:false,
+            nameError:false,
+          });
 
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
@@ -256,32 +260,46 @@ class ProfilePage extends Component {
                               onUploadImg={this.handleUploadImg}
                               /></button>
                 </div>
-                <TextField
-
-                    label="Username"
-                    defaultValue={this.state.username}
-                    className="standard-read-only-input"
-                    // margin="normal"
-                    InputProps={{
-                        readOnly: this.state.readOnly,
-                    }}
-                    error={this.state.nameError}
-                    variant="filled"
-                    value={this.state.username}
-                    onChange={this.handleNameInput('name')}
-                />
-                <TextField
-
-                      label="E-mail"
-                      defaultValue={this.state.email}
+                <div className="textfield">
+                  <TextField
+                      label="Username"
+                      defaultValue={this.state.username}
                       className="standard-read-only-input"
-                      margin="normal"
-                      InputProps={{readOnly: this.state.readOnly,}}
-                      error={this.state.emailError}
+                      // margin="normal"
+                      InputProps={{ readOnly: this.state.readOnly, }}
+                      error={this.state.nameError}
                       variant="filled"
-                      value={this.state.email}
-                      onChange={this.handleEmailInput('email')}
-                />
+                      value={this.state.username}
+                      onChange={this.handleNameInput('name')}
+                  />
+                </div>
+                {
+                    this.state.nameError && this.state.errorMsg !== ""
+                    ?
+                    <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                    :
+                    <div></div>
+                }
+                <div className="textfield">
+                  <TextField
+                        label="E-mail"
+                        defaultValue={this.state.email}
+                        className="standard-read-only-input"
+                        //margin="normal"
+                        InputProps={{readOnly: this.state.readOnly,}}
+                        error={this.state.emailError}
+                        variant="filled"
+                        value={this.state.email}
+                        onChange={this.handleEmailInput('email')}
+                  />
+                </div>
+                {
+                    this.state.emailError && this.state.errorMsg !== ""
+                    ?
+                    <FormHelperText error={true}>{this.state.errorMsg}</FormHelperText>
+                    :
+                    <div></div>
+                }
               </div>
 
               {/* right hand side of user info - address */}
@@ -293,6 +311,7 @@ class ProfilePage extends Component {
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   variant="filled"/>
+
                 <TextField
                   label="University"
                   defaultValue={this.state.university}
@@ -300,6 +319,7 @@ class ProfilePage extends Component {
                   margin="normal"
                   InputProps={{readOnly: this.state.readOnly,}}
                   variant="filled"/>
+
                 <TextField
                   label="Address"
                   floatingLabelFixed={true}
@@ -310,15 +330,11 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
-                  <UploadImg resource_type="user"
-                    name={this.state.username}
-                    onUploadImg={this.handleUploadImg}
-                    />
+                {/* Reset password */}
+                <Dialog />
 
                 {/* Save/ Edit button */}
                 {button}
-              {/* Reset password */}
-              <Dialog />
               </div>
 
             </div>
