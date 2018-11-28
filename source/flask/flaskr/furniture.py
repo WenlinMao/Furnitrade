@@ -251,7 +251,7 @@ class AddWishList(Resource):
         # Get user id and furniture_id from get request's param
         user_id = request.args.get('user_id')
         furniture_id = request.args.get('furniture_id')
-
+        
         # Validation of object id
         if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
             return jsonify({
