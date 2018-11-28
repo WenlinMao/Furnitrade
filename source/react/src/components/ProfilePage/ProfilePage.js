@@ -253,10 +253,13 @@ class ProfilePage extends Component {
 
                 <div className="pic">
                   <img src={this.state.img_pathes[0]} alt="user info pic" />
-                  <button><UploadImg resource_type="user"
-                              name={this.state.username}
-                              onUploadImg={this.handleUploadImg}
-                              /></button>
+                  <button>
+                    <UploadImg 
+                      resource_type="user"
+                      name={this.state.username}
+                      onUploadImg={this.handleUploadImg}
+                    />
+                  </button>
                 </div>
                 <div className="textfield">
                   <TextField
@@ -264,9 +267,7 @@ class ProfilePage extends Component {
                       defaultValue={this.state.username}
                       className="standard-read-only-input"
                       // margin="normal"
-                      InputProps={{
-                          readOnly: this.state.readOnly,
-                      }}
+                      InputProps={{ readOnly: this.state.readOnly, }}
                       error={this.state.nameError}
                       variant="filled"
                       value={this.state.username}
@@ -330,10 +331,6 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
-                  <UploadImg resource_type="user"
-                    name={this.state.username}
-                    onUploadImg={this.handleUploadImg}
-                    />
                 {/* Reset password */}
                 <Dialog />
 
