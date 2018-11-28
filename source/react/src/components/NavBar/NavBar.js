@@ -6,8 +6,6 @@ import logo from '../../static/images/logo_v1.svg';
 import {getLocal} from '../../utils/util';
 import { Redirect } from 'react-router-dom';
 
-const Profile = props => <Link to="./profile" {...props} />
-
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -105,8 +103,6 @@ class NavBar extends React.Component {
               redirectToHome={this.redirectToHome}
               redirectToLogin={this.redirectToLogin}
               logout={this.logout}
-              buttonName="Profile"
-              passLink={Profile}
             >
             </NavigationDrawer></div>
           }
