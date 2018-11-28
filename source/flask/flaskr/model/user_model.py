@@ -97,7 +97,7 @@ def add_wishlist_by_id(user_id, furniture_id, upsert=False):
     Here addToSet already handles duplicates.
     """
     users = get_users_collection()
-    return users.update_one({'_id': ObjectId(user_id)},
+    return users.update_one({'_id': user_id},
                             {"$addToSet": {'wishlist': furniture_id}})
 
 
@@ -114,7 +114,7 @@ def delete_wishlist_by_id(user_id, furniture_id, delete_all=False,
     else:
         ops = "$pullAll"
 
-    return users.update_one({'_id': ObjectId(user_id)},
+    return users.update_one({'_id': user_id},
                             {ops: {'wishlist': furniture_id}})
 
 
@@ -124,7 +124,7 @@ def add_history_by_id(user_id, furniture_id, upsert=False):
     :rtype: UpdateResult object
     """
     users = get_users_collection()
-    return users.update_one({'_id': ObjectId(user_id)},
+    return users.update_one({'_id': user_id},
                             {"$addToSet": {'history': furniture_id}})
 
 
@@ -136,5 +136,5 @@ def clear_history(user_id, history, upsert=False):
     """
     users = get_users_collection()
 
-    return users.update_one({'_id': ObjectId(user_id)},
+    return users.update_one({'_id': user_id},
                             {"$pullAll": {'history': history}})

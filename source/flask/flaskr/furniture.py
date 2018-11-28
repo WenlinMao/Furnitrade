@@ -43,8 +43,6 @@ api = Api(bp)
 class Post(Resource):
     @auth.login_required
     def post(self, user):
-        #furnitures = get_furniture_collection()
-        #categories = get_category_collection()
 
         postedData = request.get_json()
 
@@ -104,7 +102,8 @@ class Post(Resource):
             }
 
             furniture = add_furniture(toInsert)
-            
+
+            '''你确定这个管用吗？我测试的貌似不管用'''
             furniture_id = furniture.inserted_id
             
             # Here category doesn't have id. 
@@ -249,11 +248,12 @@ class AddWishList(Resource):
     @auth.login_required
     def get(self, user):
         # Get user id and furniture_id from get request's param
-        user_id = request.args.get('user_id')
+        user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
         
         # Validation of object id
-        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+        if not ObjectId.is_valid(furniture_id) or \
+                find_furniture_by_id(furniture_id) is None:
             return jsonify({
                 "status": 615,
                 "msg": "Invalid user_id or furniture_id"
@@ -275,13 +275,14 @@ class AddHistory(Resource):
     '''
     @auth.login_required
     def get(self, user):
-        
+
         # Get user id and furniture_id from get request's param
-        user_id = request.args.get('user_id')
+        user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
 
         # Validation of object id
-        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+        if not ObjectId.is_valid(furniture_id) or \
+                find_furniture_by_id(furniture_id) is None:
             return jsonify({
                 "status": 615,
                 "msg": "Invalid user_id or furniture_id"
@@ -327,5 +328,5 @@ api.add_resource(Update, '/update')
 api.add_resource(Detail, '/detail/<string:furniture_id>')
 api.add_resource(AddWishList, '/add_wishlist')
 api.add_resource(AddHistory, '/add_history')
-api.add_resource(List,'/list')
+api.add_resource(List, '/list')
 api.add_resource(ChangeFurnitureImg, '/change_img')
