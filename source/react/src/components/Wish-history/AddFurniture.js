@@ -198,7 +198,7 @@ class Add extends Component{
                       onChange={this.handleCategoryInput('category')}
                       >
                       
-                      {category.title == this.state.category ?
+                      {category.title === this.state.category ?
                         category.subcategories.sub.map(sub =>
                             <option value={sub.list}>{sub.list}</option>
                         ) :null}

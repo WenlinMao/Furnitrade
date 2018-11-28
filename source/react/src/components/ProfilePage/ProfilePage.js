@@ -93,6 +93,7 @@ class ProfilePage extends Component {
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
+        nameError: false,
       });
     } else {
       this.setState({
@@ -102,16 +103,15 @@ class ProfilePage extends Component {
   }
 
   handleEmailInput = email => event => {
-    let originEmail = this.state.email;
     this.setState({email: event.target.email});
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
+        emailError: false,
       });
     } else {
       this.setState({
         emailError: true,
-        _email: originEmail,
       });
     }
   }
