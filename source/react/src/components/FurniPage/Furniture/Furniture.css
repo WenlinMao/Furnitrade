@@ -58,5 +58,24 @@
   transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
 }
 
-.each-fade {
+@media (max-width: 640px) {
+  .each-fade {
+    width: 400px;
+    height: 280px;
+  }
+
+  .each-fade h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 440px) {
+  .each-fade {
+    width: 250px;
+    height: 175px;
+  }
+
+  .each-fade h2 {
+    font-size: 15px;
+  }
 }

@@ -20,6 +20,7 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       img_pathes:[],
+      picture: "",
       username: '',
       email: '',
       city:'San Diego',
@@ -31,6 +32,7 @@ class ProfilePage extends Component {
       nameError: false,
       hasLogin: false
     };
+    this.child = React.createRef();
 
   }
   componentWillMount() {
@@ -70,7 +72,8 @@ class ProfilePage extends Component {
             email: response.data.email,
             address: response.data.address,
             user_id: response.data.user_id,
-            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/" + response.data.profile,
+            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                      + response.data.profile,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -91,6 +94,7 @@ class ProfilePage extends Component {
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
+        nameError: false,
       });
     } else {
       this.setState({
@@ -104,10 +108,11 @@ class ProfilePage extends Component {
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
+        emailError: false,
       });
     } else {
       this.setState({
-        emailError: true
+        emailError: true,
       });
     }
   }
@@ -193,6 +198,12 @@ class ProfilePage extends Component {
             emailError:false,
             nameError:false,
           });
+          // get token for userid
+          var token = getLocal("usertoken")
+          var jwt_decode = require('jwt-decode');
+          var decoded = jwt_decode(token);
+          console.log(decoded)
+          this.child.current.beginUpload(decoded.user_id);
 
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
@@ -252,10 +263,11 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={this.state.img_pathes[0]} alt="user info pic" />
+                  <img src={this.state.picture} alt="user info pic" />
                   <button><UploadImg resource_type="user"
                               name={this.state.username}
                               onUploadImg={this.handleUploadImg}
+                              ref={this.child}
                               /></button>
                 </div>
                 <div className="textfield">
@@ -264,9 +276,7 @@ class ProfilePage extends Component {
                       defaultValue={this.state.username}
                       className="standard-read-only-input"
                       // margin="normal"
-                      InputProps={{
-                          readOnly: this.state.readOnly,
-                      }}
+                      InputProps={{ readOnly: this.state.readOnly, }}
                       error={this.state.nameError}
                       variant="filled"
                       value={this.state.username}
@@ -330,15 +340,11 @@ class ProfilePage extends Component {
                   variant="filled"
                   value={this.state.address}
                   onChange={this.handleAddressInput('address')}/>
-                  <UploadImg resource_type="user"
-                    name={this.state.username}
-                    onUploadImg={this.handleUploadImg}
-                    />
+                {/* Reset password */}
+                <Dialog />
 
                 {/* Save/ Edit button */}
                 {button}
-              {/* Reset password */}
-              <Dialog />
               </div>
 
             </div>
