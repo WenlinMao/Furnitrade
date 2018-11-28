@@ -100,6 +100,7 @@ class ProfilePage extends Component {
   }
 
   handleEmailInput = email => event => {
+    let originEmail = this.state.email;
     this.setState({email: event.target.email});
     if (event.target.value.match(emailRegex)) {
       this.setState({
@@ -107,7 +108,8 @@ class ProfilePage extends Component {
       });
     } else {
       this.setState({
-        emailError: true
+        emailError: true,
+        _email: originEmail,
       });
     }
   }
