@@ -20,6 +20,7 @@ class ProfilePage extends Component {
     super(props);
     this.state = {
       img_pathes:[],
+      picture: "",
       username: '',
       email: '',
       city:'San Diego',
@@ -31,6 +32,7 @@ class ProfilePage extends Component {
       nameError: false,
       hasLogin: false
     };
+    this.child = React.createRef();
 
   }
   componentWillMount() {
@@ -70,7 +72,8 @@ class ProfilePage extends Component {
             email: response.data.email,
             address: response.data.address,
             user_id: response.data.user_id,
-            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/" + response.data.profile,
+            picture: "https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                      + response.data.profile,
             // university: response.data.univeristy,
             // password: response.data.password
           });
@@ -193,6 +196,12 @@ class ProfilePage extends Component {
             emailError:false,
             nameError:false,
           });
+          // get token for userid
+          var token = getLocal("usertoken")
+          var jwt_decode = require('jwt-decode');
+          var decoded = jwt_decode(token);
+          console.log(decoded)
+          this.child.current.beginUpload(decoded.user_id);
 
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
@@ -252,14 +261,12 @@ class ProfilePage extends Component {
               <div className="info-lhs">
 
                 <div className="pic">
-                  <img src={this.state.img_pathes[0]} alt="user info pic" />
-                  <button>
-                    <UploadImg 
-                      resource_type="user"
-                      name={this.state.username}
-                      onUploadImg={this.handleUploadImg}
-                    />
-                  </button>
+                  <img src={this.state.picture} alt="user info pic" />
+                  <button><UploadImg resource_type="user"
+                              name={this.state.username}
+                              onUploadImg={this.handleUploadImg}
+                              ref={this.child}
+                              /></button>
                 </div>
                 <div className="textfield">
                   <TextField
