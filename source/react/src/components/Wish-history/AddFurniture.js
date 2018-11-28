@@ -13,7 +13,6 @@ import {UploadImg} from '../uploadImg/UploadImg';
 // import '../uploadImg/UploadImg'
 import categories from '../../static/data/category.json';
 
-var subs = null;
 
 class Add extends Component{
   constructor(props) {
@@ -60,13 +59,39 @@ class Add extends Component{
         category.title === this.state.category ?
         category.subcategories.sub.map(sub => sub.list ) :null));
 
-      /* remove all null subcategories */
+      /* remove all null subcategories */ 
       for( var i = 0; i < subs.length; i++){ 
         if ( subs[i] === null) { subs.splice(i, 1); i--;}
       }
 
       /* return the subcategory of category in the state */
-      return subs
+      return subs;
+    }
+
+    renderSelect = () => {
+      var subcates = this.renderSubcategoryInput();
+      subcates.map((sub) => 
+      <div>
+        {sub.map(subsub =>   
+        console.log(subsub))}
+      </div>  
+      );
+        
+      return (
+        <div className="styled-select blue semi-square">
+          {
+            subcates.map((sub) => 
+              <select>
+                {
+                  sub.map(
+                    (subname => <option value={subname}>{subname}</option>)
+                  )
+                }
+              </select>
+            )
+          }
+        </div>
+      );
     }
 
     handleDescriptionInput = name => event => {
@@ -171,6 +196,10 @@ class Add extends Component{
       });
     }
 
+  newMethod() {
+    this.render();
+  }
+
     render(){
         const { classes } = this.props;
 
@@ -209,16 +238,11 @@ class Add extends Component{
                       <option key={category.title}>{category.title}</option>
                     ))}
                   </select>
-
-                  {/* Now we have category stored in category, extract the corresponding subcategories */}
-                  <select>
-                    {subs = this.renderSubcategoryInput()}
-                    {subs.map(sub => <option>{sub}</option>)}
-                  </select>
-
-
                 {/* end of DIVs */}
                 </div>
+                
+                {/* Now we have category stored in category, extract the corresponding subcategories */}
+                {this.renderSelect()}
 
                 <TextField
                   id="outlined-multiline-static"
