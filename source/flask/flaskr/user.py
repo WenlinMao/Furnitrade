@@ -189,7 +189,7 @@ class getWishList(Resource):
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
-            if furniture == None:
+            if not ObjectId.is_valid(furniture_id) or furniture is None:
                 return jsonify({
                     "status": 614,
                     "msg": "furniture no longer available"
@@ -197,10 +197,10 @@ class getWishList(Resource):
 
             product_name = furniture['furniture_name']
             category = furniture['category']
-            #images = furniture['images']
-            #is_delivery_included = furniture['is_delivery_included']
+            # images = furniture['images']
+            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            #location = furniture['location']
+            # location = furniture['location']
             description = furniture['description']
 
             furnitures_json[furniture_id] = {
@@ -229,12 +229,12 @@ class deleteWishList(Resource):
         furniture_id = request.args.get('furniture_id')
 
         # Validation of object id
-        if not ObjectId.is_valid(user_id) or not ObjectId.is_valid(furniture_id):
+        if not ObjectId.is_valid(furniture_id) or \
+                find_furniture_by_id(furniture_id) is None:
             return jsonify({
                 "status": 615,
-                "msg": "Invalid user_id or furniture_id"
+                "msg": "Invalid furniture_id"
             })
-
 
         # Use $pull operations.
         delete_wishlist_by_id(user_id, furniture_id)
@@ -269,7 +269,7 @@ class getHistory(Resource):
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
-            if furniture == None:
+            if not ObjectId.is_valid(furniture_id) or furniture is None:
                 return jsonify({
                     "status": 614,
                     "msg": "furniture no longer available"
@@ -277,10 +277,10 @@ class getHistory(Resource):
 
             product_name = furniture['furniture_name']
             category = furniture['category']
-            #images = furniture['images']
-            #is_delivery_included = furniture['is_delivery_included']
+            # images = furniture['images']
+            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            #location = furniture['location']
+            # location = furniture['location']
             description = furniture['description']
 
             furnitures_json[furniture_id] = {
@@ -307,11 +307,11 @@ class clearHistory(Resource):
         # get user id and furniture id from param
         user_id = user['_id']
 
-        # Get the user object
-        user = find_user_by_id(user_id)
+        # # Get the user object
+        # user = find_user_by_id(user_id)
 
         # Use $pull operations.
-        clear_history(user_id, user['history'])
+        clear_history(user['_id'], user['history'])
 
         # TODO: catch and report error returned by delete.
 
@@ -319,22 +319,6 @@ class clearHistory(Resource):
             "status": 200,
             "msg": "History has been cleared"
         })
-
-# TODO: forget passwords
-
-
-# class ForgetPassword(Resource):
-#     '''
-#     user will send a email, and this api will check if the email is exist
-#     in database, and send an email that include a link to
-#     change the password
-#     '''
-#
-#     def get(self):
-#         parser = reqparse.RequestParser()
-#         parser.add_argument('email', type=str)
-#         args = parser.parse_args()
-
 
 
 api.add_resource(Delete, '/delete/<string:username>')
@@ -346,4 +330,3 @@ api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
 api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')
-# api.add_resource(ForgetPassword, '/reset_password')

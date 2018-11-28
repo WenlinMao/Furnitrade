@@ -12,9 +12,11 @@ from flaskr.model.contact_form_model import (
 )
 from flaskr.model.furniture_model import find_furniture_by_id
 from flaskr.model.user_model import find_user_by_id
+from flaskr.model.contact_form_model import group_by_seller_id
 from flask_mail import Message
 from flaskr import mail
 from flaskr import auth
+from bson.json_util import dumps
 
 bp = Blueprint('contact_form', __name__, url_prefix='/contact_form')
 api = Api(bp)
@@ -127,6 +129,7 @@ class Detail(Resource):
         email = contact_form["buyer_email"]
         content = contact_form["content"]
         title = contact_form["title"]
+        buyer_id = contact_form["buyer"]
         furniture_id = contact_form["furniture"]
 
         retJson = {
@@ -136,6 +139,24 @@ class Detail(Resource):
             "title": title,
             "content": content,
             "furniture": furniture_id,
+            "buyer_id": buyer_id
+        }
+
+        return jsonify(retJson)
+
+
+class MyContactForm(Resource):
+    @auth.login_required
+    def get(self, user):
+        user_id = user['_id']
+        contact_forms = group_by_seller_id(user_id, 10)
+
+        contact_forms_list = dumps(contact_forms)
+
+        retJson = {
+            "status": 200,
+            "msg": "Get contact form succeded",
+            "contact_form_list": contact_forms_list,
         }
 
         return jsonify(retJson)
@@ -144,3 +165,4 @@ class Detail(Resource):
 api.add_resource(Contact, '/contact')
 api.add_resource(Delete, '/delete/<string:contact_form_id>')
 api.add_resource(Detail, '/detail/<string:contact_form_id>')
+api.add_resource(MyContactForm, '/')

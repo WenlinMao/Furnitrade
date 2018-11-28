@@ -23,9 +23,9 @@ api = Api(bp)
 class Category(Resource):
     # takes a category name and find all furniture_id that belong to
     # this category, set return number by once
-    @auth.login_required
-    def get(self, user, category_name):
-        # def get(self, user, category_id):
+    def get(self):
+        category_name = request.args.get('category_name')
+
         category = get_category_by_catname(category_name)
         if category is None:
             return jsonify({
@@ -96,6 +96,6 @@ class InitCategory(Resource):
         })
 
 
-api.add_resource(Category, '/<string:category_name>')
+api.add_resource(Category, '/')
 api.add_resource(ChangeCategory, '/change_category')
 api.add_resource(InitCategory, '/init')
