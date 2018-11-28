@@ -65,32 +65,12 @@ class Add extends Component{
       }
 
       /* return the subcategory of category in the state */
-      return subs;
-    }
-
-    renderSelect = () => {
-      var subcates = this.renderSubcategoryInput();
-      subcates.map((sub) => 
-      <div>
-        {sub.map(subsub =>   
-        console.log(subsub))}
-      </div>  
-      );
-        
       return (
-        <div className="styled-select blue semi-square">
-          {
-            subcates.map((sub) => 
-              <select>
-                {
-                  sub.map(
-                    (subname => <option value={subname}>{subname}</option>)
-                  )
-                }
-              </select>
-            )
-          }
-        </div>
+        <div className="styled-select blue semi-square">{subs.map((sub) => 
+          <select>{
+            sub.map((subcate => <option value={subcate}>{subcate}</option>)
+          )}</select>
+        )}</div>
       );
     }
 
@@ -242,7 +222,7 @@ class Add extends Component{
                 </div>
                 
                 {/* Now we have category stored in category, extract the corresponding subcategories */}
-                {this.renderSelect()}
+                {this.renderSubcategoryInput()}
 
                 <TextField
                   id="outlined-multiline-static"
