@@ -59,14 +59,14 @@ class Add extends Component{
         category.title === this.state.category ?
         category.subcategories.sub.map(sub => sub.list ) :null));
 
-      /* remove all null subcategories */ 
-      for( var i = 0; i < subs.length; i++){ 
+      /* remove all null subcategories */
+      for( var i = 0; i < subs.length; i++){
         if ( subs[i] === null) { subs.splice(i, 1); i--;}
       }
 
       /* return the subcategory of category in the state */
       return (
-        <div className="styled-select blue semi-square">{subs.map((sub) => 
+        <div className="styled-select blue semi-square">{subs.map((sub) =>
           <select>{
             sub.map((subcate => <option value={subcate}>{subcate}</option>)
           )}</select>
@@ -215,12 +215,12 @@ class Add extends Component{
                     onChange={this.handleCategoryInput('category')}
                     >
                     {categories.categories.map(category => (
-                      <option key={category.title}>{category.title}</option>
+                      <option value={category.title}>{category.title}</option>
                     ))}
                   </select>
                 {/* end of DIVs */}
                 </div>
-                
+
                 {/* Now we have category stored in category, extract the corresponding subcategories */}
                 {this.renderSubcategoryInput()}
 

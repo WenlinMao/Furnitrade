@@ -46,7 +46,7 @@
   border: none;
   font-size: 14px;
   height: 29px;
-  padding: 5px; 
+  padding: 5px;
 }
 
 .semi-square {
@@ -55,4 +55,5 @@
   border-radius: 5px;
 }
 .blue select { color: #fff; }
+.blue option {color:#000;}
 .blue { background-color: #3b8ec2; }
