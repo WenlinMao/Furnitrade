@@ -115,7 +115,7 @@
   grid-template-rows: repeat(5, auto);
   grid-gap: 15px;
   width: 400px;
-  z-index: 100;
+  z-index: 99;
 }
 
 
