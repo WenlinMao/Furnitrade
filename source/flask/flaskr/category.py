@@ -101,7 +101,6 @@ class List(Resource):
 
 
 api.add_resource(Category, '/')
-api.add_resource(ChangeCategory, '/change_category')
 api.add_resource(InitCategory, '/init')
 api.add_resource(DeleteCategories, '/delete_categories')
 api.add_resource(List, '/list')
