@@ -69,9 +69,10 @@ class Category(Resource):
 
 class InitCategory(Resource):
     """
-    Add furniture ids as a list in categories, instead of 
+    Add furniture ids as a list in categories, instead of
     a single field. By Mao.
     """
+
     def get(self):
         init_category()
 
@@ -80,20 +81,25 @@ class InitCategory(Resource):
             "msg": "Initialized category collection"
         })
 
+
 class DeleteCategories(Resource):
     """
     Helper method to delete old wrong categories collection
     """
+
     def get(self):
         delete_categories()
         return jsonify({
             "status": 1000,
             "msg": "Deleted old categories"
         })
+
+
 class List(Resource):
     """
     Helper method to list all categories in the database
     """
+
     def get(self):
         categories = get_category_collection()
         col_results = json.loads(dumps(categories.find()))

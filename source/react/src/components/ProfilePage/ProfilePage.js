@@ -32,6 +32,7 @@ class ProfilePage extends Component {
       nameError: false,
       hasLogin: false
     };
+    this.child = React.createRef();
 
   }
   componentWillMount() {
@@ -197,6 +198,12 @@ class ProfilePage extends Component {
             emailError:false,
             nameError:false,
           });
+          // get token for userid
+          var token = getLocal("usertoken")
+          var jwt_decode = require('jwt-decode');
+          var decoded = jwt_decode(token);
+          console.log(decoded)
+          this.child.current.beginUpload(decoded.user_id);
 
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
@@ -260,6 +267,7 @@ class ProfilePage extends Component {
                   <button><UploadImg resource_type="user"
                               name={this.state.username}
                               onUploadImg={this.handleUploadImg}
+                              ref={this.child}
                               /></button>
                 </div>
                 <div className="textfield">

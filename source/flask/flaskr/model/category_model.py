@@ -30,8 +30,9 @@ def update_category_by_id(category_id, furniture_id, upsert=False):
     :rtype: UpdateResult object
     """
     categories = get_category_collection()
-    return categories.update_one({'_id': ObjectId(category_id)}, \
-    {"$addToSet": {'furniture_id': furniture_id}})
+    return categories.update_one({'_id': ObjectId(category_id)},
+                                 {"$addToSet": {'furniture_id': furniture_id}})
+
 
 def update_category_by_catname(category_name, furniture_id, upsert=False):
     """
@@ -39,14 +40,15 @@ def update_category_by_catname(category_name, furniture_id, upsert=False):
     :rtype: updated category
     """
     categories = get_category_collection()
-    return categories.update_one({"category_name": category_name}, \
-    {"$addToSet": {'furniture_id': furniture_id}})
+    return categories.update_one({"category_name": category_name},
+                                 {"$addToSet": {'furniture_id': furniture_id}})
+
 
 def change_category(old_category, new_category, furniture_id):
     categories = get_category_collection()
-    
-    categories.update_one({"category_name": old_category}, \
-    {"$pull": {"furniture_id": furniture_id}})
 
-    return categories.update_one({"category_name": new_category}, \
-    {"$addToSet": {'furniture_id': furniture_id}})
+    categories.update_one({"category_name": old_category},
+                          {"$pull": {"furniture_id": furniture_id}})
+
+    return categories.update_one({"category_name": new_category},
+                                 {"$addToSet": {'furniture_id': furniture_id}})

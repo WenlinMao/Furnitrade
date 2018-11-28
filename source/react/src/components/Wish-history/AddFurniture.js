@@ -36,13 +36,14 @@ class Add extends Component{
           descriptionError: false,
           addressError: false,
           errorMsg: '',
+          furniture_id: '',
       };
       this.child = React.createRef();
   }
 
 
 
-    /* set Furniture Name */ 
+    /* set Furniture Name */
     handleFurnitureNameInput = name => event => {
       this.setState({furniture_name: event.target.value});
     }
@@ -69,19 +70,38 @@ class Add extends Component{
 
     }
 
+    handleBeforeUpload = (files) => {
+        this.setState({
+            filesToBeSent: files
+        });
+        console.log(this.state.filesToBeSent)
+    }
+
     // call back handle when uploadImg finished
     handleUploadImg = (img_pathes) => {
         console.log(img_pathes)
 
         // change image pathes in database after uploadImg to s3
         var token = getLocal("usertoken")
-        let config = {
-            headers: {"Authorization": `Bearer ${token}`},
-            params: { img_pathes: img_pathes},
-        }
-
-        /* LINK needs to be updated in the future - check returned code */
-        axios.get('http://127.0.0.1:5000/furniture/change_img', config)
+        let reqData = {
+            "img_pathes": img_pathes,
+            "furniture_id": this.state.furniture_id,
+        };
+        axios({
+            method: 'post',
+            url: 'http://127.0.0.1:5000/furniture/change_img',
+            // TODO: fix bug when change withCredentials to true
+            withCredentials: false,
+            crossdomain: true,
+            data: reqData,
+            responseType: 'json',
+            headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer ${token}`
+            }
+        })
         .then((response) => {
             let code = response.data.status;
             if (code === 200) { console.log(response);}
@@ -127,21 +147,9 @@ class Add extends Component{
           let code = response.data.status;
           if (code === 200) {
               // successfully register and login
-              // trigger for render user page or non-user page
-              setLocal("furniture_name", reqData.furniture_name);
-              // set user jwt token for later access
-              setLocal("usertoken", response.data.token);
-              console.log("localStorgae", getLocal("furniture_name"));
-              setLocal("price", reqData.price);
-              console.log("localStorgae", getLocal("price"));
-              setLocal("description", reqData.description);
-              console.log("localStorgae", getLocal("description"));
-              setLocal("address", reqData.address);
-              console.log("localStorgae", getLocal("address"));
-
-
               // start execute upload image process
-              this.child.current.beginUpload(response.data.furniture_id);
+              this.setState({"furniture_id": response.data.furniture_id})
+              this.child.current.beginUpload(this.state.furniture_id);
               // redirect to hompage
               this.props.history.push("/");
           }
@@ -197,8 +205,8 @@ class Add extends Component{
                       value={this.state.category}
                       onChange={this.handleCategoryInput('category')}
                       >
-                      
-                      {category.title === this.state.category ?
+
+                      {category.title == this.state.category ?
                         category.subcategories.sub.map(sub =>
                             <option value={sub.list}>{sub.list}</option>
                         ) :null}
@@ -234,7 +242,7 @@ class Add extends Component{
                   onUploadImg={this.handleUploadImg}
                   disabled={this.checkButtonStatus()}
                   ref={this.child}
-                  limit='5'
+                  limit={5}
                   />
                 <button type="submit"> Submit </button>
               </form>
