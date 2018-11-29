@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
 import axios from 'axios';
-import {setLocal, getLocal} from '../../utils/util';
+import {getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
 
 // import '../uploadImg/UploadImg'
