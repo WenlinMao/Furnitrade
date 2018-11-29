@@ -44,8 +44,7 @@ class Category(Resource):
 
         result = []
         for x in range(count):
-            '''category['included_listing'].x 这玩意是啥??'''
-            furniture = find_furniture_by_id(category['included_listing'].x)
+            furniture = find_furniture_by_id(category['included_listing'][x])
             if furniture is None:
                 return jsonify({
                     "status": 319,
@@ -55,6 +54,7 @@ class Category(Resource):
             product_name = furniture['furniture_name']
             product_image = furniture['images']
             product_price = furniture['price']
+	    product_id = furniture['furniture_id']
             retJson = {
                 "status": 200,
                 "msg": "Get furniture detail succeeded",
