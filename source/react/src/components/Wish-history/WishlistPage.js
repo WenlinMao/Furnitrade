@@ -34,23 +34,19 @@ class WishlistPage extends Component {
                     price: '$20',
                     category: "Electronics"
                 },
-            ]
+            ],
+            empty: false
         };
     }
   
-  /*  componentWillMount() {
+    componentWillMount() {
         const token = localStorage.getItem('usertoken');
-        // const decoded = jwt_decode(token);
-        // change the logic later
-        let reqData = {
-            
-        };
         axios({
             method: 'get',
-            url: '',
+            url: 'http://127.0.0.1:5000/user/get_wishlist',
             withCredentials: false,
             crossdomain: true,
-            data: reqData,
+            // data: reqData,
             responseType: 'json',
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -62,12 +58,17 @@ class WishlistPage extends Component {
               this.setState({
                 data:response.data 
               });
+            } else if(code === 613) {
+                this.setState({empty: true});
+            } else if(code === 400) {
+                localStorage.removeItem('usertoken');
+                this.props.history.push('/login');
             }
         }).catch((error) => {
-            console.log("get wishlist: " + error);
+            console.log("get wishlist error: " + error);
         });
     
-    }*/
+    }
 
   /*  handleClick = (id) => {
         
@@ -87,7 +88,7 @@ class WishlistPage extends Component {
                 {/* cards of furnitures wished,should be from backend*/}
                 <div className="Card-group">
                 {
-                    this.state.data.length === 0 
+                    this.state.empty || this.state.data.length === 0 
                     ?
                     <div>Your wishlist is empty.</div>
                     :
@@ -96,7 +97,7 @@ class WishlistPage extends Component {
                             title={obj.title}
                             text={obj.price + obj.category}
                             img={obj.img}
-                            onClick={this.handleClick(obj.id)}
+                            // onClick={this.handleClick(obj.id)}
                         />)
                     )
                 }

@@ -115,7 +115,7 @@ export default class FormDialog extends React.Component {
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
-            fullWidth
+            fullWidth="true"
             maxWidth='xs'
           >
             <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>

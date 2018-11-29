@@ -3,6 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import Card from '../FurniCard/FurniCard';
 import Wave from '../common/Wave';
 import './FurniPage.css';
+import axios from 'axios';
 
 /* Furniture page class */
 class FurniPage extends Component {
@@ -10,8 +11,42 @@ class FurniPage extends Component {
     /* TODO - need to pass in data through props in the future */
     constructor(props) {
         super(props);
+        this.state = {
+            data: ''
+        }
     }
 
+    /*componentWillMount() {
+        const token = localStorage.getItem('usertoken');
+        axios({
+            method: 'get',
+            url: '',
+            withCredentials: false,
+            crossdomain: true,
+            // data: reqData,
+            responseType: 'json',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).then((response) => {
+            console.log(response.data);
+            let code = response.data.status;
+            if (code === 200) {
+              this.setState({
+                data:response.data 
+              });
+            } else if(code === 613) {
+                this.setState({empty: true});
+            } else if(code === 400) {
+                localStorage.removeItem('usertoken');
+                this.props.history.push('/login');
+            }
+        }).catch((error) => {
+            console.log("get history error: " + error);
+        });
+    }
+
+    */
 
 /* Render part */
 render () {

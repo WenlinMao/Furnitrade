@@ -132,7 +132,7 @@ class Login extends Component {
                             onChange={this.handleNameInput('name')}
                             margin="normal"
                             variant="outlined"
-                            error={this.state.usernameError}
+                            error={this.state.usernameError} 
                         />
                         {
                             this.state.usernameError
@@ -160,8 +160,8 @@ class Login extends Component {
                             <div></div>
                         }
                         <div className="buttons">
-                            <Link to="/"><button>Go Back</button></Link>
-                            <button type="submit">Login</button>
+                            <Link to="/"><button type="button">Go Back</button></Link>
+                            <button id="login-button" type="submit">Login</button>
                         </div>
                     </form>
                 </div>
