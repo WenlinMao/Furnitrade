@@ -1,0 +1,45 @@
+
+
+/* message's blocks style */
+.messages_container{
+    margin: 50px 50px 100px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 40px;
+    justify-items: center;
+
+
+}
+
+.message {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    background-color: #FFFFFF;
+
+    /* display */
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    cursor: pointer;
+    text-align: center;
+    align-items: center;
+    transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.message:hover {
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.Card p {
+    color: rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    align-self:end;
+    margin: 0 0 20px 20px;
+    z-index: 10;
+}
