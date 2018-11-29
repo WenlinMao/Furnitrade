@@ -1,20 +1,14 @@
 
 
 /* message's blocks style */
-.messages_container{
-    margin: 50px 50px 100px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 40px;
-    justify-items: center;
-
-
-}
 
 .message {
-    width: 250px;
-    height: 250px;
-    position: relative;
+    margin:0 auto;
+    width: 500px;
+    height: 300px;
+    justify-content: center;
+    display: grid;
+    text-align: center;
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
@@ -34,7 +28,7 @@
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
-.Card p {
+.message p {
     color: rgba(0, 0, 0, 0.8);
     text-transform: uppercase;
     font-weight: 600;
@@ -42,4 +36,8 @@
     align-self:end;
     margin: 0 0 20px 20px;
     z-index: 10;
+}
+
+.message footer{
+  font-size: 10px;
 }

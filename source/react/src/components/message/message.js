@@ -9,6 +9,7 @@ class Mymessage extends Component {
         this.state={
           message:'',
           user:'',
+          link:"http://localhost:3000/",
         };
       }
 
@@ -20,12 +21,13 @@ render(){
               <h2>A request message for you</h2>
               <Wave/>
           </div>
-          <div className = "messages_container">
             <div className="message">
+                <a href={this.state.link}>
                 <p>Here is a message for you about the request you have from{this.state.user}</p>
                 <p>Hi, I want to get your stuff</p>
+                <footer>Click the banner to go to your furniture..</footer>
+                </a>
             </div>
-          </div>
 
       </div>
 
