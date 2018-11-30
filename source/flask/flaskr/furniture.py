@@ -22,7 +22,7 @@ from flaskr.model.category_model import (
 )
 
 from flaskr.model.user_model import (
-    add_wishlist_by_id, add_history_by_id
+    add_wishlist_by_id, add_history_by_id, add_my_furniture_by_id
 )
 
 from flaskr.helper.subcategory import (
@@ -86,10 +86,8 @@ class Post(Resource):
             error = 'Description of furniture is required.'
 
         if error is None:
-            '''
-            TODO: add function in model layer for every database access
-            category should also update category database
-            '''
+            
+            # Step 1: get furniture information
             toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
@@ -101,24 +99,27 @@ class Post(Resource):
                 "description": description
             }
 
+            # Step 2: insert to furnitures collections
             furniture = add_furniture(toInsert)
-
-            '''你确定这个管用吗？我测试的貌似不管用'''
             furniture_id = furniture.inserted_id
             
+            # Step 3: insert to categories collections
             # Here category doesn't have id. 
             # Fixed to include fid as list in category By Mao.
             
-            # validation of category name
+            # Insert to cateogires
             if not validate_category_name(category):
                 return jsonify({
                     "status": 617,
                     "msg": "Invalid/Non-Existent Category name"
                 })
-                
-            # TODO: unfound category can also be inserted.
-            update_category_by_catname(category, furniture_id)
+            update_category_by_catname(category, str(furniture_id))
 
+            # Step 4: insert to user's my_furnitures
+            user_id = user['_id']
+            add_my_furniture_by_id(user_id, str(furniture_id))
+
+            # Status
             retJson = {
                 "status": 200,
                 "msg": "You have successfully uploaded the furniture!",

@@ -203,14 +203,15 @@ class Register(Resource):
         if error is None:
             # Add a default empty wishlist, history field.
             # wishlist and history are lists
+            # Add my furniture as empty list.
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
                 "address": address,
                 "wishlist": [],
-                "history": []
-
+                "history": [],
+                "my_furnitures": []
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

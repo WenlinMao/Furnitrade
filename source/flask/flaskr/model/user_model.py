@@ -138,3 +138,13 @@ def clear_history(user_id, history, upsert=False):
 
     return users.update_one({'_id': user_id},
                             {"$pullAll": {'history': history}})
+
+def add_my_furniture_by_id(user_id, furniture_id, upsert=False):
+    """
+    :type user_id, furniture_id: strings
+    :rtype added to my furniture list status
+    """
+    users = get_users_collection()
+    return users.update_one({'_id': user_id}, {"$addToSet": {
+        "my_furnitures": furniture_id
+    }})

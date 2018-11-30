@@ -321,6 +321,56 @@ class clearHistory(Resource):
         })
 
 
+class getMyFurnitures(Resource):
+    '''
+    Get my posted furnitures based on user_id
+    query all furniture_ids in my_furnitures list to get details
+    return jsonified details
+    '''
+    @auth.login_required
+    def get(self, user):
+        # Step 1: check if empty my_furnitures
+        my_furnitures = user['my_furnitures']
+        if len(my_furnitures) == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty my_furnitures"
+            })
+        
+        # Step 2: query all funriture_ids to get details
+        furnitures_json = {}
+        for furniture_id in my_furnitures:
+            
+            furniture = find_furniture_by_id(furniture_id)
+
+            # Error checking
+            if not ObjectId.is_valid(furniture_id) or furniture is None:
+                return jsonify({
+                    "status": 614,
+                    "msg": "furniture no longer available"
+                })
+            
+            product_name = furniture['furniture_name']
+            category = furniture['category']
+            # images = furniture['images']
+            # is_delivery_included = furniture['is_delivery_included']
+            price = furniture['price']
+            # location = furniture['location']
+            #description = furniture['description']
+
+            # Step 3: add to furnitures_json
+            furnitures_json[furniture_id] = {
+                'furniture_name': product_name,
+                'category': category,
+                # 'images': images,
+                # 'is_delivery_included': is_delivery_included,
+                'price': price,
+                # 'location': location,
+                #'description': description
+            }
+
+        return jsonify(furnitures_json)
+
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
 api.add_resource(Profile, '/profile')
@@ -330,3 +380,4 @@ api.add_resource(deleteWishList, '/delete_wishlist')
 api.add_resource(getHistory, '/get_history')
 api.add_resource(clearHistory, '/clear_history')
 api.add_resource(ChangeProfileImg, '/change_img')
+api.add_resource(getMyFurnitures, '/get_my_furnitures')
