@@ -6,24 +6,34 @@ import './FurniPage.css';
 import axios from 'axios';
 
 /* Furniture page class */
+/* Sub category */
 class FurniPage extends Component {
 
     /* TODO - need to pass in data through props in the future */
     constructor(props) {
         super(props);
         this.state = {
-            data: ''
+            data: '',
+            notFound: false 
         }
     }
 
-    /*componentWillMount() {
+    /* list first ten furtures in the subcategory */
+    componentWillMount() {
+        this.setState({notFound: false});
+
+        let subcategory = this.props.location.pathname.substring(11);
+        console.log(subcategory);
         const token = localStorage.getItem('usertoken');
+        const reqData = {
+            'category_name' : subcategory
+        }
         axios({
-            method: 'get',
-            url: '',
+            method: 'post',
+            url: 'http://127.0.0.1:5000/category',
             withCredentials: false,
             crossdomain: true,
-            // data: reqData,
+            data: reqData,
             responseType: 'json',
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -35,18 +45,17 @@ class FurniPage extends Component {
               this.setState({
                 data:response.data 
               });
-            } else if(code === 613) {
-                this.setState({empty: true});
+            } else if(code === 319) {
+                this.setState({notFound: true});
             } else if(code === 400) {
                 localStorage.removeItem('usertoken');
                 this.props.history.push('/login');
             }
         }).catch((error) => {
-            console.log("get history error: " + error);
+            console.log("get furniture in subcategory: " + error);
         });
     }
 
-    */
 
 /* Render part */
 render () {

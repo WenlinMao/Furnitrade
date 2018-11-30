@@ -20,6 +20,7 @@ class Add extends Component{
       this.state = {
           furniture_name: '',
           category: '',
+          subcategory: '',
           image:'',
           price: '',
           is_delivery_inclued: '',
@@ -52,6 +53,10 @@ class Add extends Component{
       this.setState({category:event.target.value});
     }
 
+    handleSubcategoryInput = name => event => {
+      this.setState({subcategory: event.target.value});
+    }
+
     /* render subcategories */
     renderSubcategoryInput = () => {
       /* get all subcategories */
@@ -67,7 +72,7 @@ class Add extends Component{
       /* return the subcategory of category in the state */
       return (
         <div className="styled-select blue semi-square">{subs.map((sub) =>
-          <select>{
+          <select onChange={this.handleSubcategoryInput('subcate')} value={this.state.subcategory}>{
             sub.map((subcate => <option value={subcate}>{subcate}</option>)
           )}</select>
         )}</div>
@@ -137,7 +142,7 @@ class Add extends Component{
         'price': this.state.price,
         'description': this.state.description,
         'address': this.state.address,
-        'category': this.state.category,
+        'category': this.state.subcategory,
         'image': this.img_pathes,
       };
       console.log(reqData);
