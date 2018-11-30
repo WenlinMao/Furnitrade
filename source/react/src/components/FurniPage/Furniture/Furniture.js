@@ -46,6 +46,8 @@ class Furniture extends Component {
            name:'Table one',
            price:'0',
            content:'',
+           seller_id:'5c00b5ebf661a90ae131e678',
+           furniture_id:'5c00b5ebf661a90ae131e678',
            success: false,
         };
     }
@@ -94,6 +96,8 @@ class Furniture extends Component {
       let reqData = {
         'content': this.state.request,
         'title': this.state.title,
+        'seller_id': this.state.seller_id,
+        'furniture_id': this.state.furniture_id,
       };
       console.log(reqData);
 

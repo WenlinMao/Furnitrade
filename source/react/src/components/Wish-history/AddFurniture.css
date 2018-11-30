@@ -5,6 +5,29 @@
   text-align: center;
 }
 
+.addfurniture-container {
+    margin: 0 auto;
+    max-width: 800px;
+    float: center;
+    text-align: center;
+}
+
+.lhs{
+  padding-left: 0px;
+  display: grid;
+  float:left;
+  max-width:400px;
+}
+
+.rhs{
+  padding-left: 100px;
+  padding-top: 50px;
+  display:grid;
+  max-width:400px;
+  float: center;
+  text-align: center;
+}
+
 .form{
   padding: 0;
   display: grid;
@@ -13,8 +36,8 @@
   text-align: center;
 }
 
-.form button {
-  padding: 8px 20px;
+button {
+  padding: 15px 20px;
   font-size: 20px;
   color: white;
   background: #56ccf3;
@@ -28,7 +51,7 @@
   z-index: 1;
 }
 
-.form button:hover {
+button:hover {
   color: #56CCF2;
   background: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
@@ -37,6 +60,7 @@
 
 .styled-select {
   height: 29px;
+  width: 180px;
   overflow: hidden;
 }
 
@@ -54,5 +78,5 @@
   border-radius: 5px;
 }
 .blue select { color: #fff; }
-.blue option {color:#000;}
-.blue { background-color: #3b8ec2; }
+.blue option {color:#fff;}
+.blue { background-color: rgba(0,0,0,0.25); }

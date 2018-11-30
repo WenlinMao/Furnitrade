@@ -195,23 +195,16 @@ class Add extends Component{
               <NavBar/>
               <div className="heading">
                 <h2>Add your furniture</h2>
-                <Wave/>
+
               </div>
 
-              <form className="form" onSubmit={this.handleSubmit}>
+              <div className="addfurniture-container">
+              <div className='lhs'>
                 <TextField
                   id="standard-name"
                   label="Funiture Name"
                   className={this.props.textField}
                   onChange={this.handleFurnitureNameInput('funiture_name')}
-                  margin="normal"
-                />
-
-                <TextField
-                  id="standard-name"
-                  label="$"
-                  className={this.props.textField}
-                  onChange={this.handlePriceInput('price')}
                   margin="normal"
                 />
 
@@ -225,12 +218,25 @@ class Add extends Component{
                       <option value={category.title}>{category.title}</option>
                     ))}
                   </select>
+
                 {/* end of DIVs */}
                 </div>
-
                 {/* Now we have category stored in category, extract the corresponding subcategories */}
                 {this.renderSubcategoryInput()}
 
+                <br/>
+                <UploadImg resource_type="furniture"
+                  name={this.state.username}
+                  beforeUpload={this.handleBeforeUpload}
+                  onUploadImg={this.handleUploadImg}
+                  disabled={this.checkButtonStatus()}
+                  ref={this.child}
+                  limit={5}
+                  />
+
+                </div>
+
+                <div className="rhs">
                 <TextField
                   id="outlined-multiline-static"
                   label="Add a description"
@@ -242,6 +248,7 @@ class Add extends Component{
                   variant="outlined"
                 />
 
+
                 <TextField
                   id="outlined-multiline-flexible"
                   label="Add an address"
@@ -252,16 +259,21 @@ class Add extends Component{
                   margin="normal"
                   variant="outlined"
                 />
-                <UploadImg resource_type="furniture"
-                  name={this.state.username}
-                  beforeUpload={this.handleBeforeUpload}
-                  onUploadImg={this.handleUploadImg}
-                  disabled={this.checkButtonStatus()}
-                  ref={this.child}
-                  limit={5}
-                  />
-                <button type="submit"> Submit </button>
-              </form>
+
+                <TextField
+                  id="standard-name"
+                  label="$"
+                  className={this.props.textField}
+                  onChange={this.handlePriceInput('price')}
+                  margin="normal"
+                />
+
+                <br/>
+                <button type="submit" onClick={this.handleSubmit}> Submit </button>
+                </div>
+
+
+              </div>
 
         {/* the very last div tag */}
         </div>
