@@ -3,6 +3,8 @@ import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { Fade } from 'react-slideshow-image';
 
@@ -43,23 +45,65 @@ class Furniture extends Component {
            description:'this is a table with baby shark dudududududu.',
            name:'Table one',
            price:'0',
-           request:'',
+           content:'',
+           success: false,
         };
-        this.handleChange = this.handleChange.bind(this);
-       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-    this.setState({request: event.target.value});
+    handleTitleInput = name => event => {
+      this.setState({title: event.target.value});
     }
 
-    handleSubmit(event){
-      alert('An request was submitted: ' + this.state.request);
-        event.preventDefault();
+    handleRequestInput = name => event => {
+      this.setState({request: event.target.value});
     }
+
+
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+      let reqData = {
+        'content': this.state.request,
+        'title': this.state.title,
+      };
+      console.log(reqData);
+
+      const token = localStorage.getItem('usertoken');
+      axios({
+              method: 'post',
+              url: 'http://127.0.0.1:5000/contact_form/contact',
+              withCredentials: false,
+              crossdomain: true,
+              data: reqData,
+              responseType: 'json',
+              headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer ${token}`
+              }
+      })
+
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code == 200) {
+            this.setState({"content": response.data.content})
+            this.setState({success: true});
+          }
+      })
+      .catch((error) => {
+          console.log("post error: " + error);
+      });
+    }
+
+  newMethod() {
+    this.render();
+  }
 
 
 render () {
+    const check = "far fa-check-circle";
     return (
         <div className="furniture">
             <NavBar/>
@@ -135,17 +179,35 @@ render () {
             <form>
               <TextField
                 id="outlined-multiline-static"
+                label="Title"
+                multiline="False"
+                rows="1"
+                fullwidth="True"
+                className={this.props.textField}
+                onChange={this.handleTitleInput('title')}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-multiline-static"
                 label="Write a request"
                 multiline="True"
                 rows="3"
                 fullwidth="True"
                 className={this.props.textField}
-                onChange={this.handleChange}
+                onChange={this.handleRequestInput('request')}
                 margin="normal"
                 variant="outlined"
               />
+              {
+                  this.state.success
+                  ?
+                  <FormHelperText error={false}>Request successfully! <i className={check}></i></FormHelperText>
+                  :
+                  <div></div>
+              }
           <br/>
-            <input type="submit" value="I want this!"  onChange={this.handleSubmit}/>
+            <button type="button" onClick={this.handleSubmit}> Submit </button>
           </form>
 
 
