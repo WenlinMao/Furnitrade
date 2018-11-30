@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './message.css';
+import axios from 'axios';
 
 class Mymessage extends Component {
     constructor(props){
@@ -16,7 +17,7 @@ class Mymessage extends Component {
         const token = localStorage.getItem('usertoken');
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:5000/contact_form/detail/'
+            url: 'http://127.0.0.1:5000/contact_form/detail/',
             withCredentials: false,
             crossdomain: true,
             // data: reqData,
