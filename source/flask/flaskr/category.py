@@ -49,12 +49,11 @@ class Category(Resource):
                 return jsonify({
                     "status": 319,
                     "msg": "Can not find the furniture"
-                })
-
+                }) 
             product_name = furniture['furniture_name']
             product_image = furniture['images']
             product_price = furniture['price']
-	    product_id = furniture['furniture_id']
+            product_id = furniture['furniture_id']
             retJson = {
                 "status": 200,
                 "msg": "Get furniture detail succeeded",
