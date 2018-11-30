@@ -72,8 +72,9 @@ class Add extends Component{
       /* return the subcategory of category in the state */
       return (
         <div className="styled-select blue semi-square">{subs.map((sub) =>
-          <select onChange={this.handleSubcategoryInput('subcate')} value={this.state.subcategory}>{
-            sub.map((subcate => <option value={subcate}>{subcate}</option>)
+          <select onChange={this.handleSubcategoryInput('subcate')} value={this.state.subcategory}>
+            <option value="" hidden>Choose your category</option>
+            {sub.map((subcate => <option value={subcate}>{subcate}</option>)
           )}</select>
         )}</div>
       );
@@ -219,6 +220,7 @@ class Add extends Component{
                     value={this.state.category}
                     onChange={this.handleCategoryInput('category')}
                     >
+                    <option value="" hidden>Choose your category</option>
                     {categories.categories.map(category => (
                       <option value={category.title}>{category.title}</option>
                     ))}
