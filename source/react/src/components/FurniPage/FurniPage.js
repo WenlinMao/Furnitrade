@@ -13,8 +13,31 @@ class FurniPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
-            notFound: false 
+          data: [
+              {
+                  title: 'furniture',
+                  id: '1',
+                  img:require('../../static/images/wallpaper1.png'),
+                  price: '$20',
+                  category: "Electronics"
+              },
+              {
+                  title: 'furniture',
+                  id: '1',
+                  img:require('../../static/images/wallpaper1.png'),
+                  price: '$20',
+                  category: "Electronics"
+              },
+              {
+                  title: 'furniture',
+                  id: '1',
+                  img:require('../../static/images/wallpaper1.png'),
+                  price: '$20',
+                  category: "Electronics"
+              },
+          ],
+          empty: false,
+          notFound: false,
         }
     }
 
@@ -43,7 +66,7 @@ class FurniPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data:response.data 
+                data:response.data
               });
             } else if(code === 319) {
                 this.setState({notFound: true});
@@ -72,106 +95,121 @@ render () {
             </div>
                     {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
                     <div className="Card-group">
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 1"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 2"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 3"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 4"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 5"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 6"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 7"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 8"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 9"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 10"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 11"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 12"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 13"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 14"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 15"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 16"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 17"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 18"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 19"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
-                    <Card 
-                        title="Furniture-demo" 
-                        text="description for Furniture 20"
-                        image={require('../../static/images/wallpaper1.png')}
-                    />
+                    {
+                        this.state.empty || this.state.data.length === 0
+                        ?
+                        <div>Your wishlist is empty.</div>
+                        :
+                        this.state.data.map(obj=>(
+                            <Card
+                                title={obj.title}
+                                text={obj.price + obj.category}
+                                img={obj.img}
+                                // onClick={this.handleClick(obj.id)}
+                            />)
+                        )
+                    }
+                    {// <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 1"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 2"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 3"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 4"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 5"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 6"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 7"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 8"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 9"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 10"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 11"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 12"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 13"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 14"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 15"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 16"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 17"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 18"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 19"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                    // <Card
+                    //     title="Furniture-demo"
+                    //     text="description for Furniture 20"
+                    //     image={require('../../static/images/wallpaper1.png')}
+                    // />
+                  }
                 </div>
 
             {/* TODO - Should be a section of shit like "all rights reserved" */}
