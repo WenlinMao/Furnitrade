@@ -17,7 +17,6 @@
     /* display */
     display: grid;
     grid-template-rows: 1fr 1fr;
-    cursor: pointer;
     text-align: center;
     align-items: center;
     transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
