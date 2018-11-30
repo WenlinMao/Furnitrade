@@ -42,7 +42,7 @@ class Furniture extends Component {
         super(props);
         this.state={
            picture:'test-propic.jpg',
-           description:'this is a table with baby shark dudududududu.',
+           description:'Everything you need for storing and keeping things organized at home. Choose a ready-made combination or create your own, adapted to your style and belongings. This is just one of many, many possibilities.',
            name:'Table one',
            price:'0',
            content:'',
@@ -136,8 +136,13 @@ render () {
     return (
         <div className="furniture">
             <NavBar/>
-            <div className="furniture-container">
 
+            <div className="furniture-container">
+            <div className="title">
+                <h2>{this.state.name}</h2>
+                <Wave/>
+            {/* end of furni-page tag */}
+            </div>
 
 
                 {/* Photo container - pictures of furnitures */}
@@ -197,31 +202,34 @@ render () {
                     <h2>Third Slide</h2>
                 </div>
             </Fade>
+          {/* End of furniture-container */}
+          <p>${this.state.price}</p>
+          </div>
 
+          <div className="text-container">
             {/*The descriptions, category, price and request form*/}
             <div id="info">
-            <h3>{this.state.name}</h3>
-            <p>{this.state.price}</p>
-            <h6>${this.state.content}</h6>
+
+            <p>{this.state.description}</p>
             </div>
 
-            <form>
+
               <TextField
                 id="outlined-multiline-static"
                 label="Title"
                 multiline="False"
                 rows="1"
-                fullwidth="True"
                 className={this.props.textField}
                 onChange={this.handleTitleInput('title')}
                 margin="normal"
                 variant="outlined"
               />
+              <br/>
               <TextField
                 id="outlined-multiline-static"
                 label="Write a request"
                 multiline="True"
-                rows="3"
+                rows="6"
                 fullwidth="True"
                 className={this.props.textField}
                 onChange={this.handleRequestInput('request')}
@@ -237,11 +245,11 @@ render () {
               }
           <br/>
             <button type="button" onClick={this.handleSubmit}> Submit </button>
-          </form>
+
+          {/* End of text-container */}
+          </div>
 
 
-            {/* End of furniture-container */}
-            </div>
 
 
 

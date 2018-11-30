@@ -7,11 +7,35 @@ class Mymessage extends Component {
     constructor(props){
         super(props);
         this.state={
-          message:'',
+          message:'A request message for you',
           user:'',
           link:"http://localhost:3000/",
         };
       }
+    componentWillMount() {
+        const token = localStorage.getItem('usertoken');
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:5000/contact_form/detail/'
+            withCredentials: false,
+            crossdomain: true,
+            // data: reqData,
+            responseType: 'json',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).then((response) => {
+            console.log(response.data);
+            let code = response.data.status;
+            if (code === 200) {
+              this.setState({
+                data:response.data
+              });
+            }
+        }).catch((error) => {
+            console.log("get message error: " + error);
+        });
+    }
 
 render(){
   return(
