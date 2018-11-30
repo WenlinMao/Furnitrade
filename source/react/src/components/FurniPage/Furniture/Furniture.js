@@ -50,10 +50,39 @@ class Furniture extends Component {
         };
     }
 
+    // get method
+    // todo: get user_id, furniture_id
+    // componentWillMount() {
+    //     const token = localStorage.getItem('usertoken');
+    //     axios({
+    //         method: 'get',
+    //         url: 'http://127.0.0.1:5000/furniture/detail/' + 'furniture',
+    //         withCredentials: false,
+    //         crossdomain: true,
+    //         // data: reqData,
+    //         responseType: 'json',
+    //         headers: {
+    //             "Authorization": `Bearer ${token}`
+    //         }
+    //     }).then((response) => {
+    //         console.log(response.data);
+    //         let code = response.data.status;
+    //         if (code === 200) {
+    //           this.setState({
+    //             data:response.data
+    //           });
+    //         }
+    //     }).catch((error) => {
+    //         console.log("get furniture data error: " + error);
+    //     });
+    //
+    // }
+    /* set Request Title */
     handleTitleInput = name => event => {
       this.setState({title: event.target.value});
     }
 
+    /* set Request Content */
     handleRequestInput = name => event => {
       this.setState({request: event.target.value});
     }
@@ -172,8 +201,8 @@ render () {
             {/*The descriptions, category, price and request form*/}
             <div id="info">
             <h3>{this.state.name}</h3>
-            <p>{this.state.description}</p>
-            <h6>${this.state.price}</h6>
+            <p>{this.state.price}</p>
+            <h6>${this.state.content}</h6>
             </div>
 
             <form>
