@@ -18,25 +18,30 @@ class DeleteAlert extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
-
+  deleteWishList = () => {
+      let reqData = {
+              'furniture_id': this.state.furniture_id,
+      }
+      axios({
+          method: 'get',
+          url: 'http://127.0.0.1:5000/user/delete_wishlist',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+          //"Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          "Authorization": `Bearer`
+      }
+  }
   handledelete(e) {
-	let reqData = {
-        	'furniture_id': this.state.furniture_id,
-	}
-		axios({
-              	method: 'get',
-              	url: 'http://127.0.0.1:5000/user/delete_wishlist',
-              	withCredentials: false,
-              	crossdomain: true,
-              	data: reqData,
-              	responseType: 'json',
-              	headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-                "Authorization": `Bearer`
-              }
-      	});
+        if (this.props.type === "wishlist"){
+            deleteWishList()
+        }
+
+    });
 }
 
 

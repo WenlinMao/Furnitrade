@@ -14,23 +14,23 @@ class WishlistPage extends Component {
         this.state = {
             data: [
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                }, 
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
@@ -38,7 +38,7 @@ class WishlistPage extends Component {
             empty: false
         };
     }
-  
+
     componentWillMount() {
         const token = localStorage.getItem('usertoken');
         axios({
@@ -56,7 +56,7 @@ class WishlistPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data:response.data 
+                data:response.data
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -67,11 +67,11 @@ class WishlistPage extends Component {
         }).catch((error) => {
             console.log("get wishlist error: " + error);
         });
-    
+
     }
 
   /*  handleClick = (id) => {
-        
+
     }*/
 
     render() {
@@ -88,7 +88,7 @@ class WishlistPage extends Component {
                 {/* cards of furnitures wished,should be from backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty
                     ?
                     <div>Your wishlist is empty.</div>
                     :
@@ -97,6 +97,7 @@ class WishlistPage extends Component {
                             title={obj.title}
                             text={obj.price + obj.category}
                             img={obj.img}
+                            type={"wishlist"}
                             // onClick={this.handleClick(obj.id)}
                         />)
                     )

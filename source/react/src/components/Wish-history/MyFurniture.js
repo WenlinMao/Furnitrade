@@ -46,10 +46,11 @@ class MyFurniture extends Component {
                     furnicard_view.push(
                         <Card
                             title={furniture.furniture_name}
-                            text={furniture.price}
+                            text={"$" + furniture.price}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                                       + furniture.product_image[0]}
                             fromMyFurniture={true}
+                            type={"furniture"}
                             furniture_id={furniture.furniture_id}
                         />
                     )
@@ -65,35 +66,6 @@ class MyFurniture extends Component {
             console.log("my furniture error: " + error);
         })
     }
-	
-
-        // const token = localStorage.getItem('usertoken');
-        // axios({
-        //     method: 'get',
-        //     url: 'http://127.0.0.1:5000/user/get_my_furnitures',
-        //     withCredentials: false,
-        //     crossdomain: true,
-        //     // data: reqData,
-        //     responseType: 'json',
-        //     headers: {
-        //         "Authorization": `Bearer ${token}`
-        //     }
-        // }).then((response) => {
-        //     console.log(response.data);
-        //     let code = response.data.status;
-        //     if (code === 200) {
-        //       this.setState({
-        //         data:response.data
-        //       });
-        //     } else if(code === 613) {
-        //         this.setState({empty: true});
-        //     } else if(code === 400) {
-        //         localStorage.removeItem('usertoken');
-        //         this.props.history.push('/login');
-        //     }
-        // }).catch((error) => {
-        //     console.log("get wishlist error: " + error);
-        // });
 
 
     render() {
