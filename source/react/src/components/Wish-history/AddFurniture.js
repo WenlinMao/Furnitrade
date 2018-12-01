@@ -242,7 +242,10 @@ class Add extends Component{
                   </div>
 
                   {/* Now we have category stored in category, extract the corresponding subcategories */}
-                  {this.renderSubcategoryInput()}
+                  {this.state.category === "" ? 
+                  <div class="styled-select blue semi-square">
+                  <select><option>Choose your subcategory</option></select></div>
+                  :this.renderSubcategoryInput()}
 
                 {/* end of DIVs */}
                 </div>

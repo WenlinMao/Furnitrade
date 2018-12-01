@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom'
 import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
@@ -49,6 +50,7 @@ class Furniture extends Component {
            seller_id:'5c00b5ebf661a90ae131e678',
            furniture_id:'5c00b5ebf661a90ae131e678',
            success: false,
+           redirect: false,
         };
     }
 
@@ -79,6 +81,12 @@ class Furniture extends Component {
     //     });
     //
     // }
+
+    setRedirect = () => {
+      this.setState({
+        redirect: true
+      })
+    }
     /* set Request Title */
     handleTitleInput = name => event => {
       this.setState({title: event.target.value});
@@ -89,6 +97,11 @@ class Furniture extends Component {
       this.setState({request: event.target.value});
     }
 
+    renderRedirect = () => {
+      if (this.state.redirect) {
+        return <Redirect to='/wishlist' />
+      }
+    }
 
 
     handleSubmit = (e) => {
@@ -228,7 +241,7 @@ render () {
                 margin="normal"
                 variant="outlined"
               />
-              <br/>
+
               <TextField
                 id="outlined-multiline-static"
                 label="Write a request"
@@ -247,7 +260,11 @@ render () {
                   :
                   <div></div>
               }
-          <br/>
+
+              <div>
+                {this.renderRedirect()}
+                <button onClick={this.setRedirect}>Add to wishlist</button>
+              </div>
             <button type="button" onClick={this.handleSubmit}> Submit </button>
 
           {/* End of text-container */}
