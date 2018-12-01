@@ -117,17 +117,10 @@ render () {
                         ?
                         <div>Category is empty.</div>
                         :
-                        this.state.data.map(obj=>(
-                            <Card
-                                title={obj.title}
-                                text={obj.price + obj.category}
-                                img={obj.img}
-                                // onClick={this.handleClick(obj.id)}
-                            />)
-                        )
+                        this.state.furnicard_view
                     }
 
-                    {this.state.furnicard_view}
+                    {/* {this.state.furnicard_view} */}
                       {// <Card
                     //     title="Furniture-demo"
                     //     text="description for Furniture 1"
