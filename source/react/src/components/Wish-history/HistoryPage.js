@@ -11,8 +11,35 @@ class HistoryPage extends Component {
     constructor(props){
         super(props);
         this.state = {
+<<<<<<< HEAD
             data: '',
             empty: false 
+=======
+            data: [
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+            ],
+            empty: false
+>>>>>>> e315c33e61cefe1fb6890d6293eea2a024ca196e
         };
     }
 
@@ -34,7 +61,11 @@ class HistoryPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               this.setState({
+<<<<<<< HEAD
                 data: data 
+=======
+                data:response.data
+>>>>>>> e315c33e61cefe1fb6890d6293eea2a024ca196e
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -46,11 +77,11 @@ class HistoryPage extends Component {
             console.log("get history error: " + error);
         });
     }
-    
+
     handleClick = (id) => {
-        
+
     }
-  
+
     render() {
         console.log("data ", this.state.data);
         return (
@@ -66,7 +97,7 @@ class HistoryPage extends Component {
                 {/* cards of furnitures viewing history, Limited to 4, need backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty
                     ?
                     <div>You didn't view any furniture recently.</div>
                     :

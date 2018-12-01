@@ -16,7 +16,7 @@ class WishlistPage extends Component {
             empty: false
         };
     }
-  
+
     componentWillMount() {
         const token = localStorage.getItem('usertoken');
         axios({
@@ -46,12 +46,8 @@ class WishlistPage extends Component {
         }).catch((error) => {
             console.log("get wishlist error: " + error);
         });
-    
-    }
 
-  /*  handleClick = (id) => {
-        
-    }*/
+    }
 
     render() {
         return (
@@ -67,7 +63,7 @@ class WishlistPage extends Component {
                 {/* cards of furnitures wished,should be from backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty
                     ?
                     <div>Your wishlist is empty.</div>
                     :

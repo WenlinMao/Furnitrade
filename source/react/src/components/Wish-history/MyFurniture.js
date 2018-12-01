@@ -49,6 +49,8 @@ class MyFurniture extends Component {
                             text={"$" + furniture.price}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                                       + furniture.product_image[0]}
+                            fromMyFurniture={true}
+                            type={"furniture"}
                             furniture_id={furniture.furniture_id}
                         />
                     )
@@ -65,25 +67,6 @@ class MyFurniture extends Component {
         })
     }
 
-  	handledelete(e) {
-      	let reqData = {
-              	'furniture_id': this.state.furniture_id,
-      	}
-    		axios({
-          	method: 'get',
-          	url: 'http://127.0.0.1:5000/user/delete_wishlist',
-          	withCredentials: false,
-          	crossdomain: true,
-          	data: reqData,
-          	responseType: 'json',
-          	headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-                "Authorization": `Bearer`
-            }
-        })
-    }
 
     render() {
         return (
@@ -101,7 +84,7 @@ class MyFurniture extends Component {
                 {/* cards of furnitures already added, now display 4 furnitures*/}
                 <div className="Card-group">
                     {
-                        this.state.empty || this.state.furnicard_view.length === 0
+                        this.state.empty
                         ?
                         <div>Category is empty.</div>
                         :
