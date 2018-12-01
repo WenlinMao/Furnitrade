@@ -88,24 +88,6 @@ class MyFurniture extends Component {
         })
 }
 
-	handledelete(e) {
-	let reqData = {
-        	'furniture_id': this.state.furniture_id,
-	}
-		axios({
-              	method: 'get',
-              	url: 'http://127.0.0.1:5000/user/delete_wishlist',
-              	withCredentials: false,
-              	crossdomain: true,
-              	data: reqData,
-              	responseType: 'json',
-              	headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-                "Authorization": `Bearer`
-              }
-      	})
 	
 
         // const token = localStorage.getItem('usertoken');
@@ -136,7 +118,6 @@ class MyFurniture extends Component {
         //     console.log("get wishlist error: " + error);
         // });
 
-   }
 
     render() {
         return (
