@@ -22,29 +22,30 @@ class MyFurniture extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data: [
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-            ],
+            // data: [
+            //     {
+            //         title: 'furniture',
+            //         id: '1',
+            //         img:require('../../static/images/wallpaper1.png'),
+            //         price: '$20',
+            //         category: "Electronics"
+            //     },
+            //     {
+            //         title: 'furniture',
+            //         id: '1',
+            //         img:require('../../static/images/wallpaper1.png'),
+            //         price: '$20',
+            //         category: "Electronics"
+            //     },
+            //     {
+            //         title: 'furniture',
+            //         id: '1',
+            //         img:require('../../static/images/wallpaper1.png'),
+            //         price: '$20',
+            //         category: "Electronics"
+            //     },
+            // ],
+            furnicard_view: [],
             empty: false
         };
     }
@@ -76,8 +77,8 @@ class MyFurniture extends Component {
                     )
                 }
                 this.setState({furnicard_view});
-            } else if(code === 321) {
-                this.setState({notFound: true});
+            } else if(code === 613) {
+                this.setState({empty: true});
             } else if(code === 400) {
                 localStorage.removeItem('usertoken');
                 this.props.history.push('/login');
