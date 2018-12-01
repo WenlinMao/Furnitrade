@@ -17,6 +17,7 @@ class NavBar extends React.Component {
         redirectToLogin: false,
         redirectToHome: false,
         redirectToCategory: false,
+        redirectToAboutUs: false,
     }
   }
 
@@ -61,6 +62,12 @@ class NavBar extends React.Component {
       }
     }
 
+    redirectToAboutUs = (flag) => {
+      if(flag) {
+        this.setState({redirectToAboutUs: true});
+      }
+    }
+
     redirectToLogin= (flag) => {
       if(flag) {
         this.setState({redirectToLogin: true});
@@ -79,6 +86,13 @@ class NavBar extends React.Component {
       if (this.state.redirectToCategory) {
         this.setState({redirectToCategory: false});
         return <Redirect to='/#category' />
+      }
+    }
+
+    renderRedirectToAboutUs = () => {
+      if (this.state.redirectToAboutUs) {
+        this.setState({redirectToAboutUs: false});
+        return <Redirect to='/#aboutus' />
       }
     }
 
@@ -101,15 +115,16 @@ class NavBar extends React.Component {
         <div>
           {this.renderRedirectToHome()}
           {this.renderRedirectToCategory()}
+          {this.renderRedirectToAboutUs()}
           {this.renderRedirectToLogin()}
         </div>
         <div className="Header-group">
           <Link to="/"><embed src={logo} width="70"></embed></Link>
 
-          <a href='./'>Home</a>
+          <a href='/'>Home</a>
           {/* These two links should be udpated in the future - to onClick => scroll */}
-          <a href='./#category'>Category</a>
-          <a href='./'>About Us</a>
+          <a href='/#category'>Category</a>
+          <a href='/'>About Us</a>
           {
             !this.state.hasLogin ?
             <div className="login-button">
@@ -118,6 +133,7 @@ class NavBar extends React.Component {
             <NavigationDrawer
               redirectToHome={this.redirectToHome}
               redirectToCategory={this.redirectToCategory}
+              redirectToAboutUs={this.redirectToAboutUs}
               redirectToLogin={this.redirectToLogin}
               logout={this.logout}
             >
