@@ -13,7 +13,7 @@ class WishlistPage extends Component {
         super(props);
         this.state = {
             data: '',
-            empty: false
+            empty: true
         };
     }
 
@@ -32,10 +32,12 @@ class WishlistPage extends Component {
         }).then((response) => {
             console.log(response.data);
             let data = JSON.parse(response.data.result);
+            console.log("data,", data);
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data: data
+                data: data,
+                empty: false
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -50,6 +52,7 @@ class WishlistPage extends Component {
     }
 
     render() {
+        // console.log("state", this.state.data)
         return (
             <div>
                 {/* Part one - NavBar - logic needed*/}
@@ -63,12 +66,14 @@ class WishlistPage extends Component {
                 {/* cards of furnitures wished,should be from backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty
+                    this.state.empty || this.state.data.length === 0
                     ?
                     <div>Your wishlist is empty.</div>
                     :
                     this.state.data.map(obj=>(
                         <Card
+                            fromMyFurniture={false}
+                            type={"wishlist"}
                             title={obj.furniture_name}
                             text={"$"+obj.price + obj.category}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
