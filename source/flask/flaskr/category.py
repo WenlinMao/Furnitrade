@@ -15,7 +15,6 @@ from flask_restful import Api, Resource
 from flask import (
     Blueprint, request, jsonify
 )
-from flaskr import auth
 import json
 from bson.json_util import dumps
 
@@ -36,62 +35,59 @@ class Category(Resource):
                 "status": 321,
                 "msg": "Can not find the category"
             })
-        size = category.included_listing.length
-        if size < 10:
-            count = size
-        else:
-            count = 10
+        size = len(category['furniture_id'])
+        count = size if size < 10 else 10
 
         result = []
         for x in range(count):
-            furniture = find_furniture_by_id(category['included_listing'][x])
+            furniture_id = category['furniture_id'][x]
+            furniture = find_furniture_by_id(furniture_id)
             if furniture is None:
-                return jsonify({
-                    "status": 319,
-                    "msg": "Can not find the furniture"
-                }) 
+                continue
             product_name = furniture['furniture_name']
             product_image = furniture['images']
             product_price = furniture['price']
-            product_id = furniture['furniture_id']
             retJson = {
-                "status": 200,
-                "msg": "Get furniture detail succeeded",
                 'furniture_name': product_name,
                 'product_image': product_image,
                 'price': product_price,
+                'furniture_id': furniture_id,
             }
-            result.append(jsonify(retJson))
-
-        return result
-
-
-class InitCategory(Resource):
-    """
-    Add furniture ids as a list in categories, instead of
-    a single field. By Mao.
-    """
-
-    def get(self):
-        init_category()
+            result.append(retJson)
 
         return jsonify({
             "status": 200,
-            "msg": "Initialized category collection"
+            "msg": "get subcategory success",
+            "result": json.dumps(result)
         })
 
 
-class DeleteCategories(Resource):
-    """
-    Helper method to delete old wrong categories collection
-    """
+# class InitCategory(Resource):
+#     """
+#     Add furniture ids as a list in categories, instead of
+#     a single field. By Mao.
+#     """
+#
+#     def get(self):
+#         init_category()
+#
+#         return jsonify({
+#             "status": 200,
+#             "msg": "Initialized category collection"
+#         })
 
-    def get(self):
-        delete_categories()
-        return jsonify({
-            "status": 1000,
-            "msg": "Deleted old categories"
-        })
+
+# class DeleteCategories(Resource):
+#     """
+#     Helper method to delete old wrong categories collection
+#     """
+#
+#     def get(self):
+#         delete_categories()
+#         return jsonify({
+#             "status": 1000,
+#             "msg": "Deleted old categories"
+#         })
 
 
 class List(Resource):
@@ -106,6 +102,6 @@ class List(Resource):
 
 
 api.add_resource(Category, '/')
-api.add_resource(InitCategory, '/init')
-api.add_resource(DeleteCategories, '/delete_categories')
+# api.add_resource(InitCategory, '/init')
+# api.add_resource(DeleteCategories, '/delete_categories')
 api.add_resource(List, '/list')
