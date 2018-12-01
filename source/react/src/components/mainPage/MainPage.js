@@ -98,7 +98,7 @@ const SectionCategory = styled.div`
 
           {/* Section of About US */}
           <AboutUs
-            image={require('../../static/images/wallpaper1.png')}
+            image={require('../../static/images/light-flip.png')}
             logo={require('../../static/images/logo_white.png')}
             title="About Us"
             text1="Furnitrade is designed to help student sellers advertise smartly and manage all post in one place."
