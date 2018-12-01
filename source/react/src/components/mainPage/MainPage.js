@@ -71,7 +71,7 @@ const SectionCategory = styled.div`
               {/* logos */}
               <div className="logos">
                 <img src={require("../../static/images/fb_logo.png")} alt = "this is a logo for other platforms" width="50"/>
-                <img src={require("../../static/images/mail_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/mail_logo.jpg")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
