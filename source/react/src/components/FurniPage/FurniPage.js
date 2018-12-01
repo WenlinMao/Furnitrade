@@ -56,7 +56,6 @@ class FurniPage extends Component {
                   )
               }
               this.setState({furnicard_view});
-
             } else if(code === 321) {
                 this.setState({empty: true});
             } else if(code === 400) {

@@ -116,18 +116,18 @@ class Furniture extends Component {
 
       const token = localStorage.getItem('usertoken');
       axios({
-              method: 'post',
-              url: 'http://127.0.0.1:5000/contact_form/contact',
-              withCredentials: false,
-              crossdomain: true,
-              data: reqData,
-              responseType: 'json',
-              headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
-                "Authorization": `Bearer ${token}`
-              }
+          method: 'post',
+          url: 'http://127.0.0.1:5000/contact_form/contact',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer ${token}`
+          }
       })
 
       .then((response) => {
