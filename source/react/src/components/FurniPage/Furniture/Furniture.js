@@ -81,7 +81,7 @@ class Furniture extends Component {
         // get defail information of the furniture 
         let config1 = {
           headers: {"Authorization": `Bearer ${token}`},
-          parameter: {
+          params: {
             furniture_id : furnitureId 
           }// don't use this.state.furniture_id
         };
