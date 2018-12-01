@@ -54,39 +54,51 @@ class Furniture extends Component {
         };
     }
 
-    // get method
-    // todo: get user_id, furniture_id
-    // componentWillMount() {
-    //     const token = localStorage.getItem('usertoken');
-    //     axios({
-    //         method: 'get',
-    //         url: 'http://127.0.0.1:5000/furniture/detail/' + 'furniture',
-    //         withCredentials: false,
-    //         crossdomain: true,
-    //         // data: reqData,
-    //         responseType: 'json',
-    //         headers: {
-    //             "Authorization": `Bearer ${token}`
-    //         }
-    //     }).then((response) => {
-    //         console.log(response.data);
-    //         let code = response.data.status;
-    //         if (code === 200) {
-    //           this.setState({
-    //             data:response.data
-    //           });
-    //         }
-    //     }).catch((error) => {
-    //         console.log("get furniture data error: " + error);
-    //     });
-    //
-    // }
+    componentWillMount() {
+        const furnitureId = this.props.location.pathname.substring(11);
+        console.log(furnitureId);
+        this.setState({furniture_id: furnitureId});
+        const token = localStorage.getItem('usertoken');
+        
+        let config = {
+          headers: {"Authorization": `Bearer ${token}`},
+          params: {
+              furniture_id : furnitureId // don't use this.state.furniture_id
+          },
+        }
+        //add to history 
+        axios.get('http://127.0.1:5000/furniture/add_history', config)
+        .then((response)=>{
+          console.log("add to history",response.data);
+          let code = response.data.status;
+          if(code === 200) {
+            console.log("succesfully added to history")
+          } 
+        })
+        .catch((error)=>{
+        })
 
-    setRedirect = () => {
-      this.setState({
-        redirect: true
-      })
+        // get defail information of the furniture 
+        let config1 = {
+          headers: {"Authorization": `Bearer ${token}`},
+          parameter: {
+            furniture_id : furnitureId 
+          }// don't use this.state.furniture_id
+        };
+
+        axios.get('http://127.0.0.1:5000/furniture/detail', config1)
+        .then((response)=>{
+          console.log("get detail", response.data);
+          let code = response.data.status;
+          if(code === 200) {
+            console.log("get detail successfully")
+          } 
+        })
+        .catch((error)=>{
+        })
+    
     }
+
     /* set Request Title */
     handleTitleInput = name => event => {
       this.setState({title: event.target.value});
@@ -97,12 +109,27 @@ class Furniture extends Component {
       this.setState({request: event.target.value});
     }
 
-    renderRedirect = () => {
-      if (this.state.redirect) {
-        return <Redirect to='/wishlist' />
+    saveToWishlist = () => {
+      const token = localStorage.getItem('usertoken');
+      let config = {
+        headers: {"Authorization": `Bearer ${token}`},
+        params: {
+            furniture_id : this.state.furniture_id // we can use this.state.furniture_id here 
+        },
       }
+      // save to wishlist 
+      axios.get('http://127.0.1:5000/furniture/add_wishlist', config)
+      .then((response)=>{
+        console.log("save to wishlist",response.data);
+        let code = response.data.status;
+        if(code === 200) {
+          console.log("succesfully save to wishlist")
+        } 
+      })
+      .catch((error)=>{
+      })
+      
     }
-
 
     handleSubmit = (e) => {
       e.preventDefault();
@@ -262,8 +289,7 @@ render () {
               }
 
               <div>
-                {this.renderRedirect()}
-                <button onClick={this.setRedirect}>Add to wishlist</button>
+                <button onClick={this.saveToWishlist}>Add to wishlist</button>
               </div>
             <button type="button" onClick={this.handleSubmit}> Submit </button>
 

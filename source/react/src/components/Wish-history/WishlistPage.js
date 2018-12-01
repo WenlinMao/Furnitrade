@@ -79,7 +79,7 @@ class WishlistPage extends Component {
             <div>
                 {/* Part one - NavBar - logic needed*/}
                 <NavBar/>
-                <div className="wishhist">
+                <div className="wishlist">
                     <h2>My Wishlist</h2>
                     <Wave/>
                 {/* end of furni-page tag */}
