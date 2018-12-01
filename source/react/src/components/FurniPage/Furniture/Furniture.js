@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom'
 import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
@@ -49,45 +50,59 @@ class Furniture extends Component {
            seller_id:'5c00b5ebf661a90ae131e678',
            furniture_id:'5c00b5ebf661a90ae131e678',
            success: false,
+           redirect: false,
         };
     }
 
     componentWillMount() {
+        const furnitureId = this.props.location.pathname.substring(11);
+        this.setState({furniture_id: furnitureId});
         const token = localStorage.getItem('usertoken');
+        
         let config = {
           headers: {"Authorization": `Bearer ${token}`},
           params: {
-              furniture_id : this.state.furniture_id
+              furniture_id : furnitureId // don't use this.state.furniture_id
           },
         }
-
         //add to history 
         axios.get('http://127.0.1:5000/furniture/add_history', config)
         .then((response)=>{
-          console.log()
+          console.log("add to history",response.data);
+          let code = response.data.status;
+          if(code === 200) {
+            console.log("succesfully added to history")
+          } 
         })
-        .catch((error)=>{})
-        // axios({
-        //     method: 'get',
-        //     url: 'http://127.0.0.1:5000/furniture/detail/' + 'furniture',
-        //     withCredentials: false,
-        //     crossdomain: true,
-        //     // data: reqData,
-        //     responseType: 'json',
-        //     headers: {
-        //         "Authorization": `Bearer ${token}`
-        //     }
-        // }).then((response) => {
-        //     console.log(response.data);
-        //     let code = response.data.status;
-        //     if (code === 200) {
-        //       this.setState({
-        //         data:response.data
-        //       });
-        //     }
-        // }).catch((error) => {
-        //     console.log("get furniture data error: " + error);
-        // });
+        .catch((error)=>{
+        })
+
+        let reqData = {
+          furniture_id : furnitureId // don't use this.state.furniture_id
+        };
+
+        // get defail information of the furniture 
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:5000/furniture/detail/' + furnitureId,
+            withCredentials: false,
+            crossdomain: true,
+            // data: reqData,
+            responseType: 'json',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).then((response) => {
+            console.log("get detail of furniture", response.data);
+            let code = response.data.status;
+            // if (code === 200) {
+            //   this.setState({
+            //     data:response.data
+            //   });
+            // }
+        }).catch((error) => {
+            console.log("get furniture data error: " + error);
+        });
     
     }
 
@@ -101,7 +116,27 @@ class Furniture extends Component {
       this.setState({request: event.target.value});
     }
 
-
+    saveToWishlist = () => {
+      const token = localStorage.getItem('usertoken');
+      let config = {
+        headers: {"Authorization": `Bearer ${token}`},
+        params: {
+            furniture_id : this.state.furniture_id // we can use this.state.furniture_id here 
+        },
+      }
+      // save to wishlist 
+      axios.get('http://127.0.1:5000/furniture/add_wishlist', config)
+      .then((response)=>{
+        console.log("save to wishlist",response.data);
+        let code = response.data.status;
+        if(code === 200) {
+          console.log("succesfully save to wishlist")
+        } 
+      })
+      .catch((error)=>{
+      })
+      
+    }
 
     handleSubmit = (e) => {
       e.preventDefault();
@@ -240,7 +275,7 @@ render () {
                 margin="normal"
                 variant="outlined"
               />
-              <br/>
+
               <TextField
                 id="outlined-multiline-static"
                 label="Write a request"
@@ -259,7 +294,10 @@ render () {
                   :
                   <div></div>
               }
-          <br/>
+
+              <div>
+                <button onClick={this.saveToWishlist}>Add to wishlist</button>
+              </div>
             <button type="button" onClick={this.handleSubmit}> Submit </button>
 
           {/* End of text-container */}

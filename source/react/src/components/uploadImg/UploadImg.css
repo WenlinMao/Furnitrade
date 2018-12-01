@@ -1,0 +1,10 @@
+/*
+************ Dropzone CSS ************
+Note:
+- drop zone is composed of an input component and a p text tag
+*/
+
+/* when upload is used from profile */
+.from-profile input{
+    outline: none;
+}

@@ -79,8 +79,24 @@ export class UploadImg extends Component {
         });
     }
 
-    handleClear = () => {
+    handleClear = (event,index) => {
+        // console.log("filename",index);
+        var filesToBeSent=this.state.filesToBeSent;
+        filesToBeSent.splice(index,1);
+        // console.log("files",filesToBeSent);
+        var filesPreview=[];
+        for(var i in filesToBeSent){
+            filesPreview.push(
+              <div>
+                  {filesToBeSent[i].name}
+                  <button type="clear" onClick={(event) => this.handleClear(event,i)}>
+                      Clear
+                  </button>
+              </div>
+            )
+        }
 
+        this.setState({filesToBeSent,filesPreview});
     }
 
     // while files are dropped, execute store files in component state
@@ -110,19 +126,23 @@ export class UploadImg extends Component {
             alert("You have reached the limit of uploading " + this.state.printcount
                    + " file at a time")
         }
-
     };
 
     render() {
         return (
             <div>
                 <Dropzone
+                    className={this.props.inputClass}
                     onDrop={this.onDrop}
                     disabled={this.props.disabled}
                     accept="image/jpeg, image/png" >
-                        <p>Drop your image here or click to select one.</p>
+                    <p>{this.props.hint}</p>
                 </Dropzone>
-                Files to be printed are:
+
+                {/* render files printed message based on where is called */}
+                {this.props.inputClass === "from-profile" ? null:
+                <p>Files to be printed are:</p>
+                }
                 {this.state.filesPreview}
             </div>
         );
