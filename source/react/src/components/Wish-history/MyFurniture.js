@@ -49,6 +49,7 @@ class MyFurniture extends Component {
                             text={"$" + furniture.price}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                                       + furniture.product_image[0]}
+                            fromMyFurniture={true}
                             furniture_id={furniture.furniture_id}
                         />
                     )
@@ -101,7 +102,7 @@ class MyFurniture extends Component {
                 {/* cards of furnitures already added, now display 4 furnitures*/}
                 <div className="Card-group">
                     {
-                        this.state.empty || this.state.furnicard_view.length === 0
+                        this.state.empty
                         ?
                         <div>Category is empty.</div>
                         :

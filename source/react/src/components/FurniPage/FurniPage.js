@@ -56,7 +56,7 @@ class FurniPage extends Component {
                   )
               }
               this.setState({furnicard_view});
-            } else if(code === 321) {
+            } else if(code === 321 || code === 613) {
                 this.setState({empty: true});
             } else if(code === 400) {
                 localStorage.removeItem('usertoken');
@@ -84,7 +84,7 @@ render () {
                 {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.furnicard_view.length === 0
+                    this.state.empty
                     ?
                     <div>Category is empty.</div>
                     :

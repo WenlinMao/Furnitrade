@@ -342,7 +342,7 @@ class getMyFurnitures(Resource):
     def get(self, user):
         # Step 1: check if empty my_furnitures
         my_furnitures = user['my_furnitures']
-        if len(my_furnitures) == 0:
+        if not my_furnitures:
             return jsonify({
                 "status": 613,
                 "msg": "Empty my_furnitures"
