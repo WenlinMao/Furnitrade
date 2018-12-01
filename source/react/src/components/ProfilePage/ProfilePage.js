@@ -264,10 +264,12 @@ class ProfilePage extends Component {
 
                 <div className="pic">
                   <img src={this.state.picture} alt="user info pic" />
-                  <button><UploadImg resource_type="user"
+                  <button><UploadImg 
+                              inputClass="from-profile"
+                              resource_type="user"
                               name={this.state.username}
                               onUploadImg={this.handleUploadImg}
-                              ref={this.child}
+                              ref={this.child} hint="Update"
                               /></button>
                 </div>
                 <div className="textfield">

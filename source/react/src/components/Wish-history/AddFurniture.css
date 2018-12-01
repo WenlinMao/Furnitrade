@@ -12,6 +12,7 @@
     /* divide the container into left and right part */
     display: grid;
     grid-template-columns: repeat(2, auto);
+    grid-gap: 60px;
 }
 
 @media (max-width: 640px) {

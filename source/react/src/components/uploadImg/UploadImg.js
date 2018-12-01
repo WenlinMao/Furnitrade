@@ -117,12 +117,17 @@ export class UploadImg extends Component {
         return (
             <div>
                 <Dropzone
+                    className={this.props.inputClass}
                     onDrop={this.onDrop}
                     disabled={this.props.disabled}
                     accept="image/jpeg, image/png" >
-                        <p>Drop your image here or click to select one.</p>
+                    <p>{this.props.hint}</p>
                 </Dropzone>
-                Files to be printed are:
+
+                {/* render files printed message based on where is called */}
+                {this.props.inputClass === "from-profile" ? null:
+                <p>Files to be printed are:</p>
+                }
                 {this.state.filesPreview}
             </div>
         );
