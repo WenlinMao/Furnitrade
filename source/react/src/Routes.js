@@ -13,7 +13,7 @@ import AddFurniture from './components/Wish-history/AddFurniture.js';
 import message_set from './components/message/message_set.js';
 import message from './components/message/message.js';
 // Don't know the reason but once added, the logo messed up
-import furniture from './components/FurniPage/Furniture/Furniture.js';
+import furniture from './components/FurniPage/Furniture/Furniture-new.js';
 
 export default () =>
     <Switch>

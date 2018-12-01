@@ -338,12 +338,6 @@ class getMyFurnitures(Resource):
         for furniture_id in my_furnitures:
 
             furniture = find_furniture_by_id(furniture_id)
-            if furniture is None:
-                # return jsonify({
-                #     "status": 319,
-                #     "msg": "Can not find the furniture"
-                # })
-                continue
 
             # Error checking
             if not ObjectId.is_valid(furniture_id) or furniture is None:

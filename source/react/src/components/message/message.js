@@ -15,7 +15,7 @@ class Mymessage extends Component {
           user:'',
           link:'',
           furniture_id:'',
-          furniture_name: "",
+          furniture_name: '',
         };
       }
     componentWillMount() {
