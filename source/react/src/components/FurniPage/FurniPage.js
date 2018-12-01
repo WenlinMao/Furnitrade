@@ -13,34 +13,9 @@ class FurniPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          // data: [
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          // ],
           category: "",
-          data: [],
           furnicard_view: [],
           empty: false,
-          notFound: false,
         }
     }
 
@@ -66,9 +41,6 @@ class FurniPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               var furnicard_view=[];
-              // this.setState({
-              //   data:
-              // });
               var data = JSON.parse(response.data.result);
               console.log(data)
               for (var i = 0; i < data.length; i++) {
@@ -76,7 +48,7 @@ class FurniPage extends Component {
                   furnicard_view.push(
                     <Card
                         title={furniture.furniture_name}
-                        text={furniture.price}
+                        text={"$"+furniture.price}
                         image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                                   + furniture.product_image[0]}
                         furniture_id={furniture.furniture_id}
@@ -84,9 +56,8 @@ class FurniPage extends Component {
                   )
               }
               this.setState({furnicard_view});
-
-            } else if(code === 321) {
-                this.setState({notFound: true});
+            } else if(code === 321 || code === 613) {
+                this.setState({empty: true});
             } else if(code === 400) {
                 localStorage.removeItem('usertoken');
                 this.props.history.push('/login');
@@ -113,7 +84,7 @@ render () {
                 {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.furnicard_view.length === 0
+                    this.state.empty
                     ?
                     <div>Category is empty.</div>
                     :

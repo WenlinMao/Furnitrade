@@ -205,19 +205,14 @@ class getWishList(Resource):
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            description = furniture['description']
 
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                # 'description': description
+                'furniture_id': furniture_id
             })
 
         # step 3: return json representation of furnitures
@@ -295,19 +290,14 @@ class getHistory(Resource):
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            description = furniture['description']
 
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                #'description': description
+                'furniture_id': furniture_id
             })
 
         # step 3: return json representation of furnitures
@@ -352,7 +342,7 @@ class getMyFurnitures(Resource):
     def get(self, user):
         # Step 1: check if empty my_furnitures
         my_furnitures = user['my_furnitures']
-        if len(my_furnitures) == 0:
+        if not my_furnitures:
             return jsonify({
                 "status": 613,
                 "msg": "Empty my_furnitures"
@@ -364,35 +354,31 @@ class getMyFurnitures(Resource):
 
             furniture = find_furniture_by_id(furniture_id)
             if furniture is None:
-                return jsonify({
-                    "status": 319,
-                    "msg": "Can not find the furniture"
-                })
+                # return jsonify({
+                #     "status": 319,
+                #     "msg": "Can not find the furniture"
+                # })
+                continue
 
             # Error checking
             if not ObjectId.is_valid(furniture_id) or furniture is None:
-                return jsonify({
-                    "status": 614,
-                    "msg": "furniture no longer available"
-                })
+                # return jsonify({
+                #     "status": 614,
+                #     "msg": "furniture no longer available"
+                # })
+                continue
 
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            # description = furniture['description']
 
-            # Step 3: add to furnitures_json
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                # 'description': description
+                'furniture_id': furniture_id
             })
 
         return jsonify({

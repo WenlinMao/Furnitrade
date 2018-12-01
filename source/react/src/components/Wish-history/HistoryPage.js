@@ -13,28 +13,28 @@ class HistoryPage extends Component {
         this.state = {
             data: [
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                }, 
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
-            ], 
-            empty: false 
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+            ],
+            empty: false
         };
     }
 
@@ -55,7 +55,7 @@ class HistoryPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data:response.data 
+                data:response.data
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -67,11 +67,11 @@ class HistoryPage extends Component {
             console.log("get history error: " + error);
         });
     }
-    
+
     handleClick = (id) => {
-        
+
     }
-  
+
     render() {
         return (
             <div>
@@ -86,7 +86,7 @@ class HistoryPage extends Component {
                 {/* cards of furnitures viewing history, Limited to 4, need backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty
                     ?
                     <div>You didn't view any furniture recently.</div>
                     :

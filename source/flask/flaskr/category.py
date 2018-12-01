@@ -35,7 +35,15 @@ class Category(Resource):
                 "status": 321,
                 "msg": "Can not find the category"
             })
+
         size = len(category['furniture_id'])
+
+        if not size:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty furniture_id"
+            })
+
         count = size if size < 10 else 10
 
         result = []

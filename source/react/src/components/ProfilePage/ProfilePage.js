@@ -264,7 +264,7 @@ class ProfilePage extends Component {
 
                 <div className="pic">
                   <img src={this.state.picture} alt="user info pic" />
-                  <button><UploadImg 
+                  <button><UploadImg
                               inputClass="from-profile"
                               resource_type="user"
                               name={this.state.username}
