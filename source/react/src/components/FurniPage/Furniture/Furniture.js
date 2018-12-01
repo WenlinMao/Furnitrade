@@ -84,10 +84,10 @@ class Furniture extends Component {
         // get defail information of the furniture 
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:5000/furniture/detail/' + furnitureId,
+            url: 'http://127.0.0.1:5000/furniture/detail',
             withCredentials: false,
             crossdomain: true,
-            // data: reqData,
+            data: reqData,
             responseType: 'json',
             headers: {
                 "Authorization": `Bearer ${token}`

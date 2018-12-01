@@ -48,11 +48,9 @@ class Post(Resource):
 
         fur_name = postedData['furniture_name']
         category = postedData['category']
-        # images = postedData['images']
         price = postedData['price']
-        # is_delivery_included = postedData['is_delivery_included']
-        # location = postedData['location']
-        # seller_id = postedData['seller']
+        location = postedData['address']
+        seller_id = str(user['_id'])
         description = postedData['description']
 
         error = None
@@ -62,25 +60,19 @@ class Post(Resource):
         if not fur_name:
             error_code = 322
             error = 'Furniture name is required.'
-        # elif not images:
-        #     error_code = 323
-        #     error = 'Images are required.'
-        elif not category:
+        elif not category or not validate_category_name(category):
             error_code = 324
-            error = 'Category needs to be specified.'
-        # elif not is_delivery_included:
-        #     error_code = 325
-        #     error = 'Is delivery included?'
-        # elif not seller_id:
-        #     ''' TODO: check if seller is inside the database '''
-        #     error_code = 326
-        #     error = 'Seller name is required.'
+            error = 'Category invalid'
+        elif not seller_id:
+            ''' TODO: check if seller is inside the database '''
+            error_code = 326
+            error = 'Seller name is required.'
         elif not price:
             error_code = 327
             error = 'Price is required.'
-        # elif not location:
-        #     error_code = 328
-        #     error = 'Pick up location is required.'
+        elif not location:
+            error_code = 328
+            error = 'Pick up location is required.'
         elif not description:
             error_code = 329
             error = 'Description of furniture is required.'
@@ -91,11 +83,9 @@ class Post(Resource):
             toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
-                # "images": images,
                 "price": price,
-                # "is_delivery_included": is_delivery_included,
-                # "location": location,
-                # "seller": seller_id,
+                "location": location,
+                "seller": seller_id,
                 "description": description
             }
 
@@ -107,17 +97,10 @@ class Post(Resource):
             # Here category doesn't have id.
             # Fixed to include fid as list in category By Mao.
 
-            # Insert to cateogires
-            if not validate_category_name(category):
-                return jsonify({
-                    "status": 617,
-                    "msg": "Invalid/Non-Existent Category name"
-                })
             update_category_by_catname(category, str(furniture_id))
 
             # Step 4: insert to user's my_furnitures
-            user_id = user['_id']
-            add_my_furniture_by_id(user_id, str(furniture_id))
+            add_my_furniture_by_id(user['_id'], str(furniture_id))
 
             # Status
             retJson = {
@@ -203,14 +186,10 @@ class Update(Resource):
 class Detail(Resource):
     # take an id return furniture info
     @auth.login_required
-    def get(self, user, furniture_id):
-        '''
-        TODO:
-        move find one in model layer
-        '''
-        # TODO: find one by furniture's id?
+    def get(self, user):
+        furniture_id = request.args.get('furniture_id')
         furniture = find_furniture_by_id(furniture_id)
-        # furniture = furnitures.find_one({'furniture_name': furniture_name})
+
         if furniture is None:
             return jsonify({
                 "status": 319,
@@ -221,10 +200,8 @@ class Detail(Resource):
         product_name = furniture['furniture_name']
         category = furniture['category']
         images = furniture['images']
-        is_delivery_included = furniture['is_delivery_included']
         price = furniture['price']
         location = furniture['location']
-        ''' TODO: seller id shouldn't return '''
         description = furniture['description']
 
         retJson = {
@@ -233,7 +210,6 @@ class Detail(Resource):
             'furniture_name': product_name,
             'category': category,
             'images': images,
-            'is_delivery_included': is_delivery_included,
             'price': price,
             'location': location,
             'description': description

@@ -13,34 +13,9 @@ class FurniPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          // data: [
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          //     {
-          //         title: 'furniture',
-          //         id: '1',
-          //         img:require('../../static/images/wallpaper1.png'),
-          //         price: '$20',
-          //         category: "Electronics"
-          //     },
-          // ],
           category: "",
-          data: [],
           furnicard_view: [],
           empty: false,
-          notFound: false,
         }
     }
 
@@ -66,9 +41,6 @@ class FurniPage extends Component {
             let code = response.data.status;
             if (code === 200) {
               var furnicard_view=[];
-              // this.setState({
-              //   data:
-              // });
               var data = JSON.parse(response.data.result);
               console.log(data)
               for (var i = 0; i < data.length; i++) {
@@ -86,7 +58,7 @@ class FurniPage extends Component {
               this.setState({furnicard_view});
 
             } else if(code === 321) {
-                this.setState({notFound: true});
+                this.setState({empty: true});
             } else if(code === 400) {
                 localStorage.removeItem('usertoken');
                 this.props.history.push('/login');
@@ -110,119 +82,15 @@ render () {
             {/* end of furni-page tag */}
             </div>
             </div>
-                    {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
-                    <div className="Card-group">
-                    {
-                        this.state.empty || this.state.furnicard_view.length === 0
-                        ?
-                        <div>Category is empty.</div>
-                        :
-                        this.state.furnicard_view
-                    }
-
-                    {/* {this.state.furnicard_view} */}
-                      {// <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 1"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 2"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 3"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 4"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 5"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 6"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 7"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 8"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 9"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 10"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 11"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 12"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 13"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 14"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 15"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 16"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 17"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 18"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 19"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                    // <Card
-                    //     title="Furniture-demo"
-                    //     text="description for Furniture 20"
-                    //     image={require('../../static/images/wallpaper1.png')}
-                    // />
-                  }
-
+                {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
+                <div className="Card-group">
+                {
+                    this.state.empty || this.state.furnicard_view.length === 0
+                    ?
+                    <div>Category is empty.</div>
+                    :
+                    this.state.furnicard_view
+                }
                 </div>
 
             {/* TODO - Should be a section of shit like "all rights reserved" */}

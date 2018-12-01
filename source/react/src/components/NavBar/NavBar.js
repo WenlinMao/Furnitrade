@@ -15,7 +15,8 @@ class NavBar extends React.Component {
         hasScrolled: false,
         hasLogin: false,
         redirectToLogin: false,
-        redirectToHome: false
+        redirectToHome: false,
+        redirectToCategory: false,
     }
   }
 
@@ -54,16 +55,30 @@ class NavBar extends React.Component {
       }
     }
 
+    redirectToCategory = (flag) => {
+      if(flag) {
+        this.setState({redirectToCategory: true});
+      }
+    }
+
     redirectToLogin= (flag) => {
       if(flag) {
         this.setState({redirectToLogin: true});
       }
     }
 
+
     renderRedirectToHome = () => {
       if (this.state.redirectToHome) {
         this.setState({redirectToHome: false});
         return <Redirect to='/' />
+      }
+    }
+
+    renderRedirectToCategory = () => {
+      if (this.state.redirectToCategory) {
+        this.setState({redirectToCategory: false});
+        return <Redirect to='/#category' />
       }
     }
 
@@ -85,6 +100,7 @@ class NavBar extends React.Component {
       <div className={this.state.hasScrolled ? "Header HeaderScrolled" : "Header"}>
         <div>
           {this.renderRedirectToHome()}
+          {this.renderRedirectToCategory()}
           {this.renderRedirectToLogin()}
         </div>
         <div className="Header-group">
@@ -92,7 +108,7 @@ class NavBar extends React.Component {
 
           <a href='./'>Home</a>
           {/* These two links should be udpated in the future - to onClick => scroll */}
-          <a href='#category'>Category</a>
+          <a href='./#category'>Category</a>
           <a href='./'>About Us</a>
           {
             !this.state.hasLogin ?
@@ -101,6 +117,7 @@ class NavBar extends React.Component {
             <div className="drawer-button">
             <NavigationDrawer
               redirectToHome={this.redirectToHome}
+              redirectToCategory={this.redirectToCategory}
               redirectToLogin={this.redirectToLogin}
               logout={this.logout}
             >
