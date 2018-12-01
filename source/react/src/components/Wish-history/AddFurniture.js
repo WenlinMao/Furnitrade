@@ -195,7 +195,7 @@ class Add extends Component{
               <NavBar/>
               <div className="heading">
                 <h2>Add your furniture</h2>
-
+                <Wave/>
               </div>
 
               <div className="addfurniture-container">
@@ -208,6 +208,7 @@ class Add extends Component{
                   margin="normal"
                 />
 
+                <div className="selects">
                 <div class="styled-select blue semi-square">
                   <select
                     value={this.state.category}
@@ -218,13 +219,14 @@ class Add extends Component{
                       <option value={category.title}>{category.title}</option>
                     ))}
                   </select>
-
-                {/* end of DIVs */}
                 </div>
+                
                 {/* Now we have category stored in category, extract the corresponding subcategories */}
                 {this.renderSubcategoryInput()}
 
-                <br/>
+                {/* end of DIVs */}
+                </div>
+
                 <UploadImg resource_type="furniture"
                   name={this.state.username}
                   beforeUpload={this.handleBeforeUpload}
@@ -267,9 +269,7 @@ class Add extends Component{
                   onChange={this.handlePriceInput('price')}
                   margin="normal"
                 />
-
-                <br/>
-                <button type="submit" onClick={this.handleSubmit}> Submit </button>
+                <button type="submit" onClick={this.handleSubmit}>Submit</button>
                 </div>
 
 
