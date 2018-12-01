@@ -96,6 +96,7 @@ const SectionCategory = styled.div`
           </SectionCategory>
           </section>
 
+          <section id="aboutus">
           {/* Section of About US */}
           <AboutUs
             image={require('../../static/images/light-flip.png')}
@@ -104,6 +105,7 @@ const SectionCategory = styled.div`
             text1="Furnitrade is designed to help student sellers advertise smartly and manage all post in one place."
             text2="To save students from this painful process, we created Furnitrade, a web-based platform that aims to provide the clear and efficient furniture-trading solution for college students living both on-campus and off-campus. Furnitrade creates faster way for buyers to reach sellers and efficient way for sellers to search and price match what they want. It also ensures trade credibility with our engineered communication and rating system."
           />
+          </section>
 
         {/* Final DIV - add everything above this DIV */}
         </div>
