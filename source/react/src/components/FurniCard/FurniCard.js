@@ -18,7 +18,8 @@ const Card = props => (
             props.fromMyFurniture ?
             <div className="delete-button">
             {/* <input type="image" src={deletebutton}/> */}
-              <DeleteAlert deletebutton={deletebutton} type={props.type}/>
+              <DeleteAlert deletebutton={deletebutton} type={props.type}
+              furniture_id={props.furniture_id}/>
             </div> : null
         }
         <a href={"http://localhost:3000/furniture/" + props.furniture_id}>

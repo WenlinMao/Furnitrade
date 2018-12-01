@@ -4,7 +4,7 @@ import MainPage from './components/mainPage/MainPage';
 import Register from './components/register/Register';
 import Login from './components/mainPage/login/Login.js';
 import FurniModal from './components/common/FurniModal';
-import ProfilePage from './components/ProfilePage/ProfilePage.js';
+import ProfilePage from './components/profilePage/ProfilePage.js';
 import FurniPage from './components/FurniPage/FurniPage.js';
 import WishlistPage from './components/Wish-history/WishlistPage.js';
 import HistoryPage from './components/Wish-history/HistoryPage.js';
@@ -12,7 +12,7 @@ import MyFurniture from './components/Wish-history/MyFurniture.js';
 import AddFurniture from './components/Wish-history/AddFurniture.js';
 import message from './components/message/message.js';
 // Don't know the reason but once added, the logo messed up
-import furniture from './components/FurniPage/Furniture/Furniture-new.js';
+import furniture from './components/FurniPage/Furniture/Furniture.js';
 
 export default () =>
     <Switch>
