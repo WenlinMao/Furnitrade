@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './MyFurniture.css';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Card from '../FurniCard/FurniCard';
 import AddIcon from '@material-ui/icons/Add';
-import axios from 'axios';
 
 const styles = theme => ({
   fab: {
@@ -134,22 +134,42 @@ class MyFurniture extends Component {
 
                 {/* cards of furnitures already added, now display 4 furnitures*/}
                 <div className="Card-group">
-                {
-                    this.state.empty || this.state.data.length === 0
-                    ?
-                    <div>You haven't post any furniture.</div>
-                    :
-                    this.state.data.map(obj=>(
-                        <Card
-                            title={obj.title}
-                            text={obj.price + obj.category}
-                            img={obj.img}
-                            // onClick={this.handleClick(obj.id)}
-                        />)
-                    )
-                }
+                <Card
+                    title="Furniture1"
+                    text="First wished furniture"
+                    image={require('../../static/images/wallpaper1.png')}
+                    link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
+                />
+
+
+                <Card
+                    title="Furniture2"
+                    text="Second wished furniture"
+                    image={require('../../static/images/wallpaper1.png')}
+                    link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
+                />
+
+                <Card
+                    title="Furniture3"
+                    text="Third wished furniture"
+                    image={require('../../static/images/wallpaper1.png')}
+                    link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
+                />
+
+                <Card
+                    title="Furniture4"
+                    text="Forth wished furniture"
+                    image={require('../../static/images/wallpaper1.png')}
+                    link="http://localhost:3000/Furniture"
+                    fromMyFurniture={true}
+                />
+
                     {/* Should send request for wished furnitures */}
                 </div>
+
             {/* end of  DIV */}
             </div>
         );
