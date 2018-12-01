@@ -33,7 +33,7 @@ class MyFurniture extends Component {
             headers: {"Authorization": `Bearer ${token}`},
         }
 
-        axios.get('http://127.0.0.1:5000/user/get_my_furnitures')
+        axios.get('http://127.0.0.1:5000/user/get_my_furnitures', config)
         .then((response) => {
             console.log(response.data);
             let code = response.data.status;
@@ -66,26 +66,23 @@ class MyFurniture extends Component {
     }
 
   	handledelete(e) {
-  	let reqData = {
-          	'furniture_id': this.state.furniture_id,
-  	}
-  		axios({
-                	method: 'get',
-                	url: 'http://127.0.0.1:5000/user/delete_wishlist',
-                	withCredentials: false,
-                	crossdomain: true,
-                	data: reqData,
-                	responseType: 'json',
-                	headers: {
-                  //"Content-Type": "application/x-www-form-urlencoded",
-                  "Content-Type": "application/json",
-                  "Cache-Control": "no-cache",
-                  "Authorization": `Bearer`
-                }
-        	})
-
-
-
+      	let reqData = {
+              	'furniture_id': this.state.furniture_id,
+      	}
+    		axios({
+          	method: 'get',
+          	url: 'http://127.0.0.1:5000/user/delete_wishlist',
+          	withCredentials: false,
+          	crossdomain: true,
+          	data: reqData,
+          	responseType: 'json',
+          	headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer`
+            }
+        })
     }
 
     render() {
@@ -110,40 +107,6 @@ class MyFurniture extends Component {
                         :
                         this.state.furnicard_view
                     }
-                {
-                // <Card
-                //     title="Furniture1"
-                //     text="First wished furniture"
-                //     image={require('../../static/images/wallpaper1.png')}
-                //     link="http://localhost:3000/Furniture"
-                //     fromMyFurniture={true}
-                // />
-                //
-                //
-                // <Card
-                //     title="Furniture2"
-                //     text="Second wished furniture"
-                //     image={require('../../static/images/wallpaper1.png')}
-                //     link="http://localhost:3000/Furniture"
-                //     fromMyFurniture={true}
-                // />
-                //
-                // <Card
-                //     title="Furniture3"
-                //     text="Third wished furniture"
-                //     image={require('../../static/images/wallpaper1.png')}
-                //     link="http://localhost:3000/Furniture"
-                //     fromMyFurniture={true}
-                // />
-                //
-                // <Card
-                //     title="Furniture4"
-                //     text="Forth wished furniture"
-                //     image={require('../../static/images/wallpaper1.png')}
-                //     link="http://localhost:3000/Furniture"
-                //     fromMyFurniture={true}
-                // />
-                }
                     {/* Should send request for wished furnitures */}
                 </div>
 
