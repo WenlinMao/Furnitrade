@@ -11,9 +11,9 @@ import HistoryPage from './components/Wish-history/HistoryPage.js';
 import MyFurniture from './components/Wish-history/MyFurniture.js';
 import AddFurniture from './components/Wish-history/AddFurniture.js';
 import message_set from './components/message/message_set.js';
-import message from './components/message/message.js';
+// import message from './components/message/message.js';
 // Don't know the reason but once added, the logo messed up
-import furniture from './components/FurniPage/Furniture/Furniture.js';
+import furniture from './components/FurniPage/Furniture/Furniture-new.js';
 
 export default () =>
     <Switch>
@@ -36,6 +36,6 @@ export default () =>
         <Route path = "/furniture" component = {furniture} />
         <Route path = "/addfurniture" component = {AddFurniture} />
         <Route path = "/messages" component = {message_set} />
-        <Route path = "/message" component = {message} />
+        {/* <Route path = "/message" component = {message} /> */}
 
     </Switch>;

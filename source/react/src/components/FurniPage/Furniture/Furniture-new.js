@@ -111,6 +111,7 @@ class Furniture extends Component {
                     success: false,
                     redirect: false,
                     pictures: data.images,
+                    wishlistSuccess: false 
                 })
             }
         })
@@ -154,7 +155,8 @@ class Furniture extends Component {
         console.log("save to wishlist",response.data);
         let code = response.data.status;
         if(code === 200) {
-          console.log("succesfully save to wishlist")
+          console.log("succesfully save to wishlist");
+          this.setState({wishlistSuccess: true});
         }
       })
       .catch((error)=>{
@@ -278,7 +280,9 @@ class Furniture extends Component {
                         {this.state.success?
                         <FormHelperText error={false}>Request successfully! <i className={check}></i></FormHelperText>
                         : null }
-
+                        {this.state.wishlistSuccess?
+                          <FormHelperText error={false}>Already saved to the wishlist! <i className={check}></i></FormHelperText>
+                          : null }
                         <div className="submit-wish-buttons">
                             {this.renderRedirect()}
                             <button onClick={this.saveToWishlist}>Add to wishlist</button>
