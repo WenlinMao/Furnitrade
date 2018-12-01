@@ -88,11 +88,23 @@ class Furniture extends Component {
 
         axios.get('http://127.0.0.1:5000/furniture/detail', config1)
         .then((response)=>{
-          console.log("get detail", response.data);
-          let code = response.data.status;
-          if(code === 200) {
-            console.log("get detail successfully")
-          }
+            console.log("get detail", response.data);
+            let code = response.data.status;
+            if(code === 200) {
+                console.log("get detail successfully")
+                var data = response.data
+                this.setState({
+                  picture:data.images,
+                  description:data.description,
+                  name:data.furniture_name,
+                  price:data.price,
+                  location:data.location,
+                  seller_id:'5c00b5ebf661a90ae131e678',
+                  furniture_id:'5c00b5ebf661a90ae131e678',
+                  success: false,
+                  redirect: false,
+                })
+            }
         })
         .catch((error)=>{
         })

@@ -16,13 +16,17 @@ class DeleteAlert extends React.Component {
   };
 
   handleClose = () => {
+    console.log("close");
     this.setState({ open: false });
   };
 
+  // TODO: fix delete wishlist: url part.
   deleteWishList = () => {
       let reqData = {
-          'furniture_id': this.state.furniture_id,
+          'furniture_id': this.props.furniture_id,
       }
+      console.log(this.props.furniture_id);
+      const token = localStorage.getItem('usertoken');
       axios({
           method: 'get',
           url: 'http://127.0.0.1:5000/user/delete',
@@ -34,30 +38,33 @@ class DeleteAlert extends React.Component {
               //"Content-Type": "application/x-www-form-urlencoded",
               "Content-Type": "application/json",
               "Cache-Control": "no-cache",
-              "Authorization": `Bearer`
+              "Authorization": `Bearer ${token}`
           }
       })
       .then((response) => {
           console.log(response.data);
           let code = response.data.status;
           if (code === 200) {
-            
+
           } else if(code === 615) {
-             
-          } 
+
+          }
       }).catch((error) => {
           console.log("get furniture in subcategory: " + error);
       });
 
   };
 
+  // deleteFuniture fixed
   deleteFurniture = () => {
       let reqData = {
-          'furniture_id': this.state.furniture_id,
+          'furniture_id': this.props.furniture_id,
       }
+      console.log(this.props.furniture_id);
+      const token = localStorage.getItem('usertoken');
       axios({
           method: 'get',
-          url: 'http://127.0.0.1:5000/furniture/delete/furniture_id',
+          url: 'http://127.0.0.1:5000/furniture/delete/' + this.props.furniture_id,
           withCredentials: false,
           crossdomain: true,
           data: reqData,
@@ -66,29 +73,31 @@ class DeleteAlert extends React.Component {
               //"Content-Type": "application/x-www-form-urlencoded",
               "Content-Type": "application/json",
               "Cache-Control": "no-cache",
-              "Authorization": `Bearer`
+              "Authorization": `Bearer ${token}`
           }
       })
       .then((response) => {
           console.log(response.data);
           let code = response.data.status;
           if (code === 200) {
-            
+
           } else if(code === 319) {
               this.setState({empty: true});
-          } 
+          }
       }).catch((error) => {
           console.log("get furniture in subcategory: " + error);
       });
 
   };
 
-  handledelete = (e) => {
+  handleDelete = () => {
+      console.log("delete furniture");
       if (this.props.type === "wishlist"){
-          this.deleteWishList()
+          this.deleteWishList();
       }
       else if (this.props.type === "furniture"){
-	  this.deleteFurniture()
+          console.log("delete furniture");
+	        this.deleteFurniture();
       }
   };
 
