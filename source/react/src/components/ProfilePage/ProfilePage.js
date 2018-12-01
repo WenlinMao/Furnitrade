@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import { Button}  from "@material-ui/core";
 import "./ProfilePage.css";
-import Dialog from './dialog/Dialog';
+import Dialog from '../profilePage/dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
