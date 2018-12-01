@@ -9,6 +9,8 @@ import './DeleteAlert.css';
 class DeleteAlert extends React.Component {
   state = {
     open: false,
+    furnitureDelete: false,
+    wishlistDelete: false 
   };
 
   handleClickOpen = () => {
@@ -29,7 +31,7 @@ class DeleteAlert extends React.Component {
       const token = localStorage.getItem('usertoken');
       axios({
           method: 'get',
-          url: 'http://127.0.0.1:5000/user/delete',
+          url: 'http://127.0.0.1:5000/user/delete_wishlist',
           withCredentials: false,
           crossdomain: true,
           data: reqData,
@@ -45,7 +47,7 @@ class DeleteAlert extends React.Component {
           console.log(response.data);
           let code = response.data.status;
           if (code === 200) {
-
+           
           } else if(code === 615) {
 
           }
@@ -80,7 +82,9 @@ class DeleteAlert extends React.Component {
           console.log(response.data);
           let code = response.data.status;
           if (code === 200) {
-
+            //   this.setState({furnitureDelete: true});
+              this.handleClose();
+              this.props.rerender();
           } else if(code === 319) {
               this.setState({empty: true});
           }
