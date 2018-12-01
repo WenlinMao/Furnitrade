@@ -336,11 +336,11 @@ class getMyFurnitures(Resource):
                 "status": 613,
                 "msg": "Empty my_furnitures"
             })
-        
+
         # Step 2: query all funriture_ids to get details
         furnitures_json = {}
         for furniture_id in my_furnitures:
-            
+
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
@@ -349,10 +349,10 @@ class getMyFurnitures(Resource):
                     "status": 614,
                     "msg": "furniture no longer available"
                 })
-            
+
             product_name = furniture['furniture_name']
             category = furniture['category']
-            # images = furniture['images']
+            images = furniture['images']
             # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
             # location = furniture['location']
@@ -362,14 +362,15 @@ class getMyFurnitures(Resource):
             furnitures_json[furniture_id] = {
                 'furniture_name': product_name,
                 'category': category,
-                # 'images': images,
+                'images': images,
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                #'description': description
+                # 'description': description
             }
 
         return jsonify(furnitures_json)
+
 
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')
