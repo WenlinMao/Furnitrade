@@ -25,7 +25,7 @@ class DeleteAlert extends React.Component {
       }
       axios({
           method: 'get',
-          url: 'http://127.0.0.1:5000/user/delete_wishlist',
+          url: 'http://127.0.0.1:5000/user/delete',
           withCredentials: false,
           crossdomain: true,
           data: reqData,
@@ -42,12 +42,41 @@ class DeleteAlert extends React.Component {
           let code = response.data.status;
           if (code === 200) {
             
-          } else if(code === 321 || code === 613) {
-              this.setState({empty: true});
-          } else if(code === 400) {
-              localStorage.removeItem('usertoken');
-              this.props.history.push('/login');
+          } else if(code === 615) {
+             
+          } 
+      }).catch((error) => {
+          console.log("get furniture in subcategory: " + error);
+      });
+
+  };
+
+  deleteFurniture = () => {
+      let reqData = {
+          'furniture_id': this.state.furniture_id,
+      }
+      axios({
+          method: 'get',
+          url: 'http://127.0.0.1:5000/furniture/delete/furniture_id',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer`
           }
+      })
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code === 200) {
+            
+          } else if(code === 319) {
+              this.setState({empty: true});
+          } 
       }).catch((error) => {
           console.log("get furniture in subcategory: " + error);
       });
@@ -57,6 +86,9 @@ class DeleteAlert extends React.Component {
   handledelete = (e) => {
       if (this.props.type === "wishlist"){
           this.deleteWishList()
+      }
+      else if (this.props.type === "furniture"){
+	  this.deleteFurniture()
       }
   };
 
