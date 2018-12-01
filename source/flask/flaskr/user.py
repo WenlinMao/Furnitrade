@@ -204,7 +204,7 @@ class getWishList(Resource):
 
             product_name = furniture['furniture_name']
             category = furniture['category']
-            # images = furniture['images']
+            images = furniture['images']
             # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
             # location = furniture['location']
@@ -213,11 +213,11 @@ class getWishList(Resource):
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                # 'images': images,
+                'images': images,
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                'description': description
+                # 'description': description
             })
 
         # step 3: return json representation of furnitures
@@ -294,7 +294,7 @@ class getHistory(Resource):
 
             product_name = furniture['furniture_name']
             category = furniture['category']
-            # images = furniture['images']
+            images = furniture['images']
             # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
             # location = furniture['location']
@@ -303,11 +303,11 @@ class getHistory(Resource):
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                # 'images': images,
+                'images': images,
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                'description': description
+                #'description': description
             })
 
         # step 3: return json representation of furnitures
@@ -332,7 +332,7 @@ class clearHistory(Resource):
         # user = find_user_by_id(user_id)
 
         # Use $pull operations.
-        clear_history(user['_id'], user['history'])
+        clear_history(user_id, user['history'])
 
         # TODO: catch and report error returned by delete.
 
@@ -393,12 +393,12 @@ class getMyFurnitures(Resource):
                 'price': price,
                 # 'location': location,
                 # 'description': description
-            }
+            })
 
         return jsonify({
             "status": 200,
             "msg": "get my furnitures succeeded",
-            "result": json.dumps(furnitures_json)
+            "result": json.dumps(furnitures_json),
         })
 
 
