@@ -242,7 +242,7 @@ class Add extends Component{
                   </div>
 
                   {/* Now we have category stored in category, extract the corresponding subcategories */}
-                  {this.state.category === "" ? 
+                  {this.state.category === "" ?
                   <div class="styled-select blue semi-square">
                   <select><option>Choose your subcategory</option></select></div>
                   :this.renderSubcategoryInput()}
@@ -269,6 +269,7 @@ class Add extends Component{
                   beforeUpload={this.handleBeforeUpload}
                   onUploadImg={this.handleUploadImg}
                   disabled={this.checkButtonStatus()}
+                  hint={"Please upload your furniture images. (limit is 5)"}
                   ref={this.child}
                   limit={5}
                   />
