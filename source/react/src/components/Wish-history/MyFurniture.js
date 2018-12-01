@@ -46,7 +46,7 @@ class MyFurniture extends Component {
                     furnicard_view.push(
                         <Card
                             title={furniture.furniture_name}
-                            text={furniture.price}
+                            text={"$" + furniture.price}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                                       + furniture.product_image[0]}
                             furniture_id={furniture.furniture_id}
