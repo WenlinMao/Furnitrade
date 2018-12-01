@@ -8,24 +8,29 @@
 .addfurniture-container {
     margin: 0 auto;
     max-width: 800px;
-    float: center;
-    text-align: center;
+
+    /* divide the container into left and right part */
+    display: grid;
+    grid-template-columns: repeat(2, auto);
 }
 
+@media (max-width: 640px) {
+  .addfurniture-container {
+    grid-template-columns: repeat(1, auto);
+  }
+}
+
+/* TODO */
 .lhs{
-  padding-left: 0px;
   display: grid;
   float:left;
   max-width:400px;
 }
 
+/* TODO */
 .rhs{
-  padding-left: 100px;
-  padding-top: 50px;
   display:grid;
   max-width:400px;
-  float: center;
-  text-align: center;
 }
 
 .form{
@@ -58,9 +63,16 @@ button:hover {
   transform: translateY(-3px);
 }
 
+/* TODO */
+.selects {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 15px;
+}
+
 .styled-select {
   height: 29px;
-  width: 180px;
+  width: 190px;
   overflow: hidden;
 }
 
@@ -72,6 +84,11 @@ button:hover {
   padding: 5px;
 }
 
+/* remove the blue outline on click */
+.styled-select select:focus {
+  outline: none;
+}
+
 .semi-square {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -79,4 +96,4 @@ button:hover {
 }
 .blue select { color: #fff; }
 .blue option {color:#fff;}
-.blue { background-color: rgba(0,0,0,0.25); }
+.blue { background-color: rgba(0,0,0,0.55); }
