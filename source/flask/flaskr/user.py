@@ -205,19 +205,14 @@ class getWishList(Resource):
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            description = furniture['description']
 
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                # 'description': description
+                'furniture_id': furniture_id
             })
 
         # step 3: return json representation of furnitures
@@ -295,19 +290,14 @@ class getHistory(Resource):
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            description = furniture['description']
 
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                # 'description': description
+                'furniture_id': furniture_id
             })
 
         # step 3: return json representation of furnitures
@@ -381,20 +371,14 @@ class getMyFurnitures(Resource):
             product_name = furniture['furniture_name']
             category = furniture['category']
             images = furniture['images']
-            # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
-            # location = furniture['location']
-            # description = furniture['description']
 
-            # Step 3: add to furnitures_json
             furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                'images': images,
-                # 'is_delivery_included': is_delivery_included,
+                'product_image': images,
                 'price': price,
-                # 'location': location,
-                # 'description': description
+                'furniture_id': furniture_id
             })
 
         return jsonify({
