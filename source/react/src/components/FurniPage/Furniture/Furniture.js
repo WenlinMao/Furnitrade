@@ -56,6 +56,7 @@ class Furniture extends Component {
 
     componentWillMount() {
         const furnitureId = this.props.location.pathname.substring(11);
+        console.log(furnitureId);
         this.setState({furniture_id: furnitureId});
         const token = localStorage.getItem('usertoken');
         
@@ -77,32 +78,24 @@ class Furniture extends Component {
         .catch((error)=>{
         })
 
-        let reqData = {
-          furniture_id : furnitureId // don't use this.state.furniture_id
+        // get defail information of the furniture 
+        let config1 = {
+          headers: {"Authorization": `Bearer ${token}`},
+          parameter: {
+            furniture_id : furnitureId 
+          }// don't use this.state.furniture_id
         };
 
-        // get defail information of the furniture 
-        axios({
-            method: 'get',
-            url: 'http://127.0.0.1:5000/furniture/detail',
-            withCredentials: false,
-            crossdomain: true,
-            data: reqData,
-            responseType: 'json',
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }).then((response) => {
-            console.log("get detail of furniture", response.data);
-            let code = response.data.status;
-            // if (code === 200) {
-            //   this.setState({
-            //     data:response.data
-            //   });
-            // }
-        }).catch((error) => {
-            console.log("get furniture data error: " + error);
-        });
+        axios.get('http://127.0.0.1:5000/furniture/detail', config1)
+        .then((response)=>{
+          console.log("get detail", response.data);
+          let code = response.data.status;
+          if(code === 200) {
+            console.log("get detail successfully")
+          } 
+        })
+        .catch((error)=>{
+        })
     
     }
 
