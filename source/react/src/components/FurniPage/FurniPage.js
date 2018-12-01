@@ -110,20 +110,15 @@ render () {
             {/* end of furni-page tag */}
             </div>
             </div>
-                    {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
-                    <div className="Card-group">
-                    {
-                        this.state.empty || this.state.furnicard_view.length === 0
-                        ?
-                        <div>Category is empty.</div>
-                        :
-                        <div>this.state.furnicard_view</div>
-
-                      
-                    }
-
-
-
+                {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
+                <div className="Card-group">
+                {
+                    this.state.empty || this.state.furnicard_view.length === 0
+                    ?
+                    <div>Category is empty.</div>
+                    :
+                    this.state.furnicard_view
+                }
                 </div>
 
             {/* TODO - Should be a section of shit like "all rights reserved" */}
