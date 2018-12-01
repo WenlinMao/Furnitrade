@@ -53,6 +53,7 @@
 
 .furniture label {
   color: rgba(255, 255, 255, 0.9);
+  z-index:10;
 }
 
 /* image container - like card */
@@ -96,21 +97,17 @@
     z-index: 100;
     display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-gap: 10%;
+    grid-gap: 50px;
   }
   
   .submit-wish-buttons button {
-    width: 100%;
+    width: 300px;
   }
 
   @media (max-width: 1240px) { 
-    .each-fade {
-      width: 400px;
-      height: 280px;
-    }
     
     .furniture {
-      height:1240px;
+      height:1280px;
     }     
     .furniture-container {
       grid-template-columns: repeat(1, auto);
@@ -118,7 +115,12 @@
     }
 
     .rhs-container {
-      width: 800px;
+      width: 700px;
+      grid-gap: 20px;
+    }
+
+    .submit-wish-buttons button {
+      width: 320px;
     }
   }
 
