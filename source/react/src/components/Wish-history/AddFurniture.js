@@ -208,25 +208,40 @@ class Add extends Component{
                   margin="normal"
                 />
 
+                <h8>Pick your three categories: </h8>
                 <div className="selects">
-                <div class="styled-select blue semi-square">
-                  <select
-                    value={this.state.category}
-                    onChange={this.handleCategoryInput('category')}
-                    >
-                    <option value="" hidden>Choose your category</option>
-                    {categories.categories.map(category => (
-                      <option value={category.title}>{category.title}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                {/* Now we have category stored in category, extract the corresponding subcategories */}
-                {this.renderSubcategoryInput()}
+                  <div class="styled-select blue semi-square">
+                    <select
+                      value={this.state.category}
+                      onChange={this.handleCategoryInput('category')}
+                      >
+                      <option value="" hidden>Choose your category</option>
+                      {categories.categories.map(category => (
+                        <option value={category.title}>{category.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  {/* Now we have category stored in category, extract the corresponding subcategories */}
+                  {this.renderSubcategoryInput()}
 
                 {/* end of DIVs */}
                 </div>
 
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Add a description"
+                    multiline
+                    rows="5"
+                    className={this.props.textField}
+                    onChange={this.handleDescriptionInput('description')}
+                    margin="normal"
+                    variant="outlined"
+                  />
+
+                </div>
+
+                <div className="rhs">
                 <UploadImg resource_type="furniture"
                   name={this.state.username}
                   beforeUpload={this.handleBeforeUpload}
@@ -235,21 +250,6 @@ class Add extends Component{
                   ref={this.child}
                   limit={5}
                   />
-
-                </div>
-
-                <div className="rhs">
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Add a description"
-                  multiline
-                  rows="5"
-                  className={this.props.textField}
-                  onChange={this.handleDescriptionInput('description')}
-                  margin="normal"
-                  variant="outlined"
-                />
-
 
                 <TextField
                   id="outlined-multiline-flexible"

@@ -23,13 +23,15 @@
 /* TODO */
 .lhs{
   display: grid;
-  float:left;
-  max-width:400px;
+  grid-template-rows: repeat(3, auto);
+  max-width:420px;
 }
 
 /* TODO */
 .rhs{
   display:grid;
+  grid-template-rows: repeat(4, auto);
+  grid-gap: 10px;
   max-width:400px;
 }
 
@@ -63,25 +65,23 @@ button:hover {
   transform: translateY(-3px);
 }
 
-/* TODO */
+/* Selects initial css done */
 .selects {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(3, auto);
   grid-gap: 15px;
 }
 
 .styled-select {
   height: 29px;
-  width: 190px;
   overflow: hidden;
 }
 
 .styled-select select {
   background: transparent;
   border: none;
+  width: 190px;
   font-size: 14px;
-  height: 29px;
-  padding: 5px;
 }
 
 /* remove the blue outline on click */
@@ -94,6 +94,6 @@ button:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
+
 .blue select { color: #fff; }
-.blue option {color:#fff;}
 .blue { background-color: rgba(0,0,0,0.55); }
