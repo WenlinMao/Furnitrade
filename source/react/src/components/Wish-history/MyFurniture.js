@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './MyFurniture.css';
@@ -23,7 +24,8 @@ class MyFurniture extends Component {
         super(props);
         this.state = {
             furnicard_view: [],
-            empty: false
+            empty: false,
+            redirect: false,
         };
     }
 
@@ -66,6 +68,12 @@ class MyFurniture extends Component {
         //     console.log("my furniture error: " + error);
         // })
         this.getFurnitureList();
+    }
+
+    setRedirect = () => {
+        this.setState({
+          redirect: true
+        })
     }
 
     getFurnitureList = () => {
@@ -113,6 +121,12 @@ class MyFurniture extends Component {
         this.getFurnitureList();
     }
 
+    renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/addfurniture' />
+        }
+    }
+
     render() {
         return (
             <div>
@@ -121,7 +135,8 @@ class MyFurniture extends Component {
                 <div className="my-furni">
                     <h2>My Furnitures</h2>
                     {/* Part 3 - fixed "add" button - post a new furniture */}
-                    <button>+</button>
+                    {this.renderRedirect()}
+                    <button onClick={this.setRedirect}>+</button>
                     <Wave/>
                 {/* end of furni-page tag */}
                 </div>
