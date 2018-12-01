@@ -13,7 +13,7 @@ class WishlistPage extends Component {
         super(props);
         this.state = {
             data: '',
-            empty: true
+            empty: false
         };
     }
 
@@ -68,21 +68,24 @@ class WishlistPage extends Component {
                 {/* cards of furnitures wished,should be from backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0
+                    this.state.empty
                     ?
                     <div>Your wishlist is empty.</div>
-                    :
-                    this.state.data.map(obj=>(
+                    : this.state.data.length === 0 ?
+                      null :
+                      this.state.data.map(obj=>(
                         <Card
                             fromMyFurniture={false}
                             type={"wishlist"}
                             title={obj.furniture_name}
-                            text={"$"+obj.price + obj.category}
+                            text={"$"+obj.price + " " + obj.category}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                             +obj.product_image[0]}
                             furniture_id={obj.furniture_id}
                         />)
-                    )
+                      )
+
+
                 }
                 </div>
 

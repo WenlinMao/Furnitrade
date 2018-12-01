@@ -12,7 +12,7 @@ class HistoryPage extends Component {
         super(props);
         this.state = {
             data: '',
-            empty: true
+            empty: false
         };
     }
 
@@ -22,7 +22,7 @@ class HistoryPage extends Component {
             method: 'get',
             url: 'http://127.0.0.1:5000/user/get_history',
             withCredentials: false,
-            crossdomain: true, 
+            crossdomain: true,
             responseType: 'json',
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -36,7 +36,7 @@ class HistoryPage extends Component {
                 let data = JSON.parse(response.data.result);
               this.setState({
                 data: data,
-                empty: false 
+                empty: false
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -55,7 +55,7 @@ class HistoryPage extends Component {
             method: 'get',
             url: 'http://127.0.0.1:5000/user/clear_history',
             withCredentials: false,
-            crossdomain: true, 
+            crossdomain: true,
             responseType: 'json',
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -65,14 +65,14 @@ class HistoryPage extends Component {
            if(code === 200) {
                this.setState({
                    data: '',
-                   empty: true 
+                   empty: true
                })
            }
         }).catch((error) => {
             console.log("clear history error: " + error);
         });
     }
-  
+
     render() {
         // console.log("data ", this.state.data);
         return (
@@ -88,25 +88,26 @@ class HistoryPage extends Component {
                 {/* cards of furnitures viewing history, Limited to 4, need backend*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty
                     ?
                     <div>You didn't view any furniture recently.</div>
-                    :
-                    this.state.data.map(obj=>(
-                        <Card
-                            fromMyFurniture={false}
-                            type={"history"}
-                            title={obj.furniture_name}
-                            text={"$"+obj.price + obj.category}
-                            image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
-                            +obj.product_image[0]}
-                            furniture_id={obj.furniture_id}
-                        />)
-                    )
+                    : this.state.data.length === 0 ?
+                      null :
+                      this.state.data.map(obj=>(
+                          <Card
+                              fromMyFurniture={false}
+                              type={"history"}
+                              title={obj.furniture_name}
+                              text={"$"+obj.price + obj.category}
+                              image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                              +obj.product_image[0]}
+                              furniture_id={obj.furniture_id}
+                          />)
+                      )
                 }
                 </div>
                 {
-                    this.state.empty 
+                    this.state.empty || this.state.data.length === 0
                     ?
                     null
                     :
