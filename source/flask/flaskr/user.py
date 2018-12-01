@@ -217,7 +217,7 @@ class getWishList(Resource):
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                'description': description
+                # 'description': description
             })
 
         # step 3: return json representation of furnitures
@@ -307,7 +307,7 @@ class getHistory(Resource):
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                'description': description
+                #'description': description
             })
 
         # step 3: return json representation of furnitures
