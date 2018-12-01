@@ -393,12 +393,12 @@ class getMyFurnitures(Resource):
                 'price': price,
                 # 'location': location,
                 # 'description': description
-            }
+            })
 
         return jsonify({
             "status": 200,
             "msg": "get my furnitures succeeded",
-            "result": json.dumps(furnitures_json)
+            "result": json.dumps(furnitures_json),
         })
 
 
