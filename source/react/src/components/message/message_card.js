@@ -5,8 +5,8 @@ const Mcard = props =>(
   <div className="message">
 
       <p>Here is a request for you from {props.user}</p>
-      <a href={"http://localhost:3000/furniture/" + props.contact_form_id}>
-      <footer>Click here to go to your furniture..</footer>
+      <a href={"http://localhost:3000/message/" + props.contact_form_id}>
+      <footer>Click here to go to your message..</footer>
       </a>
   </div>
 )

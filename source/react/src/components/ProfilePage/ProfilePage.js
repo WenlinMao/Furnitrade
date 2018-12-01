@@ -152,6 +152,7 @@ class ProfilePage extends Component {
              let code = response.data.status;
              if (code === 200) {
                  console.log(response);
+                 window.location.reload();
              } else if (code === 400) {
                  localStorage.removeItem('usertoken');
              }

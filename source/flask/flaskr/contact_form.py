@@ -61,11 +61,13 @@ class Contact(Resource):
 
         contact_form = add_contact_form({
             "buyer": buyer_id,
+            "buyer_username": buyer_username,
             "seller": seller_id,
             "buyer_email": buyer_email,
             "furniture": furniture_id,
             "content": content,
-            "title": title
+            "title": title,
+            "furniture_name": furniture_name
         })
 
         msg = Message(
@@ -132,6 +134,8 @@ class Detail(Resource):
         title = contact_form["title"]
         buyer_id = contact_form["buyer"]
         furniture_id = contact_form["furniture"]
+        buyer_username = contact_form["buyer_username"]
+        furniture_name = contact_form["furniture_name"]
 
         retJson = {
             "status": 200,
@@ -140,7 +144,9 @@ class Detail(Resource):
             "title": title,
             "content": content,
             "furniture": furniture_id,
-            "buyer_id": buyer_id
+            "buyer_id": buyer_id,
+            "buyer_name": buyer_username,
+            "furniture_name": furniture_name
         }
 
         return jsonify(retJson)
@@ -158,7 +164,6 @@ class MyContactForm(Resource):
             "status": 200,
             "msg": "Get contact form succeded",
             "contact_form_list": contact_forms_list,
-
         }
 
         return jsonify(retJson)
