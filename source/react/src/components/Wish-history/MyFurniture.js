@@ -24,23 +24,23 @@ class MyFurniture extends Component {
         this.state = {
             data: [
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                }, 
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
                 {
-                    title: 'furniture', 
+                    title: 'furniture',
                     id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
+                    img:require('../../static/images/wallpaper1.png'),
+                    price: '$20',
+                    category: "Electronics"
+                },
+                {
+                    title: 'furniture',
+                    id: '1',
+                    img:require('../../static/images/wallpaper1.png'),
                     price: '$20',
                     category: "Electronics"
                 },
@@ -49,7 +49,7 @@ class MyFurniture extends Component {
         };
     }
 
-   /* componentWillMount() {
+    componentWillMount() {
         const token = localStorage.getItem('usertoken');
         axios({
             method: 'get',
@@ -66,7 +66,7 @@ class MyFurniture extends Component {
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data:response.data 
+                data:response.data
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -77,8 +77,8 @@ class MyFurniture extends Component {
         }).catch((error) => {
             console.log("get wishlist error: " + error);
         });
-    
-    }*/
+
+    }
 
     render() {
         return (
@@ -96,7 +96,7 @@ class MyFurniture extends Component {
                 {/* cards of furnitures already added, now display 4 furnitures*/}
                 <div className="Card-group">
                 {
-                    this.state.empty || this.state.data.length === 0 
+                    this.state.empty || this.state.data.length === 0
                     ?
                     <div>You haven't post any furniture.</div>
                     :
