@@ -31,10 +31,12 @@ class WishlistPage extends Component {
             }
         }).then((response) => {
             console.log(response.data);
-            let data = JSON.parse(response.data.result);
-            console.log("data,", data);
+            // let data = JSON.parse(response.data.result);
+            // console.log("data,", data);
             let code = response.data.status;
             if (code === 200) {
+                let data = JSON.parse(response.data.result);
+                console.log("data,", data);
               this.setState({
                 data: data,
                 empty: false

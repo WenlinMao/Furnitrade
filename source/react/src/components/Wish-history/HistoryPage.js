@@ -28,11 +28,12 @@ class HistoryPage extends Component {
                 "Authorization": `Bearer ${token}`
             }
         }).then((response) => {
-            // console.log(response.data);
-            let data = JSON.parse(response.data.result);
+            console.log(response.data);
+            // let data = JSON.parse(response.data.result);
             // console.log(data);
             let code = response.data.status;
             if (code === 200) {
+                let data = JSON.parse(response.data.result);
               this.setState({
                 data: data,
                 empty: false 
