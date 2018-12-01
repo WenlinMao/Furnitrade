@@ -124,7 +124,7 @@ class NavBar extends React.Component {
           <a href='/'>Home</a>
           {/* These two links should be udpated in the future - to onClick => scroll */}
           <a href='/#category'>Category</a>
-          <a href='/'>About Us</a>
+          <a href='/#aboutus'>About Us</a>
           {
             !this.state.hasLogin ?
             <div className="login-button">
