@@ -12,29 +12,7 @@ class WishlistPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data: [
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                }, 
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                },
-                {
-                    title: 'furniture', 
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'), 
-                    price: '$20',
-                    category: "Electronics"
-                },
-            ],
+            data: '',
             empty: false
         };
     }
@@ -53,10 +31,11 @@ class WishlistPage extends Component {
             }
         }).then((response) => {
             console.log(response.data);
+            let data = JSON.parse(response.data.result);
             let code = response.data.status;
             if (code === 200) {
               this.setState({
-                data:response.data 
+                data: data
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -94,10 +73,11 @@ class WishlistPage extends Component {
                     :
                     this.state.data.map(obj=>(
                         <Card
-                            title={obj.title}
-                            text={obj.price + obj.category}
-                            img={obj.img}
-                            // onClick={this.handleClick(obj.id)}
+                            title={obj.furniture_name}
+                            text={"$"+obj.price + obj.category}
+                            image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                            +obj.product_image[0]}
+                            furniture_id={obj.furniture_id}
                         />)
                     )
                 }
