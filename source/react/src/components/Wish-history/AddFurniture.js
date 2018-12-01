@@ -213,12 +213,12 @@ class Add extends Component{
               {/*part 1: Nav bar*/}
               <NavBar/>
               <div className="heading">
-                <h2>Add your furniture</h2>
+              <h2>Add your furniture</h2>
                 <Wave/>
               </div>
-
               <div className="addfurniture-container">
               <div className='lhs'>
+              
                 <TextField
                   id="standard-name"
                   label="Funiture Name"
@@ -242,7 +242,7 @@ class Add extends Component{
                   </div>
 
                   {/* Now we have category stored in category, extract the corresponding subcategories */}
-                  {this.state.category === "" ? 
+                  {this.state.category === "" ?
                   <div class="styled-select blue semi-square">
                   <select><option>Choose your subcategory</option></select></div>
                   :this.renderSubcategoryInput()}
@@ -269,6 +269,7 @@ class Add extends Component{
                   beforeUpload={this.handleBeforeUpload}
                   onUploadImg={this.handleUploadImg}
                   disabled={this.checkButtonStatus()}
+                  hint={"Please upload your furniture images. (limit is 5)"}
                   ref={this.child}
                   limit={5}
                   />

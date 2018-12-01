@@ -10,6 +10,11 @@
     height:940px;
   }
 
+.title h2 {
+    padding-left: 200px;
+    padding-top: 30px;
+}
+
 /* this tag contains everything besides the NavBar */
 .furniture-container {
     margin: 0 auto;
@@ -18,7 +23,7 @@
 
     display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-gap: 100px;
+    grid-gap: 50px;
 }
 
 /* lhs - containing the images of a furniture */
@@ -35,7 +40,12 @@
 
 /* rhs - containing the description, etc */
 .rhs-container {
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-align: center;
     display: grid;
     grid-template-rows: repeat(5, auto);
     grid-gap: 10px;
