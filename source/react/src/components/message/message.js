@@ -64,8 +64,8 @@ render(){
           </div>
             <div className="message">
                 <a href={this.state.link}>
-                <p>Here is a message for you about the request you have from{this.state.user}</p>
-                <p>Hi, I want to get your stuff</p>
+                <p>Here is a message for you about the request you have from{this.state.buyer_username}</p>
+                <p>{this.state.content}</p>
                 <footer>Click the banner to go to your furniture..</footer>
                 </a>
             </div>
