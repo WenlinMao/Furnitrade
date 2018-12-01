@@ -213,12 +213,12 @@ class Add extends Component{
               {/*part 1: Nav bar*/}
               <NavBar/>
               <div className="heading">
-                <h2>Add your furniture</h2>
+              <h2>Add your furniture</h2>
                 <Wave/>
               </div>
-
               <div className="addfurniture-container">
               <div className='lhs'>
+              
                 <TextField
                   id="standard-name"
                   label="Funiture Name"
