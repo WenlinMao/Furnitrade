@@ -303,7 +303,7 @@ class ChangeFurnitureImg(Resource):
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update')
-api.add_resource(Detail, '/detail/<string:furniture_id>')
+api.add_resource(Detail, '/detail')
 api.add_resource(AddWishList, '/add_wishlist')
 api.add_resource(AddHistory, '/add_history')
 api.add_resource(List, '/list')
