@@ -15,13 +15,13 @@ import deletebutton from '../../static/images/delete-button.png';
 const Card = props => (
     <div className="Card">
         {
-            props.fromMyFurniture ? 
+            props.fromMyFurniture ?
             <div className="delete-button">
             {/* <input type="image" src={deletebutton}/> */}
             <DeleteAlert deletebutton={deletebutton}/>
             </div> : null
         }
-        <a href="http://localhost:3000/">
+        <a href={"http://localhost:3000/furniture/" + props.furniture_id}>
             <img src={props.image} /></a>
         <h3>{props.title}</h3>
         <p>{props.text}</p>

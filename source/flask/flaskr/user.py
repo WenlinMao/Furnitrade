@@ -19,6 +19,7 @@ from flask_restful import Api, Resource, reqparse
 from flaskr import mail
 
 from bson import ObjectId
+import json
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -183,12 +184,18 @@ class getWishList(Resource):
             })
 
         # step 2: query all furniture_ids to get details
-        furnitures_json = {}
+        furnitures_json = []
         for furniture_id in wishlist:
 
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
+            if furniture is None:
+                return jsonify({
+                    "status": 319,
+                    "msg": "Can not find the furniture"
+                })
+
             if not ObjectId.is_valid(furniture_id) or furniture is None:
                 return jsonify({
                     "status": 614,
@@ -203,7 +210,7 @@ class getWishList(Resource):
             # location = furniture['location']
             description = furniture['description']
 
-            furnitures_json[furniture_id] = {
+            furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
                 # 'images': images,
@@ -211,10 +218,14 @@ class getWishList(Resource):
                 'price': price,
                 # 'location': location,
                 'description': description
-            }
+            })
 
         # step 3: return json representation of furnitures
-        return jsonify(furnitures_json)
+        return jsonify({
+            "status": 200,
+            "msg": "get wishlist succeeded",
+            "result": json.dumps(furnitures_json)
+        })
 
 
 class deleteWishList(Resource):
@@ -263,12 +274,18 @@ class getHistory(Resource):
             })
 
         # step 2: query all furniture_ids to get details
-        furnitures_json = {}
+        furnitures_json = []
         for furniture_id in history:
 
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
+            if furniture == None:
+                return jsonify({
+                    "status": 319,
+                    "msg": "Can not find the furniture"
+                })
+
             if not ObjectId.is_valid(furniture_id) or furniture is None:
                 return jsonify({
                     "status": 614,
@@ -283,7 +300,7 @@ class getHistory(Resource):
             # location = furniture['location']
             description = furniture['description']
 
-            furnitures_json[furniture_id] = {
+            furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
                 # 'images': images,
@@ -291,10 +308,14 @@ class getHistory(Resource):
                 'price': price,
                 # 'location': location,
                 'description': description
-            }
+            })
 
         # step 3: return json representation of furnitures
-        return jsonify(furnitures_json)
+        return jsonify({
+            "status": 200,
+            "msg": "get wishlist succeeded",
+            "result": json.dumps(furnitures_json)
+        })
 
 
 class clearHistory(Resource):
@@ -336,12 +357,17 @@ class getMyFurnitures(Resource):
                 "status": 613,
                 "msg": "Empty my_furnitures"
             })
-        
+
         # Step 2: query all funriture_ids to get details
-        furnitures_json = {}
+        furnitures_json = []
         for furniture_id in my_furnitures:
-            
+
             furniture = find_furniture_by_id(furniture_id)
+            if furniture is None:
+                return jsonify({
+                    "status": 319,
+                    "msg": "Can not find the furniture"
+                })
 
             # Error checking
             if not ObjectId.is_valid(furniture_id) or furniture is None:
@@ -349,27 +375,32 @@ class getMyFurnitures(Resource):
                     "status": 614,
                     "msg": "furniture no longer available"
                 })
-            
+
             product_name = furniture['furniture_name']
             category = furniture['category']
-            # images = furniture['images']
+            images = furniture['images']
             # is_delivery_included = furniture['is_delivery_included']
             price = furniture['price']
             # location = furniture['location']
-            #description = furniture['description']
+            # description = furniture['description']
 
             # Step 3: add to furnitures_json
-            furnitures_json[furniture_id] = {
+            furnitures_json.append({
                 'furniture_name': product_name,
                 'category': category,
-                # 'images': images,
+                'images': images,
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                #'description': description
+                # 'description': description
             }
 
-        return jsonify(furnitures_json)
+        return jsonify({
+            "status": 200,
+            "msg": "get my furnitures succeeded",
+            "result": json.dumps(furnitures_json)
+        })
+
 
 api.add_resource(Delete, '/delete/<string:username>')
 api.add_resource(Edit, '/edit')

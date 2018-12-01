@@ -86,7 +86,7 @@ class Post(Resource):
             error = 'Description of furniture is required.'
 
         if error is None:
-            
+
             # Step 1: get furniture information
             toInsert = {
                 "furniture_name": fur_name,
@@ -102,11 +102,11 @@ class Post(Resource):
             # Step 2: insert to furnitures collections
             furniture = add_furniture(toInsert)
             furniture_id = furniture.inserted_id
-            
+
             # Step 3: insert to categories collections
-            # Here category doesn't have id. 
+            # Here category doesn't have id.
             # Fixed to include fid as list in category By Mao.
-            
+
             # Insert to cateogires
             if not validate_category_name(category):
                 return jsonify({
@@ -175,21 +175,22 @@ class Update(Resource):
 
         # Get current furniture id.
         furniture_id = posted_data['furniture_id']
-        
+
         # TODO: Change category here when updated.
         old_furniture = find_furniture_by_id(furniture_id)
         # Check if category has been changed
         if category != old_furniture['category']:
-            change_category(old_furniture['category'], category, str(furniture_id))
+            change_category(old_furniture['category'],
+                            category, str(furniture_id))
 
         # Update furniture by its id
         update_furniture_by_id(furniture_id, {
             "furniture_name": product_name,
             "category": category,
-            #"images": images,
-            #"is_delivery_included": is_delivery_included,
+            # "images": images,
+            # "is_delivery_included": is_delivery_included,
             "price": price,
-            #"location": location,
+            # "location": location,
             "description": description
         })
 
@@ -251,7 +252,7 @@ class AddWishList(Resource):
         # Get user id and furniture_id from get request's param
         user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
-        
+
         # Validation of object id
         if not ObjectId.is_valid(furniture_id) or \
                 find_furniture_by_id(furniture_id) is None:
