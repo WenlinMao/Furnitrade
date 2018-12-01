@@ -190,17 +190,8 @@ class getWishList(Resource):
             furniture = find_furniture_by_id(furniture_id)
 
             # Error checking
-            if furniture is None:
-                return jsonify({
-                    "status": 319,
-                    "msg": "Can not find the furniture"
-                })
-
             if not ObjectId.is_valid(furniture_id) or furniture is None:
-                return jsonify({
-                    "status": 614,
-                    "msg": "furniture no longer available"
-                })
+                continue
 
             product_name = furniture['furniture_name']
             category = furniture['category']
@@ -274,18 +265,12 @@ class getHistory(Resource):
 
             furniture = find_furniture_by_id(furniture_id)
 
-            # Error checking
-            if furniture == None:
-                return jsonify({
-                    "status": 319,
-                    "msg": "Can not find the furniture"
-                })
-
             if not ObjectId.is_valid(furniture_id) or furniture is None:
-                return jsonify({
-                    "status": 614,
-                    "msg": "furniture no longer available"
-                })
+                # return jsonify({
+                #     "status": 614,
+                #     "msg": "furniture no longer available"
+                # })
+                continue
 
             product_name = furniture['furniture_name']
             category = furniture['category']

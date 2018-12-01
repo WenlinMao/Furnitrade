@@ -14,6 +14,7 @@ class Mymessage extends Component {
         };
       }
     componentWillMount() {
+        const temp= '';
         const token = localStorage.getItem('usertoken');
         axios({
             method: 'get',
