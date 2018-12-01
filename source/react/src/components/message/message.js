@@ -8,36 +8,54 @@ class Mymessage extends Component {
     constructor(props){
         super(props);
         this.state={
-          message:'A request message for you',
-          user:'',
-          link:"http://localhost:3000/",
+          contact_form_id:'',
+          Title:'',
+          seller_id:'',
+          content:'',
+          furniture_id:'',
         };
       }
-    componentWillMount() {
-        const temp= '';
-        const token = localStorage.getItem('usertoken');
-        axios({
-            method: 'get',
-            url: 'http://127.0.0.1:5000/contact_form/detail/',
-            withCredentials: false,
-            crossdomain: true,
-            // data: reqData,
-            responseType: 'json',
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }).then((response) => {
-            console.log(response.data);
-            let code = response.data.status;
-            if (code === 200) {
-              this.setState({
-                data:response.data
-              });
-            }
-        }).catch((error) => {
-            console.log("get message error: " + error);
-        });
-    }
+      componentWillMount() {
+              const contactId = this.props.location.pathname.substring(8);
+              console.log(contactId);
+              this.setState({contact_form_id: contactId});
+              const token = localStorage.getItem('usertoken');
+
+              let config = {
+                headers: {"Authorization": `Bearer ${token}`},
+                params: {
+                  contact_form_id : contactId // don't use this.state.furniture_id
+                },
+              }
+
+              // get defail information of the furniture
+              let config1 = {
+                headers: {"Authorization": `Bearer ${token}`},
+                params: {
+                  contact_form_id : contactId
+                }// don't use this.state.furniture_id
+              };
+
+              axios.get('http://127.0.0.1:5000/furniture/detail', config1)
+              .then((response)=>{
+                  console.log("get detail", response.data);
+                  let code = response.data.status;
+                  if(code === 200) {
+                      console.log("get detail successfully")
+                      var data = response.data
+                      this.setState({
+                        Title:data.Title,
+                        content:data.content,
+                        seller_id:'5c00b5ebf661a90ae131e678',
+                        furniture_id:'5c00b5ebf661a90ae131e678',
+                        success: false,
+                        redirect: false,
+                      })
+                  }
+              })
+              .catch((error)=>{
+              })
+          }
 
 render(){
   return(
