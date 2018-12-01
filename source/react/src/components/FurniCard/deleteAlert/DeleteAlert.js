@@ -24,33 +24,25 @@ class DeleteAlert extends React.Component {
 
   // TODO: fix delete wishlist: url part.
   deleteWishList = () => {
-      let reqData = {
-          'furniture_id': this.props.furniture_id,
-      }
-      console.log(this.props.furniture_id);
-      const token = localStorage.getItem('usertoken');
-      axios({
-          method: 'get',
-          url: 'http://127.0.0.1:5000/user/delete_wishlist',
-          withCredentials: false,
-          crossdomain: true,
-          data: reqData,
-          responseType: 'json',
-          headers: {
-              //"Content-Type": "application/x-www-form-urlencoded",
-              "Content-Type": "application/json",
-              "Cache-Control": "no-cache",
-              "Authorization": `Bearer ${token}`
-          }
-      })
+    const token = localStorage.getItem('usertoken');
+    let config = {
+        headers: {"Authorization": `Bearer ${token}`},
+        params: {
+            furniture_id: this.props.furniture_id
+        }
+    }
+    //   console.log(this.props.furniture_id);
+    //   const token = localStorage.getItem('usertoken');
+      axios.get('http://127.0.0.1:5000/user/delete_wishlist', config)
       .then((response) => {
-          console.log(response.data);
-          let code = response.data.status;
-          if (code === 200) {
-           
-          } else if(code === 615) {
+        console.log(response.data);
+        let code = response.data.status;
+        if (code === 200) {
+            this.handleClose();
+            this.props.rerender();
+        } else if(code === 615) {
 
-          }
+        }
       }).catch((error) => {
           console.log("get furniture in subcategory: " + error);
       });
@@ -59,9 +51,9 @@ class DeleteAlert extends React.Component {
 
   // deleteFuniture fixed
   deleteFurniture = () => {
-      let reqData = {
-          'furniture_id': this.props.furniture_id,
-      }
+    //   let reqData = {
+    //       'furniture_id': this.props.furniture_id,
+    //   }
       console.log(this.props.furniture_id);
       const token = localStorage.getItem('usertoken');
       axios({
@@ -69,7 +61,7 @@ class DeleteAlert extends React.Component {
           url: 'http://127.0.0.1:5000/furniture/delete/' + this.props.furniture_id,
           withCredentials: false,
           crossdomain: true,
-          data: reqData,
+        //   data: reqData,
           responseType: 'json',
           headers: {
               //"Content-Type": "application/x-www-form-urlencoded",

@@ -18,6 +18,11 @@ class WishlistPage extends Component {
     }
 
     componentWillMount() {
+       this.getWishlist();
+
+    }
+
+    getWishlist = () => {
         const token = localStorage.getItem('usertoken');
         axios({
             method: 'get',
@@ -50,7 +55,10 @@ class WishlistPage extends Component {
         }).catch((error) => {
             console.log("get wishlist error: " + error);
         });
-
+    }
+    
+    rerender = () => {
+        this.getWishlist();
     }
 
     render() {
@@ -75,13 +83,14 @@ class WishlistPage extends Component {
                       null :
                       this.state.data.map(obj=>(
                         <Card
-                            fromMyFurniture={false}
+                            fromMyFurniture={true}
                             type={"wishlist"}
                             title={obj.furniture_name}
                             text={"$"+obj.price + " " + obj.category}
                             image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                             +obj.product_image[0]}
                             furniture_id={obj.furniture_id}
+                            rerender={this.rerender}
                         />)
                       )
 
