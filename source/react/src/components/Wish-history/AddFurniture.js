@@ -13,6 +13,8 @@ import {UploadImg} from '../uploadImg/UploadImg';
 // import '../uploadImg/UploadImg'
 import categories from '../../static/data/category.json';
 
+// regular expression for price
+const priceRegex = /^\d+$/;
 
 class Add extends Component{
   constructor(props) {
@@ -44,8 +46,25 @@ class Add extends Component{
       this.setState({furniture_name: event.target.value});
     }
 
+    // handle price input
     handlePriceInput = name => event => {
+
+      // set price if input matches price regex
+      // TODO: might submit invalid price value to database even though we show
+      // error message
       this.setState({price: event.target.value});
+      if (event.target.value.match(priceRegex)) {
+        this.setState({
+          price: event.target.value,
+          priceError: false,
+        });
+      }
+      else {
+        this.setState({
+          priceError: true,
+        });
+      }
+
     }
 
 
@@ -221,7 +240,7 @@ class Add extends Component{
                       ))}
                     </select>
                   </div>
-                  
+
                   {/* Now we have category stored in category, extract the corresponding subcategories */}
                   {this.state.category === "" ? 
                   <div class="styled-select blue semi-square">
@@ -271,6 +290,7 @@ class Add extends Component{
                   className={this.props.textField}
                   onChange={this.handlePriceInput('price')}
                   margin="normal"
+                  error={this.state.priceError}
                 />
                 <button type="submit" onClick={this.handleSubmit}>Submit</button>
                 </div>
