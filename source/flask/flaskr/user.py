@@ -307,7 +307,7 @@ class getHistory(Resource):
                 # 'is_delivery_included': is_delivery_included,
                 'price': price,
                 # 'location': location,
-                #'description': description
+                # 'description': description
             })
 
         # step 3: return json representation of furnitures
@@ -364,17 +364,19 @@ class getMyFurnitures(Resource):
 
             furniture = find_furniture_by_id(furniture_id)
             if furniture is None:
-                return jsonify({
-                    "status": 319,
-                    "msg": "Can not find the furniture"
-                })
+                # return jsonify({
+                #     "status": 319,
+                #     "msg": "Can not find the furniture"
+                # })
+                continue
 
             # Error checking
             if not ObjectId.is_valid(furniture_id) or furniture is None:
-                return jsonify({
-                    "status": 614,
-                    "msg": "furniture no longer available"
-                })
+                # return jsonify({
+                #     "status": 614,
+                #     "msg": "furniture no longer available"
+                # })
+                continue
 
             product_name = furniture['furniture_name']
             category = furniture['category']
