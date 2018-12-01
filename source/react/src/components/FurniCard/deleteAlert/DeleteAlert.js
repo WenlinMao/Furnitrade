@@ -18,9 +18,10 @@ class DeleteAlert extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   deleteWishList = () => {
       let reqData = {
-              'furniture_id': this.state.furniture_id,
+          'furniture_id': this.state.furniture_id,
       }
       axios({
           method: 'get',
@@ -30,19 +31,34 @@ class DeleteAlert extends React.Component {
           data: reqData,
           responseType: 'json',
           headers: {
-          //"Content-Type": "application/x-www-form-urlencoded",
-          "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
-          "Authorization": `Bearer`
-      }
-  }
-  handledelete(e) {
-        if (this.props.type === "wishlist"){
-            deleteWishList()
-        }
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer`
+          }
+      })
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code === 200) {
+            
+          } else if(code === 321 || code === 613) {
+              this.setState({empty: true});
+          } else if(code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+          }
+      }).catch((error) => {
+          console.log("get furniture in subcategory: " + error);
+      });
 
-    });
-}
+  };
+
+  handledelete = (e) => {
+      if (this.props.type === "wishlist"){
+          this.deleteWishList()
+      }
+  };
 
 
   render() {
