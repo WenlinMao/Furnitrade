@@ -7,7 +7,7 @@ class PrivacyPage extends Component {
     render () {
         return (
             <div style={{backgroundColor: "white"}}>
-                <NavBar/>
+                <NavBar fromPrivacy={true}/>
                 <div className="privacy">
                     <h1>Privacy Policy</h1>
                     <p>Effective date: December 02, 2018</p>
