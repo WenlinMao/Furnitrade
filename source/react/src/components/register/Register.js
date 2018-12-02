@@ -515,6 +515,7 @@ class Register extends Component {
                               onUploadImg={this.handleUploadImg}
                               disabled={this.checkButtonStatus()}
                               ref={this.child}
+                              hint={"Please upload a profile image. (limit is 1)"}
                               />
                             {/* Show different button depending on input validality */}
                             { (this.checkButtonStatus()

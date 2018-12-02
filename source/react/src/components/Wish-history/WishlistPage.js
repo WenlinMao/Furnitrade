@@ -12,34 +12,17 @@ class WishlistPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data: [
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-                {
-                    title: 'furniture',
-                    id: '1',
-                    img:require('../../static/images/wallpaper1.png'),
-                    price: '$20',
-                    category: "Electronics"
-                },
-            ],
+            data: '',
             empty: false
         };
     }
 
     componentWillMount() {
+       this.getWishlist();
+
+    }
+
+    getWishlist = () => {
         const token = localStorage.getItem('usertoken');
         axios({
             method: 'get',
@@ -53,10 +36,15 @@ class WishlistPage extends Component {
             }
         }).then((response) => {
             console.log(response.data);
+            // let data = JSON.parse(response.data.result);
+            // console.log("data,", data);
             let code = response.data.status;
             if (code === 200) {
+                let data = JSON.parse(response.data.result);
+                console.log("data,", data);
               this.setState({
-                data:response.data
+                data: data,
+                empty: false
               });
             } else if(code === 613) {
                 this.setState({empty: true});
@@ -67,14 +55,14 @@ class WishlistPage extends Component {
         }).catch((error) => {
             console.log("get wishlist error: " + error);
         });
-
+    }
+    
+    rerender = () => {
+        this.getWishlist();
     }
 
-  /*  handleClick = (id) => {
-
-    }*/
-
     render() {
+        // console.log("state", this.state.data)
         return (
             <div>
                 {/* Part one - NavBar - logic needed*/}
@@ -91,16 +79,22 @@ class WishlistPage extends Component {
                     this.state.empty
                     ?
                     <div>Your wishlist is empty.</div>
-                    :
-                    this.state.data.map(obj=>(
+                    : this.state.data.length === 0 ?
+                      null :
+                      this.state.data.map(obj=>(
                         <Card
-                            title={obj.title}
-                            text={obj.price + obj.category}
-                            img={obj.img}
+                            fromMyFurniture={true}
                             type={"wishlist"}
-                            // onClick={this.handleClick(obj.id)}
+                            title={obj.furniture_name}
+                            text={"$"+obj.price + " " + obj.category}
+                            image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                            +obj.product_image[0]}
+                            furniture_id={obj.furniture_id}
+                            rerender={this.rerender}
                         />)
-                    )
+                      )
+
+
                 }
                 </div>
 

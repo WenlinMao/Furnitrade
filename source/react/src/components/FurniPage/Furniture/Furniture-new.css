@@ -10,6 +10,11 @@
     height:940px;
   }
 
+.title h2 {
+    padding-left: 200px;
+    padding-top: 30px;
+}
+
 /* this tag contains everything besides the NavBar */
 .furniture-container {
     margin: 0 auto;
@@ -18,7 +23,7 @@
 
     display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-gap: 100px;
+    grid-gap: 50px;
 }
 
 /* lhs - containing the images of a furniture */
@@ -35,7 +40,12 @@
 
 /* rhs - containing the description, etc */
 .rhs-container {
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-align: center;
     display: grid;
     grid-template-rows: repeat(5, auto);
     grid-gap: 10px;
@@ -65,17 +75,17 @@
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-  
+
     /* display */
     display: grid;
     grid-template-rows: 1fr 1fr;
     transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
   }
-  
+
   .each-fade:hover {
     transform: scale(1.01, 1.01);
   }
-  
+
   .each-fade h2 {
     color:rgba(255, 255, 255, 0.8);
     font-size: 30px;
@@ -83,7 +93,7 @@
     width: 190px;
     z-index: 10;
   }
-  
+
   .each-fade img {
     position: absolute;
     top: 0;
@@ -91,7 +101,7 @@
     z-index: 1;
     transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
   }
-  
+
   /* submit and wishlist buttons CSS */
   .submit-wish-buttons {
     z-index: 100;
@@ -99,16 +109,16 @@
     grid-template-columns: repeat(2, auto);
     grid-gap: 50px;
   }
-  
+
   .submit-wish-buttons button {
     width: 300px;
   }
 
-  @media (max-width: 1240px) { 
-    
+  @media (max-width: 1240px) {
+
     .furniture {
       height:1280px;
-    }     
+    }
     .furniture-container {
       grid-template-columns: repeat(1, auto);
       grid-gap: 20px;
@@ -124,31 +134,30 @@
     }
   }
 
-  @media (max-width: 640px) {    
+  @media (max-width: 640px) {
     .each-fade {
       width: 400px;
       height: 280px;
     }
-  
+
     .each-fade h2 {
       font-size: 20px;
     }
-  
+
     .submit-wish-buttons {
       grid-template-columns: repeat(1, auto);
     }mit-wish-buttons button {
       width: 150px;
     }
   }
-  
+
   @media (max-width: 440px) {
     .each-fade {
       width: 250px;
       height: 175px;
     }
-  
+
     .each-fade h2 {
       font-size: 15px;
     }
   }
-  

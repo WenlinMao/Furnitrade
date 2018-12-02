@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './MyFurniture.css';
@@ -23,11 +24,59 @@ class MyFurniture extends Component {
         super(props);
         this.state = {
             furnicard_view: [],
-            empty: false
+            empty: false,
+            redirect: false,
         };
     }
 
     componentWillMount() {
+        // const token = localStorage.getItem('usertoken');
+        // let config = {
+        //     headers: {"Authorization": `Bearer ${token}`},
+        // }
+
+        // axios.get('http://127.0.0.1:5000/user/get_my_furnitures', config)
+        // .then((response) => {
+        //     console.log(response.data);
+        //     let code = response.data.status;
+        //     if (code === 200) {
+        //         var furnicard_view=[];
+        //         var data = JSON.parse(response.data.result);
+        //         console.log(data)
+        //         for (var i = 0; i < data.length; i++) {
+        //             var furniture = data[i];
+        //             furnicard_view.push(
+        //                 <Card
+        //                     title={furniture.furniture_name}
+        //                     text={"$" + furniture.price}
+        //                     image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
+        //                               + furniture.product_image[0]}
+        //                     fromMyFurniture={true}
+        //                     type={"furniture"}
+        //                     furniture_id={furniture.furniture_id}
+        //                 />
+        //             )
+        //         }
+        //         this.setState({furnicard_view});
+        //     } else if(code === 613) {
+        //         this.setState({empty: true});
+        //     } else if(code === 400) {
+        //         localStorage.removeItem('usertoken');
+        //         this.props.history.push('/login');
+        //     }
+        // }).catch((error) => {
+        //     console.log("my furniture error: " + error);
+        // })
+        this.getFurnitureList();
+    }
+
+    setRedirect = () => {
+        this.setState({
+          redirect: true
+        })
+    }
+
+    getFurnitureList = () => {
         const token = localStorage.getItem('usertoken');
         let config = {
             headers: {"Authorization": `Bearer ${token}`},
@@ -52,6 +101,7 @@ class MyFurniture extends Component {
                             fromMyFurniture={true}
                             type={"furniture"}
                             furniture_id={furniture.furniture_id}
+                            rerender={this.rerender}
                         />
                     )
                 }
@@ -67,6 +117,15 @@ class MyFurniture extends Component {
         })
     }
 
+    rerender = () => {
+        this.getFurnitureList();
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/addfurniture' />
+        }
+    }
 
     render() {
         return (
@@ -76,7 +135,8 @@ class MyFurniture extends Component {
                 <div className="my-furni">
                     <h2>My Furnitures</h2>
                     {/* Part 3 - fixed "add" button - post a new furniture */}
-                    <button>+</button>
+                    {this.renderRedirect()}
+                    <button onClick={this.setRedirect}>+</button>
                     <Wave/>
                 {/* end of furni-page tag */}
                 </div>

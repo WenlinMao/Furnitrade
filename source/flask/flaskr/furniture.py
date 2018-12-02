@@ -203,6 +203,7 @@ class Detail(Resource):
         price = furniture['price']
         location = furniture['location']
         description = furniture['description']
+        seller = furniture['seller']
 
         retJson = {
             "status": 200,
@@ -212,7 +213,8 @@ class Detail(Resource):
             'images': images,
             'price': price,
             'location': location,
-            'description': description
+            'description': description,
+            'seller': seller,
         }
 
         return jsonify(retJson)

@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-import { Fade } from 'react-slideshow-image';
+import { Slide } from 'react-slideshow-image';
 
 // TODO - just for testing
 import slide1 from '../../../static/images/img/slide1.png';
@@ -20,18 +20,24 @@ import slide5 from '../../../static/images/img/slide5.png';
 const fadeImages = [
     slide1,
     slide2,
-    slide3,
-    slide4,
-    slide5
   ];
 
-  const fadeProperties = {
+  const properties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: false,
+    indicators: false,
+    arrow: false
+  }
+
+  const propertiesMulti = {
     duration: 5000,
     transitionDuration: 500,
     infinite: true,
     indicators: true,
     arrow: true
   }
+
 
 /* Furniture class:
     - A new page for a specific furniture
@@ -43,77 +49,181 @@ class Furniture extends Component {
     constructor(props){
         super(props);
         this.state={
-           picture:'test-propic.jpg',
-           description:'Everything you need for storing and keeping things organized at home. Choose a ready-made combination or create your own, adapted to your style and belongings. This is just one of many, many possibilities.',
-           name:'Table one',
-           price:'0',
+           picture_view:[],
+           description:'',
+           name:'',
+           price:'',
            content:'',
-           seller_id:'5c00b5ebf661a90ae131e678',
-           furniture_id:'5c00b5ebf661a90ae131e678',
+           seller_id:'',
+           furniture_id:'',
            success: false,
            redirect: false,
+           pictures: [],
         };
     }
 
-    setRedirect = () => {
-        this.setState({ redirect: true})
-      }
-      /* set Request Title */
-      handleTitleInput = name => event => {
-        this.setState({title: event.target.value});
-      }
-  
-      /* set Request Content */
-      handleRequestInput = name => event => {
-        this.setState({request: event.target.value});
-      }
-  
-      renderRedirect = () => {
-        if (this.state.redirect) {return <Redirect to='/wishlist' />}
-      }
-  
-  
-      handleSubmit = (e) => {
-        e.preventDefault();
-        let reqData = {
-          'content': this.state.request,
-          'title': this.state.title,
-          'seller_id': this.state.seller_id,
-          'furniture_id': this.state.furniture_id,
-        };
-        console.log(reqData);
-  
+    componentWillMount() {
+        const furnitureId = this.props.location.pathname.substring(11);
+        console.log(furnitureId);
+        this.setState({furniture_id: furnitureId});
         const token = localStorage.getItem('usertoken');
-        axios({
-                method: 'post',
-                url: 'http://127.0.0.1:5000/contact_form/contact',
-                withCredentials: false,
-                crossdomain: true,
-                data: reqData,
-                responseType: 'json',
-                headers: {
-                  //"Content-Type": "application/x-www-form-urlencoded",
-                  "Content-Type": "application/json",
-                  "Cache-Control": "no-cache",
-                  "Authorization": `Bearer ${token}`
-                }
-        })
-  
-        .then((response) => {
-            console.log(response.data);
+
+        let config = {
+          headers: {"Authorization": `Bearer ${token}`},
+          params: {
+            furniture_id : furnitureId // don't use this.state.furniture_id
+          },
+        }
+        //add to history
+        axios.get('http://127.0.1:5000/furniture/add_history', config)
+        .then((response)=>{
+            console.log("add to history",response.data);
             let code = response.data.status;
-            if (code == 200) {
-              this.setState({"content": response.data.content})
-              this.setState({success: true});
+            if(code === 200) {
+                console.log("succesfully added to history")
             }
         })
-        .catch((error) => {console.log("post error: " + error);});
+        .catch((error)=>{
+        })
+
+        // get defail information of the furniture
+        let config1 = {
+          headers: {"Authorization": `Bearer ${token}`},
+          params: {
+            furniture_id : furnitureId
+          }// don't use this.state.furniture_id
+        };
+
+        axios.get('http://127.0.0.1:5000/furniture/detail', config1)
+        .then((response)=>{
+            console.log("get detail", response.data);
+            let code = response.data.status;
+            if(code === 200) {
+                console.log("get detail successfully")
+                var data = response.data
+                this.setState({
+                    description:data.description,
+                    name:data.furniture_name,
+                    price:data.price,
+                    location:data.location,
+                    seller_id:data.seller,
+                    furniture_id:furnitureId,
+                    success: false,
+                    redirect: false,
+                    pictures: data.images,
+                    wishlistSuccess: false 
+                })
+            }
+        })
+        .catch((error)=>{
+        })
+    }
+
+
+    SlideShow = (props) => {
+
+    }
+
+    setRedirect = () => {
+      this.setState({ redirect: true})
+    }
+    /* set Request Title */
+    handleTitleInput = name => event => {
+      this.setState({title: event.target.value});
+    }
+
+    /* set Request Content */
+    handleRequestInput = name => event => {
+      this.setState({request: event.target.value});
+    }
+
+    renderRedirect = () => {
+      if (this.state.redirect) {return <Redirect to='/wishlist' />}
+    }
+
+    saveToWishlist = () => {
+      const token = localStorage.getItem('usertoken');
+      let config = {
+        headers: {"Authorization": `Bearer ${token}`},
+        params: {
+            furniture_id : this.state.furniture_id // we can use this.state.furniture_id here
+        },
       }
-  
+      // save to wishlist
+      axios.get('http://127.0.1:5000/furniture/add_wishlist', config)
+      .then((response)=>{
+        console.log("save to wishlist",response.data);
+        let code = response.data.status;
+        if(code === 200) {
+          console.log("succesfully save to wishlist");
+          this.setState({wishlistSuccess: true});
+        }
+      })
+      .catch((error)=>{
+      })
+    }
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+      let reqData = {
+        'content': this.state.request,
+        'title': this.state.title,
+        'seller_id': this.state.seller_id,
+        'furniture_id': this.state.furniture_id,
+      };
+      console.log(reqData);
+
+      const token = localStorage.getItem('usertoken');
+      axios({
+              method: 'post',
+              url: 'http://127.0.0.1:5000/contact_form/contact',
+              withCredentials: false,
+              crossdomain: true,
+              data: reqData,
+              responseType: 'json',
+              headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer ${token}`
+              }
+      })
+
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code == 200) {
+            this.setState({"content": response.data.content})
+            this.setState({success: true});
+          }
+      })
+      .catch((error) => {console.log("post error: " + error);});
+    }
+
     newMethod() { this.render(); }
 
     render () {
         const check = "far fa-check-circle";
+
+        let config;
+        if (this.state.pictures.length===0) {
+          return null;
+        } else if (this.state.pictures.length===1){
+          config = properties;
+        } else {
+          config = propertiesMulti
+        }
+
+        let slide_show =
+          <Slide {...config}>
+            {
+                this.state.pictures.map((each, index) =>
+                    <img key={index} style={{width: "100%"}}
+                    src={"https://s3.amazonaws.com/furnitrade-dev-attachments/" + each} />
+                )
+            }
+          </Slide>
+
         return (
             <div className="furniture">
                 <NavBar />
@@ -130,26 +240,7 @@ class Furniture extends Component {
 
                         {/* slideshow part */}
                         <div className="slides">
-                        <Fade {...fadeProperties}>
-                        <div className="each-fade">
-                            <div className="image-container">
-                            <img src={fadeImages[0]} />
-                            </div>
-                            <h2>First Slide</h2>
-                        </div>
-                        <div className="each-fade">
-                            <div className="image-container">
-                            <img src={fadeImages[1]} />
-                            </div>
-                            <h2>Second Slide</h2>
-                        </div>
-                        <div className="each-fade">
-                            <div className="image-container">
-                            <img src={fadeImages[2]} />
-                            </div>
-                            <h2>Third Slide</h2>
-                        </div>
-                        </Fade>
+                          {slide_show}
                         </div>
                     {/* end of LHS */}
                     </div>
@@ -189,11 +280,13 @@ class Furniture extends Component {
                         {this.state.success?
                         <FormHelperText error={false}>Request successfully! <i className={check}></i></FormHelperText>
                         : null }
-
+                        {this.state.wishlistSuccess?
+                          <FormHelperText error={false}>Already saved to the wishlist! <i className={check}></i></FormHelperText>
+                          : null }
                         <div className="submit-wish-buttons">
                             {this.renderRedirect()}
-                            <button onClick={this.setRedirect}>Add to wishlist</button>
-                            <button type="button" onClick={this.handleSubmit}> Submit </button>
+                            <button onClick={this.saveToWishlist}>Add to wishlist</button>
+                            <button type="button" onClick={this.handleSubmit}> Contact Seller </button>
                         </div>
 
                     {/* end of RHS */}
@@ -202,7 +295,7 @@ class Furniture extends Component {
                 </div>
             {/* end of furniture */}
             </div>
-        
+
         /* end of return */
         );
 

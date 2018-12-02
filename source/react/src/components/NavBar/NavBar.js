@@ -128,7 +128,7 @@ class NavBar extends React.Component {
           {
             !this.state.hasLogin ?
             <div className="login-button">
-            <Link to="./Login"><button>Login</button></Link> </div>:
+            <Link to="/Login"><button>Login</button></Link> </div>:
             <div className="drawer-button">
             <NavigationDrawer
               redirectToHome={this.redirectToHome}
