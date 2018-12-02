@@ -70,7 +70,7 @@ class message_set extends Component{
                   this.state.empty
                   ?
                   <div>Your message is empty.</div>
-                  : this.state.data.length === 0 ?
+                  : this.state.contact_view.length === 0 ?
                     null :
                     this.state.contact_view
               }
