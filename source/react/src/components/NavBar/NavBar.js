@@ -52,6 +52,11 @@ class NavBar extends React.Component {
         } else {
         this.setState({ hasScrolled: false})
         }
+
+        // if the nav bar is rendered from privacy section
+        if (this.props.fromPrivacy) {
+          this.setState({ hasScrolled: true })
+        }
     }
 
     redirectToHome = (flag) => {
