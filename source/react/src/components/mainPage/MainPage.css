@@ -22,7 +22,7 @@
 }
 
 .Index p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 30px;
     line-height: 1.5;
     animation: IndexAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
