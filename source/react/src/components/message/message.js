@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './message.css';
-import axios from 'axios';link
+import axios from 'axios';
 
 class Mymessage extends Component {
     constructor(props){
@@ -38,15 +38,17 @@ class Mymessage extends Component {
             var data = response.data;
             let code = response.data.status;
             if (code === 200) {
+              var furniture_link = 'http://127.0.0.1:3000/furniture'
+                                  + data.furniture
               this.setState({
                 title: data.title,
                 buyer_username:  data.buyer_name,
                 buyer_email: data.buyer_email,
                 content: data.content,
                 user:data.buyer_id,
-                link:'',
                 furniture_id: data.furniture,
                 furniture_name: data.furniture_name,
+                link: furniture_link,
               });
             }
         }).catch((error) => {
@@ -59,14 +61,15 @@ render(){
       <div>
           <NavBar/>
           <div className="heading">
-              <h2>A request message for you</h2>
+              <h2>My Message</h2>
               <Wave/>
           </div>
             <div className="message">
-                <a href={this.state.link}>
-                <p>Here is a message for you about the request you have from{this.state.buyer_username}</p>
+                <h3>{this.state.title}</h3>
+
                 <p>{this.state.content}</p>
-                <footer>Click the banner to go to your furniture..</footer>
+                <a href={this.state.link}>
+                <footer>Click the banner to go to your furniture.</footer>
                 </a>
             </div>
 
