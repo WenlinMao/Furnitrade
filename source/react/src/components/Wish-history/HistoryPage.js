@@ -5,7 +5,7 @@ import Card from '../FurniCard/FurniCard';
 import axios from 'axios';
 
 /* History page and wishlist page share the same css */
-import './WishhistPage.css';
+import './HistoryPage.css';
 
 class HistoryPage extends Component {
     constructor(props){
@@ -79,12 +79,13 @@ class HistoryPage extends Component {
             <div>
                 {/* Part one - NavBar - logic needed*/}
                 <NavBar/>
-                <div className="wishhist">
+                <div className="history">
                     <h2>Recently Viewed History</h2>
                     <Wave/>
                 {/* end of furni-page tag */}
                 </div>
 
+                <div className="historywithbutton">
                 {/* cards of furnitures viewing history, Limited to 4, need backend*/}
                 <div className="Card-group">
                 {
@@ -104,7 +105,11 @@ class HistoryPage extends Component {
                               furniture_id={obj.furniture_id}
                           />)
                       )
+
+
                 }
+
+
                 </div>
                 {
                     this.state.empty || this.state.data.length === 0
@@ -115,6 +120,7 @@ class HistoryPage extends Component {
                 }
 
             {/* end of  DIV */}
+            </div>
             </div>
         );
     }
