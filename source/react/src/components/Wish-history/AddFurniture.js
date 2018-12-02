@@ -320,7 +320,8 @@ class Add extends Component{
               <button
                   type="submit"
                   onClick={this.handleSubmit}
-                  disabled={this.checkButtonStatus()}>
+                  disabled={this.checkButtonStatus()}
+                  variant="contained">
                   Submit</button>
             }
           </div>
