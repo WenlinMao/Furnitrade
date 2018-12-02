@@ -9,15 +9,8 @@ class message_set extends Component{
   constructor(props){
     super(props);
     this.state={
-      data:[
-        {
-          user:'abcd',
-          contact_form_id:'asdfasdfa',
-        },
-      ],
       empty:false,
       contact_view: [],
-
     };
   }
 
@@ -43,11 +36,11 @@ class message_set extends Component{
                   <Mcard
                     username={contact_form.buyer_username}
                     title={contact_form.title}
-                    contact_form_id={contact_form.contact_form_id}
+                    contact_form_id={contact_form._id.$oid}
                   />
                 )
             }
-            this.setState({furnicard_view});
+            this.setState({contact_view});
           } else if(code === 321 || code === 613) {
               this.setState({empty: true});
           } else if(code === 400) {
@@ -60,37 +53,32 @@ class message_set extends Component{
   }
 
 
-    render() {
-            // console.log("state", this.state.data)
-            return (
-                <div>
-                    {/* Part one - NavBar - logic needed*/}
-                    <NavBar/>
-                    <div className="heading">
-                        <h2>My messages</h2>
-                        <Wave/>
-                    {/* end of furni-page tag */}
-                    </div>
+  render() {
+      return (
+          <div>
+              {/* Part one - NavBar - logic needed*/}
+              <NavBar/>
+              <div className="heading">
+                  <h2>My messages</h2>
+                  <Wave/>
+                  {/* end of furni-page tag */}
+              </div>
 
-                    {/* cards of furnitures wished,should be from backend*/}
-                    <div className="Card-group">
-                    {
-                        this.state.empty
-                        ?
-                        <div>No message to display.</div>
-                        : this.state.data.length === 0 ?
-                          null :
-                          this.state.data.map(obj=>(
+              {/* cards of furnitures wished,should be from backend*/}
+              <div className="Card-group">
+              {
+                  this.state.empty
+                  ?
+                  <div>Your message is empty.</div>
+                  : this.state.contact_view.length === 0 ?
+                    null :
+                    this.state.contact_view
+              }
+              </div>
 
-                          )
-
-
-                    }
-                    </div>
-
-                {/* end of  DIV */}
-                </div>
-            );
-        }
+          {/* end of  DIV */}
+          </div>
+      );
+  }
 }
 export default message_set

@@ -97,6 +97,8 @@ export class UploadImg extends Component {
         }
 
         this.setState({filesToBeSent,filesPreview});
+        this.props.beforeUpload(this.state.filesToBeSent);
+
     }
 
     // while files are dropped, execute store files in component state

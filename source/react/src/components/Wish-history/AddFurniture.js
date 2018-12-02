@@ -9,12 +9,14 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
+import Button from '@material-ui/core/Button';
 
 // import '../uploadImg/UploadImg'
 import categories from '../../static/data/category.json';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 // regular expression for price
-const priceRegex = /^\d+$/;
+const priceRegex = /^\d+(.\d{1,2})?$/;
 
 class Add extends Component{
   constructor(props) {
@@ -23,11 +25,8 @@ class Add extends Component{
           furniture_name: '',
           category: '',
           subcategory: '',
-          image:'',
           price: '',
-          is_delivery_inclued: '',
           location: '',
-          seller: '',
           description: '',
           furniture_nameError: false,
           priceError: false,
@@ -35,6 +34,7 @@ class Add extends Component{
           addressError: false,
           errorMsg: '',
           furniture_id: '',
+          is_upload_image: false,
       };
       this.child = React.createRef();
   }
@@ -104,19 +104,18 @@ class Add extends Component{
     }
 
     handleAddressInput = name => event => {
-      this.setState({address: event.target.value});
-    }
-
-    // returm true if any of inputs are invalid
-    checkButtonStatus = () => {
-
+      this.setState({location: event.target.value});
     }
 
     handleBeforeUpload = (files) => {
-        this.setState({
-            filesToBeSent: files
-        });
-        console.log(this.state.filesToBeSent)
+        var is_upload_image = false
+
+        if (!files || files.length<=0){
+            is_upload_image = false
+        } else {
+            is_upload_image = true
+        }
+        this.setState({is_upload_image});
     }
 
     // call back handle when uploadImg finished
@@ -138,7 +137,6 @@ class Add extends Component{
             data: reqData,
             responseType: 'json',
             headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
                 "Content-Type": "application/json",
                 "Cache-Control": "no-cache",
                 "Authorization": `Bearer ${token}`
@@ -161,9 +159,8 @@ class Add extends Component{
         'furniture_name': this.state.furniture_name,
         'price': this.state.price,
         'description': this.state.description,
-        'address': this.state.address,
+        'address': this.state.location,
         'category': this.state.subcategory,
-        'image': this.img_pathes,
       };
       console.log(reqData);
 
@@ -183,7 +180,6 @@ class Add extends Component{
                 "Authorization": `Bearer ${token}`
               }
       })
-
       .then((response) => {
           console.log(response.data);
           let code = response.data.status;
@@ -205,102 +201,133 @@ class Add extends Component{
     this.render();
   }
 
-    render(){
-        const { classes } = this.props;
+  // returm true if any of inputs are invalid
+  checkButtonStatus = () => {
+    let emptyStatus =
+      this.state.furniture_name === ""
+      || this.state.category === ""
+      || this.state.subcategory === ""
+      || this.state.location === ""
+      || this.state.price === ""
+      || this.state.description === ""
+      || this.state.is_upload_image === false;
 
-        return(
-          <div>
-              {/*part 1: Nav bar*/}
-              <NavBar/>
-              <div className="heading">
-              <h2>Add your furniture</h2>
-                <Wave/>
+    let errorStatus = this.state.priceError;
+
+    return emptyStatus || errorStatus;
+  }
+
+  render(){
+  const { classes } = this.props;
+
+    return(
+      <div>
+          {/*part 1: Nav bar*/}
+          <NavBar/>
+          <div className="heading">
+          <h2>Add your furniture</h2>
+            <Wave/>
+          </div>
+          <div className="addfurniture-container">
+          <div className='lhs'>
+
+            <TextField
+              id="standard-name"
+              label="Funiture Name"
+              className={this.props.textField}
+              onChange={this.handleFurnitureNameInput('funiture_name')}
+              margin="normal"
+            />
+
+            <h8>Pick your three categories: </h8>
+            <div className="selects">
+              <div class="styled-select blue semi-square">
+                <select
+                  value={this.state.category}
+                  onChange={this.handleCategoryInput('category')}
+                  >
+                  <option value="" hidden>Choose your category</option>
+                  {categories.categories.map(category => (
+                    <option value={category.title}>{category.title}</option>
+                  ))}
+                </select>
               </div>
-              <div className="addfurniture-container">
-              <div className='lhs'>
-              
-                <TextField
-                  id="standard-name"
-                  label="Funiture Name"
-                  className={this.props.textField}
-                  onChange={this.handleFurnitureNameInput('funiture_name')}
-                  margin="normal"
-                />
 
-                <h8>Pick your three categories: </h8>
-                <div className="selects">
-                  <div class="styled-select blue semi-square">
-                    <select
-                      value={this.state.category}
-                      onChange={this.handleCategoryInput('category')}
-                      >
-                      <option value="" hidden>Choose your category</option>
-                      {categories.categories.map(category => (
-                        <option value={category.title}>{category.title}</option>
-                      ))}
-                    </select>
-                  </div>
+              {/* Now we have category stored in category, extract the corresponding subcategories */}
+              {this.state.category === "" ?
+              <div class="styled-select blue semi-square">
+              <select><option>Choose your subcategory</option></select></div>
+              :this.renderSubcategoryInput()}
 
-                  {/* Now we have category stored in category, extract the corresponding subcategories */}
-                  {this.state.category === "" ?
-                  <div class="styled-select blue semi-square">
-                  <select><option>Choose your subcategory</option></select></div>
-                  :this.renderSubcategoryInput()}
+            {/* end of DIVs */}
+            </div>
 
-                {/* end of DIVs */}
-                </div>
+              <TextField
+                id="outlined-multiline-static"
+                label="Add a description"
+                multiline
+                rows="5"
+                className={this.props.textField}
+                onChange={this.handleDescriptionInput('description')}
+                margin="normal"
+                variant="outlined"
+              />
 
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Add a description"
-                    multiline
-                    rows="5"
-                    className={this.props.textField}
-                    onChange={this.handleDescriptionInput('description')}
-                    margin="normal"
-                    variant="outlined"
-                  />
+            </div>
 
-                </div>
+            <div className="rhs">
+            <UploadImg resource_type="furniture"
+              name={this.state.username}
+              beforeUpload={this.handleBeforeUpload}
+              onUploadImg={this.handleUploadImg}
+              hint={"Please upload your furniture images. (limit is 5)"}
+              ref={this.child}
+              limit={5}
+              />
 
-                <div className="rhs">
-                <UploadImg resource_type="furniture"
-                  name={this.state.username}
-                  beforeUpload={this.handleBeforeUpload}
-                  onUploadImg={this.handleUploadImg}
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Add an address"
+              multiline
+              rowsMax="4"
+              onChange={this.handleAddressInput('location')}
+              className={this.props.textField}
+              margin="normal"
+              variant="outlined"
+            />
+
+            <TextField
+              id="standard-name"
+              label="$"
+              className={this.props.textField}
+              onChange={this.handlePriceInput('price')}
+              margin="normal"
+              error={this.state.priceError}
+            />
+            {
+                this.state.priceError
+                ?
+                <FormHelperText error={true}>Please input a valid pirce</FormHelperText>
+                :
+                <div></div>
+            }
+            {
+              this.checkButtonStatus()?
+              <Button
+                className = "register-button"
+                disabled={this.checkButtonStatus()}
+                variant="contained" > Submit </Button> :
+              <button
+                  type="submit"
+                  onClick={this.handleSubmit}
                   disabled={this.checkButtonStatus()}
-                  hint={"Please upload your furniture images. (limit is 5)"}
-                  ref={this.child}
-                  limit={5}
-                  />
-
-                <TextField
-                  id="outlined-multiline-flexible"
-                  label="Add an address"
-                  multiline
-                  rowsMax="4"
-                  onChange={this.handleAddressInput('address')}
-                  className={this.props.textField}
-                  margin="normal"
-                  variant="outlined"
-                />
-
-                <TextField
-                  id="standard-name"
-                  label="$"
-                  className={this.props.textField}
-                  onChange={this.handlePriceInput('price')}
-                  margin="normal"
-                  error={this.state.priceError}
-                />
-                <button type="submit" onClick={this.handleSubmit}>Submit</button>
-                </div>
-
-
-              </div>
-
-        {/* the very last div tag */}
+                  variant="contained">
+                  Submit</button>
+            }
+          </div>
         </div>
+      {/* the very last div tag */}
+      </div>
     )
   }
 
