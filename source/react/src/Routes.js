@@ -36,7 +36,7 @@ export default () =>
         {/* Testing - specific furniture */}
         <Route path = "/furniture" component = {furniture} />
         <Route path = "/addfurniture" component = {AddFurniture} />
-        <Route path = "/messages" component = {message_set} />
+        <Route path = "/mymessages" component = {message_set} />
         <Route path = "/message" component = {message} />
 
         {/* PrivacyPage */}

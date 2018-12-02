@@ -325,10 +325,7 @@ class Add extends Component{
                   Submit</button>
             }
           </div>
-
-
         </div>
-
       {/* the very last div tag */}
       </div>
     )
