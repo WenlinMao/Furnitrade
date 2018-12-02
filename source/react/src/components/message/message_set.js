@@ -36,7 +36,7 @@ class message_set extends Component{
                   <Mcard
                     username={contact_form.buyer_username}
                     title={contact_form.title}
-                    contact_form_id={contact_form.contact_form_id}
+                    contact_form_id={contact_form._id.$oid}
                   />
                 )
             }

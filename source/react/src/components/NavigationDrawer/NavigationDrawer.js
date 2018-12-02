@@ -74,7 +74,7 @@ class NavigationDrawer extends React.Component {
               <li><Link to="/myfurniture"><button>My Furniture</button></Link></li>
               <li><Link to="/wishlist"><button>My Wishlist</button></Link></li>
               <li><Link to="/history"><button>My History</button></Link></li>
-              <li><Link to="/message"><button>My Messages</button></Link></li>
+              <li><Link to="/mymessages"><button>My Messages</button></Link></li>
               <li><Link to="/privacy"><button>Privacy</button></Link></li>
           </List>
           <Divider />
