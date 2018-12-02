@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './message.css';
-import axios from 'axios';link
+import axios from 'axios';
 
 class Mymessage extends Component {
     constructor(props){

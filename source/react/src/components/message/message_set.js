@@ -47,7 +47,7 @@ class message_set extends Component{
                   />
                 )
             }
-            this.setState({furnicard_view});
+            this.setState({contact_view: contact_view, empty: false});
           } else if(code === 321 || code === 613) {
               this.setState({empty: true});
           } else if(code === 400) {
@@ -75,16 +75,11 @@ class message_set extends Component{
                     {/* cards of furnitures wished,should be from backend*/}
                     <div className="Card-group">
                     {
-                        this.state.empty
+                        this.state.contact_view.length === 0 || this.state.empty 
                         ?
                         <div>No message to display.</div>
-                        : this.state.data.length === 0 ?
-                          null :
-                          this.state.data.map(obj=>(
-
-                          )
-
-
+                        : 
+                        this.state.contact_view 
                     }
                     </div>
 
