@@ -3,6 +3,13 @@
 /* message's blocks style */
 
 /* TODO */
+.message-body {
+    background-image: url('../../static/images/sofa.png');
+    height:940px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
 
 .messagePage {
     text-align: center;
@@ -10,11 +17,12 @@
 }
 
 .myMessage h3 {
-    color: white;
+    color: rgba(26, 24, 24, 0.5);
+    font-size: 70px;
 }
 
 .myMessage p {
-    color: white;
+    color: rgba(26, 24, 24, 0.5);
 }
 
 .message:hover {

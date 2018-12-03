@@ -58,10 +58,10 @@ class Mymessage extends Component {
 
 render(){
   return(
-          <NavBar/>
+        <div className="message-body">
+          <NavBar fromPrivacy={true}/>
           <div className="messagePage">
           <div className="heading">
-              <h2>My Message</h2>
               <Wave/>
           </div>
             <a href={this.state.link}>
@@ -71,7 +71,10 @@ render(){
                   <p>{this.state.content}</p>
               </div>
             </a>
-      </div>
+          </div>
+
+        {/* end of the last div */}
+        </div>
 
     );
 }
