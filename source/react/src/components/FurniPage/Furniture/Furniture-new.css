@@ -3,7 +3,7 @@
 */
 
 .furniture {
-    background-image: url('../../../static/images/light2.jpeg');
+    background-image: url('../../../static/images/light-flip.png');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -42,6 +42,9 @@
     grid-gap: 10px;
 }
 
+.rhs-container input{
+  color: white;
+}
 
 /* =========== DO NOT CHANGE =========== */
 .furniture p{
