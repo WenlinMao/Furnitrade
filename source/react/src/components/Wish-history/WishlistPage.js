@@ -56,7 +56,7 @@ class WishlistPage extends Component {
             console.log("get wishlist error: " + error);
         });
     }
-    
+
     rerender = () => {
         this.getWishlist();
     }
