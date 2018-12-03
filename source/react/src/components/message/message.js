@@ -21,6 +21,7 @@ class Mymessage extends Component {
     componentWillMount() {
         const contact_form_id = this.props.location.pathname.substring(8);
         console.log(contact_form_id)
+        const temp= '';
         const token = localStorage.getItem('usertoken');
 
         axios({
@@ -37,7 +38,7 @@ class Mymessage extends Component {
             var data = response.data;
             let code = response.data.status;
             if (code === 200) {
-              var furniture_link = 'http://localhost:3000/furniture/'
+              var furniture_link = 'http://127.0.0.1:3000/furniture/'
                                   + data.furniture
               this.setState({
                 title: data.title,
@@ -57,22 +58,25 @@ class Mymessage extends Component {
 
 render(){
   return(
-      <div className="messagePage">
-          <NavBar/>
+        <div className="message-body">
+          <NavBar fromPrivacy={true}/>
+          <div className="messagePage">
           <div className="heading">
-              <h2>{this.state.title}</h2>
               <Wave/>
           </div>
-          <div className="myMessage">
-              <p>{this.state.content}</p>
-              <a href={this.state.link}>
-              <footer>Click here to view your furniture detail.</footer>
-              </a>
+            <a href={this.state.link}>
+              <div className="myMessage">
+                  <h3>{this.state.title}</h3>
+
+                  <p>{this.state.content}</p>
+              </div>
+            </a>
           </div>
 
-      </div>
+        {/* end of the last div */}
+        </div>
 
-    )
+    );
 }
 }
 export default Mymessage

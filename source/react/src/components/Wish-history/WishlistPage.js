@@ -78,7 +78,7 @@ class WishlistPage extends Component {
                 {
                     this.state.empty
                     ?
-                    <div>Your wishlist is empty.</div>
+                    <h2>Your wishlist is empty.</h2>
                     : this.state.data.length === 0 ?
                       null :
                       this.state.data.map(obj=>(
