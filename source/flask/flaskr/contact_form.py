@@ -78,9 +78,8 @@ class Contact(Resource):
                 seller_username=seller_username,
                 buyer_username=buyer_username,
                 furniture_name=furniture_name,
-                detail_link=current_app.config['FRONTEND_DOMAIN']
-                # detail_link="http://localhost:3000/Contact/"
-                # + str(contact_form.inserted_id)
+                detail_link=current_app.config['FRONTEND_DOMAIN'] +
+                "message/" + str(contact_form.inserted_id)
             ),
             sender=('Furnitrade', current_app.config['MAIL_USERNAME'])
         )
