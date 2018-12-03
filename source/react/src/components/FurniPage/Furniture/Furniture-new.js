@@ -81,6 +81,9 @@ class Furniture extends Component {
             let code = response.data.status;
             if(code === 200) {
                 console.log("succesfully added to history")
+            } else if (code === 400){
+                localStorage.removeItem('usertoken');
+                this.props.history.push("/Login");
             }
         })
         .catch((error)=>{
@@ -113,6 +116,9 @@ class Furniture extends Component {
                     pictures: data.images,
                     wishlistSuccess: false
                 })
+            } else if (code === 400){
+              localStorage.removeItem('usertoken');
+              this.props.history.push("/Login");
             }
         })
         .catch((error)=>{
@@ -157,6 +163,9 @@ class Furniture extends Component {
         if(code === 200) {
           console.log("succesfully save to wishlist");
           this.setState({wishlistSuccess: true});
+        } else if (code === 400){
+          localStorage.removeItem('usertoken');
+          this.props.history.push("/Login");
         }
       })
       .catch((error)=>{
@@ -195,6 +204,9 @@ class Furniture extends Component {
           if (code === 200) {
             this.setState({"content": response.data.content})
             this.setState({success: true});
+          } else if (code === 400){
+            localStorage.removeItem('usertoken');
+            this.props.history.push("/Login");
           }
       })
       .catch((error) => {console.log("post error: " + error);});
@@ -218,7 +230,7 @@ class Furniture extends Component {
           <Slide {...config}>
             {
                 this.state.pictures.map((each, index) =>
-                    <img key={index} style={{width: "100%"}}
+                    <img key={index} style={{width: "100%", height: "100%"}}
                     src={"https://s3.amazonaws.com/furnitrade-dev-attachments/" + each} />
                 )
             }

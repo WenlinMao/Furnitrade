@@ -47,7 +47,7 @@ const SubCategory = props => (
       <input id="toggle" type="checkbox"/>
         <div id="content">
             {props.subcategories.sub.map(sub => (
-                <Link to={"./furnipage/" + sub.list}><p>{sub.list}</p></Link>
+                <Link to={"/furnipage/" + sub.list}><p>{sub.list}</p></Link>
             ))}
         </div>
     </div>

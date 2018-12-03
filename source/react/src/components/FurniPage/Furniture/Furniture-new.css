@@ -63,6 +63,8 @@
 /* image container - like card */
 .slides {
   width: 500px;
+  height: 312px;
+  /* object-fit: cover; */
   border-radius: 20px;
   overflow: hidden;
   transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
