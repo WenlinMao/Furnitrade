@@ -99,7 +99,7 @@ class HistoryPage extends Component {
                               fromMyFurniture={false}
                               type={"history"}
                               title={obj.furniture_name}
-                              text={"$"+obj.price + obj.category}
+                              text={"$"+obj.price + " " + obj.category}
                               image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
                               +obj.product_image[0]}
                               furniture_id={obj.furniture_id}
