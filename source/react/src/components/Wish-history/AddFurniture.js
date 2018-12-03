@@ -218,8 +218,6 @@ class Add extends Component{
   }
 
   render(){
-  const { classes } = this.props;
-
     return(
       <div>
           {/*part 1: Nav bar*/}

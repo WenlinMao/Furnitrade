@@ -58,8 +58,8 @@ class Mymessage extends Component {
 
 render(){
   return(
-      <div className="messagePage">
           <NavBar/>
+          <div className="messagePage">
           <div className="heading">
               <h2>My Message</h2>
               <Wave/>
@@ -73,7 +73,7 @@ render(){
             </a>
       </div>
 
-    )
+    );
 }
 }
 export default Mymessage
