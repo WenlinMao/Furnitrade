@@ -1,0 +1,63 @@
+.passwordInputField
+{
+  display: grid;
+  flex-flow: column;
+  width:75%;
+}
+
+.dialog a {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+TextField{
+  width:inherit;
+}
+
+/* deal with cancel and submit buttons */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 10px;
+  justify-items:start;
+}
+
+.buttons button {
+  padding: 8px 20px;
+  font-size: 20px;
+  color: white;
+  background: #56CCF2;
+  font-weight: 700;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.buttons button:hover {
+  color: #56CCF2;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .dialog a {
+      color: #BDBDBD;
+  }
+}
+
+/* icon */
+.fa-check-circle {
+  color: #80f080;
+  font-weight: bold;
+}
+
+/* icon */
+.fa-times-circle {
+  color: #f08080;
+  font-weight: bold;
+}

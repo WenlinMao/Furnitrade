@@ -12,7 +12,7 @@ html, body {
 }
 
 .App {
-  background-image: url('./static/images/wallpaper1.png');
+  background-image: url('./static/images/test-background.png');
   height:920px;
   background-size: cover;
   background-position: center;

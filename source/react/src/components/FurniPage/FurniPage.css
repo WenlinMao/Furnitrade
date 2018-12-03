@@ -4,7 +4,7 @@
 .furni-sub-cate {
     /* background-image: url(); */    
     background-image: url('../../static/images/wallpaper1.png');
-    height:920px;
+    height: 960px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -14,7 +14,7 @@
     max-width: 500px;
     padding: 150px 50px 50px 50px;
     text-align: center;   
-}
+} 
 
 .furni-page h2 {
     margin: 0;

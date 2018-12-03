@@ -46,7 +46,7 @@ def check_username_valid(mystring):
 
 
 def email_exist(email):
-    if find_user_by_username(email) is not None:
+    if find_user_by_email(email) is not None:
         return True
     else:
         return False
@@ -94,8 +94,9 @@ def verify_user(username, password):
 
 def login_required(method):
     @wraps(method)
-    def wrapper(self):
+    def wrapper(self, *args, **kwargs):
         header = request.headers.get('Authorization')
+
         if header is None or header == '':
             return jsonify({
                 "status": 316,
@@ -130,7 +131,7 @@ def login_required(method):
                 "msg": "User doesn't exist"
             })
 
-        return method(self, user)
+        return method(self, user, *args, **kwargs)
     return wrapper
 
 
@@ -138,6 +139,7 @@ def logout_required(method):
     @wraps(method)
     def wrapper(*args, **kwargs):
         header = request.headers.get('Authorization')
+
         if header is None or header == '':
             return method(*args, **kwargs)
         _, token = header.split()
@@ -156,6 +158,7 @@ def logout_required(method):
 # /auth/register : register
 # TODO: add address, check password is valid, add email
 # 		check email is valid
+# Updated to have wishlist field - by Mao Li Nov 23
 class Register(Resource):
     # @logout_required
     def post(self):
@@ -166,6 +169,7 @@ class Register(Resource):
         # address = "8520 Costa Verde";
         address = postedData['address']
         email = postedData['email']
+        # profile_path = postedData['image_pathes']
 
         error = None
         error_code = 200
@@ -197,11 +201,17 @@ class Register(Resource):
             error = 'Email invalid'
 
         if error is None:
+            # Add a default empty wishlist, history field.
+            # wishlist and history are lists
+            # Add my furniture as empty list.
             user = add_user({
                 "username": username,
                 "password": generate_password_hash(password),
                 "email": email,
-                "address": address
+                "address": address,
+                "wishlist": [],
+                "history": [],
+                "my_furnitures": []
             })
             exp = datetime.datetime.utcnow() \
                 + datetime.timedelta(

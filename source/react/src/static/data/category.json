@@ -2,9 +2,8 @@
     "categories": [
         {
             "title": "Home electronics",
-            "image": "https://cl.ly/0Q1n3K431Y1S/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/92827/screenshots/2511827/camera-icon.jpg",
             "subcategories": {"sub": [
-                {"list": "Cooktops"},
                 {"list": "Smart lighting"},
                 {"list": "Cords & chargers"},
                 {"list": "Extractor hoods & filters"},
@@ -20,7 +19,7 @@
         },
 		{
 			"title": "Kitchens",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/283823/screenshots/2400802/kitchen-01.jpg",
             "subcategories": {"sub":[
                 {"list":"Cooktops"},
                 {"list":"Countertops"},
@@ -45,7 +44,7 @@
 		},
 		{
 			"title": "Dining",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/1162077/screenshots/3109346/coffee.png",
             "subcategories": {"sub":[
                 {"list": "Dining tables"},
                 {"list": "Dining chairs"},
@@ -60,7 +59,7 @@
 		},
 		{
 			"title": "Living room",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/969544/screenshots/3166843/livingroom-01.jpg",
             "subcategories": {"sub":[
                 {"list": "All sofas"},
                 {"list": "Ceiling lights"},
@@ -101,7 +100,7 @@
 		},
 		{
 			"title": "Bedroom",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/283823/screenshots/2436082/bedroom-01.jpg",
             "subcategories": {"sub":[
                 {"list" : "Bedlinen"},
                 {"list" : "Ceiling lights"},
@@ -153,7 +152,7 @@
 		},
 		{
 			"title": "Office furniture",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/283823/screenshots/2699083/office-01.jpg",
             "subcategories": {"sub":[
                 {"list" : "Desks & computer desks"},
                 {"list" : "Wall shelves"},
@@ -183,7 +182,7 @@
 		},
 		{
 			"title": "Laundry",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/1174720/screenshots/3255620/washing-machine_2x.jpg",
             "subcategories": {"sub":[
                 {"list" : "Laundry & cleaning"},
                 {"list" : "Open clothes & shoe storage system"},
@@ -193,7 +192,7 @@
 		},
 		{
 			"title": "Bathroom",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/623359/screenshots/2738257/bath_time.jpg",
             "subcategories": {"sub":[
                 {"list" : "Sink cabinets"},
                 {"list" : "Towels"},
@@ -211,7 +210,7 @@
 		},
 		{
 			"title": "Storage",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/92827/screenshots/2496202/bags.jpg",
             "subcategories": {"sub":[
                 {"list" : "Storage boxes & baskets"},
                 {"list" : "Paper & media organizers"},
@@ -226,7 +225,7 @@
 		},
 		{
 			"title": "Textiles & Rugs",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "http://www.excelcontents.com/assets/images/icon6.png",
             "subcategories": {"sub":[
                 {"list" : "Bedlinen"},
                 {"list" : "Rugs"},
@@ -252,7 +251,7 @@
 		},
 		{
 			"title": "Lighting",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "https://cdn.dribbble.com/users/92827/screenshots/2616829/office.jpg",
             "subcategories": {"sub":[
                 {"list" : "Smart lighting"},
                 {"list" : "Ceiling lights"},
@@ -274,8 +273,8 @@
             ]}
 		},
 		{
-			"title": "Home improvementg",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+			"title": "Home improvement",
+            "image": "https://cdn.dribbble.com/users/92827/screenshots/3193813/beer-icon-recovered.jpg",
             "subcategories": {"sub":[
                 {"list" : "Outdoor flooring"},
                 {"list" : "Tools & hardware"},

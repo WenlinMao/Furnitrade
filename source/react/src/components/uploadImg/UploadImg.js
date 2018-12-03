@@ -2,23 +2,24 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 
-// TODO: furniture may have muiltiple imgs, whereas user only have one img
-// need to be handled separed
 export class UploadImg extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          img_pathes: [],
+          // img_pathes: [],
+          filesToBeSent: [],
+          filesPreview: [],
+          printcount: this.props.limit,
         };
     };
 
-    asyncFunction = (token, file, callback) => {
+    asyncFunction = (token, _id, file, callback) => {
         var key = '';
         let config = {
             headers: {"Authorization": `Bearer ${token}`},
             params: {
                 resource_type: this.props.resource_type,
-                _id: this.props._id,
+                _id: _id,
                 resource_name: file.name,
                 file_type: file.type,
             },
@@ -54,35 +55,104 @@ export class UploadImg extends Component {
         });
     };
 
-    onDrop = (accept_files) => {
+    beginUpload = (_id) => {
         const token = localStorage.getItem('usertoken');
-        var new_pathes = this.state.img_pathes.slice();
+        var new_pathes = [];
+        var files_array = this.state.filesToBeSent;
         var itemsProcessed = 0;
-
+        console.log(files_array)
         // for each element in accept_files, call asyncFunction to
         // get the key and also upload the file to s3
         // after all file passed in are processed, the function will
         // set img_pathes state to new array and return through onUploadImg
         // to return a list of img_pathes
-        accept_files.forEach((file, index) => {
-            this.asyncFunction(token, file, (key) => {
+        files_array.forEach((file, index) => {
+            this.asyncFunction(token, _id, file, (key) => {
                 itemsProcessed++;
                 new_pathes.push(key);
-                if(itemsProcessed === accept_files.length) {
-                    this.setState({img_pathes: new_pathes});
-                    this.props.onUploadImg(this.state.img_pathes);
+                if(itemsProcessed === files_array.length) {
+                    // TODO: Memory Leak: setState doesn't work
+                    // this.setState({img_pathes: new_pathes});
+                    this.props.onUploadImg(new_pathes);
                 }
             });
         });
+    }
+
+    handleClear = (event,index) => {
+        // console.log("filename",index);
+        var filesToBeSent=this.state.filesToBeSent;
+        filesToBeSent.splice(index,1);
+        // console.log("files",filesToBeSent);
+        var filesPreview=[];
+        for(var i in filesToBeSent){
+            filesPreview.push(
+              <div className="clear-buttons">
+                  {filesToBeSent[i].name}
+                  <button type="clear" onClick={(event) => this.handleClear(event,i)}>
+                      Clear
+                  </button>
+              </div>
+            )
+        }
+
+        this.setState({filesToBeSent,filesPreview});
+        this.props.beforeUpload(this.state.filesToBeSent);
+
+    }
+
+    // while files are dropped, execute store files in component state
+    onDrop = (accept_files) => {
+
+        var filesToBeSent=this.state.filesToBeSent;
+
+        if(filesToBeSent.length + accept_files.length <= this.state.printcount){
+            accept_files.forEach((file) => {
+                filesToBeSent.push(file);
+            })
+            var filesPreview=[];
+            for(var i in filesToBeSent){
+                filesPreview.push(
+                    <div>
+                        {filesToBeSent[i].name}
+                        <button onClick={this.handleClear}> Clear </button>
+                    </div>
+                )
+            }
+            this.setState({filesToBeSent,filesPreview});
+            console.log(this.state.filesToBeSent)
+            this.props.beforeUpload(this.state.filesToBeSent);
+        }
+        else{
+            console.log(filesToBeSent)
+            alert("You have reached the limit of uploading " + this.state.printcount
+                   + " file at a time")
+        }
     };
 
     render() {
         return (
-            <div>
-                <Dropzone onDrop={this.onDrop}>
-                    <p>Drop your image here or click to select one.</p>
+            <div className="dropzone">
+                <Dropzone
+                    className={this.props.inputClass}
+                    onDrop={this.onDrop}
+                    disabled={this.props.disabled}
+                    accept="image/jpeg, image/png" >
+                    <button className="hint-button">{this.props.hint}</button>
                 </Dropzone>
+
+                {/* render files printed message based on where is called */}
+                {this.props.inputClass === "from-profile" ? null:
+                <p>Files to be printed are:</p>
+                }
+                {this.state.filesPreview}
             </div>
         );
     };
+};
+
+UploadImg.defaultProps = {
+  disabled: false,
+  limit: 1,
+  beforeUpload: (files) => void(0)
 };

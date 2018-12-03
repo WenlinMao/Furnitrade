@@ -1,0 +1,41 @@
+
+
+/* message's blocks style */
+
+/* TODO */
+.message {
+    margin:0 auto;
+    justify-content: center;
+    display: grid;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    background-color: #FFFFFF;
+
+    /* display */
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+    align-items: center;
+    transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.message:hover {
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.message p {
+    color: rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    align-self:end;
+    margin: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.message footer{
+  font-size: 10px;
+}

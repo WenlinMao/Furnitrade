@@ -1,0 +1,32 @@
+/*
+************ Dropzone CSS ************
+Note:
+- drop zone is composed of an input component and a p text tag
+*/
+
+.dropzone p {
+    cursor: pointer;
+    color: white;
+}
+
+
+/* when upload is used from profile */
+.from-profile input{
+    outline: none;
+}
+
+/* when upload is used from register */
+.from-register input {
+    background-color: blue;
+}
+
+.hint-button {
+    width: 100%;
+    padding: 0;
+}
+
+/* TODO */
+.clear-buttons {
+    height: 10px;
+}
+
