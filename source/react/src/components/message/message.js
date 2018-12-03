@@ -38,7 +38,7 @@ class Mymessage extends Component {
             var data = response.data;
             let code = response.data.status;
             if (code === 200) {
-              var furniture_link = 'http://127.0.0.1:3000/furniture/'
+              var furniture_link = 'http://localhost:3000/furniture/'
                                   + data.furniture
               this.setState({
                 title: data.title,
@@ -64,13 +64,15 @@ render(){
           <div className="heading">
               <Wave/>
           </div>
-            <a href={this.state.link}>
               <div className="myMessage">
                   <h3>{this.state.title}</h3>
 
                   <p>{this.state.content}</p>
+                  
+                  <a href={this.state.link}>
+                      Click Here To View Furniture Detail
+                  </a>
               </div>
-            </a>
           </div>
 
         {/* end of the last div */}
