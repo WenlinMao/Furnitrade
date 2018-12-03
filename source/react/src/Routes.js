@@ -12,6 +12,7 @@ import MyFurniture from './components/Wish-history/MyFurniture.js';
 import AddFurniture from './components/Wish-history/AddFurniture.js';
 import message_set from './components/message/message_set.js';
 import message from './components/message/message.js';
+import PrivacyPage from './components/PrivacyPage/PrivacyPage.js'
 // Don't know the reason but once added, the logo messed up
 import furniture from './components/FurniPage/Furniture/Furniture-new.js';
 
@@ -38,4 +39,6 @@ export default () =>
         <Route path = "/mymessages" component = {message_set} />
         <Route path = "/message" component = {message} />
 
+        {/* PrivacyPage */}
+        <Route path = "/privacy" component = {PrivacyPage} />
     </Switch>;
