@@ -13,7 +13,7 @@
 .register h2 {
   margin: 0;
   color: white;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1.2;
   opacity: 0;
   animation: IndexAnimation;

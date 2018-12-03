@@ -87,7 +87,7 @@ export class UploadImg extends Component {
         var filesPreview=[];
         for(var i in filesToBeSent){
             filesPreview.push(
-              <div>
+              <div className="clear-buttons">
                   {filesToBeSent[i].name}
                   <button type="clear" onClick={(event) => this.handleClear(event,i)}>
                       Clear
@@ -132,13 +132,13 @@ export class UploadImg extends Component {
 
     render() {
         return (
-            <div>
+            <div className="dropzone">
                 <Dropzone
                     className={this.props.inputClass}
                     onDrop={this.onDrop}
                     disabled={this.props.disabled}
                     accept="image/jpeg, image/png" >
-                    <p>{this.props.hint}</p>
+                    <button className="hint-button">{this.props.hint}</button>
                 </Dropzone>
 
                 {/* render files printed message based on where is called */}
