@@ -5,7 +5,6 @@ import { Button}  from "@material-ui/core";
 import "./ProfilePage.css";
 import Dialog from '../profilePage/dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
-//import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg'
@@ -272,7 +271,6 @@ class ProfilePage extends Component {
                   <UploadImg
                     inputClass="from-profile"
                     resource_type="user"
-                    name={this.state.username}
                     onUploadImg={this.handleUploadImg}
                     ref={this.child} hint="Update"
                     />

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import Button from '@material-ui/core/Button';
 
 export class UploadImg extends Component {
     constructor(props) {
@@ -89,6 +90,7 @@ export class UploadImg extends Component {
             filesPreview.push(
               <div className="clear-buttons">
                   {filesToBeSent[i].name}
+                  &nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="clear" onClick={(event) => this.handleClear(event,i)}>
                       Clear
                   </button>
@@ -115,7 +117,8 @@ export class UploadImg extends Component {
                 filesPreview.push(
                     <div>
                         {filesToBeSent[i].name}
-                        <button onClick={this.handleClear}> Clear </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="clear" onClick={this.handleClear}>Clear </button>
                     </div>
                 )
             }
@@ -136,16 +139,37 @@ export class UploadImg extends Component {
                 <Dropzone
                     className={this.props.inputClass}
                     onDrop={this.onDrop}
+                    disableClick
                     disabled={this.props.disabled}
-                    accept="image/jpeg, image/png" >
-                    <button className="hint-button">{this.props.hint}</button>
+                    accept="image/jpeg, image/png">
+                    {({ open }) => (
+                        <React.Fragment>
+                            {this.props.disabled ?
+                            <Button
+                                disabled={this.props.disabled}
+                                variant="contained" > {this.props.hint}
+                            </Button>:
+                            <button
+                                className="hint-button"
+                                type="clear"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  open()
+                                }}
+                                disabled={this.props.disabled}>
+                                    {this.props.hint}
+                            </button>}
+                        </React.Fragment>
+                    )}
                 </Dropzone>
-
                 {/* render files printed message based on where is called */}
                 {this.props.inputClass === "from-profile" ? null:
-                <p>Files to be printed are:</p>
+                <div>
+                  <p>Files to be printed are:</p>
+                    {this.state.filesPreview}
+                </div>
                 }
-                {this.state.filesPreview}
+
             </div>
         );
     };

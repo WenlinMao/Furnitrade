@@ -275,7 +275,7 @@ class Add extends Component{
 
             <div className="rhs">
             <UploadImg resource_type="furniture"
-              name={this.state.username}
+              inputClass="from-add-furniture"
               beforeUpload={this.handleBeforeUpload}
               onUploadImg={this.handleUploadImg}
               hint={"Please upload your furniture images. (limit is 5)"}

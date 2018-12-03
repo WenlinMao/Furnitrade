@@ -20,6 +20,10 @@ Note:
     background-color: blue;
 }
 
+.from-add-furniture input {
+    background-color: blue;
+}
+
 .hint-button {
     width: 100%;
     padding: 0;
@@ -29,4 +33,3 @@ Note:
 .clear-buttons {
     height: 10px;
 }
-
