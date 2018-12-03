@@ -509,14 +509,18 @@ class Register extends Component {
                                 error={this.state.confirmPasswordError}
                             />
 
-                            <UploadImg resource_type="user"
+                            <UploadImg 
+                              inputClass="from-register"
+                              resource_type="user"
                               name={this.state.username}
                               beforeUpload={this.handleBeforeUpload}
                               onUploadImg={this.handleUploadImg}
-                              disabled={this.checkButtonStatus()}
+                            //   disabled={this.checkButtonStatus()}
                               ref={this.child}
                               hint={"Please upload a profile image. (limit is 1)"}
                               />
+
+
                             {/* Show different button depending on input validality */}
                             { (this.checkButtonStatus()
                                 || (this.state.filesToBeSent

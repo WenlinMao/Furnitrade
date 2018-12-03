@@ -263,15 +263,20 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <div className="pic">
-                  <img src={this.state.picture} alt="user info pic" />
-                  <button><UploadImg
-                              inputClass="from-profile"
-                              resource_type="user"
-                              name={this.state.username}
-                              onUploadImg={this.handleUploadImg}
-                              ref={this.child} hint="Update"
-                              /></button>
+                <div className="pic" 
+                  style={{
+                    backgroundImage: `url(${this.state.picture})`,
+                    backgroundSize: 'cover',
+                  }}
+                  >
+                  
+                  <UploadImg
+                    inputClass="from-profile"
+                    resource_type="user"
+                    name={this.state.username}
+                    onUploadImg={this.handleUploadImg}
+                    ref={this.child} hint="Update"
+                    />
                 </div>
                 <div className="textfield">
                   <TextField
