@@ -9,18 +9,18 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { Slide } from 'react-slideshow-image';
 
-// TODO - just for testing
-import slide1 from '../../../static/images/img/slide1.png';
-import slide2 from '../../../static/images/img/slide2.png';
-import slide3 from '../../../static/images/img/slide3.png';
-import slide4 from '../../../static/images/img/slide4.png';
-import slide5 from '../../../static/images/img/slide5.png';
-
-
-const fadeImages = [
-    slide1,
-    slide2,
-  ];
+// // TODO - just for testing
+// import slide1 from '../../../static/images/img/slide1.png';
+// import slide2 from '../../../static/images/img/slide2.png';
+// import slide3 from '../../../static/images/img/slide3.png';
+// import slide4 from '../../../static/images/img/slide4.png';
+// import slide5 from '../../../static/images/img/slide5.png';
+//
+//
+// const fadeImages = [
+//     slide1,
+//     slide2,
+//   ];
 
   const properties = {
     duration: 5000,
@@ -111,7 +111,7 @@ class Furniture extends Component {
                     success: false,
                     redirect: false,
                     pictures: data.images,
-                    wishlistSuccess: false 
+                    wishlistSuccess: false
                 })
             }
         })
@@ -192,7 +192,7 @@ class Furniture extends Component {
       .then((response) => {
           console.log(response.data);
           let code = response.data.status;
-          if (code == 200) {
+          if (code === 200) {
             this.setState({"content": response.data.content})
             this.setState({success: true});
           }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
-import Wave from '../common/Wave';
 import './PrivacyPage.css';
 
 class PrivacyPage extends Component {
