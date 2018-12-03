@@ -60,23 +60,15 @@ render(){
       <div className="messagePage">
           <NavBar/>
           <div className="heading">
-              <h2>My Message</h2>
+              <h2>{this.state.title}</h2>
               <Wave/>
           </div>
-<<<<<<< HEAD
-            <a href={this.state.link}>
-              <div className="myMessage">
-                  <h3>{this.state.title}</h3>
-=======
-            <div className="message">
-                <h3>{this.state.title}</h3>
-
-                <p>{this.state.content}</p>
-                <a href={this.state.link}>
-                <footer>Click the banner to go to your furniture.</footer>
-                </a>
-            </div>
->>>>>>> 6333039af1e5deca11adff361afa75560286ea6d
+          <div className="myMessage">
+              <p>{this.state.content}</p>
+              <a href={this.state.link}>
+              <footer>Click here to view your furniture detail.</footer>
+              </a>
+          </div>
 
       </div>
 
