@@ -2,6 +2,7 @@
     /* margin: 0 auto; */
     width: 400px;
     width: 240px;
+    color: aliceblue;
     /* padding: 10px 50px 50px 50px; */
 }
 
@@ -17,7 +18,7 @@
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    /* background-color: #FFFFFF; */
+    background-color: aliceblue;
 
     transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
 }
@@ -38,7 +39,7 @@
 }
 
 .message h5 {
-    color: white;
+    color: black;
 }
 
 .message footer{
