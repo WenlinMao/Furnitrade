@@ -58,14 +58,14 @@ class Mymessage extends Component {
 
 render(){
   return(
-      <div>
+      <div className="messagePage">
           <NavBar/>
           <div className="heading">
               <h2>My Message</h2>
               <Wave/>
           </div>
             <a href={this.state.link}>
-              <div className="message">
+              <div className="myMessage">
                   <h3>{this.state.title}</h3>
 
                   <p>{this.state.content}</p>
