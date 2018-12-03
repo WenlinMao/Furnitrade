@@ -21,7 +21,6 @@ class Mymessage extends Component {
     componentWillMount() {
         const contact_form_id = this.props.location.pathname.substring(8);
         console.log(contact_form_id)
-        const temp= '';
         const token = localStorage.getItem('usertoken');
 
         axios({

@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 //import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
-import Dropzone from 'react-dropzone';
 import {UploadImg} from '../uploadImg/UploadImg'
 import FormHelperText from '@material-ui/core/FormHelperText';
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
@@ -263,13 +262,13 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <div className="pic" 
+                <div className="pic"
                   style={{
                     backgroundImage: `url(${this.state.picture})`,
                     backgroundSize: 'cover',
                   }}
                   >
-                  
+
                   <UploadImg
                     inputClass="from-profile"
                     resource_type="user"
