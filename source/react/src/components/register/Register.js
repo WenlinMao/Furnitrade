@@ -516,7 +516,7 @@ class Register extends Component {
                               onUploadImg={this.handleUploadImg}
                               disabled={this.checkButtonStatus()}
                               ref={this.child}
-                              hint={"Please upload a profile image. (limit is 1)"}
+                              hint={"Please Upload a Profile Image ( 1 only )"}
                               />
 
 
@@ -529,7 +529,7 @@ class Register extends Component {
                               disabled={(this.checkButtonStatus()
                                           || (this.state.filesToBeSent
                                             && this.state.filesToBeSent.length <= 0))}
-                              variant="contained" > Create Account </Button> :
+                              variant="contained" >Create Account</Button> :
                             <button
                               disabled={this.checkButtonStatus()}
                               variant="contained"

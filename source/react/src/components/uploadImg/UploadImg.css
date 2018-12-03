@@ -4,9 +4,12 @@ Note:
 - drop zone is composed of an input component and a p text tag
 */
 
-.dropzone p {
-    cursor: pointer;
+.hint p {
     color: white;
+}
+
+.hint button {
+    z-index: 99;
 }
 
 
@@ -24,12 +27,20 @@ Note:
     background-color: blue;
 }
 
+
+/* create buttons */
+.create-buttons span{
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+}
+
 .hint-button {
     width: 100%;
     padding: 0;
 }
 
 /* TODO */
-.clear-buttons {
-    height: 10px;
+.clear-buttons button{
+    display: grid;
+    grid-gap: 10px;
 }

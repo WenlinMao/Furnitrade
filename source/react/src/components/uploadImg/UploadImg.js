@@ -89,9 +89,15 @@ export class UploadImg extends Component {
         for(var i in filesToBeSent){
             filesPreview.push(
               <div className="clear-buttons">
-                  {filesToBeSent[i].name}
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <button type="clear" onClick={(event) => this.handleClear(event,i)}>
+                  <p>{filesToBeSent[i].name}</p>
+
+                  <br/>
+                  <button 
+                    style={{
+                        height: "10px",
+                    }}
+                    type="clear" 
+                    onClick={(event) => this.handleClear(event,i)}>
                       Clear
                   </button>
               </div>
@@ -164,9 +170,8 @@ export class UploadImg extends Component {
                 </Dropzone>
                 {/* render files printed message based on where is called */}
                 {this.props.inputClass === "from-profile" ? null:
-                <div>
-                  <p>Files to be printed are:</p>
-                    {this.state.filesPreview}
+                <div className="hint">
+                  <p>{this.state.filesPreview}</p>
                 </div>
                 }
 

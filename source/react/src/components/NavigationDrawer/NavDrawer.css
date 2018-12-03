@@ -8,6 +8,10 @@ a { text-decoration: none;}
     width: 100%;
 }
 
+.links button:hover {
+    box-shadow: none;
+}
+
 .logout button{
     color: #F6BD60;
     background-color: white;
@@ -18,4 +22,5 @@ a { text-decoration: none;}
 .logout button:hover {
     color: #F6BD60;
     width: 100%;
+    box-shadow: none;
 }

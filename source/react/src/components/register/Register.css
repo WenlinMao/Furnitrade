@@ -27,7 +27,6 @@
   padding: 8px 20px;
   font-size: 20px;
   color: white;
-  background: #F6BD60;
   font-weight: 700;
   border-radius: 10px;
   outline: none;
@@ -44,6 +43,11 @@
   background: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
   transform: translateY(-3px);
+}
+
+.register-forms {
+  display: grid;
+  grid-gap: 10px;
 }
 
 /* responsive layout */
