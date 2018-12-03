@@ -145,7 +145,10 @@ class Add extends Component{
         .then((response) => {
             let code = response.data.status;
             if (code === 200) { console.log(response);}
-            else if (code === 400) { localStorage.removeItem('usertoken'); this.props.history.push('/login');}
+            else if (code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+            }
         })
         /* report any error encountered */
         .catch((error) => { console.log(error);});

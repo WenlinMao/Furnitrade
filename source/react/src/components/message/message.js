@@ -51,6 +51,10 @@ class Mymessage extends Component {
                 link: furniture_link,
               });
             }
+            else if (code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+            }
         }).catch((error) => {
             console.log("get message error: " + error);
         });
@@ -68,7 +72,7 @@ render(){
                   <h3>{this.state.title}</h3>
 
                   <p>{this.state.content}</p>
-                  
+
                   <a href={this.state.link}>
                       Click Here To View Furniture Detail
                   </a>
