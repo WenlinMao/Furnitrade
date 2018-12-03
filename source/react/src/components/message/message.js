@@ -57,12 +57,17 @@ class Mymessage extends Component {
 
 render(){
   return(
-      <div>
+      <div className="messagePage">
           <NavBar/>
           <div className="heading">
               <h2>My Message</h2>
               <Wave/>
           </div>
+<<<<<<< HEAD
+            <a href={this.state.link}>
+              <div className="myMessage">
+                  <h3>{this.state.title}</h3>
+=======
             <div className="message">
                 <h3>{this.state.title}</h3>
 
@@ -71,6 +76,7 @@ render(){
                 <footer>Click the banner to go to your furniture.</footer>
                 </a>
             </div>
+>>>>>>> 6333039af1e5deca11adff361afa75560286ea6d
 
       </div>
 
