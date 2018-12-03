@@ -146,7 +146,7 @@ class MyFurniture extends Component {
                     {
                         this.state.empty
                         ?
-                        <div>Category is empty.</div>
+                        <div>You haven't post any furniture.</div>
                         :
                         this.state.furnicard_view
                     }

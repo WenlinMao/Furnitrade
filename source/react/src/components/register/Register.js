@@ -27,7 +27,7 @@ const name_no_symbol = /(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const password_lower = /(?=.*[a-z])/;
 const password_upper = /(?=.*[A-Z])/;
 const password_number = /(?=.*\d)/;
-const password_symbol = /(?=.*[!#$%&?])/;
+const password_symbol = /(?=.*[!#$%&?@])/;
 // const password_symbol = /(?=.*[!#\$%&\?])/;
 const password_length = /.{8,20}/;
 

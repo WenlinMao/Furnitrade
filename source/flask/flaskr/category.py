@@ -37,7 +37,7 @@ class Category(Resource):
             })
 
         size = len(category['furniture_id'])
-        if not size:
+        if size == 0:
             return jsonify({
                 "status": 613,
                 "msg": "Empty furniture_id"

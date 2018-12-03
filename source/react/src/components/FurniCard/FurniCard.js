@@ -20,10 +20,10 @@ class Card extends React.Component {
         }
     }
 
-    
+
     render() {
         return(
-            <a href={"http://localhost:3000/furniture/" + this.props.furniture_id}>
+
             <div className="Card">
                 {
                     this.props.fromMyFurniture ?
@@ -33,12 +33,14 @@ class Card extends React.Component {
                     furniture_id={this.props.furniture_id} rerender={this.props.rerender}/>
                     </div> : null
                 }
-                
+                <a href={"http://localhost:3000/furniture/" + this.props.furniture_id}>
                     <img src={this.props.image} />
-                <h3>{this.props.title}</h3>
-                <p>{this.props.text}</p>
+                </a>
+                    <h3>{this.props.title}</h3>
+                    <p>{this.props.text}</p>
+
             </div>
-            </a>
+
         );
     }
 }
