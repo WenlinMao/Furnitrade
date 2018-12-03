@@ -77,6 +77,7 @@ class Contact(Resource):
                 'contact_email.html',
                 seller_username=seller_username,
                 buyer_username=buyer_username,
+                buyer_email="mailto:" + buyer_email,
                 furniture_name=furniture_name,
                 detail_link=current_app.config['FRONTEND_DOMAIN'] +
                 "message/" + str(contact_form.inserted_id)

@@ -27,7 +27,7 @@ const name_no_symbol = /(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const password_lower = /(?=.*[a-z])/;
 const password_upper = /(?=.*[A-Z])/;
 const password_number = /(?=.*\d)/;
-const password_symbol = /(?=.*[!#$%&?])/;
+const password_symbol = /(?=.*[!#$%&?@])/;
 // const password_symbol = /(?=.*[!#\$%&\?])/;
 const password_length = /.{8,20}/;
 
@@ -509,15 +509,14 @@ class Register extends Component {
                                 error={this.state.confirmPasswordError}
                             />
 
-                            <UploadImg 
+                            <UploadImg
                               inputClass="from-register"
                               resource_type="user"
-                              name={this.state.username}
                               beforeUpload={this.handleBeforeUpload}
                               onUploadImg={this.handleUploadImg}
-                            //   disabled={this.checkButtonStatus()}
+                              disabled={this.checkButtonStatus()}
                               ref={this.child}
-                              hint={"Please upload a profile image. (limit is 1)"}
+                              hint={"Please Upload a Profile Image ( 1 only )"}
                               />
 
 
@@ -530,7 +529,7 @@ class Register extends Component {
                               disabled={(this.checkButtonStatus()
                                           || (this.state.filesToBeSent
                                             && this.state.filesToBeSent.length <= 0))}
-                              variant="contained" > Create Account </Button> :
+                              variant="contained" >Create Account</Button> :
                             <button
                               disabled={this.checkButtonStatus()}
                               variant="contained"

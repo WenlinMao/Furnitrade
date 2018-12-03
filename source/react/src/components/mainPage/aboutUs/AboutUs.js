@@ -4,7 +4,7 @@ import Wave from '../../common/Wave';
 
 const SectionGroup = styled.div`
     background: url(${props => props.image});
-    height: 900px;
+    height: 940px;
     background-size: cover;
     display: grid;
     grid-template-rows: 300px auto;
@@ -45,7 +45,7 @@ const SectionTitleGroup = styled.div`
 `
 
 const SectionTitle = styled.h3`
-    color: white;
+    color: rgba(26, 24, 24, 0.6);
     font-size: 60px;
     margin: 0;
     line-height: 1.2;
@@ -55,7 +55,7 @@ const SectionTitle = styled.h3`
 `
 
 const SectionText = styled.p`
-    color: white;
+    color: rgba(26, 24, 24, 0.6);
 `
 
 const WaveBottom = styled.div`

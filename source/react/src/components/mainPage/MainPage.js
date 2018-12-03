@@ -99,8 +99,8 @@ const SectionCategory = styled.div`
           <section id="aboutus">
           {/* Section of About US */}
           <AboutUs
-            image={require('../../static/images/light-flip.png')}
-            logo={require('../../static/images/logo_white.png')}
+            image={require('../../static/images/sofa.jpeg')}
+            logo={require('../../static/images/logo_gray.png')}
             title="About Us"
             text1="Furnitrade is designed to help student sellers advertise smartly and manage all post in one place."
             text2="To save students from this painful process, we created Furnitrade, a web-based platform that aims to provide the clear and efficient furniture-trading solution for college students living both on-campus and off-campus. Furnitrade creates faster way for buyers to reach sellers and efficient way for sellers to search and price match what they want. It also ensures trade credibility with our engineered communication and rating system."

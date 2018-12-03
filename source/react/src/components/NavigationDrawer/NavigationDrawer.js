@@ -76,13 +76,14 @@ class NavigationDrawer extends React.Component {
               <li><Link to="/history"><button>My History</button></Link></li>
               <li><Link to="/mymessages"><button>My Messages</button></Link></li>
               <li><Link to="/privacy"><button>Privacy</button></Link></li>
-          </List>
-          <Divider />
-          <List className="logout">
               <li>
                 <button onClick={this.handleLogout}>Log out</button>
               </li>
           </List>
+          {/* <Divider /> */}
+          {/* <List className="logout">
+              
+          </List> */}
         </div>
       );
 

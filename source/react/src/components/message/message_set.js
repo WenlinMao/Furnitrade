@@ -45,7 +45,7 @@ class message_set extends Component{
               this.setState({empty: true});
           } else if(code === 400) {
               localStorage.removeItem('usertoken');
-              this.props.history.push('/login');
+              this.props.history.push('/Login');
           }
       }).catch((error) => {
           console.log("get furniture in subcategory: " + error);

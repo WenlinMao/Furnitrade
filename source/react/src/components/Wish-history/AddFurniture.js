@@ -145,7 +145,10 @@ class Add extends Component{
         .then((response) => {
             let code = response.data.status;
             if (code === 200) { console.log(response);}
-            else if (code === 400) { localStorage.removeItem('usertoken'); this.props.history.push('/login');}
+            else if (code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+            }
         })
         /* report any error encountered */
         .catch((error) => { console.log(error);});
@@ -190,6 +193,9 @@ class Add extends Component{
               this.child.current.beginUpload(this.state.furniture_id);
               // redirect to hompage
               this.props.history.push("/");
+          } else if (code === 400){
+              localStorage.removeItem('usertoken');
+              this.props.history.push("/Login");
           }
       })
       .catch((error) => {
@@ -218,8 +224,6 @@ class Add extends Component{
   }
 
   render(){
-  const { classes } = this.props;
-
     return(
       <div>
           {/*part 1: Nav bar*/}
@@ -277,7 +281,7 @@ class Add extends Component{
 
             <div className="rhs">
             <UploadImg resource_type="furniture"
-              name={this.state.username}
+              inputClass="from-add-furniture"
               beforeUpload={this.handleBeforeUpload}
               onUploadImg={this.handleUploadImg}
               hint={"Please upload your furniture images. (limit is 5)"}

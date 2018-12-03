@@ -51,6 +51,10 @@ class Mymessage extends Component {
                 link: furniture_link,
               });
             }
+            else if (code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+            }
         }).catch((error) => {
             console.log("get message error: " + error);
         });
@@ -58,24 +62,27 @@ class Mymessage extends Component {
 
 render(){
   return(
-      <div>
-          <NavBar/>
+        <div className="message-body">
+          <NavBar fromPrivacy={true}/>
+          <div className="messagePage">
           <div className="heading">
-              <h2>My Message</h2>
               <Wave/>
           </div>
-            <div className="message">
-                <h3>{this.state.title}</h3>
+              <div className="myMessage">
+                  <h3>{this.state.title}</h3>
 
-                <p>{this.state.content}</p>
-                <a href={this.state.link}>
-                <footer>Click the banner to go to your furniture.</footer>
-                </a>
-            </div>
+                  <p>{this.state.content}</p>
 
-      </div>
+                  <a href={this.state.link}>
+                      Click Here To View Furniture Detail
+                  </a>
+              </div>
+          </div>
 
-    )
+        {/* end of the last div */}
+        </div>
+
+    );
 }
 }
 export default Mymessage

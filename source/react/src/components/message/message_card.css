@@ -1,20 +1,25 @@
+.messageCard {
+    /* margin: 0 auto; */
+    width: 400px;
+    width: 240px;
+    color: aliceblue;
+    /* padding: 10px 50px 50px 50px; */
+}
+
 .message {
-    margin:0 auto;
-    width: 200px;
+    /* margin:auto 350px; */
+    /* width: 200px;
+    height: 100px; */
+    width: 300px;
     height: 200px;
-    justify-content: center;
-    display: grid;
+    /* justify-content: center; */
+    /* display: grid; */
     text-align: center;
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    background-color: #FFFFFF;
+    background-color: aliceblue;
 
-    /* display */
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    text-align: center;
-    align-items: center;
     transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
 }
 
@@ -31,6 +36,10 @@
     align-self:end;
     margin: 0 0 20px 20px;
     z-index: 10;
+}
+
+.message h5 {
+    color: black;
 }
 
 .message footer{
