@@ -243,7 +243,7 @@ class Add extends Component{
               margin="normal"
             />
 
-            <h8>Pick your category: </h8>
+            <p>Pick your category: </p>
             <div className="selects">
               <div class="styled-select blue semi-square">
                 <select
@@ -284,7 +284,7 @@ class Add extends Component{
               inputClass="from-add-furniture"
               beforeUpload={this.handleBeforeUpload}
               onUploadImg={this.handleUploadImg}
-              hint={"Please upload your furniture images. (limit is 5)"}
+              hint={"Upload Images (up to 5)"}
               ref={this.child}
               limit={5}
               />
