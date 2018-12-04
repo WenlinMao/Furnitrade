@@ -158,6 +158,11 @@ class MyContactForm(Resource):
         user_id = user['_id']
         contact_forms = group_by_seller_id(user_id, 10)
 
+        if contact_forms.count() == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty contact form"
+            })
         contact_forms_list = dumps(contact_forms)
 
         retJson = {

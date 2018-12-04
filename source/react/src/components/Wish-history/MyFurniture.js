@@ -129,32 +129,29 @@ class MyFurniture extends Component {
 
     render() {
         return (
-            <div>
-                {/* Part one - NavBar - logic needed*/}
-                <NavBar/>
-                <div className="my-furni">
-                    <h2>My Furniture</h2>
-                    {/* Part 3 - fixed "add" button - post a new furniture */}
-                    {this.renderRedirect()}
-                    <button onClick={this.setRedirect}>+</button>
-                    <Wave/>
-                {/* end of furni-page tag */}
-                </div>
-
-                {/* cards of furnitures already added, now display 4 furnitures*/}
-                <div className="Card-group">
-                    {
-                        this.state.empty
-                        ?
-                        <div>You haven't post any furniture.</div>
-                        :
-                        this.state.furnicard_view
-                    }
-                    {/* Should send request for wished furnitures */}
-                </div>
-
-            {/* end of  DIV */}
+          <div>
+            {/* Part one - NavBar - logic needed*/}
+            <NavBar/>
+            <div className="my-furni">
+                <h2>My Furniture</h2>
+                {/* Part 3 - fixed "add" button - post a new furniture */}
+                {this.renderRedirect()}
+                <button onClick={this.setRedirect}>+</button>
+                <Wave/>
+            {/* end of furni-page tag */}
             </div>
+            {
+              /* render h2 or furnicard based on empty state */
+              this.state.empty
+              ?
+              <div className="my-furni">
+                <h2>You haven't post any furniture.</h2>
+              </div> :
+              <div className="Card-group">
+                  {this.state.furnicard_view}
+              </div>
+            }
+          </div>
         );
     }
 }

@@ -41,7 +41,7 @@ class message_set extends Component{
                 )
             }
             this.setState({contact_view});
-          } else if(code === 321 || code === 613) {
+          } else if(code === 613) {
               this.setState({empty: true});
           } else if(code === 400) {
               localStorage.removeItem('usertoken');
@@ -56,26 +56,23 @@ class message_set extends Component{
   render() {
       return (
           <div>
-              {/* Part one - NavBar - logic needed*/}
-              <NavBar/>
+            {/* Part one - NavBar - logic needed*/}
+            <NavBar/>
+            <div className="heading">
+                <h2>My messages</h2>
+                <Wave/>
+                {/* end of furni-page tag */}
+            </div>
+            {
+              this.state.empty
+              ?
               <div className="heading">
-                  <h2>My messages</h2>
-                  <Wave/>
-                  {/* end of furni-page tag */}
-              </div>
-
-              {/* cards of furnitures wished,should be from backend*/}
+                <h2>Your message is empty.</h2>
+              </div> :
               <div className="Card-group">
-              {
-                  this.state.empty
-                  ?
-                  <div>Your message is empty.</div>
-                  : this.state.contact_view.length === 0 ?
-                    null :
-                    this.state.contact_view
-              }
+                {this.state.contact_view}
               </div>
-
+            }
           {/* end of  DIV */}
           </div>
       );

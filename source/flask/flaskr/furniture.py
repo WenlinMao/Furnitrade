@@ -12,17 +12,16 @@ from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
     update_furniture_by_id, delete_furniture_by_id,
-    find_furniture_by_info, add_furniture
+    add_furniture
 )
 
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection,
-    update_category_by_id, update_category_by_catname,
-    change_category
+    update_category_by_catname, change_category
 )
 
 from flaskr.model.user_model import (
-    add_wishlist_by_id, add_history_by_id, add_my_furniture_by_id
+    add_wishlist_by_id, add_history_by_id, add_my_furniture_by_id,
+    delete_my_furniture_by_id
 )
 
 from flaskr.helper.subcategory import (
@@ -131,8 +130,8 @@ class Delete(Resource):
                 "msg": "Can not find the furniture"
             })
 
-        result = delete_furniture_by_id(furniture_id)
-
+        delete_furniture_by_id(furniture_id)
+        delete_my_furniture_by_id(user["_id"], furniture_id)
         return jsonify({
             "status": 200,
             "msg": "Delete succeeded"
@@ -150,10 +149,7 @@ class Update(Resource):
         product_name = posted_data['furniture_name']
         '''TODO: Category collection should be updated '''
         category = posted_data['category']
-        #images = posted_data['images']
-        #is_delivery_included = posted_data['is_delivery_included']
         price = posted_data['price']
-        #location = posted_data['location']
         description = posted_data['description']
 
         # Get current furniture id.
