@@ -16,9 +16,20 @@
     justify-items: center;
 }
 
+.messageDetailCard {
+  width: 66.6666666667%;
+  margin: auto;
+  left: auto;
+  right: auto;
+}
+
+.messageDetailCard furnitureButton{
+  margin: auto;
+}
+
 .myMessage h3 {
     color: rgba(26, 24, 24, 0.5);
-    font-size: 70px;
+    font-size: 50px;
 }
 
 .myMessage p {

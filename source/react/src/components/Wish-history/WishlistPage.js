@@ -65,39 +65,38 @@ class WishlistPage extends Component {
         // console.log("state", this.state.data)
         return (
             <div>
-                {/* Part one - NavBar - logic needed*/}
-                <NavBar/>
+              {/* Part one - NavBar - logic needed*/}
+              <NavBar/>
+              <div className="wishlist">
+                  <h2>My Wishlist</h2>
+                  <Wave/>
+              {/* end of furni-page tag */}
+              </div>
+
+              {
+                this.state.empty
+                ?
                 <div className="wishlist">
-                    <h2>My Wishlist</h2>
-                    <Wave/>
-                {/* end of furni-page tag */}
-                </div>
-
-                {/* cards of furnitures wished,should be from backend*/}
+                  <h2>Your wishlist is empty.</h2>
+                </div> :
                 <div className="Card-group">
-                {
-                    this.state.empty
-                    ?
-                    <h2>Your wishlist is empty.</h2>
-                    : this.state.data.length === 0 ?
-                      null :
-                      this.state.data.map(obj=>(
-                        <Card
-                            fromMyFurniture={true}
-                            type={"wishlist"}
-                            title={obj.furniture_name}
-                            text={"$"+obj.price + " " + obj.category}
-                            image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
-                            +obj.product_image[0]}
-                            furniture_id={obj.furniture_id}
-                            rerender={this.rerender}
-                        />)
-                      )
-
-
-                }
+                  {
+                    this.state.data.length === 0 ?
+                    null :
+                    this.state.data.map(obj=>(
+                      <Card
+                          fromMyFurniture={true}
+                          type={"wishlist"}
+                          title={obj.furniture_name}
+                          text={"$"+obj.price + " " + obj.category}
+                          image={"https://s3.amazonaws.com/furnitrade-dev-attachments/"
+                          +obj.product_image[0]}
+                          furniture_id={obj.furniture_id}
+                          rerender={this.rerender}
+                      />))
+                  }
                 </div>
-
+              }
             {/* end of  DIV */}
             </div>
         );

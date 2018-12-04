@@ -63,7 +63,7 @@ const SectionCategory = styled.div`
             <div className="Index-group">
               <h1>Furnitrade </h1>
               <p>Furniture Trade Platform</p>
-              <p>Best Trading Platform ever. Make your life easier. Finding your desired furnitures at the most inexpensive price and best quality! </p>
+              <p>Best Trading Platform ever. Make your life easier. Finding your desired pieces of furniture at the cheapest price and best quality! </p>
               {!this.state.hasLogin ?
                 <Link to="./Register">Register</Link>: null
               }

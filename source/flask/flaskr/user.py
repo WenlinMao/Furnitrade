@@ -177,7 +177,7 @@ class getWishList(Resource):
 
         # step 1: check if wishlist is empty
         wishlist = user['wishlist']
-        if len(wishlist) == 0:
+        if not wishlist:
             return jsonify({
                 "status": 613,
                 "msg": "Empty wishlist"
