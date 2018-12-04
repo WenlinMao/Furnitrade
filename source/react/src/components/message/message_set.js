@@ -67,7 +67,7 @@ class message_set extends Component{
               this.state.empty
               ?
               <div className="heading">
-                <h2>Your message is empty.</h2>
+                <h2>Your message box is empty.</h2>
               </div> :
               <div className="Card-group">
                 {this.state.contact_view}
