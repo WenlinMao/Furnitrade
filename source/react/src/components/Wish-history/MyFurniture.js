@@ -133,7 +133,7 @@ class MyFurniture extends Component {
                 {/* Part one - NavBar - logic needed*/}
                 <NavBar/>
                 <div className="my-furni">
-                    <h2>My Furnitures</h2>
+                    <h2>My Furniture</h2>
                     {/* Part 3 - fixed "add" button - post a new furniture */}
                     {this.renderRedirect()}
                     <button onClick={this.setRedirect}>+</button>
