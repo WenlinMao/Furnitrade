@@ -3,6 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import './message.css';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
 
 class Mymessage extends Component {
     constructor(props){
@@ -65,18 +66,24 @@ render(){
         <div className="message-body">
           <NavBar fromPrivacy={true}/>
           <div className="messagePage">
-          <div className="heading">
-              <Wave/>
-          </div>
+            <div className="heading">
+                <Wave/>
+            </div>
+
+            <div className="messageDetailCard">
               <div className="myMessage">
-                  <h3>{this.state.title}</h3>
+                <h3>{this.state.title}</h3>
 
-                  <p>{this.state.content}</p>
-
-                  <a href={this.state.link}>
-                      Click Here To View Furniture Detail
-                  </a>
+                <p>{this.state.content}</p>
               </div>
+              <a href={this.state.link}>
+                <Button variant="contained"
+                    component="span"
+                    className="furnitureButton">
+                    View Furniture Detail
+                </Button>
+              </a>
+            </div>
           </div>
 
         {/* end of the last div */}
