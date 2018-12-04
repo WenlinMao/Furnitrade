@@ -177,11 +177,6 @@ class getWishList(Resource):
 
         # step 1: check if wishlist is empty
         wishlist = user['wishlist']
-        if not wishlist:
-            return jsonify({
-                "status": 613,
-                "msg": "Empty wishlist"
-            })
 
         # step 2: query all furniture_ids to get details
         furnitures_json = []
@@ -192,18 +187,26 @@ class getWishList(Resource):
             # Error checking
             if not ObjectId.is_valid(furniture_id) or furniture is None:
                 continue
+            try:
+                product_name = furniture['furniture_name']
+                category = furniture['category']
+                images = furniture['images']
+                price = furniture['price']
 
-            product_name = furniture['furniture_name']
-            category = furniture['category']
-            images = furniture['images']
-            price = furniture['price']
+                furnitures_json.append({
+                    'furniture_name': product_name,
+                    'category': category,
+                    'product_image': images,
+                    'price': price,
+                    'furniture_id': furniture_id
+                })
+            except KeyError:
+                continue
 
-            furnitures_json.append({
-                'furniture_name': product_name,
-                'category': category,
-                'product_image': images,
-                'price': price,
-                'furniture_id': furniture_id
+        if not furnitures_json:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty wishlist"
             })
 
         # step 3: return json representation of furnitures
@@ -253,11 +256,6 @@ class getHistory(Resource):
 
         # step 1: check if history is empty
         history = user['history']
-        if len(history) == 0:
-            return jsonify({
-                "status": 613,
-                "msg": "Empty history"
-            })
 
         # step 2: query all furniture_ids to get details
         furnitures_json = []
@@ -271,20 +269,27 @@ class getHistory(Resource):
                 #     "msg": "furniture no longer available"
                 # })
                 continue
+            try:
+                product_name = furniture['furniture_name']
+                category = furniture['category']
+                images = furniture['images']
+                price = furniture['price']
 
-            product_name = furniture['furniture_name']
-            category = furniture['category']
-            images = furniture['images']
-            price = furniture['price']
+                furnitures_json.append({
+                    'furniture_name': product_name,
+                    'category': category,
+                    'product_image': images,
+                    'price': price,
+                    'furniture_id': furniture_id
+                })
+            except KeyError:
+                continue
 
-            furnitures_json.append({
-                'furniture_name': product_name,
-                'category': category,
-                'product_image': images,
-                'price': price,
-                'furniture_id': furniture_id
+        if not furnitures_json:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty history"
             })
-
         # step 3: return json representation of furnitures
         return jsonify({
             "status": 200,
@@ -327,11 +332,6 @@ class getMyFurnitures(Resource):
     def get(self, user):
         # Step 1: check if empty my_furnitures
         my_furnitures = user['my_furnitures']
-        if not my_furnitures:
-            return jsonify({
-                "status": 613,
-                "msg": "Empty my_furnitures"
-            })
 
         # Step 2: query all funriture_ids to get details
         furnitures_json = []
@@ -346,18 +346,26 @@ class getMyFurnitures(Resource):
                 #     "msg": "furniture no longer available"
                 # })
                 continue
+            try:
+                product_name = furniture['furniture_name']
+                category = furniture['category']
+                images = furniture['images']
+                price = furniture['price']
 
-            product_name = furniture['furniture_name']
-            category = furniture['category']
-            images = furniture['images']
-            price = furniture['price']
+                furnitures_json.append({
+                    'furniture_name': product_name,
+                    'category': category,
+                    'product_image': images,
+                    'price': price,
+                    'furniture_id': furniture_id
+                })
+            except KeyError:
+                continue
 
-            furnitures_json.append({
-                'furniture_name': product_name,
-                'category': category,
-                'product_image': images,
-                'price': price,
-                'furniture_id': furniture_id
+        if not furnitures_json:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty my_furnitures"
             })
 
         return jsonify({
