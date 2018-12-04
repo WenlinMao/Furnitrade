@@ -243,14 +243,14 @@ class Add extends Component{
               margin="normal"
             />
 
-            <h8>Pick your three categories: </h8>
+            <h8>Pick your category: </h8>
             <div className="selects">
               <div class="styled-select blue semi-square">
                 <select
                   value={this.state.category}
                   onChange={this.handleCategoryInput('category')}
                   >
-                  <option value="" hidden>Choose your category</option>
+                  <option value="" hidden>Choose a category</option>
                   {categories.categories.map(category => (
                     <option value={category.title}>{category.title}</option>
                   ))}
@@ -260,7 +260,7 @@ class Add extends Component{
               {/* Now we have category stored in category, extract the corresponding subcategories */}
               {this.state.category === "" ?
               <div class="styled-select blue semi-square">
-              <select><option>Choose your subcategory</option></select></div>
+              <select><option>Choose a subcategory</option></select></div>
               :this.renderSubcategoryInput()}
 
             {/* end of DIVs */}
