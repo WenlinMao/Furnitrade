@@ -11,8 +11,7 @@ import "./Dialog.css";
 import md5 from 'md5';
 import axios from 'axios';
 
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?]).{8,20}/;
-// const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?@]).{8,20}/;
 
 export default class FormDialog extends React.Component {
   state = {
@@ -38,8 +37,15 @@ export default class FormDialog extends React.Component {
     this.setState({newPassword: event.target.value, newPasswordError: false, success: false});
     if(event.target.value.match(passwordRegex)) {
       this.setState({newPassword: event.target.value, newPasswordError: false});
-    }else {
+    } else {
       this.setState({newPasswordError: true});
+    }
+
+    if(event.target.value !== this.state.newPassword){
+        this.setState({confirmPasswordError: true});
+    }
+    else {
+        this.setState({confirmPasswordError: false});
     }
   }
 
