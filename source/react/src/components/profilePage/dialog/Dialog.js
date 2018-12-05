@@ -96,9 +96,10 @@ export default class FormDialog extends React.Component {
     .then((response) => {
         let code = response.data.status;
         if (code === 200) {
-        this.setState({success: true});
+          this.setState({open: false});
+          this.setState({success: true});
         } else if (code === 313){
-        this.setState({oldPasswordError: true});
+          this.setState({oldPasswordError: true});
         }
     })
     .catch((error) => {

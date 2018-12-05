@@ -10,7 +10,7 @@ class DeleteAlert extends React.Component {
   state = {
     open: false,
     furnitureDelete: false,
-    wishlistDelete: false 
+    wishlistDelete: false
   };
 
   handleClickOpen = () => {
@@ -109,7 +109,7 @@ class DeleteAlert extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"You are about to delete this furniture post. Are you sure to do so?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"You are about to delete this. Are you sure to do so?"}</DialogTitle>
           <DialogActions>
             <button onClick={this.handleDelete}>Delete</button>
             <button onClick={this.handleClose}>Cancel</button>
