@@ -72,27 +72,27 @@ class FurniPage extends Component {
 render () {
     return (
         <div className="furni-sub-cate">
-            {/* TODO - should check for loginStatus */}
-            <NavBar />
-            <div className="furni">
+          {/* TODO - should check for loginStatus */}
+          <NavBar />
+          <div className="furni">
             <div className="furni-page">
                 <h2>{this.state.category}</h2>
                 <Wave/>
             {/* end of furni-page tag */}
             </div>
+          </div>
+          {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
+          {
+            this.state.empty
+            ?
+            <div className="empty-message">
+              <h2>Category is empty.</h2>
+            </div> :
+            <div className="Card-group">
+              {this.state.furnicard_view}
             </div>
-                {/* TODO - data of this section should be read in through a JSON file requested from the back-end */}
-                <div className="Card-group">
-                {
-                    this.state.empty
-                    ?
-                    <div>Category is empty.</div>
-                    :
-                    this.state.furnicard_view
-                }
-                </div>
-
-            {/* TODO - Should be a section of shit like "all rights reserved" */}
+          }
+          {/* TODO - Should be a section of shit like "all rights reserved" */}
         {/* End of the last DIV  - everything should be above this tag */}
         </div>
     );

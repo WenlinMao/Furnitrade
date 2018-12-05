@@ -193,6 +193,7 @@ class Add extends Component{
               this.child.current.beginUpload(this.state.furniture_id);
               // redirect to hompage
               this.props.history.push("/");
+              alert("Post an item successfully");
           } else if (code === 400){
               localStorage.removeItem('usertoken');
               this.props.history.push("/Login");

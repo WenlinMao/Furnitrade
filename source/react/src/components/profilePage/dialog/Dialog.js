@@ -73,6 +73,7 @@ export default class FormDialog extends React.Component {
   handleSubmit = (e) => {
     this.setState({success: false});
     e.preventDefault();
+    console.log(this.state.oldPassword)
     let reqData = {
         'old_password': md5(this.state.oldPassword),
         'new_password': md5(this.state.newPassword),
@@ -96,9 +97,9 @@ export default class FormDialog extends React.Component {
     .then((response) => {
         let code = response.data.status;
         if (code === 200) {
-        this.setState({success: true});
+          this.setState({success: true});
         } else if (code === 313){
-        this.setState({oldPasswordError: true});
+          this.setState({oldPasswordError: true});
         }
     })
     .catch((error) => {

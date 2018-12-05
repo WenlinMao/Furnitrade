@@ -37,11 +37,6 @@ class Category(Resource):
             })
 
         size = len(category['furniture_id'])
-        if size == 0:
-            return jsonify({
-                "status": 613,
-                "msg": "Empty furniture_id"
-            })
 
         count = size if size < 10 else 10
 
@@ -51,16 +46,25 @@ class Category(Resource):
             furniture = find_furniture_by_id(furniture_id)
             if furniture is None:
                 continue
-            product_name = furniture['furniture_name']
-            product_image = furniture['images']
-            product_price = furniture['price']
-            retJson = {
-                'furniture_name': product_name,
-                'product_image': product_image,
-                'price': product_price,
-                'furniture_id': furniture_id,
-            }
-            result.append(retJson)
+            try:
+                product_name = furniture['furniture_name']
+                product_image = furniture['images']
+                product_price = furniture['price']
+                retJson = {
+                    'furniture_name': product_name,
+                    'product_image': product_image,
+                    'price': product_price,
+                    'furniture_id': furniture_id,
+                }
+                result.append(retJson)
+            except KeyError:
+                continue
+
+        if not result:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty furniture_id"
+            })
 
         return jsonify({
             "status": 200,
