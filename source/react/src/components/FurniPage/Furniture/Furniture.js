@@ -50,7 +50,6 @@ class Furniture extends Component {
            seller_id:'5c00b5ebf661a90ae131e678',
            furniture_id:'5c00b5ebf661a90ae131e678',
            success: false,
-           redirect: false,
         };
     }
 
@@ -102,8 +101,9 @@ class Furniture extends Component {
                   seller_id:'5c00b5ebf661a90ae131e678',
                   furniture_id:'5c00b5ebf661a90ae131e678',
                   success: false,
-                  redirect: false,
                 })
+            } else if (code === 319) {
+                // TODO: used to handle when the furniture has been delete
             }
         })
         .catch((error)=>{
