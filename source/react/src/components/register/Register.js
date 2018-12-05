@@ -212,6 +212,14 @@ class Register extends Component {
         else {
             this.setState({length: false});
         }
+
+        if(event.target.value !== this.state.password){
+            // console.log("not same");
+            this.setState({confirmPasswordError: true});
+        }
+        else {
+            this.setState({confirmPasswordError: false});
+        }
     }
 
     handlePasswordConfirm = confirmPassword => event => {

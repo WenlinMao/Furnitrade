@@ -145,7 +145,7 @@ class MyFurniture extends Component {
               this.state.empty
               ?
               <div className="my-furni">
-                <h2>You haven't post any furniture.</h2>
+                <h2>You haven't post anything yet.</h2>
               </div> :
               <div className="Card-group">
                   {this.state.furnicard_view}
