@@ -39,3 +39,8 @@ To assist your development, recommend have the following development tools:
 15. our website will be automatically opened in Chrome (or your default browser)
 
 p.s: Currently, our website only works with Chrome. If it opens in other browsers, please just copy the url and put it in Chrome.
+
+### Troubleshooting
+* Sometimes uploading image takes longer than page loading due to the speed of AWS S3. If furniture information or profile information doesn't load, please try to wait a few seconds and refresh the page.
+* Sometimes pymongo will throw timeout error. This is because of the poor network connection. Try switch to another wifi and try again.  
+* If there are any other problems, please try to reinstall react or flask on the devises.
