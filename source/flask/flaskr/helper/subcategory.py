@@ -1,5 +1,5 @@
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection
+    get_category_collection
 )
 
 mylist = [
@@ -237,4 +237,4 @@ def validate_category_name(category_name):
 	for cat in mylist:
 		if category_name in cat['category_name']:
 			return True
-	return False 
+	return False
