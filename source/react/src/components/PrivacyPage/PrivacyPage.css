@@ -1,0 +1,36 @@
+.privacy {
+    margin: 0 auto;
+    max-width: 1000px;
+    min-width: 240px;
+    padding: 120px 50px 50px 50px;
+    background-image: none;
+}
+
+.privacy h1 {
+    margin: 50px auto;
+    color: black;
+    text-align: center;
+    line-height: 1.2;
+    opacity: 0;
+    animation: IndexAnimation;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.privacy h2 {
+    color: black;
+}
+
+.privacy h3 {
+    color: black;
+}
+
+.privacy h4 {
+    color: black;
+}
+
+.privacy p {
+    color: black;
+}

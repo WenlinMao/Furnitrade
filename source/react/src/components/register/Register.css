@@ -1,0 +1,107 @@
+/*
+************  Register page CSS ************
+*/
+
+/* register page */
+.register {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 150px 50px;
+  text-align: center;
+}
+
+.register h2 {
+  margin: 0;
+  color: white;
+  font-size: 30px;
+  line-height: 1.2;
+  opacity: 0;
+  animation: IndexAnimation;
+  animation-duration: 3s;
+  animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.register button {
+  padding: 8px 20px;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  outline: none;
+  height: 50px;
+  cursor: pointer;
+
+  /* let button float above the wave */
+  z-index: 10;
+  transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.register button:hover {
+  color: #56CCF2;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.register-forms {
+  display: grid;
+  grid-gap: 10px;
+}
+
+/* responsive layout */
+@media (max-width: 640px) {
+  .register-items {
+      padding: 100px 20px;
+  }
+
+  .register h2 {
+      font-size: 25px;
+  }
+
+  .register p {
+      font-size: 18px;
+  }
+}
+
+
+  /* register text fields */
+  .register-form{
+    padding-top:5%;
+    display: flex;
+    flex-direction:column;
+
+    /* text field size */
+    width:100%;
+    align-self:center;
+  }
+
+
+  .register-icon {
+    padding-left: 10%;
+    display: inline-block;
+  }
+  /* register button */
+  .registerPage-form .register-button{
+  justify-content: center;
+  align-self: center;
+  background-color: #F6BD60;
+  width: inherit;
+  }
+
+/* icon */
+.fa-check-circle {
+  color: #80f080;
+  float: right;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* icon */
+.fa-times-circle {
+  color: #f08080;
+  float: right;
+  font-weight: bold;
+  margin-left: 4px;
+}

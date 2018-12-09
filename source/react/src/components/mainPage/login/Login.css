@@ -1,0 +1,84 @@
+/*
+************  Login page CSS ************
+*/
+
+/* login page */
+.login-page{
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 120px 50px;
+    text-align: center;
+  }
+
+.login-page h2{
+    margin: 0;
+    color: white;
+    font-size: 40px;
+    line-height: 1.2;
+    opacity: 0;
+    animation: IndexAnimation;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+.login-container button {
+  padding: 8px 20px;
+  font-size: 15px;
+  color: white;
+  background: #56CCF2;
+  font-weight: 700;
+  border-radius: 10px;
+  width: 230px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.login-container button:hover {
+  color: #56CCF2;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.buttons {
+  padding-top: 5px;
+  display: grid;
+  grid-template-rows: 2fr, 2fr;
+  grid-gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .login-page button {
+    font-size: 10px;
+    width: 150px;
+  }
+  .logo {
+    width: 180px;
+  }
+}
+
+.textfield {
+  background: white;
+  border-radius: 7px;
+}
+
+  /* login title */
+  .login-title{
+    text-align: center;
+  }
+
+  /* login text field */
+  .login-form{
+    padding-top:5%;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 10px;
+
+    /* text field size */
+    width:100%;
+    align-self: center;
+  }

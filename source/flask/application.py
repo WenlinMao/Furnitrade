@@ -1,8 +1,7 @@
-from flask import Flask;
-from flaskr import create_app;
-from flaskr.config import DevelopmentConfig;
+from flaskr import create_app
+from config import DevelopmentConfig
 
-application = create_app(DevelopmentConfig);
+application = create_app(DevelopmentConfig)
 
 if __name__ == "__main__":
     application.run()

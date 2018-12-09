@@ -1,0 +1,58 @@
+.label {
+    height: 200;
+}
+
+.subcategory {
+    display: grid;
+    grid-template-columns: 60px auto;
+    grid-gap: 25px;
+    align-items: center;
+}
+
+.subcategory a {
+    font-size: 12px;
+    font-weight: 500;
+    color: black;
+    text-transform: none;
+    position: sticky;
+    border: none;
+    transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.subcategory a:hover {
+    font-size: 13px;
+    color: #56CCF2;
+}
+
+.subcategory h5:hover {
+    color: #56CCF2;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+#content {
+
+    position: inherit;
+    max-height: 0px;
+    width: 250px;
+    padding: 0 18px;
+    background-color: white;
+    font-size: 12px;
+    overflow: hidden;
+    /* height: 500px; */
+    transition: max-height .2s ease-in-out;
+}
+
+
+#toggle{    
+    display: none;
+    position: relative;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+#toggle:checked +#content{
+  max-height: 500px;
+}
+
+#toggle:checked + label{
+  position: fixed;
+}

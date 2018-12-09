@@ -1,0 +1,79 @@
+.Header {
+    position: fixed;
+    width: 100%;
+    padding: 50px 0;
+    z-index: 101;
+
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* For scrolled */
+.HeaderScrolled {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 0;
+
+    /* for Safari */
+    backdrop-filter: blur(20px);
+}
+
+.Header-group {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    align-items: center;
+    justify-items: center;
+}
+
+.Header a {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login-button button {
+    padding: 8px 20px;
+    font-size: 20px;
+    color: white;
+    background: #56CCF2;
+    font-weight: 700;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.login-button button:hover {
+    color: #56ccf2;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+
+.drawer-button button{
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.drawer-button button:hover {
+    transform: scale(1.3);
+}
+
+
+@media (max-width: 640px) {
+    .Header {
+        padding: 15px 0;
+    }
+
+    .Header-group {
+        grid-template-columns: repeat(4, auto);
+    }
+
+    .Header a:nth-child(4){
+        display: none;
+    }
+}

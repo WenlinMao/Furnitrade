@@ -1,32 +1,55 @@
+/*
+************  MAJOR LAYOUT CSS ************
+*/
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.3;
+  scroll-behavior: smooth;
+}
+
 .App {
-  text-align: center;
+  background-image: url('./static/images/test-background.png');
+  height:920px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.App h1{
+  margin: 0;
   color: white;
+  font-size: 85px;
+  line-height: 1.2;
+  opacity: 0;
+  animation: IndexAnimation;
+  animation-duration: 3s;
+  animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.App-link {
-  color: #61dafb;
+.App svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App a {
+  text-decoration: none;
+}
+
+@keyframes IndexAnimation {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
   }
-  to {
-    transform: rotate(360deg);
+
+  100% {
+      opacity: 1;
+      transform: translateY(0px);
   }
 }

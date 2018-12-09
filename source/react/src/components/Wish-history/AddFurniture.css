@@ -1,0 +1,121 @@
+.heading{
+  margin:0 auto;
+  max-width: 800px;
+  padding:150px 50px 50px 50px;
+  text-align: center;
+}
+
+
+
+.addfurniture-container {
+    margin: 0 auto;
+    max-width: 800px;
+
+    /* divide the container into left and right part */
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 60px;
+}
+
+@media (max-width: 740px) {
+  .addfurniture-container {
+    grid-template-columns: repeat(1, auto);
+    grid-gap: 30px;
+  }
+}
+
+/* TODO */
+.lhs{
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  max-width:420px;
+}
+
+.lhs p{
+  color:rgba(255, 255, 255, 1);
+  font-weight: 500;
+}
+
+/* color of label - text in the textfield */
+.lhs label {
+  color: white;
+  font-weight: 500;
+}
+
+/* TODO */
+.rhs{
+  margin: 0 auto;
+  display:grid;
+  grid-template-rows: repeat(4, auto);
+  grid-gap: 10px;
+  max-width:400px;
+}
+
+.rhs label {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+
+.form{
+  padding: 0;
+  display: grid;
+  grid-gap: 15px;
+  justify-content: center;
+  text-align: center;
+}
+
+button {
+  padding: 15px 20px;
+  font-size: 20px;
+  color: white;
+  background: #56ccf3;
+  font-weight: 700;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+}
+
+button:hover {
+  color: #56CCF2;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+/* Selects initial css done */
+.selects {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 15px;
+}
+
+.styled-select {
+  height: 29px;
+  overflow: hidden;
+}
+
+.styled-select select {
+  background: transparent;
+  border: none;
+  width: 190px;
+  font-size: 14px;
+}
+
+/* remove the blue outline on click */
+.styled-select select:focus {
+  outline: none;
+}
+
+.semi-square {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.blue select { color: #fff; }
+.blue { background-color: rgba(0,0,0,0.55); }
