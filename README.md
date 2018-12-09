@@ -22,9 +22,15 @@ To assist your development, recommend have the following development tools:
 ##### Clone from github
 1. clone from https://github.com/WenlinMao/cse110-project using `git clone https://github.com/WenlinMao/cse110-project.git`
 2. input username and password for github if asked
-##### Set up flask and its dependencies
+##### Set up flask for Backend
 3. navigate to source/flask
 4. run `python3 -m venv venv` to create an empty virtual environment
 5. activate virtual using `. venv/bin/activate`
 6. within virtual environment run `pip install -r requirements.txt`
-#####
+7. run `python3 application.py` and make sure there is no error
+##### Set up React.js for Frontend
+8. open a new terminal and remain application.py executed
+9. navigate to source/react
+10. download the newest npm through https://www.npmjs.com/get-npm
+11. use `npm -v` to check if npm has installed
+12. run `npm install` to install all packages
