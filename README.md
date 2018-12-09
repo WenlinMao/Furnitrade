@@ -1,10 +1,10 @@
 # Furnitrade
 
-## Developer
+### Developer
 
-CSE 110 group name
+FTP (Furniture Trade Platform)
 
-## Dependencies
+### Dependencies
 * ReactJS: https://reactjs.org
 * MongoDB: https://www.mongodb.com Please go to MongoDB.com to download the latest version of Mongo DB.
 * Flask: http://flask.pocoo.org/docs/1.0/installation/#installation refer this page to install Flask for back-end developing
@@ -17,3 +17,8 @@ To assist your development, recommend have the following development tools:
 * Chrome: https://chrome.com For front-end debugging
 * Postman: https://getpostman.com For back end development
 * Robo3T: https://robomongo.org For Mongo DB Management
+
+### Deploy on localhost from noting
+1. clone from https://github.com/WenlinMao/cse110-project using `git clone https://github.com/WenlinMao/cse110-project.git`
+2. input username and password for github if asked
+3. 
