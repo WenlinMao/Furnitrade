@@ -34,3 +34,8 @@ To assist your development, recommend have the following development tools:
 10. download the newest npm through https://www.npmjs.com/get-npm
 11. use `npm -v` to check if npm has installed
 12. run `npm install` to install all packages
+13. run `npm run start` to start to frontend server
+14. click OK if your computer ask for permission
+15. our website will be automatically opened in Chrome (or your default browser)
+
+p.s: Currently, our website only works with Chrome. If it opens in other browsers, please just copy the url and put it in Chrome.
