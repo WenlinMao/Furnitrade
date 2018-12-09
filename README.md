@@ -19,6 +19,12 @@ To assist your development, recommend have the following development tools:
 * Robo3T: https://robomongo.org For Mongo DB Management
 
 ### Deploy on localhost from noting
+##### Clone from github
 1. clone from https://github.com/WenlinMao/cse110-project using `git clone https://github.com/WenlinMao/cse110-project.git`
 2. input username and password for github if asked
-3. 
+##### Set up flask and its dependencies
+3. navigate to source/flask
+4. run `python3 -m venv venv` to create an empty virtual environment
+5. activate virtual using `. venv/bin/activate`
+6. within virtual environment run `pip install -r requirements.txt`
+#####
