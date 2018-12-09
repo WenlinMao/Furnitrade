@@ -53,3 +53,10 @@ email: xxxxxx@ucsd.edu
 address: xxxxman dr.
 password: Xxxxxx123!
 ```
+* Account 2:
+```
+username: Testxxxxxx
+email: w6mao@ucsd.edu
+address: Peterson Hall
+password: Wenlin1997@
+```
