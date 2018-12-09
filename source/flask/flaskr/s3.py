@@ -7,8 +7,6 @@ from flask import (
     Blueprint, jsonify, current_app
 )
 
-from flaskr import auth
-
 bp = Blueprint('s3', __name__, url_prefix='/s3')
 api = Api(bp)
 
