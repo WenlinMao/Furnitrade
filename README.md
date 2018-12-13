@@ -61,3 +61,6 @@ email: w6mao@ucsd.edu
 address: Peterson Hall
 password: Wenlin1997@
 ```
+
+### Video Demo
+Youtube Link: https://www.youtube.com/watch?v=7hTTqTOZBfY&t=76s
