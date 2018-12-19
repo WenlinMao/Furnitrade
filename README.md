@@ -31,7 +31,7 @@ To assist your development, recommend have the following development tools:
 ##### Set up React.js for Frontend
 8. open a new terminal and remain application.py executed
 9. navigate to source/react
-10. download the newest npm through https://www.npmjs.com/get-npm
+10. download the newest npm through https://www.npmjs.com/get-npm
 11. use `npm -v` to check if npm has installed
 12. run `npm install` to install all packages
 13. run `npm run start` to start to frontend server
