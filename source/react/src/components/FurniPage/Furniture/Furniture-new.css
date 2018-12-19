@@ -1,0 +1,144 @@
+/*
+************  Single Furniture CSS ************
+*/
+
+.furniture {
+    background-image: url('../../../static/images/light-flip.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height:940px;
+  }
+
+.title h2 {
+    padding: 30px 200px;
+}
+
+/* this tag contains everything besides the NavBar */
+.furniture-container {
+    margin: 0 auto;
+    padding: 150px 50px;
+    max-width: 1200px;
+
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 50px;
+}
+
+/* lhs - containing the images of a furniture */
+.lhs-container {
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: repeat(1, auto);
+}
+
+
+/* rhs - containing the description, etc */
+.rhs-container {
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    grid-gap: 10px;
+}
+
+.rhs-container input{
+  color: white;
+}
+
+/* =========== DO NOT CHANGE =========== */
+.furniture p{
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 30px;
+    line-height: 1.2;
+    animation: IndexAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity: 0;
+}
+
+.furniture label {
+  color: rgba(255, 255, 255, 0.9);
+  z-index:10;
+}
+
+/* image container - like card */
+.slides {
+  width: 500px;
+  height: 312px;
+  /* object-fit: cover; */
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.slides:hover {
+  transform: scale(1.01, 1.01);
+}
+
+
+
+/* submit and wishlist buttons CSS */
+.submit-wish-buttons {
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 50px;
+}
+
+.submit-wish-buttons button {
+  width: 300px;
+}
+
+@media (max-width: 1240px) {
+
+  .furniture {
+    height:1280px;
+  }
+  .furniture-container {
+    grid-template-columns: repeat(1, auto);
+    grid-gap: 20px;
+  }
+
+  .rhs-container {
+    width: 600px;
+    grid-gap: 20px;
+  }
+
+  .submit-wish-buttons button {
+    width: 320px;
+  }
+}
+
+@media (max-width: 640px) {
+  .slides {
+    width: 400px;
+    height: 280px;
+  }
+
+  .slides h2 {
+    font-size: 20px;
+  }
+
+  .rhs-container {
+    width: 500px;
+    grid-gap: 15px;
+  }
+
+  .submit-wish-buttons {
+    grid-template-columns: repeat(1, auto);
+    grid-gap: 15px;
+  }
+}
+
+@media (max-width: 440px) {
+  .slides {
+    width: 250px;
+    height: 175px;
+  }
+
+  .slides h2 {
+    font-size: 15px;
+  }
+}

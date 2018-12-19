@@ -2,15 +2,16 @@
 ************  wishlist Page CSS ************
 */
 
-.wishhist {
+.wishlist {
     margin: 0 auto;
     max-width: 500px;
     padding: 150px 50px 50px 50px;
-    text-align: center; 
+    text-align: center;
+    min-width: 240px;
 }
 
-h2 {
-    margin: 0;
+.h2 {
+    margin: 0 auto;
     color: white;
     font-size: 40px;
     line-height: 1.2;

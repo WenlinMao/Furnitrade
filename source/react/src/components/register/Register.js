@@ -27,7 +27,7 @@ const name_no_symbol = /(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 const password_lower = /(?=.*[a-z])/;
 const password_upper = /(?=.*[A-Z])/;
 const password_number = /(?=.*\d)/;
-const password_symbol = /(?=.*[!#$%&?])/;
+const password_symbol = /(?=.*[!#$%&?@])/;
 // const password_symbol = /(?=.*[!#\$%&\?])/;
 const password_length = /.{8,20}/;
 
@@ -211,6 +211,14 @@ class Register extends Component {
         }
         else {
             this.setState({length: false});
+        }
+
+        if(event.target.value !== this.state.password){
+            // console.log("not same");
+            this.setState({confirmPasswordError: true});
+        }
+        else {
+            this.setState({confirmPasswordError: false});
         }
     }
 
@@ -509,13 +517,17 @@ class Register extends Component {
                                 error={this.state.confirmPasswordError}
                             />
 
-                            <UploadImg resource_type="user"
-                              name={this.state.username}
+                            <UploadImg
+                              inputClass="from-register"
+                              resource_type="user"
                               beforeUpload={this.handleBeforeUpload}
                               onUploadImg={this.handleUploadImg}
                               disabled={this.checkButtonStatus()}
                               ref={this.child}
+                              hint={"Please Upload a Profile Image ( 1 only )"}
                               />
+
+
                             {/* Show different button depending on input validality */}
                             { (this.checkButtonStatus()
                                 || (this.state.filesToBeSent
@@ -525,7 +537,7 @@ class Register extends Component {
                               disabled={(this.checkButtonStatus()
                                           || (this.state.filesToBeSent
                                             && this.state.filesToBeSent.length <= 0))}
-                              variant="contained" > Create Account </Button> :
+                              variant="contained" >Create Account</Button> :
                             <button
                               disabled={this.checkButtonStatus()}
                               variant="contained"

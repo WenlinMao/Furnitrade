@@ -12,17 +12,16 @@ from flaskr import auth
 from flaskr.model.furniture_model import (
     get_furniture_collection, find_furniture_by_id,
     update_furniture_by_id, delete_furniture_by_id,
-    find_furniture_by_info, add_furniture
+    add_furniture
 )
 
 from flaskr.model.category_model import (
-    get_category_by_catname, get_category_collection,
-    update_category_by_id, update_category_by_catname,
-    change_category
+    update_category_by_catname, change_category
 )
 
 from flaskr.model.user_model import (
-    add_wishlist_by_id, add_history_by_id, add_my_furniture_by_id
+    add_wishlist_by_id, add_history_by_id, add_my_furniture_by_id,
+    delete_my_furniture_by_id
 )
 
 from flaskr.helper.subcategory import (
@@ -48,11 +47,9 @@ class Post(Resource):
 
         fur_name = postedData['furniture_name']
         category = postedData['category']
-        # images = postedData['images']
         price = postedData['price']
-        # is_delivery_included = postedData['is_delivery_included']
-        # location = postedData['location']
-        # seller_id = postedData['seller']
+        location = postedData['address']
+        seller_id = str(user['_id'])
         description = postedData['description']
 
         error = None
@@ -62,62 +59,47 @@ class Post(Resource):
         if not fur_name:
             error_code = 322
             error = 'Furniture name is required.'
-        # elif not images:
-        #     error_code = 323
-        #     error = 'Images are required.'
-        elif not category:
+        elif not category or not validate_category_name(category):
             error_code = 324
-            error = 'Category needs to be specified.'
-        # elif not is_delivery_included:
-        #     error_code = 325
-        #     error = 'Is delivery included?'
-        # elif not seller_id:
-        #     ''' TODO: check if seller is inside the database '''
-        #     error_code = 326
-        #     error = 'Seller name is required.'
+            error = 'Category invalid'
+        elif not seller_id:
+            ''' TODO: check if seller is inside the database '''
+            error_code = 326
+            error = 'Seller name is required.'
         elif not price:
             error_code = 327
             error = 'Price is required.'
-        # elif not location:
-        #     error_code = 328
-        #     error = 'Pick up location is required.'
+        elif not location:
+            error_code = 328
+            error = 'Pick up location is required.'
         elif not description:
             error_code = 329
             error = 'Description of furniture is required.'
 
         if error is None:
-            
+
             # Step 1: get furniture information
             toInsert = {
                 "furniture_name": fur_name,
                 "category": category,
-                # "images": images,
                 "price": price,
-                # "is_delivery_included": is_delivery_included,
-                # "location": location,
-                # "seller": seller_id,
+                "location": location,
+                "seller": seller_id,
                 "description": description
             }
 
             # Step 2: insert to furnitures collections
             furniture = add_furniture(toInsert)
             furniture_id = furniture.inserted_id
-            
+
             # Step 3: insert to categories collections
-            # Here category doesn't have id. 
+            # Here category doesn't have id.
             # Fixed to include fid as list in category By Mao.
-            
-            # Insert to cateogires
-            if not validate_category_name(category):
-                return jsonify({
-                    "status": 617,
-                    "msg": "Invalid/Non-Existent Category name"
-                })
+
             update_category_by_catname(category, str(furniture_id))
 
             # Step 4: insert to user's my_furnitures
-            user_id = user['_id']
-            add_my_furniture_by_id(user_id, str(furniture_id))
+            add_my_furniture_by_id(user['_id'], str(furniture_id))
 
             # Status
             retJson = {
@@ -148,8 +130,8 @@ class Delete(Resource):
                 "msg": "Can not find the furniture"
             })
 
-        result = delete_furniture_by_id(furniture_id)
-
+        delete_furniture_by_id(furniture_id)
+        delete_my_furniture_by_id(user["_id"], furniture_id)
         return jsonify({
             "status": 200,
             "msg": "Delete succeeded"
@@ -167,29 +149,27 @@ class Update(Resource):
         product_name = posted_data['furniture_name']
         '''TODO: Category collection should be updated '''
         category = posted_data['category']
-        #images = posted_data['images']
-        #is_delivery_included = posted_data['is_delivery_included']
         price = posted_data['price']
-        #location = posted_data['location']
         description = posted_data['description']
 
         # Get current furniture id.
         furniture_id = posted_data['furniture_id']
-        
+
         # TODO: Change category here when updated.
         old_furniture = find_furniture_by_id(furniture_id)
         # Check if category has been changed
         if category != old_furniture['category']:
-            change_category(old_furniture['category'], category, str(furniture_id))
+            change_category(old_furniture['category'],
+                            category, str(furniture_id))
 
         # Update furniture by its id
         update_furniture_by_id(furniture_id, {
             "furniture_name": product_name,
             "category": category,
-            #"images": images,
-            #"is_delivery_included": is_delivery_included,
+            # "images": images,
+            # "is_delivery_included": is_delivery_included,
             "price": price,
-            #"location": location,
+            # "location": location,
             "description": description
         })
 
@@ -202,14 +182,10 @@ class Update(Resource):
 class Detail(Resource):
     # take an id return furniture info
     @auth.login_required
-    def get(self, user, furniture_id):
-        '''
-        TODO:
-        move find one in model layer
-        '''
-        # TODO: find one by furniture's id?
+    def get(self, user):
+        furniture_id = request.args.get('furniture_id')
         furniture = find_furniture_by_id(furniture_id)
-        # furniture = furnitures.find_one({'furniture_name': furniture_name})
+
         if furniture is None:
             return jsonify({
                 "status": 319,
@@ -220,11 +196,10 @@ class Detail(Resource):
         product_name = furniture['furniture_name']
         category = furniture['category']
         images = furniture['images']
-        is_delivery_included = furniture['is_delivery_included']
         price = furniture['price']
         location = furniture['location']
-        ''' TODO: seller id shouldn't return '''
         description = furniture['description']
+        seller = furniture['seller']
 
         retJson = {
             "status": 200,
@@ -232,10 +207,10 @@ class Detail(Resource):
             'furniture_name': product_name,
             'category': category,
             'images': images,
-            'is_delivery_included': is_delivery_included,
             'price': price,
             'location': location,
-            'description': description
+            'description': description,
+            'seller': seller,
         }
 
         return jsonify(retJson)
@@ -251,7 +226,7 @@ class AddWishList(Resource):
         # Get user id and furniture_id from get request's param
         user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
-        
+
         # Validation of object id
         if not ObjectId.is_valid(furniture_id) or \
                 find_furniture_by_id(furniture_id) is None:
@@ -326,7 +301,7 @@ class ChangeFurnitureImg(Resource):
 api.add_resource(Post, '/post')
 api.add_resource(Delete, '/delete/<string:furniture_id>')
 api.add_resource(Update, '/update')
-api.add_resource(Detail, '/detail/<string:furniture_id>')
+api.add_resource(Detail, '/detail')
 api.add_resource(AddWishList, '/add_wishlist')
 api.add_resource(AddHistory, '/add_history')
 api.add_resource(List, '/list')

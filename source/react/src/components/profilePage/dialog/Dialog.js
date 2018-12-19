@@ -11,8 +11,7 @@ import "./Dialog.css";
 import md5 from 'md5';
 import axios from 'axios';
 
-const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?]).{8,20}/;
-// const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\$%&\?]).{8,20}/;
+const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%&?@]).{8,20}/;
 
 export default class FormDialog extends React.Component {
   state = {
@@ -38,8 +37,15 @@ export default class FormDialog extends React.Component {
     this.setState({newPassword: event.target.value, newPasswordError: false, success: false});
     if(event.target.value.match(passwordRegex)) {
       this.setState({newPassword: event.target.value, newPasswordError: false});
-    }else {
+    } else {
       this.setState({newPasswordError: true});
+    }
+
+    if(event.target.value !== this.state.newPassword){
+        this.setState({confirmPasswordError: true});
+    }
+    else {
+        this.setState({confirmPasswordError: false});
     }
   }
 
@@ -67,6 +73,7 @@ export default class FormDialog extends React.Component {
   handleSubmit = (e) => {
     this.setState({success: false});
     e.preventDefault();
+    console.log(this.state.oldPassword)
     let reqData = {
         'old_password': md5(this.state.oldPassword),
         'new_password': md5(this.state.newPassword),
@@ -90,9 +97,9 @@ export default class FormDialog extends React.Component {
     .then((response) => {
         let code = response.data.status;
         if (code === 200) {
-        this.setState({success: true});
+          this.setState({success: true});
         } else if (code === 313){
-        this.setState({oldPasswordError: true});
+          this.setState({oldPasswordError: true});
         }
     })
     .catch((error) => {
@@ -115,7 +122,7 @@ export default class FormDialog extends React.Component {
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
-            fullWidth
+            fullWidth="true"
             maxWidth='xs'
           >
             <DialogTitle id="form-dialog-title">Reset your password</DialogTitle>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {setLocal /*, getLocal*/} from '../../utils/util';
 import axios from 'axios';
+import './NavDrawer.css';
 
 const styles = {
   list: {
@@ -67,24 +69,21 @@ class NavigationDrawer extends React.Component {
       const { classes } = this.props;
       const sideList = (
         <div className={classes.list}>
-          <List>
+          <List className="links">
+              <li><Link to="/profile"><button>Profile</button></Link></li>
+              <li><Link to="/myfurniture"><button>My Furniture</button></Link></li>
+              <li><Link to="/wishlist"><button>My Wishlist</button></Link></li>
+              <li><Link to="/history"><button>My History</button></Link></li>
+              <li><Link to="/mymessages"><button>My Messages</button></Link></li>
+              <li><Link to="/privacy"><button>Privacy</button></Link></li>
               <li>
-                  {/* TODO - just for testing profile page */}
-                  <Button component={this.props.passLink}>{this.props.buttonName}</Button>
+                <button onClick={this.handleLogout}>Log out</button>
               </li>
-              <li>
-                  <Button>My Furniture</Button>
-              </li>
-              <li>
-                  <Button>Privacy</Button>
-              </li>
-              <li>
-                <Button onClick={this.handleLogout}>Log out</Button>
-              </li>
-
           </List>
-          <Divider />
-          <List></List>
+          {/* <Divider /> */}
+          {/* <List className="logout">
+              
+          </List> */}
         </div>
       );
 

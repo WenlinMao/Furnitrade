@@ -2,7 +2,7 @@
 ************  Furni Page CSS ************
 */
 .furni-sub-cate {
-    /* background-image: url(); */    
+    /* background-image: url(); */
     background-image: url('../../static/images/wallpaper1.png');
     height: 960px;
     background-size: cover;
@@ -13,13 +13,33 @@
     margin: 0 auto;
     max-width: 500px;
     padding: 150px 50px 50px 50px;
-    text-align: center;   
-} 
+    text-align: center;
+}
 
 .furni-page h2 {
     margin: 0;
     color: white;
     font-size: 40px;
+    line-height: 1.2;
+    opacity: 0;
+    animation: IndexAnimation;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.empty-message {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 150px 50px 50px 50px;
+    text-align: center;
+}
+
+.empty-message h2 {
+    margin: 0;
+    color: white;
+    font-size: 30px;
     line-height: 1.2;
     opacity: 0;
     animation: IndexAnimation;

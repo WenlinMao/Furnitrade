@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
-import './MyFurniture.css';
 import './AddFurniture.css';
 
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
 import axios from 'axios';
-import {setLocal, getLocal} from '../../utils/util';
+import {getLocal} from '../../utils/util';
 import {UploadImg} from '../uploadImg/UploadImg';
+import Button from '@material-ui/core/Button';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 // import '../uploadImg/UploadImg'
 import categories from '../../static/data/category.json';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
-
+// regular expression for price
+const priceRegex = /^\d+(.\d{1,2})?$/;
 
 class Add extends Component{
   constructor(props) {
@@ -25,30 +24,47 @@ class Add extends Component{
       this.state = {
           furniture_name: '',
           category: '',
-          image:'',
+          subcategory: '',
           price: '',
-          is_delivery_inclued: '',
           location: '',
-          seller: '',
           description: '',
           furniture_nameError: false,
           priceError: false,
           descriptionError: false,
           addressError: false,
           errorMsg: '',
+          furniture_id: '',
+          is_upload_image: false,
       };
       this.child = React.createRef();
   }
 
 
 
-    /* set Furniture Name */ 
+    /* set Furniture Name */
     handleFurnitureNameInput = name => event => {
       this.setState({furniture_name: event.target.value});
     }
 
+    // handle price input
     handlePriceInput = name => event => {
+
+      // set price if input matches price regex
+      // TODO: might submit invalid price value to database even though we show
+      // error message
       this.setState({price: event.target.value});
+      if (event.target.value.match(priceRegex)) {
+        this.setState({
+          price: event.target.value,
+          priceError: false,
+        });
+      }
+      else {
+        this.setState({
+          priceError: true,
+        });
+      }
+
     }
 
 
@@ -56,17 +72,50 @@ class Add extends Component{
       this.setState({category:event.target.value});
     }
 
+    handleSubcategoryInput = name => event => {
+      this.setState({subcategory: event.target.value});
+    }
+
+    /* render subcategories */
+    renderSubcategoryInput = () => {
+      /* get all subcategories */
+      var subs = categories.categories.map(category => (
+        category.title === this.state.category ?
+        category.subcategories.sub.map(sub => sub.list ) :null));
+
+      /* remove all null subcategories */
+      for( var i = 0; i < subs.length; i++){
+        if ( subs[i] === null) { subs.splice(i, 1); i--;}
+      }
+
+      /* return the subcategory of category in the state */
+      return (
+        <div className="styled-select blue semi-square">{subs.map((sub) =>
+          <select onChange={this.handleSubcategoryInput('subcate')} value={this.state.subcategory}>
+            <option value="" hidden>Choose your category</option>
+            {sub.map((subcate => <option value={subcate}>{subcate}</option>)
+          )}</select>
+        )}</div>
+      );
+    }
+
     handleDescriptionInput = name => event => {
       this.setState({description: event.target.value});
     }
 
     handleAddressInput = name => event => {
-      this.setState({address: event.target.value});
+      this.setState({location: event.target.value});
     }
 
-    // returm true if any of inputs are invalid
-    checkButtonStatus = () => {
+    handleBeforeUpload = (files) => {
+        var is_upload_image = false
 
+        if (!files || files.length<=0){
+            is_upload_image = false
+        } else {
+            is_upload_image = true
+        }
+        this.setState({is_upload_image});
     }
 
     // call back handle when uploadImg finished
@@ -75,17 +124,31 @@ class Add extends Component{
 
         // change image pathes in database after uploadImg to s3
         var token = getLocal("usertoken")
-        let config = {
-            headers: {"Authorization": `Bearer ${token}`},
-            params: { img_pathes: img_pathes},
-        }
-
-        /* LINK needs to be updated in the future - check returned code */
-        axios.get('http://127.0.0.1:5000/furniture/change_img', config)
+        let reqData = {
+            "img_pathes": img_pathes,
+            "furniture_id": this.state.furniture_id,
+        };
+        axios({
+            method: 'post',
+            url: 'http://127.0.0.1:5000/furniture/change_img',
+            // TODO: fix bug when change withCredentials to true
+            withCredentials: false,
+            crossdomain: true,
+            data: reqData,
+            responseType: 'json',
+            headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Authorization": `Bearer ${token}`
+            }
+        })
         .then((response) => {
             let code = response.data.status;
             if (code === 200) { console.log(response);}
-            else if (code === 400) { localStorage.removeItem('usertoken');}
+            else if (code === 400) {
+              localStorage.removeItem('usertoken');
+              this.props.history.push('/login');
+            }
         })
         /* report any error encountered */
         .catch((error) => { console.log(error);});
@@ -99,9 +162,8 @@ class Add extends Component{
         'furniture_name': this.state.furniture_name,
         'price': this.state.price,
         'description': this.state.description,
-        'address': this.state.address,
-        'category': this.state.category,
-        'image': this.img_pathes,
+        'address': this.state.location,
+        'category': this.state.subcategory,
       };
       console.log(reqData);
 
@@ -121,29 +183,20 @@ class Add extends Component{
                 "Authorization": `Bearer ${token}`
               }
       })
-
       .then((response) => {
           console.log(response.data);
           let code = response.data.status;
           if (code === 200) {
               // successfully register and login
-              // trigger for render user page or non-user page
-              setLocal("furniture_name", reqData.furniture_name);
-              // set user jwt token for later access
-              setLocal("usertoken", response.data.token);
-              console.log("localStorgae", getLocal("furniture_name"));
-              setLocal("price", reqData.price);
-              console.log("localStorgae", getLocal("price"));
-              setLocal("description", reqData.description);
-              console.log("localStorgae", getLocal("description"));
-              setLocal("address", reqData.address);
-              console.log("localStorgae", getLocal("address"));
-
-
               // start execute upload image process
-              this.child.current.beginUpload(response.data.furniture_id);
+              this.setState({"furniture_id": response.data.furniture_id})
+              this.child.current.beginUpload(this.state.furniture_id);
               // redirect to hompage
               this.props.history.push("/");
+              alert("Post an item successfully");
+          } else if (code === 400){
+              localStorage.removeItem('usertoken');
+              this.props.history.push("/Login");
           }
       })
       .catch((error) => {
@@ -151,96 +204,135 @@ class Add extends Component{
       });
     }
 
-    render(){
-        const { classes } = this.props;
+  newMethod() {
+    this.render();
+  }
 
-        return(
-          <div>
-              {/*part 1: Nav bar*/}
-              <NavBar/>
-              <div className="heading">
-                <h2>Add your furniture</h2>
-                <Wave/>
+  // returm true if any of inputs are invalid
+  checkButtonStatus = () => {
+    let emptyStatus =
+      this.state.furniture_name === ""
+      || this.state.category === ""
+      || this.state.subcategory === ""
+      || this.state.location === ""
+      || this.state.price === ""
+      || this.state.description === ""
+      || this.state.is_upload_image === false;
+
+    let errorStatus = this.state.priceError;
+
+    return emptyStatus || errorStatus;
+  }
+
+  render(){
+    return(
+      <div>
+          {/*part 1: Nav bar*/}
+          <NavBar/>
+          <div className="heading">
+          <h2>Add your furniture</h2>
+            <Wave/>
+          </div>
+          <div className="addfurniture-container">
+          <div className='lhs'>
+
+            <TextField
+              id="standard-name"
+              label="Funiture Name"
+              className={this.props.textField}
+              onChange={this.handleFurnitureNameInput('funiture_name')}
+              margin="normal"
+            />
+
+            <p>Pick your category: </p>
+            <div className="selects">
+              <div class="styled-select blue semi-square">
+                <select
+                  value={this.state.category}
+                  onChange={this.handleCategoryInput('category')}
+                  >
+                  <option value="" hidden>Choose a category</option>
+                  {categories.categories.map(category => (
+                    <option value={category.title}>{category.title}</option>
+                  ))}
+                </select>
               </div>
 
-              <form className="form" onSubmit={this.handleSubmit}>
-                <TextField
-                  id="standard-name"
-                  label="Funiture Name"
-                  className={this.props.textField}
-                  onChange={this.handleFurnitureNameInput('funiture_name')}
-                  margin="normal"
-                />
+              {/* Now we have category stored in category, extract the corresponding subcategories */}
+              {this.state.category === "" ?
+              <div class="styled-select blue semi-square">
+              <select><option>Choose a subcategory</option></select></div>
+              :this.renderSubcategoryInput()}
 
-                <TextField
-                  id="standard-name"
-                  label="$"
-                  className={this.props.textField}
-                  onChange={this.handlePriceInput('price')}
-                  margin="normal"
-                />
+            {/* end of DIVs */}
+            </div>
 
-                <div class="styled-select blue semi-square">
-                  <select
-                    value={this.state.category}
-                    onChange={this.handleCategoryInput('category')}
-                    >
-                    {categories.categories.map(category => (
-                      <option key={category.title}>{category.title}</option>
-                    ))}
-                  </select>
+              <TextField
+                id="outlined-multiline-static"
+                label="Add a description"
+                multiline
+                rows="5"
+                className={this.props.textField}
+                onChange={this.handleDescriptionInput('description')}
+                margin="normal"
+                variant="outlined"
+              />
 
+            </div>
 
-                  {categories.categories.map(category => (
+            <div className="rhs">
+            <UploadImg resource_type="furniture"
+              inputClass="from-add-furniture"
+              beforeUpload={this.handleBeforeUpload}
+              onUploadImg={this.handleUploadImg}
+              hint={"Upload Images (up to 5)"}
+              ref={this.child}
+              limit={5}
+              />
 
-                    <select
-                      value={this.state.category}
-                      onChange={this.handleCategoryInput('category')}
-                      >
-                      
-                      {category.title == this.state.category ?
-                        category.subcategories.sub.map(sub =>
-                            <option value={sub.list}>{sub.list}</option>
-                        ) :null}
-                    </select>
-                  ))}
-                {/* end of DIVs */}
-                </div>
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Add an address"
+              multiline
+              rowsMax="4"
+              onChange={this.handleAddressInput('location')}
+              className={this.props.textField}
+              margin="normal"
+              variant="outlined"
+            />
 
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Add a description"
-                  multiline
-                  rows="5"
-                  className={this.props.textField}
-                  onChange={this.handleDescriptionInput('description')}
-                  margin="normal"
-                  variant="outlined"
-                />
-
-                <TextField
-                  id="outlined-multiline-flexible"
-                  label="Add an address"
-                  multiline
-                  rowsMax="4"
-                  onChange={this.handleAddressInput('address')}
-                  className={this.props.textField}
-                  margin="normal"
-                  variant="outlined"
-                />
-                <UploadImg resource_type="furniture"
-                  name={this.state.username}
-                  beforeUpload={this.handleBeforeUpload}
-                  onUploadImg={this.handleUploadImg}
+            <TextField
+              id="standard-name"
+              label="$"
+              className={this.props.textField}
+              onChange={this.handlePriceInput('price')}
+              margin="normal"
+              error={this.state.priceError}
+            />
+            {
+                this.state.priceError
+                ?
+                <FormHelperText error={true}>Please input a valid pirce</FormHelperText>
+                :
+                <div></div>
+            }
+            {
+              this.checkButtonStatus()?
+              <Button
+                className = "register-button"
+                disabled={this.checkButtonStatus()}
+                variant="contained" > Submit </Button> :
+              <button
+                  type="submit"
+                  onClick={this.handleSubmit}
                   disabled={this.checkButtonStatus()}
-                  ref={this.child}
-                  limit='5'
-                  />
-                <button type="submit"> Submit </button>
-              </form>
-
-        {/* the very last div tag */}
+                  variant="contained">
+                  Submit</button>
+            }
+          </div>
         </div>
+      {/* the very last div tag */}
+      </div>
     )
   }
 

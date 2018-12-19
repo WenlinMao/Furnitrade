@@ -61,11 +61,13 @@ class Contact(Resource):
 
         contact_form = add_contact_form({
             "buyer": buyer_id,
+            "buyer_username": buyer_username,
             "seller": seller_id,
             "buyer_email": buyer_email,
             "furniture": furniture_id,
             "content": content,
-            "title": title
+            "title": title,
+            "furniture_name": furniture_name
         })
 
         msg = Message(
@@ -75,10 +77,10 @@ class Contact(Resource):
                 'contact_email.html',
                 seller_username=seller_username,
                 buyer_username=buyer_username,
+                buyer_email="mailto:" + buyer_email,
                 furniture_name=furniture_name,
-                detail_link=current_app.config['FRONTEND_DOMAIN']
-                # detail_link="http://localhost:3000/Contact/"
-                # + str(contact_form.inserted_id)
+                detail_link=current_app.config['FRONTEND_DOMAIN'] +
+                "message/" + str(contact_form.inserted_id)
             ),
             sender=('Furnitrade', current_app.config['MAIL_USERNAME'])
         )
@@ -132,6 +134,8 @@ class Detail(Resource):
         title = contact_form["title"]
         buyer_id = contact_form["buyer"]
         furniture_id = contact_form["furniture"]
+        buyer_username = contact_form["buyer_username"]
+        furniture_name = contact_form["furniture_name"]
 
         retJson = {
             "status": 200,
@@ -140,7 +144,9 @@ class Detail(Resource):
             "title": title,
             "content": content,
             "furniture": furniture_id,
-            "buyer_id": buyer_id
+            "buyer_id": buyer_id,
+            "buyer_name": buyer_username,
+            "furniture_name": furniture_name
         }
 
         return jsonify(retJson)
@@ -152,13 +158,17 @@ class MyContactForm(Resource):
         user_id = user['_id']
         contact_forms = group_by_seller_id(user_id, 10)
 
+        if contact_forms.count() == 0:
+            return jsonify({
+                "status": 613,
+                "msg": "Empty contact form"
+            })
         contact_forms_list = dumps(contact_forms)
 
         retJson = {
             "status": 200,
             "msg": "Get contact form succeded",
             "contact_form_list": contact_forms_list,
-
         }
 
         return jsonify(retJson)

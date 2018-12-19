@@ -3,12 +3,10 @@ import NavBar from '../NavBar/NavBar';
 import Wave from '../common/Wave';
 import { Button}  from "@material-ui/core";
 import "./ProfilePage.css";
-import Dialog from './dialog/Dialog';
+import Dialog from '../profilePage/dialog/Dialog';
 import TextField from '@material-ui/core/TextField';
-//import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import {getLocal} from '../../utils/util';
-import Dropzone from 'react-dropzone';
 import {UploadImg} from '../uploadImg/UploadImg'
 import FormHelperText from '@material-ui/core/FormHelperText';
 const nameRegex = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
@@ -32,6 +30,7 @@ class ProfilePage extends Component {
       nameError: false,
       hasLogin: false
     };
+    this.child = React.createRef();
 
   }
   componentWillMount() {
@@ -93,6 +92,7 @@ class ProfilePage extends Component {
     if (event.target.value.match(nameRegex)) {
       this.setState({
         username: event.target.value,
+        nameError: false,
       });
     } else {
       this.setState({
@@ -106,10 +106,11 @@ class ProfilePage extends Component {
     if (event.target.value.match(emailRegex)) {
       this.setState({
         email: event.target.value,
+        emailError: false,
       });
     } else {
       this.setState({
-        emailError: true
+        emailError: true,
       });
     }
   }
@@ -149,6 +150,7 @@ class ProfilePage extends Component {
              let code = response.data.status;
              if (code === 200) {
                  console.log(response);
+                 window.location.reload();
              } else if (code === 400) {
                  localStorage.removeItem('usertoken');
              }
@@ -195,6 +197,12 @@ class ProfilePage extends Component {
             emailError:false,
             nameError:false,
           });
+          // get token for userid
+          var token = getLocal("usertoken")
+          var jwt_decode = require('jwt-decode');
+          var decoded = jwt_decode(token);
+          console.log(decoded)
+          this.child.current.beginUpload(decoded.user_id);
 
         } else {
             //    this.setState({errorMsg: response.data.msg, open: true});
@@ -253,12 +261,19 @@ class ProfilePage extends Component {
               {/* left hand side of user info - photo & names */}
               <div className="info-lhs">
 
-                <div className="pic">
-                  <img src={this.state.picture} alt="user info pic" />
-                  <button><UploadImg resource_type="user"
-                              name={this.state.username}
-                              onUploadImg={this.handleUploadImg}
-                              /></button>
+                <div className="pic"
+                  style={{
+                    backgroundImage: `url(${this.state.picture})`,
+                    backgroundSize: 'cover',
+                  }}
+                  >
+
+                  <UploadImg
+                    inputClass="from-profile"
+                    resource_type="user"
+                    onUploadImg={this.handleUploadImg}
+                    ref={this.child} hint="Update"
+                    />
                 </div>
                 <div className="textfield">
                   <TextField

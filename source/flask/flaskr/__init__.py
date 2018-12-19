@@ -55,6 +55,4 @@ def create_app(config_object=ProductionConfig):
         from . import category
         application.register_blueprint(category.bp)
 
-        
-
     return application

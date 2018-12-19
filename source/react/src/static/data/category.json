@@ -4,7 +4,6 @@
             "title": "Home electronics",
             "image": "https://cdn.dribbble.com/users/92827/screenshots/2511827/camera-icon.jpg",
             "subcategories": {"sub": [
-                {"list": "Cooktops"},
                 {"list": "Smart lighting"},
                 {"list": "Cords & chargers"},
                 {"list": "Extractor hoods & filters"},
@@ -226,7 +225,7 @@
 		},
 		{
 			"title": "Textiles & Rugs",
-            "image": "https://cl.ly/1U1F170x3D0L/download/logo-react-small.png",
+            "image": "http://www.excelcontents.com/assets/images/icon6.png",
             "subcategories": {"sub":[
                 {"list" : "Bedlinen"},
                 {"list" : "Rugs"},

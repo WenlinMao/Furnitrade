@@ -63,7 +63,7 @@ const SectionCategory = styled.div`
             <div className="Index-group">
               <h1>Furnitrade </h1>
               <p>Furniture Trade Platform</p>
-              <p>Best Trading Platform ever. Make your life easier. Finding your desired furnitures at the most inexpensive price and best quality! </p>
+              <p>Best Trading Platform ever. Make your life easier. Finding your desired pieces of furniture at the cheapest price and best quality! </p>
               {!this.state.hasLogin ?
                 <Link to="./Register">Register</Link>: null
               }
@@ -71,7 +71,7 @@ const SectionCategory = styled.div`
               {/* logos */}
               <div className="logos">
                 <img src={require("../../static/images/fb_logo.png")} alt = "this is a logo for other platforms" width="50"/>
-                <img src={require("../../static/images/mail_logo.png")} alt = "this is a logo for other platforms" width="50"/>
+                <img src={require("../../static/images/mail_logo.jpg")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/ins_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/youtube_logo.png")} alt = "this is a logo for other platforms" width="50"/>
                 <img src={require("../../static/images/twi_logo.png")} alt = "this is a logo for other platforms" width="50"/>
@@ -96,14 +96,16 @@ const SectionCategory = styled.div`
           </SectionCategory>
           </section>
 
+          <section id="aboutus">
           {/* Section of About US */}
           <AboutUs
-            image={require('../../static/images/wallpaper1.png')}
-            logo={require('../../static/images/logo_white.png')}
+            image={require('../../static/images/sofa.jpeg')}
+            logo={require('../../static/images/logo_gray.png')}
             title="About Us"
             text1="Furnitrade is designed to help student sellers advertise smartly and manage all post in one place."
             text2="To save students from this painful process, we created Furnitrade, a web-based platform that aims to provide the clear and efficient furniture-trading solution for college students living both on-campus and off-campus. Furnitrade creates faster way for buyers to reach sellers and efficient way for sellers to search and price match what they want. It also ensures trade credibility with our engineered communication and rating system."
           />
+          </section>
 
         {/* Final DIV - add everything above this DIV */}
         </div>

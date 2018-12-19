@@ -12,20 +12,36 @@ import deletebutton from '../../static/images/delete-button.png';
 */
 
 
-const Card = props => (
-    <div className="Card">
-        {
-            props.fromMyFurniture ? 
-            <div className="delete-button">
-            {/* <input type="image" src={deletebutton}/> */}
-            <DeleteAlert deletebutton={deletebutton}/>
-            </div> : null
-        }
-        <a href="http://localhost:3000/">
-            <img src={props.image} /></a>
-        <h3>{props.title}</h3>
-        <p>{props.text}</p>
-    </div>
-)
+class Card extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
 
-export default Card
+        }
+    }
+
+
+    render() {
+        return(
+
+            <div className="Card">
+                {
+                    this.props.fromMyFurniture ?
+                    <div className="delete-button">
+                    {/* <input type="image" src={deletebutton}/> */}
+                    <DeleteAlert deletebutton={deletebutton} type={this.props.type}
+                    furniture_id={this.props.furniture_id} rerender={this.props.rerender}/>
+                    </div> : null
+                }
+                <a href={"http://localhost:3000/furniture/" + this.props.furniture_id}>
+                    <img src={this.props.image} />
+                </a>
+                    <h3>{this.props.title}</h3>
+                    <p>{this.props.text}</p>
+
+            </div>
+
+        );
+    }
+}
+export default Card;

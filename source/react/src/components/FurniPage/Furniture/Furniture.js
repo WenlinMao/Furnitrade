@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom'
 import NavBar from '../../NavBar/NavBar';
 import Wave from '../../common/Wave';
 import './Furniture.css';
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { Fade } from 'react-slideshow-image';
 
@@ -40,31 +43,162 @@ class Furniture extends Component {
         super(props);
         this.state={
            picture:'test-propic.jpg',
-           description:'this is a table with baby shark dudududududu.',
+           description:'Everything you need for storing and keeping things organized at home. Choose a ready-made combination or create your own, adapted to your style and belongings. This is just one of many, many possibilities.',
            name:'Table one',
            price:'0',
-           request:'',
+           content:'',
+           seller_id:'5c00b5ebf661a90ae131e678',
+           furniture_id:'5c00b5ebf661a90ae131e678',
+           success: false,
         };
-        this.handleChange = this.handleChange.bind(this);
-       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-    this.setState({request: event.target.value});
+    componentWillMount() {
+        const furnitureId = this.props.location.pathname.substring(11);
+        console.log(furnitureId);
+        this.setState({furniture_id: furnitureId});
+        const token = localStorage.getItem('usertoken');
+
+        let config = {
+          headers: {"Authorization": `Bearer ${token}`},
+          params: {
+            furniture_id : furnitureId // don't use this.state.furniture_id
+          },
+        }
+        //add to history
+        axios.get('http://127.0.1:5000/furniture/add_history', config)
+        .then((response)=>{
+            console.log("add to history",response.data);
+            let code = response.data.status;
+            if(code === 200) {
+                console.log("succesfully added to history")
+            }
+        })
+        .catch((error)=>{
+        })
+
+        // get defail information of the furniture
+        let config1 = {
+          headers: {"Authorization": `Bearer ${token}`},
+          params: {
+            furniture_id : furnitureId
+          }// don't use this.state.furniture_id
+        };
+
+        axios.get('http://127.0.0.1:5000/furniture/detail', config1)
+        .then((response)=>{
+            console.log("get detail", response.data);
+            let code = response.data.status;
+            if(code === 200) {
+                console.log("get detail successfully")
+                var data = response.data
+                this.setState({
+                  picture:data.images,
+                  description:data.description,
+                  name:data.furniture_name,
+                  price:data.price,
+                  location:data.location,
+                  seller_id:'5c00b5ebf661a90ae131e678',
+                  furniture_id:'5c00b5ebf661a90ae131e678',
+                  success: false,
+                })
+            } else if (code === 319) {
+                // TODO: used to handle when the furniture has been delete
+            }
+        })
+        .catch((error)=>{
+        })
+
     }
 
-    handleSubmit(event){
-      alert('An request was submitted: ' + this.state.request);
-        event.preventDefault();
+    /* set Request Title */
+    handleTitleInput = name => event => {
+      this.setState({title: event.target.value});
     }
+
+    /* set Request Content */
+    handleRequestInput = name => event => {
+      this.setState({request: event.target.value});
+    }
+
+    saveToWishlist = () => {
+      const token = localStorage.getItem('usertoken');
+      let config = {
+        headers: {"Authorization": `Bearer ${token}`},
+        params: {
+            furniture_id : this.state.furniture_id // we can use this.state.furniture_id here
+        },
+      }
+      // save to wishlist
+      axios.get('http://127.0.1:5000/furniture/add_wishlist', config)
+      .then((response)=>{
+        console.log("save to wishlist",response.data);
+        let code = response.data.status;
+        if(code === 200) {
+          console.log("succesfully save to wishlist")
+        }
+      })
+      .catch((error)=>{
+      })
+
+    }
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+      let reqData = {
+        'content': this.state.request,
+        'title': this.state.title,
+        'seller_id': this.state.seller_id,
+        'furniture_id': this.state.furniture_id,
+      };
+      console.log(reqData);
+
+      const token = localStorage.getItem('usertoken');
+      axios({
+          method: 'post',
+          url: 'http://127.0.0.1:5000/contact_form/contact',
+          withCredentials: false,
+          crossdomain: true,
+          data: reqData,
+          responseType: 'json',
+          headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Authorization": `Bearer ${token}`
+          }
+      })
+
+      .then((response) => {
+          console.log(response.data);
+          let code = response.data.status;
+          if (code == 200) {
+            this.setState({"content": response.data.content})
+            this.setState({success: true});
+          }
+      })
+      .catch((error) => {
+          console.log("post error: " + error);
+      });
+    }
+
+  newMethod() {
+    this.render();
+  }
 
 
 render () {
+    const check = "far fa-check-circle";
     return (
         <div className="furniture">
             <NavBar/>
-            <div className="furniture-container">
 
+            <div className="furniture-container">
+            <div className="title">
+                <h2>{this.state.name}</h2>
+                <Wave/>
+            {/* end of furni-page tag */}
+            </div>
 
 
                 {/* Photo container - pictures of furnitures */}
@@ -124,33 +258,57 @@ render () {
                     <h2>Third Slide</h2>
                 </div>
             </Fade>
+          {/* End of furniture-container */}
+          <p>${this.state.price}</p>
+          </div>
 
+          <div className="text-container">
             {/*The descriptions, category, price and request form*/}
             <div id="info">
-            <h3>{this.state.name}</h3>
+
             <p>{this.state.description}</p>
-            <h6>${this.state.price}</h6>
             </div>
 
-            <form>
+
+              <TextField
+                id="outlined-multiline-static"
+                label="Title"
+                multiline="False"
+                rows="1"
+                className={this.props.textField}
+                onChange={this.handleTitleInput('title')}
+                margin="normal"
+                variant="outlined"
+              />
+
               <TextField
                 id="outlined-multiline-static"
                 label="Write a request"
                 multiline="True"
-                rows="3"
+                rows="6"
                 fullwidth="True"
                 className={this.props.textField}
-                onChange={this.handleChange}
+                onChange={this.handleRequestInput('request')}
                 margin="normal"
                 variant="outlined"
               />
-          <br/>
-            <input type="submit" value="I want this!"  onChange={this.handleSubmit}/>
-          </form>
+              {
+                  this.state.success
+                  ?
+                  <FormHelperText error={false}>Request successfully! <i className={check}></i></FormHelperText>
+                  :
+                  <div></div>
+              }
+
+              <div>
+                <button onClick={this.saveToWishlist}>Add to wishlist</button>
+              </div>
+            <button type="button" onClick={this.handleSubmit}> Submit </button>
+
+          {/* End of text-container */}
+          </div>
 
 
-            {/* End of furniture-container */}
-            </div>
 
 
 
