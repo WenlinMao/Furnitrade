@@ -39,6 +39,12 @@ api = Api(bp)
 # Please added furniture_id field into database. [commented by Mao]
 
 
+def is_furniture_id_invalid(furniture_id):
+    # Validation of object id
+    return (not ObjectId.is_valid(furniture_id) or
+            find_furniture_by_id(furniture_id) is None)
+
+
 class Post(Resource):
     @auth.login_required
     def post(self, user):
@@ -147,7 +153,6 @@ class Update(Resource):
         posted_data = request.get_json()
 
         product_name = posted_data['furniture_name']
-        '''TODO: Category collection should be updated '''
         category = posted_data['category']
         price = posted_data['price']
         description = posted_data['description']
@@ -228,8 +233,7 @@ class AddWishList(Resource):
         furniture_id = request.args.get('furniture_id')
 
         # Validation of object id
-        if not ObjectId.is_valid(furniture_id) or \
-                find_furniture_by_id(furniture_id) is None:
+        if is_furniture_id_invalid(furniture_id):
             return jsonify({
                 "status": 615,
                 "msg": "Invalid user_id or furniture_id"
@@ -256,10 +260,8 @@ class AddHistory(Resource):
         user_id = user["_id"]
         furniture_id = request.args.get('furniture_id')
 
-        # Validation of object id
-        if not ObjectId.is_valid(furniture_id) or \
-                find_furniture_by_id(furniture_id) is None:
-            return jsonify({
+        if is_furniture_id_invalid(furniture_id):
+            jsonify({
                 "status": 615,
                 "msg": "Invalid user_id or furniture_id"
             })
