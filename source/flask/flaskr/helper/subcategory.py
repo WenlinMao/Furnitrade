@@ -40,7 +40,7 @@ mylist = [
     {"category_name": "Dining storage"},
     {"category_name": "Bar tables & chairs"},
     {"category_name": "Stools & benches"},
-    {"category_name": "Café furniture"},
+    {"category_name": "Cafe furniture"},
     {"category_name": "High chairs"},
     {"category_name": "Junior chairs"},
     {"category_name": "All sofas"},
