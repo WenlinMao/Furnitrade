@@ -1,10 +1,10 @@
 from flaskr.model.category_model import (
     get_category_by_catname, get_category_collection
 )
-from flaskr.helper.subcategory import (
-    init_category, delete_categories
-)
 
+# from flaskr.helper.subcategory import (
+#     init_category, delete_categories
+# )
 
 from flaskr.model.furniture_model import (
     find_furniture_by_id

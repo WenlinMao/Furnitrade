@@ -25,7 +25,7 @@ def create_app(config_object=ProductionConfig):
     except OSError:
         pass
 
-    cors = CORS(application, resources={r"*": {"origins": "*"}})
+    CORS(application, resources={r"*": {"origins": "*"}})
 
     # initialize mailer
     mail.init_app(application)
