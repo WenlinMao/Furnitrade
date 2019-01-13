@@ -1,0 +1,39 @@
+
+Navbar{
+  align-items: center;
+}
+
+
+input[type=submit]{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+header{
+  padding-bottom: 20px;
+}
+article{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+#price{
+  color:white;
+  font-style: oblique;
+  font-size: 20px;
+}
+
+img{
+  float:left;
+}
+
+form{
+  padding-top: 10px;
+}
+textarea{
+  padding-top:20px;
+}

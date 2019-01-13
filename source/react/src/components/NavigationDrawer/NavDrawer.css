@@ -1,0 +1,28 @@
+a { text-decoration: none;}
+
+.links button {
+    color: #56ccf2;
+    background: white;
+    text-transform: none;
+    border-radius: 0px;
+    width: 100%;
+    box-shadow: none;
+}
+
+.links button:hover {
+    box-shadow: none;
+    color: #0b617e;
+}
+
+.logout button{
+    color: #F6BD60;
+    background-color: white;
+    border-radius: 0px;
+    width: 100%;
+}
+
+.logout button:hover {
+    color: #F6BD60;
+    width: 100%;
+    box-shadow: none;
+}

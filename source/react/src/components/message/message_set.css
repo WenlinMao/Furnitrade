@@ -1,0 +1,47 @@
+.heading {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 150px 50px 50px 50px;
+    text-align: center;
+    min-width: 240px;
+}
+
+h2 {
+    margin: 0;
+    color: white;
+    font-size: 40px;
+    line-height: 1.2;
+    opacity: 0;
+    animation: IndexAnimation;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Card css */
+.Card-group {
+    margin: 50px 50px 100px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    justify-items: center;
+}
+
+@media (max-width: 1600px) {
+    .Card-group {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1060px) {
+    .Card-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+    .Card-group {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -5,17 +5,24 @@
   "dependencies": {
     "@material-ui/core": "^3.3.1",
     "@material-ui/icons": "^3.0.1",
+    "aws-sdk": "^2.354.0",
     "axios": "^0.18.0",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "jwt-decode": "^2.2.0",
+    "material-ui": "^0.20.2",
     "material-ui-icons": "^1.0.0-beta.36",
+    "md5": "^2.2.1",
     "npm": "^6.4.1",
     "radium": "^0.25.0",
     "react": "^16.5.2",
     "react-animations": "^1.0.0",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^7.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
+    "react-slideshow-image": "^1.0.8",
     "styled-components": "^3.3.3"
   },
   "scripts": {
@@ -32,5 +39,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://localhost:5000"
 }

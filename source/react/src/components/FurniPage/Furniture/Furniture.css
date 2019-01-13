@@ -1,0 +1,109 @@
+/*
+************  Single Furniture CSS ************
+*/
+
+.furniture {
+}
+
+.furniture-container {
+    padding-left: 30px;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 150px 50px;
+    float: left;
+    text-align: center;
+}
+
+.text-container {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 200px 60px;
+    float: center;
+    text-align: left;
+}
+
+
+
+
+h2 {
+    text-align: center;
+    margin: 0;
+    color: white;
+    font-size: 40px;
+    line-height: 1.2;
+    opacity: 0;
+    animation: IndexAnimation;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.furniture p{
+    color: white;
+    font-size: 30px;
+    line-height: 1;
+    animation: IndexAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity: 0;
+}
+
+
+/* image container - like card */
+.each-fade {
+  justify-content: center;
+  float: left;
+  width: 500px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); */
+
+  /* display */
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+
+  transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+.each-fade:hover {
+  transform: scale(1.01, 1.01);
+}
+
+.each-fade h2 {
+  color:rgba(255, 255, 255, 0.8);
+  font-size: 30px;
+  margin: 90px 0 0 20px;
+  width: 190px;
+  z-index: 10;
+}
+
+.each-fade img {
+  position: absolute;
+  top: 0;
+  height: 110%;
+  z-index: 1;
+  transition: 0.8s cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+@media (max-width: 640px) {
+  .each-fade {
+    width: 400px;
+    height: 280px;
+  }
+
+  .each-fade h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 440px) {
+  .each-fade {
+    width: 250px;
+    height: 175px;
+  }
+
+  .each-fade h2 {
+    font-size: 15px;
+  }
+}
