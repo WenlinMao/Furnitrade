@@ -1,5 +1,8 @@
 # Furnitrade
 
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/WenlinMao/Furnitrade.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/WenlinMao/Furnitrade/context:python)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/WenlinMao/Furnitrade.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/WenlinMao/Furnitrade/context:javascript)
+
 ### Developer
 
 FTP (Furniture Trade Platform)
@@ -31,7 +34,7 @@ To assist your development, recommend have the following development tools:
 ##### Set up React.js for Frontend
 8. open a new terminal and remain application.py executed
 9. navigate to source/react
-10. download the newest npm through https://www.npmjs.com/get-npm
+10. download the newest npm through https://www.npmjs.com/get-npm
 11. use `npm -v` to check if npm has installed
 12. run `npm install` to install all packages
 13. run `npm run start` to start to frontend server
@@ -61,3 +64,6 @@ email: w6mao@ucsd.edu
 address: Peterson Hall
 password: Wenlin1997@
 ```
+
+### Video Demo
+Youtube Link: https://www.youtube.com/watch?v=7hTTqTOZBfY&t=76s

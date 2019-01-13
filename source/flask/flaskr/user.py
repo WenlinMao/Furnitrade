@@ -5,8 +5,7 @@ Additional Dependencies Please Add Here
 from flaskr import auth
 from flaskr.model.user_model import (
     update_user_by_id, delete_user_by_username,
-    delete_wishlist_by_id, clear_history,
-    find_user_by_id
+    delete_wishlist_by_id, clear_history
 )
 from flaskr.model.furniture_model import (
     find_furniture_by_id
@@ -16,7 +15,6 @@ from flask import (
     Blueprint, request, jsonify
 )
 from flask_restful import Api, Resource, reqparse
-from flaskr import mail
 
 from bson import ObjectId
 import json
