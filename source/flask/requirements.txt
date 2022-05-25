@@ -18,7 +18,7 @@ MarkupSafe==1.0
 mccabe==0.6.1
 pycodestyle==2.4.0
 pyflakes==2.0.0
-PyJWT==1.6.4
+PyJWT==2.4.0
 pymongo==3.7.1
 python-dateutil==2.7.5
 pytz==2018.5
